@@ -35,7 +35,7 @@
 
             <!-- 发布按钮 -->
             <a :href="publish_link" class="u-publish el-button el-button--primary el-button--small" >
-                + 发布副本攻略
+                + 发布作品
             </a>
 
             <!-- 角标过滤 -->
@@ -104,7 +104,7 @@
                         @click="reorder('podate')"
                         ><i class="el-icon-sort"></i> 最早发布</span
                     >
-                    <span
+                    <!-- <span
                         class="u-mode u-likes"
                         :class="{ on: order == 'likes' }"
                         @click="reorder('likes')"
@@ -121,7 +121,7 @@
                         :class="{ on: order == 'downs' }"
                         @click="reorder('downs')"
                         ><i class="el-icon-download"></i> 下载最多</span
-                    >
+                    > -->
                 </span>
             </div>
 
@@ -172,7 +172,7 @@
 
                     <!-- 字段 -->
                     <div class="u-content u-desc">
-                        字段内容区
+                        {{item.post.post_excerpt || item.post.post_title}}
                     </div>
 
                     <!-- 作者 -->
@@ -268,7 +268,7 @@ export default {
             loading: false, //加载状态
 
             search : '',
-            searchType : '',
+            searchType : 'title',
 
             data: [], //数据列表
             page: 1, //当前页数
@@ -317,10 +317,10 @@ export default {
 
         // 根据栏目定义
         defaultBanner: function() {
-            return ''
+            return __ossMirror + 'image/banner/null.png'
         },
         publish_link: function(val) {
-            return publishLink("fb");
+            return publishLink("bbs");
         },
     },
     methods: {

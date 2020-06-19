@@ -19,12 +19,12 @@
                 </div>
 
                 <!-- 自定义字段 -->
-                <div class="u-meta u-sub-block">
+                <!-- <div class="u-meta u-sub-block">
                     <em class="u-label">首领</em>
                     <span class="u-value">
                         {{ formatMeta("fb_boss") }}
                     </span>
-                </div>
+                </div> -->
 
                 <!-- 发布日期 -->
                 <span class="u-podate u-sub-block" title="发布日期">
