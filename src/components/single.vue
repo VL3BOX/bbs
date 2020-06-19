@@ -104,6 +104,12 @@ import { __Links } from "@jx3box/jx3box-common/js/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user.js";
 // 数据服务
 import { getPost } from "../service/post.js";
+const types = {
+    "1" : "玩法心得",
+    "2" : "江湖回忆",
+    "3" : "同人影音",
+    "4" : "交流讨论"
+}
 
 export default {
     name: "single",
