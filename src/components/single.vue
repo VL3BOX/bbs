@@ -155,7 +155,7 @@ export default {
             return dateFormat(new Date(_.get(this.post,'post_modified')));
         },
         edit_link: function() {
-            return editLink(_.get(this.post,'post_type'), _.get(this.post,'ID'));
+            return editLink('bbs', _.get(this.post,'ID'));
         },
         canEdit: function() {
             return (
