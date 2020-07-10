@@ -239,7 +239,7 @@
 import _ from "lodash";
 import { getPosts } from "../service/post";
 import dateFormat from "../utils/dateFormat";
-import { __ossMirror,__imgPath,__ossMirror } from "@jx3box/jx3box-common/js/jx3box";
+import { __ossMirror,__imgPath,__ossRoot } from "@jx3box/jx3box-common/js/jx3box";
 import {
     showAvatar,
     authorLink,
