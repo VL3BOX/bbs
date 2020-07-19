@@ -1,5 +1,5 @@
 <template>
-    <div class="m-archive-box" :loading="loading">
+    <div class="m-archive-box" v-loading="loading">
 
         <!-- 搜索 -->
         <div class="m-archive-search">
@@ -13,21 +13,13 @@
                     v-model="searchType"
                     slot="prepend"
                     placeholder="请选择"
+                    @change="commitSearch"
                 >
                     <el-option label="作者" value="authorname"></el-option>
                     <el-option label="标题" value="title"></el-option>
                 </el-select>
                 <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
-            <!-- <el-switch
-                    class="u-switch u-hasdata"
-                    slot="append"
-                    v-model="hasData"
-                    active-color="#13ce66"
-                    inactive-text="只看有蓝图"
-                    @change="commitSearch"
-                >
-                </el-switch> -->
         </div>
 
         <!-- 排序 -->

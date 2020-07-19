@@ -17,6 +17,7 @@ let store = {
         meta : {},
         setting : {},
         author : {},
+        stat:{},
         status : false,
     },
     mutations: {
