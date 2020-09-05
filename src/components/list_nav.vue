@@ -11,14 +11,24 @@
             <a v-for="(item,i) in menu" :href="typeLink(item.slug)" :key="i" :class="{on:item.slug == subtype}"><i :class="item.icon"></i><b>{{item.name}}</b><span>{{item.desc}}</span></a>
         </div>
 
-        <!-- <h5 class="u-title">在线应用</h5>
-        <div class="m-nav-group">
-            <router-link to="/furniture">
-                <img svg-inline src="../assets/img/logo.svg" />
-                <span>家具图鉴</span>
-                <i class="u-mark isnew">全新上线</i>
-            </router-link>
-        </div> -->
+        <h5 class="u-title">在线应用</h5>
+        <div class="m-nav-group m-bbs-nav">
+            <a href="/wiki" target="_blank">
+                <i class="el-icon-reading"></i>
+                <b>剑三百科</b>
+                <span>Wiki</span>
+            </a>
+            <a href="/emotion" target="_blank">
+                <i class="el-icon-picture-outline-round"></i>
+                <b>沙雕表情</b>
+                <span>Picture</span>
+            </a>
+            <a href="/exam" target="_blank">
+                <i class="el-icon-tickets"></i>
+                <b>趣味题库</b>
+                <span>Exam</span>
+            </a>
+        </div>
     </div>
 </template>
 
