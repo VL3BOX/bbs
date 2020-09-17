@@ -69,6 +69,12 @@ export default {
                     name : '交流讨论',
                     desc : 'Discuz'
                 },
+                {
+                    slug : 5,
+                    icon : 'el-icon-goblet-square-full',
+                    name : '反馈建议',
+                    desc : 'Idea'
+                }
             ]
         };
     },

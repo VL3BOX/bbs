@@ -189,7 +189,7 @@ export default {
         },
         // 根据栏目定义
         defaultBanner: function() {
-            return __ossMirror + "image/banner/null.png";
+            return __imgPath + "image/banner/null.png";
         },
         publish_link: function(val) {
             return publishLink("bbs");
@@ -230,7 +230,7 @@ export default {
             if (val) {
                 return showMinibanner(val);
             } else {
-                return __ossMirror + "image/banner/bbs" + subtype + ".png?v=1";
+                return __imgPath + "image/banner/bbs" + subtype + ".png?v=1";
             }
             return this.defaultBanner;
         },
