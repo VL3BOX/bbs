@@ -88,6 +88,7 @@
                                 <i
                                     v-for="mark in item.post.mark"
                                     class="u-mark"
+                                    :class="mark | markcls"
                                     :key="mark"
                                     >{{ mark | showMark }}</i
                                 >
@@ -254,6 +255,9 @@ export default {
         showMark: function(val) {
             return mark_map[val];
         },
+        markcls : function (val){
+            return 'u-mark-' + val
+        }
     },
     created: function() {
         this.loadPosts(1);
