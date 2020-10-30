@@ -25,12 +25,12 @@
             <!-- 搜索 -->
             <div class="m-archive-search" slot="search-before">
                 <el-input
-                    placeholder="请输入关键词"
+                    placeholder="请输入搜索内容"
                     v-model="search"
                     class="input-with-select"
                     @change="loadPosts"
                 >
-                    <span slot="prepend">搜 索</span>
+                    <span slot="prepend">关键词</span>
                     <!-- <el-select
                         v-model="searchType"
                         slot="prepend"
@@ -176,7 +176,7 @@ export default {
                 subtype: this.subtype,
             };
             if (this.search) {
-                params[this.searchType] = this.search;
+                params.search = this.search;
             }
             if (this.order) {
                 params.order = this.order;
