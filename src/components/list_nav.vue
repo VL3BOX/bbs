@@ -13,15 +13,15 @@
 
         <h5 class="u-title">在线应用</h5>
         <div class="m-nav-group m-bbs-nav">
-            <a href="/wiki" target="_blank">
-                <i class="el-icon-reading"></i>
-                <b>剑三百科</b>
-                <span>Wiki</span>
-            </a>
-            <a href="/emotion" target="_blank">
+            <!-- <a href="/emotion" target="_blank">
                 <i class="el-icon-picture-outline-round"></i>
                 <b>沙雕表情</b>
                 <span>Picture</span>
+            </a> -->
+            <a href="/share" target="_blank">
+                <i class="el-icon-cold-drink"></i>
+                <b>捏脸分享</b>
+                <span>Facedat</span>
             </a>
             <a href="/exam" target="_blank">
                 <i class="el-icon-tickets"></i>
