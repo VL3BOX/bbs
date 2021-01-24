@@ -12,7 +12,7 @@
             <h3 class="c-sidebar-right-title">
                 <img class="u-icon" svg-inline src="../assets/img/side/rank.svg" />
                 最高花价
-                <router-link class="u-more" to="/rank">完整榜单 &raquo;</router-link>
+                <!-- <router-link class="u-more" to="/rank">完整榜单 &raquo;</router-link> -->
             </h3>
         </div>
 

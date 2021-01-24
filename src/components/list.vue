@@ -145,6 +145,7 @@ import {
     showMinibanner,
     publishLink,
     buildTarget,
+    getAppType
 } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "list",
@@ -248,7 +249,7 @@ export default {
             return authorLink(val);
         },
         postLink: function(val) {
-            return "./?pid=" + val;
+            return "./" + getAppType() + '/' + val;
         },
         isHighlight: function(val) {
             return val ? `color:${val};font-weight:600;` : "";
