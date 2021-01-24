@@ -138,6 +138,7 @@ import {
     __ossMirror,
     __imgPath,
     __ossRoot,
+    __Root
 } from "@jx3box/jx3box-common/js/jx3box";
 import {
     showAvatar,
@@ -249,7 +250,7 @@ export default {
             return authorLink(val);
         },
         postLink: function(val) {
-            return "./" + getAppType() + '/' + val;
+            return __Root + getAppType() + '/' + val;
         },
         isHighlight: function(val) {
             return val ? `color:${val};font-weight:600;` : "";
