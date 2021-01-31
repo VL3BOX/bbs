@@ -12,7 +12,8 @@
 <script>
 import singlebox from "@jx3box/jx3box-page/src/cms-single";
 import { getPost } from "../service/post.js";
-import { getStat, postStat } from "../service/stat.js";
+// import { getStat, postStat } from "../service/stat.js";
+import { getStat, postStat } from "@jx3box/jx3box-common/js/stat.js";
 const types = {
     "1": "玩法心得",
     "2": "江湖回忆",
@@ -60,10 +61,10 @@ export default {
                     this.loading = false;
                 });
 
-            getStat(this.id).then((data) => {
-                if (data) this.stat = this.$store.state.stat = data;
+            getStat('bbs',this.id).then((res) => {
+                this.stat = this.$store.state.stat = res.data;
             });
-            postStat(this.id);
+            postStat('bbs',this.id);
         }
     },
     components: {

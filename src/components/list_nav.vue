@@ -28,6 +28,11 @@
                 <b>趣味题库</b>
                 <span>Exam</span>
             </a>
+            <a href="/collection" target="_blank">
+                <i class="el-icon-notebook-1"></i>
+                <b>文集小册</b>
+                <span>Collection</span>
+            </a>
         </div>
     </div>
 </template>
