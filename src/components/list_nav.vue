@@ -38,7 +38,7 @@
                     :href="typeLink(item.slug)"
                     :key="i"
                     :class="{ on: item.slug == subtype }"
-                    >&raquo; <b>{{ item.name }}</b></a
+                    ><b>{{ item.name }}</b></a
                 >
             </div>
         </div>
@@ -77,8 +77,8 @@
                 <b>休闲</b>
             </span>
             <div class="u-sublist">
-                <a href="/share" class="u-subtype" target="_blank">&raquo; <b>捏脸分享</b></a>
-                <a href="https://jx3.xoyo.com/zt/2020/09/24/blueprint/#/" class="u-subtype" target="_blank">&raquo; <b>家园蓝图</b></a>
+                <a href="/share" class="u-subtype" target="_blank"><b>捏脸分享</b></a>
+                <a href="https://jx3.xoyo.com/zt/2020/09/24/blueprint/#/" class="u-subtype" target="_blank"><b>家园蓝图</b></a>
             </div>
         </div>
     </div>
