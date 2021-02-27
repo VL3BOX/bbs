@@ -17,10 +17,10 @@
         </LeftSidebar>
         <Main :withoutRight="mode == 'list' ? true : false">
             <single v-if="mode == 'single'" />
-            <list class="m-main" v-else />
-            <!-- <div class="m-main" v-else>
+            <!-- <list class="m-main" v-else /> -->
+            <div class="m-main" v-else>
                 <router-view />
-            </div> -->
+            </div>
             <RightSidebar>
                 <Extend />
             </RightSidebar>
@@ -35,7 +35,7 @@ import Nav from "@/components/Nav.vue";
 import Extend from "@/components/Extend.vue";
 // import tabs from "@/components/tabs";
 import single from "@/components/single.vue";
-import list from '@/components/list.vue'
+// import list from '@/components/list.vue'
 import {getPID,getAppID,getQuery,getAppType} from '@jx3box/jx3box-common/js/utils'
 import {__Root} from '@jx3box/jx3box-common/js/jx3box.json'
 
@@ -77,7 +77,7 @@ export default {
         Extend,
         // tabs,
         single,
-        list
+        // list
     },
 };
 </script>

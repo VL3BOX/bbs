@@ -2,14 +2,18 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 const Index = () => import("../views/Index.vue");
-// const Fn = () => import("../views/Fn.vue");
+const Namespace = () => import("../views/Namespace.vue");
+const Joke = () => import("../views/Joke.vue");
+const Emotion = () => import("../views/Emotion.vue");
 
 Vue.use(VueRouter);
 
 const routes = [
     { name: "index", path: "/", component: Index },
-    // { name: "fn", path: "/fn", component: Fn },
-    // { name: "single", path: "/view/:id", component: Single },
+    { name: "forum", path: "/forum", component: Index },
+    { name: "namespace", path: "/namespace", component: Namespace },
+    { name: "joke", path: "/joke/:id?", component: Joke },
+    { name: "emotion", path: "/emotion/:id?", component: Emotion },
 ];
 
 const router = new VueRouter({

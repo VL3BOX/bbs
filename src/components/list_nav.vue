@@ -13,7 +13,8 @@
         <div class="m-nav-group m-bbs-nav">
             <a
                 class="u-type"
-                target="_blank"
+                href="/bbs#/namespace"
+                :class="{ on: type == 'namespace' }"
             >
                 <i class="el-icon-postcard"></i>
                 <b>铭牌</b>
@@ -23,9 +24,28 @@
         <div class="m-nav-group m-bbs-nav">
             <a
                 class="u-type"
-                href="/bbs"
-                target="_blank"
-                :class="{ on: subtype == '' }"
+                href="/bbs#/joke"
+                :class="{ on: type == 'joke' }"
+            >
+                <i class="el-icon-chat-line-round"></i>
+                <b>骚话</b>
+            </a>
+        </div>
+        <div class="m-nav-group m-bbs-nav">
+            <a
+                class="u-type"
+                href="/bbs#/emotion"
+                :class="{ on: type == 'emotion' }"
+            >
+                <i class="el-icon-picture-outline"></i>
+                <b>表情</b>
+            </a>
+        </div>
+        <div class="m-nav-group m-bbs-nav">
+            <a
+                class="u-type"
+                href="/bbs#/forum"
+                :class="{ on: type == 'forum' }"
             >
                 <i class="el-icon-receiving"></i>
                 <b>论坛</b>
@@ -42,33 +62,16 @@
                 >
             </div>
         </div>
-        <div class="m-nav-group m-bbs-nav">
+        <!-- <div class="m-nav-group m-bbs-nav">
             <a
                 class="u-type"
-                target="_blank"
-            >
-                <i class="el-icon-chat-line-round"></i>
-                <b>骚话</b>
-            </a>
-        </div>
-        <div class="m-nav-group m-bbs-nav">
-            <a
-                class="u-type"
-                target="_blank"
-            >
-                <i class="el-icon-picture-outline"></i>
-                <b>表情</b>
-            </a>
-        </div>
-        <div class="m-nav-group m-bbs-nav">
-            <a
-                class="u-type"
-                target="_blank"
+                href="/bbs#/live"
+                :class="{ on: type == 'live' }"
             >
                 <i class="el-icon-video-camera"></i>
                 <b>直播</b>
             </a>
-        </div>
+        </div> -->
         <div class="m-nav-group m-bbs-nav">
             <span
                 class="u-type"
@@ -128,10 +131,13 @@ export default {
         subtype: function() {
             return this.$store.state.subtype || "";
         },
+        type : function (){
+            return this.$route.name
+        }
     },
     methods: {
         typeLink: function(subtype) {
-            return "./?subtype=" + subtype;
+            return "/bbs?subtype=" + subtype + '#/forum';
         },
     },
     mounted: function() {},
