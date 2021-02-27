@@ -67,9 +67,9 @@ export default {
         this.$store.state.pid = id
 
         // 捕获subtype
-        if(this.$store.state.mode == 'list'){
-            this.$store.state.subtype = getQuery("subtype");
-        }
+        // if(this.$store.state.mode == 'list'){
+        //     this.$store.state.subtype = getQuery("subtype");
+        // }
     },
     components: {
         Info,

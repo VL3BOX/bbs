@@ -170,7 +170,8 @@ export default {
     },
     computed: {
         subtype: function() {
-            return this.$store.state.subtype;
+            // return this.$store.state.subtype;
+            return this.$route.params.subtype
         },
         params: function() {
             let params = {

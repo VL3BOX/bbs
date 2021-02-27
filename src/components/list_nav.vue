@@ -129,7 +129,8 @@ export default {
     },
     computed: {
         subtype: function() {
-            return this.$store.state.subtype || "";
+            // return this.$store.state.subtype || "";
+            return this.$route.params.subtype || "";
         },
         type : function (){
             return this.$route.name
@@ -137,7 +138,7 @@ export default {
     },
     methods: {
         typeLink: function(subtype) {
-            return "/bbs?subtype=" + subtype + '#/forum';
+            return `/bbs#/forum/${subtype}`;
         },
     },
     mounted: function() {},

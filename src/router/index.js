@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 
 const routes = [
     { name: "index", path: "/", component: Index },
-    { name: "forum", path: "/forum", component: Index },
+    { name: "forum", path: "/forum/:subtype?", component: Index },
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
