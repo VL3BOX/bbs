@@ -1,13 +1,14 @@
 .m-namespace-item {
-    background-color: @bg-light;
+    background-color:#f5f7fa;
     padding: 15px 15px 10px 15px;
     .r(4px);
     .u-title {
-        .nobreak;
         .db;
         .fz(15px);
+        font-style: normal;
+        font-weight: normal;
         margin: 0 0 5px 0;
-        i {
+        .u-icon{
             .mr(5px);
             .fz(20px);
             color:@color;
@@ -15,9 +16,23 @@
         }
         a{
             .db;
+            font-weight:500;
+            .mr(80px);
+            .nobreak;
         }
         a:hover {
             color: @pink;
+        }
+        .pr;
+        .u-my{
+            .fz(12px,20px);
+            background-color: #e1f2fd;
+            color: #637a9c;
+            font-style: normal;
+            // .fr;
+            .pa;.rt(0);
+            .r(2px);
+            padding:0 5px;
         }
     }
     .u-desc {

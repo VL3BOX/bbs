@@ -2,9 +2,10 @@
     <div class="m-namespace-item">
         <h5 class="u-title">
             <a :href="namespace.link" target="_blank"
-                ><i class="el-icon-postcard"></i
-                >{{ namespace.key || "未知" }}</a
-            >
+                ><i class="u-icon el-icon-postcard"></i
+                >{{ namespace.key || "未知" }}
+            </a>
+            <i class="u-my" v-if="isMyNamespace(namespace.uid)">由我创建的</i>
         </h5>
         <p class="u-desc">{{ namespace.desc || namespace.key || "未知" }}</p>
         <div class="u-misc">
@@ -25,11 +26,14 @@
 <script>
 import { authorLink } from "@jx3box/jx3box-common/js/utils";
 import { showDate } from "@jx3box/jx3box-common/js/moment";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "namespaceItem",
     props: ["data"],
     data: function() {
-        return {};
+        return {
+            uid: User.getInfo().uid,
+        };
     },
     computed: {
         namespace: function() {
@@ -42,7 +46,11 @@ export default {
             return (val && showDate(~~val * 1000)) || "-";
         },
     },
-    methods: {},
+    methods: {
+        isMyNamespace: function(val) {
+            return this.uid && val == this.uid;
+        },
+    },
     mounted: function() {},
 };
 </script>
