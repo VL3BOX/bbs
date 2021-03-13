@@ -1,5 +1,5 @@
 <template>
-    <div class="v-namespace">
+    <div class="v-namespace" v-loading="loading">
         <!-- 搜索 -->
         <div class="m-archive-search" slot="search-before">
             <el-input
@@ -46,7 +46,7 @@
             >
             </el-pagination>
         </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -71,6 +71,7 @@ export default {
             total: 1,
             page: 1,
             search: "",
+            loading : false
         };
     },
     computed: {
@@ -87,10 +88,13 @@ export default {
     },
     methods: {
         loadNamespaceList: function() {
+            this.loading = true
             getNamespaceList(this.params).then((res) => {
                 this.list = res.data.data.data || [];
                 this.total = res.data.data.total;
-            });
+            }).finally(() => {
+                this.loading = false
+            })
         },
     },
     watch: {
