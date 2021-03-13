@@ -1,0 +1,53 @@
+.m-namespace-item {
+  background-color: @bg-light;
+  padding: 15px 15px 10px 15px;
+  .r(4px);
+  .u-title {
+    .nobreak;
+    .db;
+    .fz(15px);
+    margin: 0 0 5px 0;
+    i {
+      .mr(5px);
+      .fz(16px);
+    }
+  }
+  .u-desc {
+    @h: 13px;
+    .nobreak;
+    .fz(@h, 2);
+    margin: 0;
+    .color(#666);
+  }
+  .u-misc {
+    .fz(12px, 2);
+    .color(#999);
+  }
+  .u-author {
+    .mr(10px);
+  }
+}
+.m-namespace-list {
+  .mt(10px);
+  .el-col {
+    .mb(20px);
+  }
+}
+
+@media screen and (max-width: @phone) {
+  .m-namespace-list {
+    .el-col {
+      .w(100%);
+    }
+  }
+}
+.m-namespace-pages {
+  overflow-x: auto;
+}
+.m-namespace-null{
+  margin-top: 20px;
+}
+.m-namespace-tab{
+  margin-top: 10px;
+  padding: 0 5px;
+}
