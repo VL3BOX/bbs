@@ -76,7 +76,7 @@
             <span
                 class="u-type"
             >
-                <i class="el-icon-receiving"></i>
+                <i class="el-icon-cherry"></i>
                 <b>休闲</b>
             </span>
             <div class="u-sublist">
