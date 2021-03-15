@@ -1,48 +1,81 @@
 .m-namespace-item {
-  background-color: @bg-light;
-  padding: 15px 15px 10px 15px;
-  .r(4px);
-  .u-title {
-    .nobreak;
-    .db;
-    .fz(15px);
-    margin: 0 0 5px 0;
-    i {
-      .mr(5px);
-      .fz(16px);
+    background-color:#f5f7fa;
+    padding: 15px 15px 10px 15px;
+    .r(4px);
+    .u-title {
+        .db;
+        .fz(15px);
+        font-style: normal;
+        font-weight: normal;
+        margin: 0 0 5px 0;
+        .u-icon{
+            .mr(5px);
+            .fz(20px);
+            color:@color;
+            .y(-2px);
+        }
+        a{
+            .db;
+            font-weight:500;
+            .mr(80px);
+            .nobreak;
+        }
+        a:hover {
+            color: @pink;
+        }
+        .pr;
+        .u-my{
+            .fz(12px,20px);
+            background-color: #e1f2fd;
+            color: #637a9c;
+            font-style: normal;
+            // .fr;
+            .pa;.rt(0);
+            .r(2px);
+            padding:0 5px;
+        }
     }
-  }
-  .u-desc {
-    @h: 13px;
-    .nobreak;
-    .fz(@h, 2);
-    margin: 0;
-    .color(#666);
-  }
-  .u-misc {
-    .fz(12px, 2);
-    .color(#999);
-  }
-  .u-author {
-    .mr(10px);
-  }
+    .u-desc {
+        @h: 13px;
+        .nobreak;
+        .fz(@h, 2);
+        margin: 0;
+        .color(#666);
+    }
+    .u-misc {
+        .fz(12px, 2);
+        .color(#999);
+    }
+    .u-author {
+        .mr(10px);
+        a {
+            .underline(@color-link);
+            color: #999;
+            &:hover {
+                color: @color-link;
+            }
+        }
+    }
 }
 .m-namespace-list {
-  .mt(10px);
-  .el-col {
-    .mb(20px);
-  }
+    .mt(10px);
+    .el-col {
+        .mb(20px);
+    }
 }
 
 @media screen and (max-width: @phone) {
-  .m-namespace-list {
-    .el-col {
-      .w(100%);
+    .m-namespace-list {
+        .el-col {
+            .w(100%);
+        }
     }
-  }
 }
 .m-namespace-pages {
-  overflow-x: auto;
+    overflow-x: auto;
+}
+.m-namespace-null {
+    margin-top: 20px;
 }
 .m-namespace-null {
   margin-top: 20px;

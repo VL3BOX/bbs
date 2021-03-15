@@ -34,7 +34,6 @@
                         v-model="searchType"
                         slot="prepend"
                         placeholder="请选择"
-                        @change="loadPosts"
                     >
                         <el-option label="标题" value="title"></el-option>
                         <el-option label="作者" value="authorname"></el-option>
