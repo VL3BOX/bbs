@@ -138,7 +138,7 @@ import {
     __imgPath,
     __ossRoot,
     __Root
-} from "@jx3box/jx3box-common/js/jx3box";
+} from "@jx3box/jx3box-common/data/jx3box";
 import {
     showAvatar,
     authorLink,

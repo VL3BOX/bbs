@@ -1,6 +1,6 @@
 <template>
   <div class="v-namespace">
-       <!-- 搜索 -->
+    <!-- 搜索 -->
     <div class="m-archive-search" slot="search-before">
       <el-input placeholder="请输入搜索内容" v-model="search" class="input-with-select">
         <span slot="prepend">关键词</span>
@@ -12,7 +12,23 @@
       <el-tab-pane label="全部" name=""> </el-tab-pane>
       <el-tab-pane v-for="item in types" :label="item.label" :key="item.value" :name="item.value"> </el-tab-pane>
     </el-tabs>
- <!-- 列表内容 -->
+    <!-- 过滤 -->
+    <div class="m-namespace-filter">
+      <div class="m-namespace-add">
+        <a :href="publish_link" class="u-publish el-button el-button--primary el-button--small">
+          + 创建铭牌
+        </a>
+        <a :href="buy_link" class="u-publish el-button el-button--primary el-button--small">
+          <span class="el-icon-shopping-cart-2"></span> 购买铭牌
+        </a>
+        <div class="m-namespace-total">当前共<b>{{ total }}</b>个铭牌</div>
+      </div>
+      <div class="m-namespace-order">
+        <orderBy class="u-item" @filter="changeOrder"></orderBy>
+      </div>
+    </div>
+    
+    <!-- 列表内容 -->
     <div class="m-namespace-list" v-if="list && list.length">
       <el-row :gutter="20">
         <el-col :span="12" v-for="(item, index) in list" :key="index"> <namespace-item :data="item"/></el-col>
@@ -33,6 +49,7 @@
 import namespaceItem from '@/components/namespace_item'
 import Namespace_item from '../components/namespace_item.vue'
 import { getNamespaceList } from '@/service/namespace.js'
+import { publishLink } from '@jx3box/jx3box-common/js/utils.js'
 
 export default {
   name: 'Namespace',
@@ -50,12 +67,13 @@ export default {
       per: 24,
       total: 1,
       page: 1,
+      order: 'podate',
       search: '',
     }
   },
   computed: {
     params: function() {
-      return {
+      let _params = {
         // user_id
         key: this.search,
         source_type: this.type,
@@ -63,6 +81,19 @@ export default {
         page: this.page,
         limit: this.per,
       }
+      if (this.order == 'podate') {
+        _params.order = {
+          created: 0,
+        }
+      } else {
+        _params.order = {
+          updated: 1,
+        }
+      }
+      return _params
+    },
+    publish_link: function() {
+      return publishLink('namespace')
     },
   },
   methods: {
@@ -71,6 +102,9 @@ export default {
         this.list = res.data.data.data || []
         this.total = res.data.data.total
       })
+    },
+    changeOrder: function(o) {
+      this.order = o.val
     },
   },
   watch: {
