@@ -128,7 +128,7 @@
 
 <script>
 import listbox from "@jx3box/jx3box-page/src/cms-list.vue";
-import { cms as mark_map } from "@jx3box/jx3box-common/js/mark.json";
+import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import _ from "lodash";
 import { getPosts } from "../service/post";
 import dateFormat from "../utils/dateFormat";
@@ -141,7 +141,7 @@ import {
 import {
     showAvatar,
     authorLink,
-    showMinibanner,
+    showBanner,
     publishLink,
     buildTarget,
     getAppType
@@ -232,7 +232,7 @@ export default {
         },
         showBanner: function(val, subtype) {
             if (val) {
-                return showMinibanner(val);
+                return showBanner(val);
             } else {
                 return __imgPath + "image/banner/bbs" + subtype + ".png?v=1";
             }
