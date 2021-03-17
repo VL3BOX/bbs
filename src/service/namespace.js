@@ -47,11 +47,11 @@ function getNamespaceList(params) {
     // })
     return $helper.get("/api/namespaces", {
         params,
-        paramsSerialize: function(params) {
-            return qs.stringify(params, {
-                arrayFormat: "indices",
-            });
-        },
+        // paramsSerialize: function(params) {
+        //     return qs.stringify(params, {
+        //         arrayFormat: "indices",
+        //     });
+        // },
         headers: { Accept: "application/prs.helper.v2+json" },
     });
 }

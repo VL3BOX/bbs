@@ -48,7 +48,7 @@
         </div>
 
         <!-- 列表内容 -->
-        <div class="m-namespace-list" v-if="list && list.length">
+        <div class="m-namespace-list" v-if="list">
             <el-row :gutter="20">
                 <el-col :span="12" v-for="(item, index) in list" :key="index">
                     <namespace-item :data="item"
@@ -92,7 +92,7 @@ export default {
                 { label: "系统", value: "system" },
                 { label: "自定义", value: "custom" },
             ],
-            list: [],
+            list: '',
             per: 24,
             total: 1,
             page: 1,
@@ -131,7 +131,7 @@ export default {
     methods: {
         loadNamespaceList: function() {
             getNamespaceList(this.params).then((res) => {
-                this.list = res.data.data.data || [];
+                this.list = res.data.data.data || {};
                 this.total = res.data.data.total;
             });
         },
