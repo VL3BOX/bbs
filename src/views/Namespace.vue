@@ -96,7 +96,7 @@ export default {
             per: 24,
             total: 1,
             page: 1,
-            order: "podate",
+            order: "update",
             search: "",
         };
     },
