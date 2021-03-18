@@ -35,7 +35,7 @@
                     :href="buy_link"
                     class="u-publish el-button el-button--primary el-button--small"
                 >
-                    <span class="el-icon-shopping-cart-2"></span> 0.99特惠活动
+                    <span class="el-icon-shopping-cart-2"></span> 0.99元特惠活动
                 </a>
                 <div class="m-namespace-total">
                     当前共<b>{{ total }}</b
