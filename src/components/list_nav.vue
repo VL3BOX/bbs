@@ -68,7 +68,7 @@
                 <b>直播</b>
             </a>
         </div> -->
-        <div class="m-nav-group m-bbs-nav">
+        <!-- <div class="m-nav-group m-bbs-nav">
             <span class="u-type">
                 <i class="el-icon-receiving"></i>
                 <b>休闲</b>
@@ -84,7 +84,7 @@
                     ><b>家园蓝图</b></a
                 >
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

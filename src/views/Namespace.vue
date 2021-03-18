@@ -29,13 +29,13 @@
                     :href="publish_link"
                     class="u-publish el-button el-button--primary el-button--small"
                 >
-                    + 创建铭牌
+                    + 注册铭牌
                 </a>
                 <a
                     :href="buy_link"
                     class="u-publish el-button el-button--primary el-button--small"
                 >
-                    <span class="el-icon-shopping-cart-2"></span> 购买铭牌
+                    <span class="el-icon-shopping-cart-2"></span> 0.99特惠活动
                 </a>
                 <div class="m-namespace-total">
                     当前共<b>{{ total }}</b
@@ -125,7 +125,7 @@ export default {
             return publishLink("namespace");
         },
         buy_link : function (){
-            return '/vip/namespace'
+            return '/vip/namespace?from=bbs_namespace'
         }
     },
     methods: {
@@ -140,6 +140,9 @@ export default {
         },
     },
     watch: {
+        type:function (){
+            this.page = 1  
+        },
         params: {
             deep: true,
             immediate : true,
