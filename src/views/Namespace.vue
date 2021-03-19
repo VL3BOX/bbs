@@ -24,7 +24,7 @@
         </el-tabs>
         <el-alert v-if="query" type="warning" show-icon class="m-namespace-warning"
             ><span slot="title"
-                ><b>{{ query }}</b> 尚未不存在或尚在审核中</span
+                ><b>{{ query }}</b> 铭牌不存在或正在审核中</span
             ></el-alert
         >
         <!-- 过滤 -->
