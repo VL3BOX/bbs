@@ -32,11 +32,17 @@
                     + 注册铭牌
                 </a>
                 <a
+                    href="/dashboard/#/other?subtype=namespace"
+                    class="u-publish el-button el-button--primary el-button--small"
+                >
+                    <span class="el-icon-receiving"></span> 我的铭牌
+                </a>
+                <!-- <a
                     :href="buy_link"
                     class="u-publish el-button el-button--primary el-button--small"
                 >
                     <span class="el-icon-shopping-cart-2"></span> 0.99元特惠活动
-                </a>
+                </a> -->
                 <div class="m-namespace-total">
                     当前共<b>{{ total }}</b
                     >个铭牌
