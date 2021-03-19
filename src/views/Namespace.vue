@@ -22,6 +22,11 @@
             >
             </el-tab-pane>
         </el-tabs>
+        <el-alert v-if="query" type="warning" show-icon class="m-namespace-warning"
+            ><span slot="title"
+                ><b>{{ query }}</b> 尚未不存在或尚在审核中</span
+            ></el-alert
+        >
         <!-- 过滤 -->
         <div class="m-namespace-filter">
             <div class="m-namespace-add">
@@ -98,12 +103,13 @@ export default {
                 { label: "系统", value: "system" },
                 { label: "自定义", value: "custom" },
             ],
-            list: '',
+            list: "",
             per: 24,
             total: 1,
             page: 1,
             order: "update",
             search: "",
+            query: "",
         };
     },
     computed: {
@@ -111,7 +117,7 @@ export default {
             let _params = {
                 // user_id
                 key: this.search,
-                source_type: this.type == 'all' ? '' : this.type,
+                source_type: this.type == "all" ? "" : this.type,
                 // source_id
                 page: this.page,
                 limit: this.per,
@@ -130,9 +136,9 @@ export default {
         publish_link: function() {
             return publishLink("namespace");
         },
-        buy_link : function (){
-            return '/vip/namespace?from=bbs_namespace'
-        }
+        buy_link: function() {
+            return "/vip/namespace?from=bbs_namespace";
+        },
     },
     methods: {
         loadNamespaceList: function() {
@@ -146,19 +152,21 @@ export default {
         },
     },
     watch: {
-        type:function (){
-            this.page = 1  
+        type: function() {
+            this.page = 1;
         },
         params: {
             deep: true,
-            immediate : true,
+            immediate: true,
             handler: function(newVal) {
+                this.query = "";
                 this.loadNamespaceList();
             },
         },
     },
     filters: {},
     created: function() {
+        this.query = this.$route.query.namespace;
     },
     components: {
         "namespace-item": namespaceItem,
