@@ -9,21 +9,14 @@
             @appendPage="appendPage"
             @changePage="changePage"
         >
-            <template slot="filter">
+            <!-- 搜索 -->
+            <div class="m-archive-search" slot="search-before">
                 <a
                     :href="publish_link"
-                    class="u-publish el-button el-button--primary el-button--small"
+                    class="u-publish el-button el-button--primary"
                 >
                     + 发布作品
                 </a>
-                <!-- 角标过滤 -->
-                <markBy @filter="filter"></markBy>
-                <!-- 排序过滤 -->
-                <orderBy @filter="filter"></orderBy>
-            </template>
-
-            <!-- 搜索 -->
-            <div class="m-archive-search" slot="search-before">
                 <el-input
                     placeholder="请输入搜索内容"
                     v-model="search"
@@ -41,6 +34,17 @@
                     <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
             </div>
+
+            <!-- 过滤 -->
+            <template slot="filter">
+                <!-- 版本过滤 -->
+                <clientBy @filter="filter" type="std"></clientBy>
+                <!-- 角标过滤 -->
+                <markBy @filter="filter"></markBy>
+                <!-- 排序过滤 -->
+                <orderBy @filter="filter"></orderBy>
+            </template>
+
 
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data.length">
@@ -165,6 +169,7 @@ export default {
 
             order: "", //排序模式
             mark: "", //筛选模式
+            client:"",  //版本选择
         };
     },
     computed: {
@@ -186,6 +191,9 @@ export default {
             }
             if (this.mark) {
                 params.mark = this.mark;
+            }
+            if(this.client){
+                params.client = this.client
             }
             return params;
         },

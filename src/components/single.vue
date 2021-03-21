@@ -11,8 +11,7 @@
 
 <script>
 import singlebox from "@jx3box/jx3box-page/src/cms-single";
-import { getPost } from "../service/post.js";
-// import { getStat, postStat } from "../service/stat.js";
+import { getPost } from "@/service/post.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat.js";
 const types = {
     "1": "玩法心得",
