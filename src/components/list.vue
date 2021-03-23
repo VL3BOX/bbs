@@ -38,7 +38,7 @@
             <!-- 过滤 -->
             <template slot="filter">
                 <!-- 版本过滤 -->
-                <clientBy @filter="filter" type="std"></clientBy>
+                <clientBy @filter="filter" :type="client"></clientBy>
                 <!-- 角标过滤 -->
                 <markBy @filter="filter"></markBy>
                 <!-- 排序过滤 -->
@@ -283,7 +283,16 @@ export default {
     },
     created: function() {
         this.page = ~~this.$route.query.page || 1
-        this.loadPosts()
+      
+
+        let query = new URLSearchParams(location.search);
+        let client = (this.$route && this.$route.query.client) || query.get("client");
+        if(client){
+            this.client = client
+        }else{
+            this.client = 'std'
+        }
+        // this.loadPosts()
     },
     components: {
         listbox
