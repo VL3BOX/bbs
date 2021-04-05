@@ -1,34 +1,34 @@
 <template>
-    <a
-        :href="publish_link"
-        class="u-publish el-button el-button--primary el-button--medium"
-        ><i class="el-icon-edit-outline"></i><span>发布</span></a
-    >
+    <a :href="publish_link" class="u-publish el-button el-button--primary el-button--medium">
+        <i class="el-icon-edit-outline"></i>
+        <span>发布</span>
+    </a>
 </template>
 
 <script>
-import {publishLink,getAppType} from '@jx3box/jx3box-common/js/utils'
+import { publishLink, getAppType } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "publishGate",
     props: [],
-    data: function() {
-        return {
-        };
+    data: function () {
+        return {};
     },
     computed: {
-        channel : function (){
-            return this.$route.name
+        // channel: function () {
+        //     return this.$route.name;
+        // },
+        // isForum: function () {
+        //     return this.channel == "index" || this.channel == "forum";
+        // },
+        publish_link: function () {
+            return publishLink("bbs")
+            // return this.isForum
+            //     ? publishLink("bbs")
+            //     : publishLink(this.channel);
         },
-        isForum : function (){
-            return this.channel == 'index' || this.channel == 'forum'  
-        },
-        publish_link : function (){
-            return this.isForum ? publishLink('bbs') : publishLink(this.channel)
-        }
     },
     methods: {},
-    mounted: function() {
-    },
+    mounted: function () {},
     components: {},
 };
 </script>

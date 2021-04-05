@@ -45,7 +45,6 @@
                 <orderBy @filter="filter"></orderBy>
             </template>
 
-
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data.length">
                 <ul class="u-list">
@@ -53,20 +52,20 @@
                         <!-- Banner -->
                         <a
                             class="u-banner"
-                            :href="item.post.ID | postLink"
+                            :href="item.ID | postLink"
                             :target="target"
                             ><img
                                 :src="
                                     showBanner(
-                                        item.post.post_banner,
-                                        item.post.post_subtype
+                                        item.post_banner,
+                                        item.post_subtype
                                     )
                                 "
                         /></a>
 
                         <h2
                             class="u-post"
-                            :class="{ isSticky: item.post.sticky }"
+                            :class="{ isSticky: item.sticky }"
                         >
                             <img
                                 class="u-icon"
@@ -77,19 +76,19 @@
                             <!-- 标题文字 -->
                             <a
                                 class="u-title"
-                                :style="item.post.color | isHighlight"
-                                :href="item.post.ID | postLink"
+                                :style="item.color | isHighlight"
+                                :href="item.ID | postLink"
                                 :target="target"
-                                >{{ item.post.post_title || "无标题" }}</a
+                                >{{ item.post_title || "无标题" }}</a
                             >
 
                             <!-- 角标 -->
                             <span
                                 class="u-marks"
-                                v-if="item.post.mark && item.post.mark.length"
+                                v-if="item.mark && item.mark.length"
                             >
                                 <i
-                                    v-for="mark in item.post.mark"
+                                    v-for="mark in item.mark"
                                     class="u-mark"
                                     :class="mark | markcls"
                                     :key="mark"
@@ -100,27 +99,27 @@
 
                         <!-- 字段 -->
                         <div class="u-content u-desc">
-                            {{ item.post.post_excerpt || item.post.post_title }}
+                            {{ item.post_excerpt || item.post_title }}
                         </div>
 
                         <!-- 作者 -->
                         <div class="u-misc">
                             <img
                                 class="u-author-avatar"
-                                :src="item.author.avatar | showAvatar"
-                                :alt="item.author.name"
+                                :src="item.author_info.user_avatar | showAvatar"
+                                :alt="item.author_info.display_name"
                             />
                             <a
                                 class="u-author-name"
-                                :href="item.author.uid | authorLink"
+                                :href="item.post_author | authorLink"
                                 target="_blank"
-                                >{{ item.author.name }}</a
-                            >
+                            >{{ item.author_info.display_name }}</a>
                             <span class="u-date">
                                 Updated on
-                                <time>{{
-                                    item.post.post_modified | dateFormat
-                                }}</time>
+                                <time
+                                    v-if="order == 'update'"
+                                >{{item.post_modified | dateFormat}}</time>
+                                <time v-else>{{item.post_date | dateFormat}}</time>
                             </span>
                         </div>
                     </li>
@@ -167,9 +166,9 @@ export default {
             search: "",
             searchType: "title",
 
-            order: "", //排序模式
+            order: "update", //排序模式
             mark: "", //筛选模式
-            client:"",  //版本选择
+            client: this.$store.state.client, //版本选择
         };
     },
     computed: {
@@ -177,24 +176,27 @@ export default {
             // return this.$store.state.subtype;
             return this.$route.params.subtype
         },
-        params: function() {
+        resetParams: function () {
+            return [this.subtype, this.search, this.mark, this.client];
+        },
+        params: function () {
             let params = {
                 per: this.per,
-                subtype: this.subtype,
-                page : ~~this.page || 1
+                page: ~~this.page || 1,
+                sticky: 1,
             };
-            if (this.search) {
-                params.search = this.search;
-            }
-            if (this.order) {
-                params.order = this.order;
-            }
-            if (this.mark) {
-                params.mark = this.mark;
-            }
-            if(this.client){
-                params.client = this.client
-            }
+            let optionalParams = [
+                "subtype",
+                "search",
+                "order",
+                "mark",
+                "client",
+            ];
+            optionalParams.forEach((item) => {
+                if (this[item]) {
+                    params[item] = this[item];
+                }
+            });
             return params;
         },
         target: function() {
@@ -222,6 +224,7 @@ export default {
                     this.pages = res.data.data.pages;
                 })
                 .finally(() => {
+                    this.appendMode = false
                     this.loading = false;
                 });
         },
@@ -271,6 +274,9 @@ export default {
         }
     },
     watch : {
+        subtype : function (){
+            this.search = ''  
+        },
         params : {
             deep : true,
             handler : function (){

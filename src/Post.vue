@@ -15,10 +15,8 @@
         <LeftSidebar>
             <Nav class="m-nav" />
         </LeftSidebar>
-        <Main :withoutRight="true">
-            <div class="m-main">
-                <router-view />
-            </div>
+        <Main :withoutRight="false">
+            <single />
             <RightSidebar>
                 <Side class="m-extend" />
             </RightSidebar>
@@ -28,21 +26,21 @@
 </template>
 
 <script>
-import Nav from "@/components/list_nav.vue";
-import Side from "@/components/list_side.vue";
+import Nav from "@/components/single_nav.vue";
+import Side from "@/components/single_side.vue";
+import single from "@/components/single.vue";
 import publishGate from "@/components/publish_gate.vue";
-
 export default {
     name: "App",
     props: [],
     data: function () {
         return {};
     },
-    computed: {},
     methods: {},
     components: {
         Nav,
         Side,
+        single,
         "publish-gate": publishGate,
     },
 };

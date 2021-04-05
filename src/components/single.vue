@@ -1,5 +1,5 @@
 <template>
-    <singlebox :post="post" :author="author" :stat="stat" v-loading="loading">
+    <singlebox :post="post" :stat="stat" v-loading="loading">
         <div class="u-meta u-sub-block" slot="single-header">
             <em class="u-label">类型</em>
             <span class="u-value">
@@ -35,7 +35,7 @@ export default {
     },
     computed: {
         id: function() {
-            return this.$store.state.pid;
+            return this.$store.state.id;
         },
         post_subtype: function() {
             let subtype = _.get(this.post, "post_subtype");
@@ -53,10 +53,9 @@ export default {
             this.loading = true;
             getPost(this.id, this)
                 .then((res) => {
-                    this.post = this.$store.state.post = res.data.data.post;
-                    this.author = this.$store.state.author =
-                        res.data.data.author;
-                    this.$store.state.status = true;
+                    this.post = this.$store.state.post = res.data.data;
+                    this.$store.state.user_id = this.post.post_author;
+                    document.title = this.post.post_title
                 })
                 .finally(() => {
                     this.loading = false;

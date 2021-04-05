@@ -37,7 +37,7 @@
                     + 注册铭牌
                 </a>
                 <a
-                    href="/dashboard/#/other?subtype=namespace"
+                    href="/publish/#/bucket/namespace"
                     class="u-publish el-button el-button--primary el-button--small"
                 >
                     <span class="el-icon-receiving"></span> 我的铭牌

@@ -2,20 +2,15 @@
     <div class="m-list-nav">
         <RightSideMsg>
             <em>休闲玩法交流群</em> :
-            <strong
-                ><a href="https://jq.qq.com/?_wv=1027&k=InbtJGcw"
-                    >658035079</a
-                ></strong
-            >
+            <strong>
+                <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a>
+                <a href="https://jq.qq.com/?_wv=1027&k=InbtJGcw">658035079</a>
+            </strong>
         </RightSideMsg>
 
         <h5 class="u-title">分类导航</h5>
         <div class="m-nav-group m-bbs-nav">
-            <a
-                class="u-type"
-                href="/bbs#/namespace"
-                :class="{ on: type == 'namespace' }"
-            >
+            <a class="u-type" href="/bbs#/namespace" :class="{ on: type == 'namespace' }">
                 <i class="el-icon-postcard"></i>
                 <b>铭牌</b>
                 <span class="u-desc">剑网3.com</span>
@@ -28,21 +23,13 @@
             </a>
         </div>
         <div class="m-nav-group m-bbs-nav">
-            <a
-                class="u-type"
-                href="/bbs#/emotion"
-                :class="{ on: type == 'emotion' }"
-            >
+            <a class="u-type" href="/bbs#/emotion" :class="{ on: type == 'emotion' }">
                 <i class="el-icon-picture-outline"></i>
                 <b>表情</b>
             </a>
         </div>
         <div class="m-nav-group m-bbs-nav">
-            <a
-                class="u-type"
-                href="/bbs#/forum"
-                :class="{ on: type == 'forum' }"
-            >
+            <a class="u-type" href="/bbs#/forum" :class="{ on: type == 'forum' }">
                 <i class="el-icon-receiving"></i>
                 <b>论坛</b>
                 <span class="u-desc">BBS</span>
@@ -54,8 +41,9 @@
                     :href="typeLink(item.slug)"
                     :key="i"
                     :class="{ on: item.slug == subtype }"
-                    ><b>{{ item.name }}</b></a
                 >
+                    <b>{{ item.name }}</b>
+                </a>
             </div>
         </div>
         <!-- <div class="m-nav-group m-bbs-nav">
@@ -67,7 +55,7 @@
                 <i class="el-icon-video-camera"></i>
                 <b>直播</b>
             </a>
-        </div> -->
+        </div>-->
         <!-- <div class="m-nav-group m-bbs-nav">
             <span class="u-type">
                 <i class="el-icon-receiving"></i>
@@ -84,7 +72,7 @@
                     ><b>家园蓝图</b></a
                 >
             </div>
-        </div> -->
+        </div>-->
     </div>
 </template>
 
@@ -92,7 +80,7 @@
 export default {
     name: "list_nav",
     props: [],
-    data: function() {
+    data: function () {
         return {
             menu: [
                 {
@@ -135,20 +123,26 @@ export default {
         };
     },
     computed: {
-        subtype: function() {
+        subtype: function () {
             // return this.$store.state.subtype || "";
             return this.$route.params.subtype || "";
         },
-        type: function() {
+        type: function () {
             return this.$route.name;
+        },
+        client: function () {
+            return this.$store.state.client;
         },
     },
     methods: {
-        typeLink: function(subtype) {
+        typeLink: function (subtype) {
             return `/bbs#/forum/${subtype}`;
         },
     },
-    mounted: function() {},
+    mounted: function () {},
     components: {},
 };
 </script>
+<style lang="less">
+@import "../assets/css/nav.less";
+</style>
