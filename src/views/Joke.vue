@@ -6,16 +6,37 @@
 </template>
 
 <script>
+import { __imgPath } from '@jx3box/jx3box-common/data/jx3box.json'
+import emotion from '@/assets/data/emotion.json'
 export default {
     name: "Joke",
     props: [],
     data: function() {
-        return {};
+        return {
+            sortedEmotions: []
+        };
     },
     computed: {},
-    methods: {},
+    methods: {
+        // 表情排序
+        sortEmotion() {
+            const keys = Object.keys(emotion)
+            keys.sort((item1, item2) => {
+                return item1.localeCompare(item2)
+            })
+            keys.forEach(key => {
+                const obj = {
+                    key,
+                    value: emotion[key]
+                }
+                this.sortedEmotions.push(obj)
+            })
+        }
+    },
     filters: {},
-    created: function() {},
+    created: function() {
+        this.sortEmotion()
+    },
     components: {},
 };
 </script>
