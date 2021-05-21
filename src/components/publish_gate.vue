@@ -14,17 +14,15 @@ export default {
         return {};
     },
     computed: {
-        // channel: function () {
-        //     return this.$route.name;
-        // },
-        // isForum: function () {
-        //     return this.channel == "index" || this.channel == "forum";
-        // },
+        channel: function () {
+            let routename = this.$route.name
+            if(routename == 'index' || routename == 'forum'){
+                routename = 'bbs'
+            }
+            return routename;
+        },
         publish_link: function () {
-            return publishLink("bbs")
-            // return this.isForum
-            //     ? publishLink("bbs")
-            //     : publishLink(this.channel);
+            return publishLink(this.channel)
         },
     },
     methods: {},
