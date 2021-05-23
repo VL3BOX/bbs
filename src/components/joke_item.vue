@@ -3,61 +3,77 @@
         <div class="content">
             <div v-html="parse(joke.post_title)"></div>
         </div>
-        <div class="other">
-            <div class="user">
-                <img :src="joke.author_info.user_avatar" width="24" height="24" alt="avatar">
-                <span>{{ joke.author_info.display_name }}</span>
-            </div>
-            <div class="time">
-                <el-link type="primary"
-                    class="copy-btn" 
-                    :disabled="disabled" 
+        <div class="misc">
+            <div class="op">
+                <el-link
+                    type="primary"
+                    class="copy-btn"
+                    :disabled="disabled"
                     @click="handleCopy(joke.post_title)"
-                >{{ copyLabel }}</el-link>
-                <span class="u-date">
-                    <i class="el-icon-date"></i>&emsp;
-                    <time>{{ joke.post_date | dateFormat }}</time>
-                </span>
+                ><i class="el-icon-document-copy"></i>{{ copyLabel }}</el-link>
+                <router-link class="el-link el-link--primary is-underline" :to="'/joke/' + joke.ID"><i class="el-icon-chat-dot-square"></i>评论</router-link>
+            </div>
+            <div class="other">
+                <div class="user">
+                    <img :src="(joke.author_info && joke.author_info.user_avatar) | showAvatar" />
+                    <a
+                        :href="joke.post_author | authorLink"
+                        target="_blank"
+                        v-if="joke.post_author"
+                    >{{ joke.author }}</a>
+                    <span v-else>{{ joke.author }}</span>
+                </div>
+                <div class="time">
+                    <span class="u-date">
+                        <i class="el-icon-date"></i>&emsp;
+                        <time>{{ joke.post_date | dateFormat }}</time>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import  JX3_EMOTION from '@jx3box/jx3box-emotion'
-import dateFormat from "@/utils/dateFormat"
+import JX3_EMOTION from "@jx3box/jx3box-emotion";
+import dateFormat from "@/utils/dateFormat";
+import { showAvatar, authorLink } from "@jx3box/jx3box-common/js/utils";
 export default {
-    name: 'joke_item',
-    props: ['joke'],
+    name: "joke_item",
+    props: ["joke"],
     data() {
         return {
-            copyLabel: '点击复制',
-            disabled: false
-        }
+            copyLabel: "点击复制",
+            disabled: false,
+        };
     },
     filters: {
-        dateFormat: function(val) {
+        dateFormat: function (val) {
             return dateFormat(new Date(val));
         },
+        showAvatar: function (val) {
+            return showAvatar(val, 24);
+        },
+        authorLink,
     },
     methods: {
         parse(str) {
-            const ins = new JX3_EMOTION(str)
-            return ins.code
+            const ins = new JX3_EMOTION(str);
+            return ins.code;
         },
         handleCopy(str) {
-            this.disabled = true
+            this.disabled = true;
             navigator.clipboard.writeText(str).then(() => {
-                this.copyLabel = '已复制'
+                this.copyLabel = "已复制";
 
                 setTimeout(() => {
-                    this.copyLabel = '点击复制'
-                    this.disabled = false
-                }, 3000)
-            })
-        }
-    }
-}
+                    this.copyLabel = "点击复制";
+                    this.disabled = false;
+                }, 3000);
+            });
+        },
+    },
+};
 </script>
 
 <style lang="less" scoped>
@@ -67,7 +83,23 @@ export default {
         // cursor: pointer;
     }
 
+    .misc{
+        .clearfix;
+    }
+    .op{
+        .fl;
+        .fz(14px,20px);
+
+        .copy-btn{
+            .mr(20px);
+        }
+
+        i{
+            .mr(5px);
+        }
+    }
     .other {
+        .fr;
         display: flex;
         font-size: 12px;
         color: #999;
@@ -83,13 +115,13 @@ export default {
                 margin-right: 8px;
             }
         }
+        a:hover {
+            color: @pink;
+        }
 
         .time {
             display: inline-flex;
             align-items: center;
-            .copy-btn {
-                margin-right: 8px;
-            }
         }
     }
 }

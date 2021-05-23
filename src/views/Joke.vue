@@ -2,13 +2,22 @@
     <div class="v-joke" v-loading="loading">
         <!-- 搜索 -->
         <div class="m-joke-search" slot="search-before">
-            <el-input
-                placeholder="请输入搜索内容"
-                v-model="search"
-            >
+            <el-input placeholder="请输入搜索内容" v-model="search">
                 <span slot="prepend">关键词</span>
                 <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
+        </div>
+
+        <!-- 门派分类 -->
+        <div class="m-joke-types">
+            <el-tabs v-model="type">
+                <el-tab-pane v-for="(item,i) in schoolmap" :key="i" :name="i">
+                    <span slot="label">
+                        <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
+                        {{item}}
+                    </span>
+                </el-tab-pane>
+            </el-tabs>
         </div>
 
         <el-row class="v-joke-list" :gutter="20">
@@ -32,108 +41,92 @@
 </template>
 
 <script>
-import { __imgPath } from '@jx3box/jx3box-common/data/jx3box.json';
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import emotion from "@jx3box/jx3box-data/data/jokes/default.json";
-import { getJokes } from '@/service/jokes'
-import joke_item from '../components/joke_item'
-
+import { getJokes } from "@/service/jokes";
+import joke_item from "../components/joke_item";
+import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 export default {
     name: "Joke",
     components: {
-        'joke-item': joke_item
+        "joke-item": joke_item,
     },
-    data: function() {
+    data: function () {
         return {
             loading: true,
             sortedEmotions: [],
-            search: '',
+            search: "",
             per: 10,
             page: 1,
             total: 1,
-            jokes: []
+            jokes: [],
+            schoolmap,
+            type: "0",
         };
     },
     watch: {
-        'params': {
+        params: {
             handler() {
-                this.loadData()
+                this.loadData();
             },
-            deep: true
-        }
+            deep: true,
+        },
     },
     computed: {
         params({ search, page, per }) {
             const obj = {
                 per,
                 page,
-                order: 'update'
-            }
+                // order: "update",
+                subtype: this.type,
+            };
 
-            if (search) Object.assign(obj, { search })
+            if (search) Object.assign(obj, { search });
 
-            return obj
-        }
+            return obj;
+        },
     },
     methods: {
-        
         // 表情排序
         sortEmotion() {
-            const keys = Object.keys(emotion)
+            const keys = Object.keys(emotion);
             keys.sort((item1, item2) => {
-                return item1.localeCompare(item2)
-            })
-            keys.forEach(key => {
+                return item1.localeCompare(item2);
+            });
+            keys.forEach((key) => {
                 const obj = {
                     key,
-                    value: emotion[key]
-                }
-                this.sortedEmotions.push(obj)
-            })
+                    value: emotion[key],
+                };
+                this.sortedEmotions.push(obj);
+            });
         },
         loadData() {
-            this.loading = true
-            getJokes(this.params).then(res => {
-                console.log(res)
-                this.jokes = res.data.data.list
-                this.total = res.data.data.total
-            }).catch(error => {}).finally(() => {
-                this.loading = false
-            })
-        }
+            this.loading = true;
+            getJokes(this.params)
+                .then((res) => {
+                    console.log(res);
+                    this.jokes = res.data.data.list;
+                    this.total = res.data.data.total;
+                })
+                .catch((error) => {})
+                .finally(() => {
+                    this.loading = false;
+                });
+        },
     },
-    created: function() {
-        this.sortEmotion()
-        this.loadData()
+    filters: {
+        showSchoolIcon: function (val) {
+            return __imgPath + "image/school/" + val + ".png";
+        },
+    },
+    created: function () {
+        this.sortEmotion();
+        this.loadData();
     },
 };
 </script>
 
-<style lang="less" scoped>
-.v-joke-list {
-    margin-top: 14px;
-
-    .item {
-        &:not(:last-of-type) {
-            margin-bottom: 20px;
-        }
-    }
-
-    &-item {
-        background: #f5f7fa;
-        padding: 15px 15px 10px 15px;
-        border-radius: 4px;
-    }
-
-    .joke-bottom {
-        display: flex;
-        align-content: baseline;
-
-        .user {
-            display: flex;
-        }
-    }
-}
-.v-joke-pagination {
-    margin-top: 10px;
-}
+<style scoped lang="less">
+@import "../assets/css/joke.less";
 </style>

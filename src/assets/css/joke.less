@@ -1,0 +1,32 @@
+.v-joke-list {
+    .item {
+        &:not(:last-of-type) {
+            margin-bottom: 20px;
+        }
+    }
+
+    &-item {
+        background: #f5f7fa;
+        padding: 15px 15px 10px 15px;
+        border-radius: 4px;
+    }
+
+    .joke-bottom {
+        display: flex;
+        align-content: baseline;
+
+        .user {
+            display: flex;
+        }
+    }
+}
+.v-joke-pagination {
+    margin-top: 10px;
+}
+.m-joke-types {
+    padding:10px 0;
+    .u-icon{
+        .size(24px);
+        .y(-6px);
+    }
+}
