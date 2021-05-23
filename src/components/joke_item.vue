@@ -11,7 +11,7 @@
                     :disabled="disabled"
                     @click="handleCopy(joke.post_title)"
                 ><i class="el-icon-document-copy"></i>{{ copyLabel }}</el-link>
-                <router-link class="el-link el-link--primary is-underline" :to="'/joke/' + joke.ID"><i class="el-icon-chat-dot-square"></i>评论</router-link>
+                <router-link v-if="mode != 'single'" class="el-link el-link--primary is-underline" :to="'/joke/' + joke.ID"><i class="el-icon-chat-dot-square"></i>评论</router-link>
             </div>
             <div class="other">
                 <div class="user">
@@ -40,7 +40,7 @@ import dateFormat from "@/utils/dateFormat";
 import { showAvatar, authorLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "joke_item",
-    props: ["joke"],
+    props: ["joke","mode"],
     data() {
         return {
             copyLabel: "点击复制",
