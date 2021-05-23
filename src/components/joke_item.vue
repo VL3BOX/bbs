@@ -10,8 +10,17 @@
                     class="copy-btn"
                     :disabled="disabled"
                     @click="handleCopy(joke.post_title)"
-                ><i class="el-icon-document-copy"></i>{{ copyLabel }}</el-link>
-                <router-link v-if="mode != 'single'" class="el-link el-link--primary is-underline" :to="'/joke/' + joke.ID"><i class="el-icon-chat-dot-square"></i>评论</router-link>
+                >
+                    <i class="el-icon-document-copy"></i>
+                    {{ copyLabel }}
+                </el-link>
+                <router-link
+                    v-if="mode != 'single'"
+                    class="el-link el-link--primary is-underline"
+                    :to="'/joke/' + joke.ID"
+                >
+                    <i class="el-icon-chat-dot-square"></i>评论
+                </router-link>
             </div>
             <div class="other">
                 <div class="user">
@@ -19,9 +28,9 @@
                     <a
                         :href="joke.post_author | authorLink"
                         target="_blank"
-                        v-if="joke.post_author"
+                        v-if="joke.post_author && joke.post_author!=1"
                     >{{ joke.author }}</a>
-                    <span v-else>{{ joke.author }}</span>
+                    <span v-else>{{ joke.author || '匿名' }}</span>
                 </div>
                 <div class="time">
                     <span class="u-date">
@@ -40,7 +49,7 @@ import dateFormat from "@/utils/dateFormat";
 import { showAvatar, authorLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "joke_item",
-    props: ["joke","mode"],
+    props: ["joke", "mode"],
     data() {
         return {
             copyLabel: "点击复制",
@@ -83,18 +92,18 @@ export default {
         // cursor: pointer;
     }
 
-    .misc{
+    .misc {
         .clearfix;
     }
-    .op{
+    .op {
         .fl;
         .fz(14px,20px);
 
-        .copy-btn{
+        .copy-btn {
             .mr(20px);
         }
 
-        i{
+        i {
             .mr(5px);
         }
     }
