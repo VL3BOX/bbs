@@ -24,9 +24,53 @@
     margin-top: 10px;
 }
 .m-joke-types {
-    padding:10px 0;
-    .u-icon{
+    padding: 10px 0;
+    .u-icon {
         .size(24px);
         .y(-6px);
+    }
+}
+.m-joke-goback {
+    .mb(10px);
+
+    .clearfix;
+    .u-back {
+        .fl;
+    }
+
+    .u-doc {
+        .fr;
+        .fz(12px);
+        i {
+            .mr(5px);
+        }
+        color: #555;
+        &:hover {
+            color: @pink;
+        }
+    }
+}
+
+.m-joke-tags {
+    .mt(10px);
+    color:#666;
+    .mb(30px);
+    padding:5px 10px;
+    i {
+        .y;
+        .mr(5px);
+    }
+    .u-tag {
+        .fz(12px);
+
+        &:after{
+            content:'、';
+        }
+
+        &:last-child{
+            &::after{
+                .none;
+            }
+        }
     }
 }

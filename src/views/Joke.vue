@@ -2,6 +2,12 @@
     <div class="v-joke" v-loading="loading">
         <!-- 单页 -->
         <div class="m-joke-single-container" v-if="id">
+            <div class="m-joke-goback">
+                <el-button size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+                <a class="u-doc" href="/tool/23239" target="_blank">
+                    <i class="el-icon-info"></i>游戏内获取或发布骚话
+                </a>
+            </div>
             <el-row class="v-joke-list" :gutter="20">
                 <el-col :span="24" class="item">
                     <div class="v-joke-list-item">
@@ -9,6 +15,10 @@
                     </div>
                 </el-col>
             </el-row>
+            <div class="m-joke-tags" v-if="joke.tags && joke.tags.length">
+                <i class="el-icon-price-tag"></i>
+                <span class="u-tag" v-for="(tag,i) in joke.tags" :key="i">{{tag}}</span>
+            </div>
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="post" v-if="id && !joke.comment" />
@@ -152,6 +162,9 @@ export default {
         },
         init: function () {
             this.id ? this.loadSingle() : this.loadList();
+        },
+        goBack: function () {
+            this.$router.push("/joke");
         },
     },
     watch: {

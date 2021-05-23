@@ -1,6 +1,7 @@
 <template>
     <div class="joke-item">
         <div class="content">
+            <i class="u-star" v-if="joke.mark && joke.mark.length">★</i>
             <div v-html="parse(joke.post_title)"></div>
         </div>
         <div class="misc">
@@ -21,6 +22,7 @@
                 >
                     <i class="el-icon-chat-dot-square"></i>评论
                 </router-link>
+                <a v-if="mode == 'single'" class="u-edit el-link el-link--primary is-underline" :href="editLink('joke',joke.ID)" target="_blank"><i class="el-icon-edit-outline"></i> 编辑</a>
             </div>
             <div class="other">
                 <div class="user">
@@ -46,7 +48,7 @@
 <script>
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 import dateFormat from "@/utils/dateFormat";
-import { showAvatar, authorLink } from "@jx3box/jx3box-common/js/utils";
+import { showAvatar, authorLink,editLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "joke_item",
     props: ["joke", "mode"],
@@ -81,6 +83,7 @@ export default {
                 }, 3000);
             });
         },
+        editLink
     },
 };
 </script>
@@ -90,6 +93,18 @@ export default {
     .content {
         min-height: 32px;
         // cursor: pointer;
+    }
+
+    .u-star {
+        font-style: normal;
+        font-size: 12px;
+        padding: 1px 5px 2px 5px;
+        border-radius: 2px;
+        background-color: #6f42c1;
+        color: #fff;
+        margin-left: 5px;
+        .fl;
+        .mr(5px);
     }
 
     .misc {
