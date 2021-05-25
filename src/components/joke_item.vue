@@ -91,7 +91,8 @@ export default {
 <style lang="less" scoped>
 .joke-item {
     .content {
-        min-height: 32px;
+        // min-height: 32px;
+        margin-bottom: 8px;
         // cursor: pointer;
     }
 
