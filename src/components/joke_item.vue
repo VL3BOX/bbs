@@ -26,7 +26,7 @@
             </div>
             <div class="other">
                 <div class="user">
-                    <img :src="(joke.author_info && joke.author_info.user_avatar) | showAvatar" />
+                    <img width="24" height="24" :src="(joke.author_info && joke.author_info.user_avatar) | showAvatar" />
                     <a
                         :href="joke.post_author | authorLink"
                         target="_blank"
