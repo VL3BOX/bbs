@@ -182,6 +182,6 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 @import "../assets/css/joke.less";
 </style>

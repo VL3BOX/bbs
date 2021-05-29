@@ -1,8 +1,8 @@
 <template>
-    <div class="joke-item">
+    <div class="m-joke-item">
         <div class="content">
             <i class="u-star" v-if="joke.mark && joke.mark.length">★</i>
-            <div v-html="parse(joke.post_title)"></div>
+            <span class="u-sentence" v-html="parse(joke.post_title)"></span>
         </div>
         <div class="misc">
             <div class="op">
@@ -87,67 +87,3 @@ export default {
     },
 };
 </script>
-
-<style lang="less" scoped>
-.joke-item {
-    .content {
-        // min-height: 32px;
-        margin-bottom: 8px;
-        // cursor: pointer;
-    }
-
-    .u-star {
-        font-style: normal;
-        font-size: 12px;
-        padding: 1px 5px 2px 5px;
-        border-radius: 2px;
-        background-color: #6f42c1;
-        color: #fff;
-        margin-left: 5px;
-        .fl;
-        .mr(5px);
-    }
-
-    .misc {
-        .clearfix;
-    }
-    .op {
-        .fl;
-        .fz(14px,20px);
-
-        .copy-btn {
-            .mr(20px);
-        }
-
-        i {
-            .mr(5px);
-        }
-    }
-    .other {
-        .fr;
-        display: flex;
-        font-size: 12px;
-        color: #999;
-
-        justify-content: space-between;
-
-        .user {
-            display: inline-flex;
-            align-items: center;
-            margin-right: 24px;
-
-            img {
-                margin-right: 8px;
-            }
-        }
-        a:hover {
-            color: @pink;
-        }
-
-        .time {
-            display: inline-flex;
-            align-items: center;
-        }
-    }
-}
-</style>
