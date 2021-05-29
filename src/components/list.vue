@@ -173,8 +173,7 @@ export default {
     },
     computed: {
         subtype: function() {
-            // return this.$store.state.subtype;
-            return this.$route.params.subtype
+            return this.$store.state.subtype;
         },
         resetParams: function () {
             return [this.subtype, this.search, this.mark, this.client];
@@ -186,11 +185,11 @@ export default {
                 sticky: 1,
             };
             let optionalParams = [
-                "subtype",
                 "search",
                 "order",
                 "mark",
                 "client",
+                "subtype",
             ];
             optionalParams.forEach((item) => {
                 if (this[item]) {
@@ -280,12 +279,15 @@ export default {
         params : {
             deep : true,
             immediate : true,
-            handler : function (){
+            handler : function (val){
                 this.loadPosts()
             }
         },
         '$route.query.page' : function (val){
             this.page = ~~val
+        },
+        '$route.params.subtype' : function (val){
+            this.$store.state.subtype = val
         }
     },
     created: function() {
