@@ -40,10 +40,10 @@
                 <el-tabs v-model="type">
                     <el-tab-pane name="all" label="全部"></el-tab-pane>
                     <el-tab-pane v-for="(item,i) in schoolmap" :key="i" :name="i">
-                        <span slot="label">
+                        <div slot="label" style="min-width:57px;">
                             <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
                             {{item}}
-                        </span>
+                        </div>
                     </el-tab-pane>
                 </el-tabs>
             </div>
