@@ -15,11 +15,15 @@ export default {
     },
     computed: {
         channel: function () {
-            let routename = this.$route.name
-            if(routename == 'index' || routename == 'forum'){
-                routename = 'bbs'
+            if(this.$route){
+                let routename = this.$route.name
+                if(routename == 'index' || routename == 'forum'){
+                    routename = 'bbs'
+                }
+                return routename;
+            }else{
+                return 'bbs'
             }
-            return routename;
         },
         publish_link: function () {
             return publishLink(this.channel)
