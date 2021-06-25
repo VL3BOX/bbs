@@ -24,7 +24,7 @@
                 </router-link>
                 <a v-if="mode == 'single'" class="u-edit el-link el-link--primary is-underline" :href="editLink('joke',joke.ID)" target="_blank"><i class="el-icon-edit-outline"></i> 编辑</a>
             </div>
-            <div class="other">
+            <div class="u-other">
                 <div class="user">
                     <img width="24" height="24" :src="(joke.author_info && joke.author_info.user_avatar) | showAvatar" />
                     <a
@@ -34,9 +34,9 @@
                     >{{ joke.author }}</a>
                     <span v-else>{{ joke.author || '匿名' }}</span>
                 </div>
-                <div class="time">
+                <div class="u-time">
                     <span class="u-date">
-                        <i class="el-icon-date"></i>&emsp;
+                        <i class="el-icon-date"></i>&nbsp;
                         <time>{{ joke.post_date | dateFormat }}</time>
                     </span>
                 </div>
