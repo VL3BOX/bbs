@@ -35,15 +35,15 @@
                 <span class="u-desc">BBS</span>
             </a>
             <div class="u-sublist">
-                <a
+                <router-link
                     class="u-subtype"
                     v-for="(item, i) in menu"
-                    :href="typeLink(item.slug)"
+                    :to="typeLink(item.slug)"
                     :key="i"
                     :class="{ on: item.slug == subtype }"
                 >
                     <b>{{ item.name }}</b>
-                </a>
+                </router-link>
             </div>
         </div>
         <!-- <div class="m-nav-group m-bbs-nav">
@@ -136,7 +136,7 @@ export default {
     },
     methods: {
         typeLink: function (subtype) {
-            return `/bbs#/forum/${subtype}`;
+            return `/forum/${subtype}`;
         },
     },
     mounted: function () {},

@@ -173,7 +173,7 @@ export default {
     },
     computed: {
         subtype: function() {
-            return this.$store.state.subtype;
+            return this.$route.params.subtype;
         },
         resetParams: function () {
             return [this.subtype, this.search, this.mark, this.client];
