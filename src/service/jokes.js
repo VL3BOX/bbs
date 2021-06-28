@@ -12,6 +12,10 @@ const getJokes = (params) => {
 // 获取指定joke
 function getJoke(id) {
     return $cms().get(`/api/cms/post/${id}`);
+};
+
+const setJokeMark = ({ id, data}) => {
+    return $cms().put(`/api/cms/post/${id}/setting`, data)
 }
 
-export { getJokes, getJoke };
+export { getJokes, getJoke, setJokeMark };

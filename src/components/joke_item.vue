@@ -16,13 +16,26 @@
                     {{ copyLabel }}
                 </el-link>
                 <router-link
-                    v-if="mode != 'single'"
-                    class="el-link el-link--primary is-underline"
+                    v-if="mode !== 'single'"
+                    class="el-link el-link--primary is-underline copy-btn"
                     :to="'/joke/' + joke.ID"
                 >
                     <i class="el-icon-chat-dot-square"></i>评论
                 </router-link>
-                <a v-if="mode == 'single'" class="u-edit el-link el-link--primary is-underline" :href="editLink('joke',joke.ID)" target="_blank"><i class="el-icon-edit-outline"></i> 编辑</a>
+                <a
+                    v-if="isEditor"
+                    class="el-link el-link--primary is-underline"
+                    @click="handleMark"
+                >
+                    <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i> {{ isMark ? '取消精选' : '设为精选' }}
+                </a>
+                <a
+                    v-if="mode === 'single'" 
+                    class="u-edit el-link el-link--primary is-underline" 
+                    :href="editLink('joke',joke.ID)" target="_blank"
+                >
+                    <i class="el-icon-edit-outline"></i> 编辑
+                </a>
             </div>
             <div class="u-other">
                 <div class="user">
@@ -48,7 +61,9 @@
 <script>
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 import dateFormat from "@/utils/dateFormat";
-import { showAvatar, authorLink,editLink } from "@jx3box/jx3box-common/js/utils";
+import { showAvatar, authorLink, editLink } from "@jx3box/jx3box-common/js/utils";
+import { setJokeMark } from '@/service/jokes'
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "joke_item",
     props: ["joke", "mode"],
@@ -67,6 +82,14 @@ export default {
         },
         authorLink,
     },
+    computed: {
+        isMark: function({ joke }) {
+            return !!(joke?.mark?.length);
+        },
+        isEditor: function() {
+            return User.isEditor();
+        }
+    },
     methods: {
         parse(str) {
             const ins = new JX3_EMOTION(str);
@@ -83,7 +106,24 @@ export default {
                 }, 3000);
             });
         },
-        editLink
+        editLink,
+        // 编辑精选
+        handleMark() {
+            let mark = this.isMark ? [] : ["recommended"]
+            setJokeMark({ id: this.joke.ID, data: { mark } })
+                .then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '设置成功'
+                    });
+                    this.$emit('update')
+                }).catch(err => {
+                    this.$message({
+                        type: 'error',
+                        message: err?.message || '设置失败，请重试或者联系管理员'
+                    })
+                })
+        }
     },
 };
 </script>

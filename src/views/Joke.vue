@@ -51,7 +51,7 @@
             <el-row class="v-joke-list" :gutter="20" v-if="jokes && jokes.length">
                 <el-col :span="24" v-for="(joke, index) in jokes" :key="index" class="item">
                     <div class="v-joke-list-item">
-                        <joke-item :joke="joke" />
+                        <joke-item :joke="joke" @update="handleJokeUpdate" />
                     </div>
                 </el-col>
             </el-row>
@@ -166,6 +166,9 @@ export default {
         goBack: function () {
             this.$router.push("/joke");
         },
+        handleJokeUpdate: function() {
+            this.loadList()
+        }
     },
     watch: {
         keys: {
