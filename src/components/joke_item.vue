@@ -1,7 +1,8 @@
 <template>
     <div class="m-joke-item">
         <div class="content">
-            <i class="u-star" v-if="joke.mark && joke.mark.length">★</i>
+            <i v-if="isEditor" class="u-star-op" :class="{on:isMark}" @click="handleMark">★</i>
+            <i v-else class="u-star" v-show="isMark">★</i>
             <span class="u-sentence" v-html="parse(joke.post_title)"></span>
         </div>
         <div class="misc">
@@ -22,24 +23,30 @@
                 >
                     <i class="el-icon-chat-dot-square"></i>评论
                 </router-link>
-                <a
+                <!-- <a
                     v-if="isEditor"
                     class="el-link el-link--primary is-underline"
                     @click="handleMark"
                 >
-                    <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i> {{ isMark ? '取消精选' : '设为精选' }}
-                </a>
+                    <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
+                    {{ isMark ? '取消精选' : '设为精选' }}
+                </a> -->
                 <a
-                    v-if="mode === 'single'" 
-                    class="u-edit el-link el-link--primary is-underline" 
-                    :href="editLink('joke',joke.ID)" target="_blank"
+                    v-if="mode === 'single'"
+                    class="u-edit el-link el-link--primary is-underline"
+                    :href="editLink('joke',joke.ID)"
+                    target="_blank"
                 >
                     <i class="el-icon-edit-outline"></i> 编辑
                 </a>
             </div>
             <div class="u-other">
                 <div class="user">
-                    <img width="24" height="24" :src="(joke.author_info && joke.author_info.user_avatar) | showAvatar" />
+                    <img
+                        width="24"
+                        height="24"
+                        :src="(joke.author_info && joke.author_info.user_avatar) | showAvatar"
+                    />
                     <a
                         :href="joke.post_author | authorLink"
                         target="_blank"
@@ -61,8 +68,12 @@
 <script>
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 import dateFormat from "@/utils/dateFormat";
-import { showAvatar, authorLink, editLink } from "@jx3box/jx3box-common/js/utils";
-import { setJokeMark } from '@/service/jokes'
+import {
+    showAvatar,
+    authorLink,
+    editLink,
+} from "@jx3box/jx3box-common/js/utils";
+import { setJokeMark } from "@/service/jokes";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "joke_item",
@@ -71,6 +82,7 @@ export default {
         return {
             copyLabel: "点击复制",
             disabled: false,
+            isMark: !!this.joke?.mark?.length,
         };
     },
     filters: {
@@ -83,12 +95,12 @@ export default {
         authorLink,
     },
     computed: {
-        isMark: function({ joke }) {
-            return !!(joke?.mark?.length);
-        },
-        isEditor: function() {
+        // isMark: function ({ joke }) {
+        //     return !!joke?.mark?.length;
+        // },
+        isEditor: function () {
             return User.isEditor();
-        }
+        },
     },
     methods: {
         parse(str) {
@@ -109,21 +121,27 @@ export default {
         editLink,
         // 编辑精选
         handleMark() {
-            let mark = this.isMark ? [] : ["recommended"]
+            let mark = this.isMark ? [] : ["recommended"];
             setJokeMark({ id: this.joke.ID, data: { mark } })
                 .then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '设置成功'
+                    this.$notify({
+                        title: "成功",
+                        message: "设置成功",
+                        type: "success",
                     });
-                    this.$emit('update')
-                }).catch(err => {
-                    this.$message({
-                        type: 'error',
-                        message: err?.message || '设置失败，请重试或者联系管理员'
-                    })
+                    this.isMark = !!mark.length;
+                    this.$forceUpdate();
+                    // this.$emit("update");
                 })
-        }
+                .catch((err) => {
+                    this.$notify({
+                        title: "成功",
+                        message:
+                            err?.message || "设置失败，请重试或者联系管理员",
+                        type: "error",
+                    });
+                });
+        },
     },
 };
 </script>
