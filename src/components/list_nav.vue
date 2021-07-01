@@ -10,30 +10,30 @@
 
         <h5 class="u-title">分类导航</h5>
         <div class="m-nav-group m-bbs-nav">
-            <a class="u-type" href="/bbs#/namespace" :class="{ on: type == 'namespace' }">
+            <router-link class="u-type" to="/namespace" :class="{ on: type == 'namespace' }">
                 <i class="el-icon-postcard"></i>
                 <b>铭牌</b>
                 <span class="u-desc">剑网3.com</span>
-            </a>
+            </router-link>
         </div>
         <div class="m-nav-group m-bbs-nav">
-            <a class="u-type" href="/bbs#/joke" :class="{ on: type == 'joke' }">
+            <router-link class="u-type" to="/joke" :class="{ on: type == 'joke' }">
                 <i class="el-icon-chat-line-round"></i>
                 <b>骚话</b>
-            </a>
+            </router-link>
         </div>
         <div class="m-nav-group m-bbs-nav">
-            <a class="u-type" href="/bbs#/emotion" :class="{ on: type == 'emotion' }">
+            <router-link class="u-type" to="/emotion" :class="{ on: type == 'emotion' }">
                 <i class="el-icon-picture-outline"></i>
                 <b>表情</b>
-            </a>
+            </router-link>
         </div>
         <div class="m-nav-group m-bbs-nav">
-            <a class="u-type" href="/bbs#/forum" :class="{ on: type == 'forum' }">
+            <router-link class="u-type" to="/forum" :class="{ on: type == 'forum' }">
                 <i class="el-icon-receiving"></i>
                 <b>论坛</b>
                 <span class="u-desc">BBS</span>
-            </a>
+            </router-link>
             <div class="u-sublist">
                 <router-link
                     class="u-subtype"
