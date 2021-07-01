@@ -1,7 +1,7 @@
 <template>
     <div class="v-namespace">
         <!-- 搜索 -->
-        <div class="m-archive-search" slot="search-before">
+        <div class="m-archive-search m-namespace-search" slot="search-before" key="namespace-search">
             <el-input
                 placeholder="请输入搜索内容"
                 v-model="search"
