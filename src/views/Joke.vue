@@ -49,7 +49,7 @@
             </div>
             <!-- 列表 -->
             <el-row class="v-joke-list" :gutter="20" v-if="jokes && jokes.length">
-                <el-col :span="24" v-for="(joke, index) in jokes" :key="index" class="item">
+                <el-col :span="24" v-for="(joke) in jokes" :key="joke.ID" class="item">
                     <div class="v-joke-list-item">
                         <joke-item :joke="joke" @update="handleJokeUpdate" />
                     </div>
