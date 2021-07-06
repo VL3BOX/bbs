@@ -107,7 +107,7 @@ export default {
             const obj = {
                 per,
                 page,
-                // order: "update",
+                order: "post_date-DESC",
             };
             if (this.type != "all") obj.subtype = this.type;
             if (search) Object.assign(obj, { search });
@@ -166,9 +166,9 @@ export default {
         goBack: function () {
             this.$router.push("/joke");
         },
-        handleJokeUpdate: function() {
-            this.loadList()
-        }
+        handleJokeUpdate: function () {
+            this.loadList();
+        },
     },
     watch: {
         keys: {
