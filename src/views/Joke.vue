@@ -65,6 +65,7 @@
                 :current-page.sync="page"
                 layout="total, prev, pager, next, jumper"
                 :total="total"
+                @current-change="skipTop"
             ></el-pagination>
         </div>
     </div>
@@ -169,6 +170,9 @@ export default {
         handleJokeUpdate: function () {
             this.loadList();
         },
+        skipTop : function (){
+            window.scrollTo(0,0);
+        }
     },
     watch: {
         keys: {
