@@ -76,6 +76,7 @@
 }
 
 .m-joke-item {
+    position: relative;
     .content {
         // min-height: 32px;
         margin-bottom: 8px;
@@ -155,6 +156,16 @@
         .u-time {
             display: inline-flex;
             align-items: center;
+        }
+    }
+    .u-joke-delete {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        .pointer;
+
+        &:hover {
+            color: #3585de;
         }
     }
 }

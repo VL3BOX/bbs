@@ -62,6 +62,7 @@
                 </div>
             </div>
         </div>
+        <i class="el-icon-close u-joke-delete" @click="delJoke" v-show="isEditor" title="删除"></i>
     </div>
 </template>
 
@@ -73,7 +74,7 @@ import {
     authorLink,
     editLink,
 } from "@jx3box/jx3box-common/js/utils";
-import { setJokeMark } from "@/service/jokes";
+import { setJokeMark, removeJoke } from "@/service/jokes";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "joke_item",
@@ -135,13 +136,44 @@ export default {
                 })
                 .catch((err) => {
                     this.$notify({
-                        title: "成功",
+                        title: "错误",
                         message:
                             err?.message || "设置失败，请重试或者联系管理员",
                         type: "error",
                     });
                 });
         },
+        /**
+         * 删除joke
+         */
+        delJoke() {
+            this.$confirm('此操作将会删除该骚话，是否继续？', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                removeJoke(this.joke.ID)
+                    .then(() => {
+                        this.$notify({
+                            title: '成功',
+                            message: '删除成功',
+                            type: 'success',
+                        });
+                        if (this.mode === 'single') {
+                            this.$router.go(-1);
+                        } else {
+                            this.$emit('update')
+                        }
+                    })
+                    .catch(err => {
+                        this.$notify({
+                            title: '错误',
+                            message: err?.message || '删除失败，请重试或者联系管理员',
+                            type: 'error'
+                        })
+                    })
+            })
+        }
     },
 };
 </script>

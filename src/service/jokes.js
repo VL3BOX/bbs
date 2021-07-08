@@ -16,6 +16,10 @@ function getJoke(id) {
 
 const setJokeMark = ({ id, data}) => {
     return $cms().put(`/api/cms/post/${id}/setting`, data)
+};
+
+const removeJoke = (id) => {
+    return $cms().delete(`/api/cms/post/${id}`)
 }
 
-export { getJokes, getJoke, setJokeMark };
+export { getJokes, getJoke, setJokeMark, removeJoke };
