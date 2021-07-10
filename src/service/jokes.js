@@ -19,7 +19,9 @@ const setJokeMark = ({ id, data}) => {
 };
 
 const removeJoke = (id) => {
-    return $cms().delete(`/api/cms/post/${id}`)
+    return $cms().put(`/api/cms/post/${id}/setting`,{
+        post_status: "dustbin"
+    })
 }
 
 export { getJokes, getJoke, setJokeMark, removeJoke };
