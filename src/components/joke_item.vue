@@ -83,7 +83,7 @@ export default {
         return {
             copyLabel: "点击复制",
             disabled: false,
-            isMark: !!this.joke?.mark?.length,
+            // isMark: !!this.joke?.mark?.length,
         };
     },
     filters: {
@@ -96,9 +96,9 @@ export default {
         authorLink,
     },
     computed: {
-        // isMark: function ({ joke }) {
-        //     return !!joke?.mark?.length;
-        // },
+        isMark: function () {
+            return !!this.joke?.mark?.length;
+        },
         isEditor: function () {
             return User.isEditor();
         },
