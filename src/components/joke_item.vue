@@ -1,7 +1,7 @@
 <template>
     <div class="m-joke-item">
         <div class="content">
-            <i v-if="isEditor" class="u-star-op" :class="{on:isMark}" @click="handleMark">★</i>
+            <i v-if="isEditor" class="u-star-op" :class="isMark ? 'on' : ''" @click="handleMark">★</i>
             <i v-else class="u-star" v-show="isMark">★</i>
             <span class="u-sentence" v-html="parse(joke.post_title)"></span>
         </div>
@@ -83,8 +83,11 @@ export default {
         return {
             copyLabel: "点击复制",
             disabled: false,
-            // isMark: !!this.joke?.mark?.length,
+            isMark: !!this.joke?.mark?.length
         };
+    },
+    mounted() {
+        this.isMark = !!this.joke?.mark?.length
     },
     filters: {
         dateFormat: function (val) {
@@ -96,9 +99,9 @@ export default {
         authorLink,
     },
     computed: {
-        isMark: function () {
+        /* isMark: function () {
             return !!this.joke?.mark?.length;
-        },
+        }, */
         isEditor: function () {
             return User.isEditor();
         },
@@ -127,7 +130,7 @@ export default {
                 .then(() => {
                     this.$notify({
                         title: "成功",
-                        message: "设置成功",
+                        message: this.isMark ? '取消加精成功' : '加精成功',
                         type: "success",
                     });
                     this.isMark = !!mark.length;
