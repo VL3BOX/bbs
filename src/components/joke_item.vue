@@ -83,11 +83,17 @@ export default {
         return {
             copyLabel: "点击复制",
             disabled: false,
-            isMark: !!this.joke?.mark?.length
+            isMark: false
         };
     },
-    mounted() {
-        this.isMark = !!this.joke?.mark?.length
+    watch: {
+        joke: {
+            deep: true,
+            immediate: true,
+            handler() {
+                this.isMark = !!this.joke?.mark?.length
+            }
+        }
     },
     filters: {
         dateFormat: function (val) {
