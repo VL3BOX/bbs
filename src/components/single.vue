@@ -6,6 +6,8 @@
                 {{ post_subtype }}
             </span>
         </div>
+        <!-- TODO:测试 -->
+        <Thx slot="single-append" :postId="id" postType="bbs" :userId="user_id" v-if="isSuperAdmin"/>
     </singlebox>
 </template>
 
@@ -21,7 +23,8 @@ const types = {
     "5": "反馈建议",
     "6": "公告资讯",
 };
-
+import Thx from '@jx3box/jx3box-common-ui/src/Thx.vue'
+import User from '@jx3box/jx3box-common/js/user'
 export default {
     name: "single",
     props: [],
@@ -31,11 +34,15 @@ export default {
             post: {},
             author: {},
             stat: {},
+            isSuperAdmin : User.isSuperAdmin()
         };
     },
     computed: {
         id: function() {
             return this.$store.state.id;
+        },
+        user_id : function (){
+            return _.get(this.post, "post_author") || 0
         },
         post_subtype: function() {
             let subtype = _.get(this.post, "post_subtype");
@@ -69,6 +76,7 @@ export default {
     },
     components: {
         singlebox,
+        Thx
     },
 };
 </script>

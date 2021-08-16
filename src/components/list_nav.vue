@@ -107,12 +107,12 @@ export default {
                     name: "交流讨论",
                     desc: "Discuz",
                 },
-                {
-                    slug: 5,
-                    icon: "el-icon-goblet-square-full",
-                    name: "反馈建议",
-                    desc: "Idea",
-                },
+                // {
+                //     slug: 5,
+                //     icon: "el-icon-goblet-square-full",
+                //     name: "反馈建议",
+                //     desc: "Idea",
+                // },
                 {
                     slug: 6,
                     icon: "el-icon-news",
