@@ -45,14 +45,14 @@
                     <img
                         width="24"
                         height="24"
-                        :src="(joke.author_info && joke.author_info.user_avatar) | showAvatar"
+                        :src="authorAvatar | showAvatar"
                     />
                     <a
                         :href="joke.post_author | authorLink"
                         target="_blank"
-                        v-if="joke.post_author && joke.post_author!=1"
-                    >{{ joke.author }}</a>
-                    <span v-else>{{ joke.author || '匿名' }}</span>
+                        v-if="joke.post_author && joke.post_author != 1"
+                    >{{ authorName }}</a>
+                    <span v-else>{{ authorName }}</span>
                 </div>
                 <div class="u-time">
                     <span class="u-date">
@@ -74,7 +74,7 @@ import {
     authorLink,
     editLink,
 } from "@jx3box/jx3box-common/js/utils";
-import { setJokeMark, removeJoke } from "@/service/jokes";
+import { setJokeMark, removeJoke, getAuthorInfo } from "@/service/jokes";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "joke_item",
@@ -83,7 +83,10 @@ export default {
         return {
             copyLabel: "点击复制",
             disabled: false,
-            isMark: false
+            isMark: false,
+
+            // 作者信息
+            authorInfo: null
         };
     },
     watch: {
@@ -91,9 +94,16 @@ export default {
             deep: true,
             immediate: true,
             handler() {
-                this.isMark = !!this.joke?.mark?.length
+                this.isMark = !!this.joke?.mark?.length;
+
+                if (this.mode === 'single') {
+                    console.log(this.joke)
+                    if (this.joke?.post_author) {
+                        this.loadAuthor(this.joke.post_author)
+                    }
+                }
             }
-        }
+        },
     },
     filters: {
         dateFormat: function (val) {
@@ -111,6 +121,12 @@ export default {
         isEditor: function () {
             return User.isEditor();
         },
+        authorName: function (){
+            return this.authorInfo?.display_name || this.joke?.author_info?.display_name || this.joke?.author || '匿名';
+        },
+        authorAvatar: function (){
+            return this.authorInfo?.user_avatar || this.joke?.author_info?.user_avatar || '';
+        }
     },
     methods: {
         parse(str) {
@@ -181,6 +197,12 @@ export default {
                             type: 'error'
                         })
                     })
+            })
+        },
+        // 获取作者信息
+        loadAuthor: function (id) {
+            getAuthorInfo(id).then(res => {
+                this.authorInfo = res.data.data
             })
         }
     },

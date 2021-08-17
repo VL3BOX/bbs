@@ -24,4 +24,9 @@ const removeJoke = (id) => {
     })
 }
 
-export { getJokes, getJoke, setJokeMark, removeJoke };
+// 获取作者用户信息
+const getAuthorInfo = (id) => {
+    return $cms().get(`/api/cms/user/${id}/info`)
+}
+
+export { getJokes, getJoke, setJokeMark, removeJoke, getAuthorInfo };
