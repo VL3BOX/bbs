@@ -19,6 +19,7 @@
                 <i class="el-icon-price-tag"></i>
                 <span class="u-tag" v-for="(tag,i) in joke.tags" :key="i">{{tag}}</span>
             </div>
+            <Thx class="m-thx" :postId="id" postType="joke" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="true"/>
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="post" v-if="id && !joke.comment" />
@@ -78,6 +79,7 @@ import { getJokes, getJoke } from "@/service/jokes";
 import joke_item from "../components/joke_item";
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+
 export default {
     name: "Joke",
     components: {
@@ -118,6 +120,9 @@ export default {
         keys: function () {
             return [this.search, this.page, this.per, this.type, this.id];
         },
+        user_id : function (){
+            return this.joke?.post_author || 0
+        }
     },
     filters: {
         showSchoolIcon: function (val) {

@@ -6,8 +6,7 @@
                 {{ post_subtype }}
             </span>
         </div>
-        <!-- TODO:测试 -->
-        <Thx slot="single-append" :postId="id" postType="bbs" :userId="user_id" v-if="isSuperAdmin"/>
+        <Thx class="m-thx" slot="single-append" :postId="id" postType="bbs" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true"/>
     </singlebox>
 </template>
 
@@ -23,7 +22,6 @@ const types = {
     "5": "反馈建议",
     "6": "公告资讯",
 };
-import Thx from '@jx3box/jx3box-common-ui/src/Thx.vue'
 import User from '@jx3box/jx3box-common/js/user'
 export default {
     name: "single",
@@ -76,7 +74,6 @@ export default {
     },
     components: {
         singlebox,
-        Thx
     },
 };
 </script>
