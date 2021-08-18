@@ -97,7 +97,6 @@ export default {
                 this.isMark = !!this.joke?.mark?.length;
 
                 if (this.mode === 'single') {
-                    console.log(this.joke)
                     if (this.joke?.post_author) {
                         this.loadAuthor(this.joke.post_author)
                     }
