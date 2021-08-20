@@ -6,6 +6,8 @@ const Namespace = () => import("../views/Namespace.vue");
 const Joke = () => import("../views/Joke.vue");
 const Emotion = () => import("../views/Emotion.vue");
 const Forum = () => import("../views/Forum.vue");
+const Notice = () => import("../views/Notice.vue");
+const singleNotice = () => import("../components/single_notice.vue");
 
 Vue.use(VueRouter);
 
@@ -15,6 +17,13 @@ const routes = [
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
+    { name: "Notice", path: "/notice", component: Notice,
+        children: [{
+            name: 'singleNotice',
+            path: '/:id',
+            component: singleNotice
+        }]
+    },
 ];
 
 const router = new VueRouter({

@@ -1,0 +1,55 @@
+.m-notice {
+    .u-notice-title {
+        // font-weight: 400;
+        .u-title {
+            color: #333;
+        }
+    }
+    .u-notice-header {
+        margin-top: 0;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #bbb;
+        font-weight: 400;
+    }
+    .u-notice-misc {
+        text-align: left;
+        position: absolute;
+        left: 190px;
+        bottom: 30px;
+    }
+
+    .u-notice-date {
+        .pr;
+        .ml(8px);
+        .pl(8px);
+        font-size: 12px;
+        color: #bbb;
+        &::before {
+            content: '';
+            .pa;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background-color: #bbb;
+        }
+        
+    }
+
+    @media screen and (max-width:@phone) {
+        .u-notice-misc {
+            text-align: left;
+            position: absolute;
+            left: 0;
+            bottom: 5px;
+        }
+    }
+    @media screen and (max-width:@ipad) {
+        .u-notice-misc {
+            text-align: left;
+            position: absolute;
+            left: 0;
+            bottom: 5px;
+        }
+    }
+}

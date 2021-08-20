@@ -1,3 +1,9 @@
+import dayjs from "dayjs";
+const relativeTime = require('dayjs/plugin/relativeTime');
+require('dayjs/locale/zh-cn');
+dayjs.locale('zh-cn');
+dayjs.extend(relativeTime);
+
 /**
  * 简单的日期格式化
  *
@@ -12,6 +18,11 @@ function dateFormat(dt,separator='-',polished=true){
         `${year}${separator}${polish(month)}${separator}${polish(date)}` :
         `${year}${separator}${month}${separator}${date}`
     return str
+}
+
+// 日期距离今日
+export function getRelativeTime(dt){
+    return dayjs().from(dayjs(dt));
 }
 
 function polish(val){

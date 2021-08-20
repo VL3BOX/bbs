@@ -19,6 +19,12 @@ module.exports = {
             template : 'public/index.html',
             filename:'post.html',
         },
+        notice: {
+            title : '茶馆交流 - JX3BOX',
+            entry:'src/notice.js',
+            template : 'public/index.html',
+            filename:'notice.html',
+        }
     },
 
     //❤️ Porxy ~

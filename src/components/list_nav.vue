@@ -10,6 +10,12 @@
 
         <h5 class="u-title">分类导航</h5>
         <div class="m-nav-group m-bbs-nav">
+            <router-link class="u-type" to="/notice" :class="{ on: type == 'notice' }">
+                <i class="el-icon-bell"></i>
+                <b>公告资讯</b>
+            </router-link>
+        </div>
+        <div class="m-nav-group m-bbs-nav">
             <router-link class="u-type" to="/namespace" :class="{ on: type == 'namespace' }">
                 <i class="el-icon-postcard"></i>
                 <b>铭牌</b>
@@ -113,12 +119,12 @@ export default {
                 //     name: "反馈建议",
                 //     desc: "Idea",
                 // },
-                {
+                /* {
                     slug: 6,
                     icon: "el-icon-news",
                     name: "公告资讯",
                     desc: "Notice",
-                },
+                }, */
             ],
         };
     },
