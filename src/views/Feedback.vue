@@ -69,7 +69,7 @@ import publish_feedback from "@/components/publish_feedback.vue";
 import feedbackItem from "@/components/feedback_item.vue";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import _ from "lodash";
-import { getPosts } from "../service/post";
+import { getPosts, getLikes } from "../service/post";
 import dateFormat from "../utils/dateFormat";
 import {
     __ossMirror,
@@ -184,6 +184,15 @@ export default {
         handleFeedbackUpdate: function (val){
             // this.data = [val, ...this.data];
             this.loadPosts()
+        },
+        // 批量点赞
+        loadLike: function (){
+            const ids = this.data.map(d => d.ID);
+            getLikes(ids).then(res => {
+                this.data.forEach(d => {
+                    console.log(d)
+                })
+            })
         }
     },
     filters: {
