@@ -43,7 +43,7 @@
                 <ul class="u-list">
                     <li class="u-item" v-for="(item, i) in data" :key="i">
                         <!-- Banner -->
-                        <router-link class="u-banner" :to="'/notice/' + item.ID" :target="target">
+                        <a class="u-banner" :href="'/notice/' + item.ID" :target="target">
                             <img
                                 :src="
                                     showBanner(
@@ -52,16 +52,16 @@
                                     )
                                 "
                             />
-                        </router-link>
+                        </a>
 
                         <h3 class="u-notice-title" :class="{ isSticky: item.sticky }">
                             <!-- 标题文字 -->
-                            <router-link
+                            <a
                                 class="u-title"
                                 :style="item.color | isHighlight"
-                                :to="'/notice/' + item.ID"
+                                :href="'/notice/' + item.ID"
                                 :target="target"
-                            >{{ item.post_title || "无标题" }}</router-link>
+                            >{{ item.post_title || "无标题" }}</a>
 
                             <!-- 角标 -->
                             <span class="u-marks" v-if="item.mark && item.mark.length">
