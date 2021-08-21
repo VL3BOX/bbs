@@ -5,6 +5,9 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 Vue.use(ElementUI);
 
+import hevueImgPreview from 'hevue-img-preview'
+Vue.use(hevueImgPreview)
+
 // 通用UI模块
 import JX3BOX_UI from '@jx3box/jx3box-common-ui'
 import "@jx3box/jx3box-common/css/element.css";

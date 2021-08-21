@@ -1,0 +1,119 @@
+@colorb: #bbb;
+.m-feedback-item {
+    border-bottom: 1px solid #e1e4e8;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    position: relative;
+
+    .u-feedback-content {
+        padding: 4px;
+        font-size: 14px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .u-feedback-misc {
+        text-align: left;
+
+        .like {
+            .pr;
+            .ml(8px);
+            .pl(8px);
+            cursor: pointer;
+             &::before {
+                content: '';
+                .pa;
+                left: 0;
+                top: 5px;
+                height: 16px;
+                width: 1px;
+                background-color: @colorb;
+            }
+            &.disabled{
+            .tm(0.5);
+            cursor: default;
+            }
+        }
+
+        .like-icon {
+            .size(24px);
+            vertical-align: -4px;
+        }
+
+        .like-count {
+            color: #888;
+            .ml(6px);
+        }
+    }
+
+    .u-author-avatar {
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+        border-radius: 2px;
+        margin-right: 5px;
+    }
+
+    .u-author-name {
+        font-size: 12px;
+        line-height: 24px;
+        color: #666;
+        &:hover {
+            color: @pink;
+        }
+    }
+    
+    .u-feedback-date {
+        .pr;
+        .ml(8px);
+        .pl(8px);
+        font-size: 12px;
+        color: @colorb;
+        &::before {
+            content: '';
+            .pa;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background-color: @colorb;
+        }
+        
+    }
+
+    .u-feedback-single {
+        font-size: 14px;
+        .u-single-content {
+            .mb(20px);
+        }
+
+        .u-single-header {
+            .mt(-40px);
+        }
+        .u-single-author {
+            display: flex;
+        }
+        .u-name{
+            .ml(4px);
+            color: #0366d6;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.hevue-imgpreview-wrap {
+    .he-img-wrap {
+        background: rgba(0,0,0,0.8);
+    }
+    .arrow, .he-close-icon {
+        display: block!important;
+        text-align: center!important;
+    }
+    .he-close-icon {
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}

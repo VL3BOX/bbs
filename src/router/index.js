@@ -7,12 +7,14 @@ const Joke = () => import("../views/Joke.vue");
 const Emotion = () => import("../views/Emotion.vue");
 const Forum = () => import("../views/Forum.vue");
 const Notice = () => import("../views/Notice.vue");
+const Feedback = () => import("../views/Feedback.vue");
 
 Vue.use(VueRouter);
 
 const routes = [
     { name: "index", path: "/", component: Index },
     { name: "forum", path: "/forum/:subtype?", component: Forum },
+    { name: "feedback", path: "/feedback/:id?", component: Feedback },
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },

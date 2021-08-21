@@ -35,7 +35,7 @@
             </router-link>
         </div>
         <div class="m-nav-group m-bbs-nav">
-            <router-link class="u-type" to="/forum" :class="{ on: type == 'forum' }">
+            <router-link class="u-type" to="/forum" :class="{ on: type == 'forum' || type === 'feedback' }">
                 <i class="el-icon-receiving"></i>
                 <b>论坛</b>
                 <!-- <span class="u-desc">BBS</span> -->
