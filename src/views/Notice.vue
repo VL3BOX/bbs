@@ -1,6 +1,5 @@
 <template>
     <div class="m-archive m-notice" v-loading="loading">
-        <router-view />
         <listbox
             :data="data"
             :total="total"
@@ -137,7 +136,6 @@ import {
     buildTarget,
     getAppType
 } from "@jx3box/jx3box-common/js/utils";
-import singlebox from '@/components/single.vue'
 export default {
     name: "list",
     props: [],
