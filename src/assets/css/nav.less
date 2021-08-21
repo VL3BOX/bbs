@@ -47,13 +47,16 @@
         border-bottom: 1px solid #eee;
 
         &.router-link-exact-active,
+        &.router-link-active,
         &.on {
             background-color: #fff;
             color: @color-link;
             svg {
                 fill: @color-link;
             }
-            .bold;
+            b{
+                .bold;
+            }
             // border-top: 1px solid #eee;
             // border-bottom: 1px solid #eee;
         }
@@ -123,7 +126,7 @@
     b {
         font-weight: normal;
     }
-    .on b {
+    .on b,.router-link-active {
         .bold;
     }
     .u-desc {

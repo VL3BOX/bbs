@@ -11,18 +11,18 @@
         >
             <!-- <h2 class="u-notice-header">公告资讯</h2> -->
             <!-- 搜索 -->
-            <div class="m-archive-search" slot="search-before">
-                <a
+            <div
+                class="m-archive-search m-notice-search"
+                slot="search-before"
+                key="notice-search"
+            >
+                <!-- <a
                     :href="publish_link"
                     class="u-publish el-button el-button--primary"
                 >
                     + 发布作品
-                </a>
-                <el-input
-                    placeholder="请输入搜索内容"
-                    v-model="search"
-                    class="input-with-select"
-                >
+                </a>-->
+                <el-input placeholder="请输入搜索内容" v-model="search" class="input-with-select">
                     <span slot="prepend">关键词</span>
                     <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
@@ -33,7 +33,7 @@
                 <!-- 版本过滤 -->
                 <clientBy @filter="filter" :type="client"></clientBy>
                 <!-- 角标过滤 -->
-                <markBy @filter="filter"></markBy>
+                <!-- <markBy @filter="filter"></markBy> -->
                 <!-- 排序过滤 -->
                 <orderBy @filter="filter"></orderBy>
             </template>
@@ -43,52 +43,39 @@
                 <ul class="u-list">
                     <li class="u-item" v-for="(item, i) in data" :key="i">
                         <!-- Banner -->
-                        <a
-                            class="u-banner"
-                            :href="item.ID | postLink"
-                            :target="target"
-                            ><img
+                        <router-link class="u-banner" :to="'/notice/' + item.ID" :target="target">
+                            <img
                                 :src="
                                     showBanner(
                                         item.post_banner,
                                         item.post_subtype
                                     )
                                 "
-                        /></a>
+                            />
+                        </router-link>
 
-                        <h3
-                            class="u-notice-title"
-                            :class="{ isSticky: item.sticky }"
-                        >
-
+                        <h3 class="u-notice-title" :class="{ isSticky: item.sticky }">
                             <!-- 标题文字 -->
-                            <a
+                            <router-link
                                 class="u-title"
                                 :style="item.color | isHighlight"
-                                :href="item.ID | postLink"
+                                :to="'/notice/' + item.ID"
                                 :target="target"
-                                >{{ item.post_title || "无标题" }}</a
-                            >
+                            >{{ item.post_title || "无标题" }}</router-link>
 
                             <!-- 角标 -->
-                            <span
-                                class="u-marks"
-                                v-if="item.mark && item.mark.length"
-                            >
+                            <span class="u-marks" v-if="item.mark && item.mark.length">
                                 <i
                                     v-for="mark in item.mark"
                                     class="u-mark"
                                     :class="mark | markcls"
                                     :key="mark"
-                                    >{{ mark | showMark }}</i
-                                >
+                                >{{ mark | showMark }}</i>
                             </span>
                         </h3>
 
                         <!-- 字段 -->
-                        <div class="u-content u-desc">
-                            {{ item.post_excerpt || item.post_title }}
-                        </div>
+                        <div class="u-content u-desc">{{ item.post_excerpt || item.post_title }}</div>
 
                         <!-- 作者 -->
                         <div class="u-notice-misc">
@@ -103,9 +90,7 @@
                                 target="_blank"
                             >{{ item.author_info.display_name }}</a>
                             <span class="u-notice-date">
-                                <time
-                                    v-if="order == 'update'"
-                                >{{item.post_modified | dateFormat}}</time>
+                                <time v-if="order == 'update'">{{item.post_modified | dateFormat}}</time>
                                 <time v-else>{{item.post_date | dateFormat}}</time>
                             </span>
                         </div>
@@ -126,7 +111,7 @@ import {
     __ossMirror,
     __imgPath,
     __ossRoot,
-    __Root
+    __Root,
 } from "@jx3box/jx3box-common/data/jx3box";
 import {
     showAvatar,
@@ -134,12 +119,12 @@ import {
     showBanner,
     publishLink,
     buildTarget,
-    getAppType
+    getAppType,
 } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "list",
     props: [],
-    data: function() {
+    data: function () {
         return {
             loading: false, //加载状态
 
@@ -148,7 +133,7 @@ export default {
             total: 1, //总条目数
             pages: 1, //总页数
             per: 10, //每页条目
-            appendMode : false, //追加模式
+            appendMode: false, //追加模式
 
             search: "",
             searchType: "title",
@@ -160,21 +145,16 @@ export default {
     },
     computed: {
         resetParams: function () {
-            return [this.search, this.mark, this.client];
+            return [this.search, this.client];
         },
         params: function () {
             let params = {
                 per: this.per,
                 page: ~~this.page || 1,
                 sticky: 1,
-                type: "notice"
+                type: "notice",
             };
-            let optionalParams = [
-                "search",
-                "order",
-                "mark",
-                "client"
-            ];
+            let optionalParams = ["search", "order", "client"];
             optionalParams.forEach((item) => {
                 if (this[item]) {
                     params[item] = this[item];
@@ -182,19 +162,19 @@ export default {
             });
             return params;
         },
-        target: function() {
+        target: function () {
             return buildTarget();
         },
         // 根据栏目定义
-        defaultBanner: function() {
+        defaultBanner: function () {
             return __imgPath + "image/banner/null.png";
         },
-        publish_link: function(val) {
+        publish_link: function (val) {
             return publishLink("notice");
         },
     },
     methods: {
-        loadPosts: function() {
+        loadPosts: function () {
             this.loading = true;
             getPosts(this.params, this)
                 .then((res) => {
@@ -207,24 +187,24 @@ export default {
                     this.pages = res.data.data.pages;
                 })
                 .finally(() => {
-                    this.appendMode = false
+                    this.appendMode = false;
                     this.loading = false;
                 });
         },
-        changePage: function(i) {
-            this.appendMode = false
-            this.page = i
+        changePage: function (i) {
+            this.appendMode = false;
+            this.page = i;
             window.scrollTo(0, 0);
         },
-        appendPage: function(i) {
-            this.appendMode = true
-            this.page = i
+        appendPage: function (i) {
+            this.appendMode = true;
+            this.page = i;
         },
-        filter: function(o) {
-            this.appendMode = false
+        filter: function (o) {
+            this.appendMode = false;
             this[o["type"]] = o["val"];
         },
-        showBanner: function(val, subtype) {
+        showBanner: function (val, subtype) {
             if (val) {
                 return showBanner(val);
             } else {
@@ -233,51 +213,51 @@ export default {
         },
     },
     filters: {
-        dateFormat: function(val) {
+        dateFormat: function (val) {
             return getRelativeTime(new Date(val));
         },
-        showAvatar: function(val) {
+        showAvatar: function (val) {
             return showAvatar(val);
         },
-        authorLink: function(val) {
+        authorLink: function (val) {
             return authorLink(val);
         },
-        postLink: function(val) {
-            return location.origin + '/' + getAppType() + '/' + val;
+        postLink: function (val) {
+            return location.origin + "/" + getAppType() + "/" + val;
         },
-        isHighlight: function(val) {
+        isHighlight: function (val) {
             return val ? `color:${val};font-weight:600;` : "";
         },
-        showMark: function(val) {
+        showMark: function (val) {
             return mark_map[val];
         },
-        markcls : function (val){
-            return 'u-mark-' + val
-        }
+        markcls: function (val) {
+            return "u-mark-" + val;
+        },
     },
-    watch : {
-        subtype : function (){
-            this.search = ''  
+    watch: {
+        subtype: function () {
+            this.search = "";
         },
-        params : {
-            deep : true,
-            immediate : true,
-            handler : function (val){
-                this.loadPosts()
-            }
+        params: {
+            deep: true,
+            immediate: true,
+            handler: function (val) {
+                this.loadPosts();
+            },
         },
-        '$route.query.page' : function (val){
-            this.page = ~~val
+        "$route.query.page": function (val) {
+            this.page = ~~val;
         },
-        '$route.params.subtype' : function (val){
-            this.$store.state.subtype = val
-        }
+        "$route.params.subtype": function (val) {
+            this.$store.state.subtype = val;
+        },
     },
-    created: function() {
-        this.page = ~~this.$route.query.page || 1
+    created: function () {
+        this.page = ~~this.$route.query.page || 1;
     },
     components: {
-        listbox
+        listbox,
     },
 };
 </script>

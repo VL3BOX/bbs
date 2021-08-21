@@ -18,6 +18,7 @@ const routes = [
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
     { name: "notice", path: "/notice", component: Notice },
+    { name: "notice_single", path: "/notice/:id", component: singleNotice },
 ];
 
 const router = new VueRouter({
