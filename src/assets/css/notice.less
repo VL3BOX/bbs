@@ -64,3 +64,32 @@
 .m-notice-search{
     .pl(0);
 }
+
+.m-notice-single{
+    max-width:60%;
+    .auto(x);
+    padding:0 20px;
+}
+.m-single-title{
+    .x;
+    .fz(2rem);
+}
+.m-single-info{
+    .x;
+    .mt(0);
+    .u-sub-block{
+        float:none;
+        .mr(20px);
+        i{
+            .mr(5px);
+        }
+    }
+}
+.m-thx{
+    .mt(20px);
+}
+@media screen and (max-width:@smallpc){
+    .m-notice-single{
+        max-width: 100%;
+    }
+}

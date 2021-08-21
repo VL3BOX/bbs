@@ -7,7 +7,6 @@ const Joke = () => import("../views/Joke.vue");
 const Emotion = () => import("../views/Emotion.vue");
 const Forum = () => import("../views/Forum.vue");
 const Notice = () => import("../views/Notice.vue");
-const singleNotice = () => import("../components/single_notice.vue");
 
 Vue.use(VueRouter);
 
@@ -18,7 +17,6 @@ const routes = [
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
     { name: "notice", path: "/notice", component: Notice },
-    { name: "notice_single", path: "/notice/:id", component: singleNotice },
 ];
 
 const router = new VueRouter({
