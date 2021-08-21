@@ -21,24 +21,16 @@
                 @changePage="changePage"
             >
                 <!-- 搜索 -->
-                <div class="m-feedback-search" slot="search-before">
+                <!-- <div class="m-feedback-search" slot="search-before">
                     <el-input
                         placeholder="请输入搜索内容"
                         v-model="search"
                         class="input-with-select"
                     >
                         <span slot="prepend">关键词</span>
-                        <!-- <el-select
-                            v-model="searchType"
-                            slot="prepend"
-                            placeholder="请选择"
-                        >
-                            <el-option label="标题" value="title"></el-option>
-                            <el-option label="作者" value="authorname"></el-option>
-                        </el-select> -->
                         <el-button slot="append" icon="el-icon-search"></el-button>
                     </el-input>
-                </div>
+                </div> -->
 
                 <!-- 过滤 -->
                 <template slot="filter">
