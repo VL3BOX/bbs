@@ -86,9 +86,9 @@
                         </h3>
 
                         <!-- 字段 -->
-                        <!-- <div class="u-content u-desc">
+                        <div class="u-content u-desc">
                             {{ item.post_excerpt || item.post_title }}
-                        </div> -->
+                        </div>
 
                         <!-- 作者 -->
                         <div class="u-notice-misc">
@@ -159,24 +159,21 @@ export default {
         };
     },
     computed: {
-        subtype: function() {
-            return this.$route.params.subtype;
-        },
         resetParams: function () {
-            return [this.subtype, this.search, this.mark, this.client];
+            return [this.search, this.mark, this.client];
         },
         params: function () {
             let params = {
                 per: this.per,
                 page: ~~this.page || 1,
                 sticky: 1,
+                type: "notice"
             };
             let optionalParams = [
                 "search",
                 "order",
                 "mark",
-                "client",
-                "subtype",
+                "client"
             ];
             optionalParams.forEach((item) => {
                 if (this[item]) {
@@ -193,7 +190,7 @@ export default {
             return __imgPath + "image/banner/null.png";
         },
         publish_link: function(val) {
-            return publishLink("bbs");
+            return publishLink("notice");
         },
     },
     methods: {
