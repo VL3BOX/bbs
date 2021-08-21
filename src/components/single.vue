@@ -19,8 +19,6 @@ const types = {
     "2": "江湖回忆",
     "3": "同人影音",
     "4": "交流讨论",
-    "5": "反馈建议",
-    "6": "公告资讯",
 };
 import User from '@jx3box/jx3box-common/js/user'
 export default {

@@ -17,7 +17,7 @@ const routes = [
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
-    { name: "Notice", path: "/notice", component: Notice },
+    { name: "notice", path: "/notice", component: Notice },
 ];
 
 const router = new VueRouter({

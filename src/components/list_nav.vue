@@ -12,7 +12,7 @@
         <div class="m-nav-group m-bbs-nav">
             <router-link class="u-type" to="/notice" :class="{ on: type == 'notice' }">
                 <i class="el-icon-bell"></i>
-                <b>公告资讯</b>
+                <b>公告</b>
             </router-link>
         </div>
         <div class="m-nav-group m-bbs-nav">
@@ -24,7 +24,7 @@
         </div>
         <div class="m-nav-group m-bbs-nav">
             <router-link class="u-type" to="/joke" :class="{ on: type == 'joke' }">
-                <i class="el-icon-chat-line-round"></i>
+                <i class="el-icon-cold-drink"></i>
                 <b>骚话</b>
             </router-link>
         </div>
@@ -38,7 +38,7 @@
             <router-link class="u-type" to="/forum" :class="{ on: type == 'forum' }">
                 <i class="el-icon-receiving"></i>
                 <b>论坛</b>
-                <span class="u-desc">BBS</span>
+                <!-- <span class="u-desc">BBS</span> -->
             </router-link>
             <div class="u-sublist">
                 <router-link
@@ -61,24 +61,12 @@
                 <i class="el-icon-video-camera"></i>
                 <b>直播</b>
             </a>
-        </div>-->
-        <!-- <div class="m-nav-group m-bbs-nav">
-            <span class="u-type">
-                <i class="el-icon-receiving"></i>
-                <b>休闲</b>
-            </span>
-            <div class="u-sublist">
-                <a href="/share" class="u-subtype" target="_blank"
-                    ><b>捏脸分享</b></a
-                >
-                <a
-                    href="https://jx3.xoyo.com/zt/2020/09/24/blueprint/#/"
-                    class="u-subtype"
-                    target="_blank"
-                    ><b>家园蓝图</b></a
-                >
-            </div>
-        </div>-->
+        </div> -->
+        <router-link class="m-nav-feedback" to="/feedback">
+            <img src="../assets/img/nav/hzn.png" alt="盒子娘">
+            <b><i class="el-icon-message"></i> 反馈建议</b>
+            <span>盒子娘的信箱 O(∩_∩)O </span>
+        </router-link>
     </div>
 </template>
 
