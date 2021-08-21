@@ -7,6 +7,19 @@
         </div>
         <div class="misc">
             <div class="op">
+                <span class="user">
+                    <img
+                        width="24"
+                        height="24"
+                        :src="authorAvatar | showAvatar"
+                    />
+                    <a
+                        :href="joke.post_author | authorLink"
+                        target="_blank"
+                        v-if="joke.post_author && joke.post_author != 1"
+                    >{{ authorName }}</a>
+                    <span v-else>{{ authorName }}</span>
+                </span>
                 <el-link
                     type="primary"
                     class="copy-btn"
@@ -23,14 +36,7 @@
                 >
                     <i class="el-icon-chat-dot-square"></i>评论
                 </router-link>
-                <!-- <a
-                    v-if="isEditor"
-                    class="el-link el-link--primary is-underline"
-                    @click="handleMark"
-                >
-                    <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                    {{ isMark ? '取消精选' : '设为精选' }}
-                </a> -->
+
                 <a
                     v-if="mode === 'single'"
                     class="u-edit el-link el-link--primary is-underline"
@@ -39,21 +45,21 @@
                 >
                     <i class="el-icon-edit-outline"></i> 编辑
                 </a>
+                
+                <span class="like" :class="{ disabled: !isLike }" title="点赞" @click="addLike">
+                    <img src="../assets/img/like.svg" class="like-icon" svg-inline>
+                    <span class="like-count">{{ count }}</span>
+                </span>
+                <!-- <a
+                    v-if="isEditor"
+                    class="el-link el-link--primary is-underline"
+                    @click="handleMark"
+                >
+                    <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
+                    {{ isMark ? '取消精选' : '设为精选' }}
+                </a> -->
             </div>
             <div class="u-other">
-                <div class="user">
-                    <img
-                        width="24"
-                        height="24"
-                        :src="authorAvatar | showAvatar"
-                    />
-                    <a
-                        :href="joke.post_author | authorLink"
-                        target="_blank"
-                        v-if="joke.post_author && joke.post_author != 1"
-                    >{{ authorName }}</a>
-                    <span v-else>{{ authorName }}</span>
-                </div>
                 <div class="u-time">
                     <span class="u-date">
                         <i class="el-icon-date"></i>&nbsp;
@@ -86,7 +92,11 @@ export default {
             isMark: false,
 
             // 作者信息
-            authorInfo: null
+            authorInfo: null,
+
+            // 点赞
+            count: 0,
+            isLike: true
         };
     },
     watch: {
@@ -101,6 +111,8 @@ export default {
                         this.loadAuthor(this.joke.post_author)
                     }
                 }
+
+                this.count = this.joke?.count || 0;
             }
         },
     },
@@ -128,6 +140,15 @@ export default {
         }
     },
     methods: {
+        // 点赞
+        addLike: function () {
+            if (!this.isLike) return
+            this.count++;
+            if (this.isLike) {
+                postStat('joke', this.joke?.ID, "likes");
+            }
+            this.isLike = false;
+        },
         parse(str) {
             const ins = new JX3_EMOTION(str);
             return ins.code;

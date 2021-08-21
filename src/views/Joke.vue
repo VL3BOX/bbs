@@ -177,6 +177,15 @@ export default {
         },
         skipTop : function (){
             window.scrollTo(0,0);
+        },
+        // 批量获取点赞
+        loadLike: function (){
+            const ids = this.data.map(d => d.ID);
+            getLikes(ids).then(res => {
+                this.data.forEach(d => {
+                    console.log(d)
+                })
+            })
         }
     },
     watch: {

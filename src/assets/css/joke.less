@@ -131,6 +131,9 @@
         i {
             .mr(5px);
         }
+        .user {
+            .mr(10px);
+        }
     }
     .u-other {
         .fr;
@@ -184,6 +187,26 @@
         .x;
         overflow-x: auto;
     }
+}
+
+.like {
+    .pr;
+    .ml(16px);
+    cursor: pointer;
+    &.disabled{
+    .tm(0.5);
+    cursor: default;
+    }
+}
+
+.like-icon {
+    .size(24px);
+    vertical-align: -4px;
+}
+
+.like-count {
+    color: #888;
+    .ml(6px);
 }
 
 

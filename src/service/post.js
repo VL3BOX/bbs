@@ -29,4 +29,4 @@ function getLikes(data){
     return 11
 }
 
-export { getPosts, getPost, getMyPostCount, getMyPost };
+export { getPosts, getPost, getMyPostCount, getMyPost, getLikes };
