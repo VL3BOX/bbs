@@ -175,7 +175,7 @@ export default {
         },
         // 批量点赞
         loadLike: function () {
-            let id = this.data.map((d) => d.ID);
+            let id = this.data.map((d) => ('feedback-' + d.ID));
             id = id.join(',');
             const params = {
                 post_type: 'feedback',
