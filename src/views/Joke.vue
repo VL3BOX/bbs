@@ -186,7 +186,7 @@ export default {
             const params = {
                 post_type: 'joke',
                 post_action: 'likes',
-                id
+                id : 'joke-' + id
             }
             getLikes(params).then((res) => {
                 const likes = res.data.data;
