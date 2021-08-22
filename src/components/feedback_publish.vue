@@ -12,6 +12,7 @@
         ></el-input>
         <div class="m-feedback-actions">
             <el-upload
+                ref="upload"
                 class="u-upload avatar-uploader"
                 :action="url"
                 list-type="picture-card"
@@ -151,6 +152,7 @@ export default {
                     // 清空表单
                     this.post = this.$options.data().post;
                     this.imgs = [];
+                    this.$refs.upload.clearFiles()
                 })
                 .catch((err) => {
                     this.$notify.error({ title: "消息", message: "反馈提交失败" });
