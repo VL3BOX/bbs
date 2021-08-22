@@ -181,7 +181,7 @@ export default {
         },
         // 批量获取点赞
         loadLike: function (){
-            let id = this.jokes.map((d) => d.ID);
+            let id = this.jokes.map((d) => ('joke-' + d.ID));
             id = id.join(',');
             const params = {
                 post_type: 'joke',
