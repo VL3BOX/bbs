@@ -1,5 +1,5 @@
 <template>
-    <div class="v-namespace">
+    <div class="v-namespace" v-loading="loading">
         <!-- 搜索 -->
         <div
             class="m-archive-search m-namespace-search"
@@ -106,6 +106,7 @@ export default {
             order: "update",
             search: "",
             query: "",
+            loading : false
         };
     },
     computed: {
@@ -138,10 +139,13 @@ export default {
     },
     methods: {
         loadNamespaceList: function () {
+            this.loading = true
             getNamespaceList(this.params).then((res) => {
                 this.list = res.data.data.data || {};
                 this.total = res.data.data.total;
-            });
+            }).finally(() => {
+                this.loading = false
+            })
         },
         changeOrder: function (o) {
             this.order = o.val;

@@ -190,9 +190,11 @@ export default {
             }
             getLikes(params).then((res) => {
                 const likes = res.data.data;
-                this.jokes.forEach((d) => {
-                    this.$set(d, 'count', likes[d.ID]['likes'])
-                });
+                if(Object.keys(likes).length){
+                    this.jokes.forEach((d) => {
+                        this.$set(d, 'count', likes?.[d.ID]?.likes)
+                    });
+                }
             });
         }
     },

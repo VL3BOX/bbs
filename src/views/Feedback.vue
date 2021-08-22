@@ -184,9 +184,11 @@ export default {
             }
             getLikes(params).then((res) => {
                 const likes = res.data.data;
-                this.data.forEach((d) => {
-                    this.$set(d, 'count', likes[d.ID]['likes'])
-                });
+                if(Object.keys(likes).length){
+                    this.data.forEach((d) => {
+                        this.$set(d, 'count', likes?.[d.ID]?.likes)
+                    });
+                }
             });
         },
         goBack: function () {
