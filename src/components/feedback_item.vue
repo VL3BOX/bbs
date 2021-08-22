@@ -3,11 +3,11 @@
         <template v-if="mode === 'single'">
             <div class="u-mode-single" v-loading="loading">
                 <div class="u-feedback-misc">
-                    <!-- <img
+                    <img
                         class="u-author-avatar"
-                        :src="data.author_info.user_avatar | showAvatar"
-                        :alt="data.author_info.display_name"
-                    />-->
+                        :src="author.user_avatar | showAvatar"
+                        :alt="author.display_name"
+                    />
                     <a
                         class="u-author-name"
                         :href="post.post_author | authorLink"
@@ -81,7 +81,8 @@
 <script>
 import { getRelativeTime } from "../utils/dateFormat";
 import { showAvatar, authorLink } from "@jx3box/jx3box-common/js/utils";
-import { postStat, getStat } from "@jx3box/jx3box-common/js/stat";
+import { postStat } from "@jx3box/jx3box-common/js/stat";
+import { getAuthorInfo } from "@/service/jokes";
 import { getPost } from "@/service/post.js";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 export default {
@@ -110,6 +111,7 @@ export default {
             count: 0,
 
             post: {},
+            author: {},
             loading: false,
         };
     },
@@ -135,7 +137,7 @@ export default {
             immediate: true,
             handler(val) {
                 if (this.mode === "single") {
-                    this.loadPost();
+                    this.init()
                 }
             },
         },
@@ -178,11 +180,22 @@ export default {
             getPost(this.feedbackId, this)
                 .then((res) => {
                     this.post = res.data.data;
+
+                    this.loadAuthor();
                 })
                 .finally(() => {
                     this.loading = false;
                 });
         },
+        loadAuthor: function (){
+            getAuthorInfo(this.post?.post_author)
+                .then(res => {
+                    this.author = res.data.data;
+                })
+        },
+        init: function (){
+            this.loadPost();
+        }
     },
     components: {
         Comment,

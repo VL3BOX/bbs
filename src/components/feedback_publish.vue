@@ -42,6 +42,7 @@
 import { __cms } from "@jx3box/jx3box-common/data/jx3box.json";
 const API_Root = process.env.NODE_ENV === "production" ? __cms : "/";
 const API = API_Root + "api/cms/upload";
+import User from "@jx3box/jx3box-common/js/user";
 
 import { push } from "@/service/notice.js";
 export default {
@@ -75,7 +76,7 @@ export default {
                 // 是否原创
                 original: 1,
                 // 客户端：std正式服、origin怀旧服
-                client: this.$store.state.client || "all",
+                client: this.client || "all",
                 // 语言：cn简体、tr繁体
                 lang: "cn",
                 // 资料片
@@ -97,7 +98,13 @@ export default {
                 tags: [],
             },
             processing: false,
+            user: User.getInfo()
         };
+    },
+    computed: {
+        client: function (){
+            return this.$store.state.client
+        }
     },
     methods: {
         // 提交图片成功
@@ -132,15 +139,21 @@ export default {
             push(this.post)
                 .then((res) => {
                     let result = res.data.data;
-                    this.$emit("update", result);
-                    this.$message.success("反馈提交成功");
+                    this.$emit("update", {
+                        ...result,
+                        author_info: {
+                            user_avatar: this.user?.avatar_origin,
+                            display_name: this.user?.name
+                        }
+                    });
+                    this.$notify.success({ title: "消息", message: "反馈提交成功" });
 
                     // 清空表单
                     this.post = this.$options.data().post;
                     this.imgs = [];
                 })
                 .catch((err) => {
-                    this.$message.error("反馈提交失败");
+                    this.$notify.error({ title: "消息", message: "反馈提交失败" });
                 })
                 .finally(() => {
                     this.processing = false;

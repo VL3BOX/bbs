@@ -170,8 +170,8 @@ export default {
             }
         },
         handleFeedbackUpdate: function (val) {
-            // this.data = [val, ...this.data];
-            this.loadPosts();
+            this.data = [val, ...this.data];
+            // this.loadPosts();
         },
         // 批量点赞
         loadLike: function () {
