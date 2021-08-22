@@ -1,25 +1,17 @@
 <template>
     <div class="m-joke-item">
-        <div class="content">
-            <i v-if="isEditor" class="u-star-op" :class="isMark ? 'on' : ''" @click="handleMark">★</i>
+        <div class="u-content">
+            <i
+                v-if="isEditor"
+                class="u-star u-star-op"
+                :class="isMark ? 'on' : ''"
+                @click="handleMark"
+            >★</i>
             <i v-else class="u-star" v-show="isMark">★</i>
             <span class="u-sentence" v-html="parse(joke.post_title)"></span>
         </div>
         <div class="misc">
             <div class="op">
-                <span class="user">
-                    <img
-                        width="24"
-                        height="24"
-                        :src="authorAvatar | showAvatar"
-                    />
-                    <a
-                        :href="joke.post_author | authorLink"
-                        target="_blank"
-                        v-if="joke.post_author && joke.post_author != 1"
-                    >{{ authorName }}</a>
-                    <span v-else>{{ authorName }}</span>
-                </span>
                 <el-link
                     type="primary"
                     class="copy-btn"
@@ -45,9 +37,15 @@
                 >
                     <i class="el-icon-edit-outline"></i> 编辑
                 </a>
-                
-                <span class="like" :class="{ disabled: !isLike }" title="点赞" @click="addLike">
-                    <img src="../assets/img/like.svg" class="like-icon" svg-inline>
+
+                <span
+                    class="like"
+                    :class="{ disabled: !isLike ,on:!isLike}"
+                    title="点赞"
+                    @click="addLike"
+                    v-if="isListPage"
+                >
+                    <i class="like-icon">{{isLike ? '♡' : '♥'}}</i>
                     <span class="like-count">{{ count }}</span>
                 </span>
                 <!-- <a
@@ -57,9 +55,18 @@
                 >
                     <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
                     {{ isMark ? '取消精选' : '设为精选' }}
-                </a> -->
+                </a>-->
             </div>
             <div class="u-other">
+                <span class="user">
+                    <img width="24" height="24" :src="authorAvatar | showAvatar" />
+                    <a
+                        :href="joke.post_author | authorLink"
+                        target="_blank"
+                        v-if="joke.post_author && joke.post_author != 1"
+                    >{{ authorName }}</a>
+                    <span v-else>{{ authorName }}</span>
+                </span>
                 <div class="u-time">
                     <span class="u-date">
                         <i class="el-icon-date"></i>&nbsp;
@@ -82,6 +89,7 @@ import {
 } from "@jx3box/jx3box-common/js/utils";
 import { setJokeMark, removeJoke, getAuthorInfo } from "@/service/jokes";
 import User from "@jx3box/jx3box-common/js/user";
+import { postStat } from "@jx3box/jx3box-common/js/stat";
 export default {
     name: "joke_item",
     props: ["joke", "mode"],
@@ -96,7 +104,7 @@ export default {
 
             // 点赞
             count: 0,
-            isLike: true
+            isLike: true,
         };
     },
     watch: {
@@ -106,14 +114,14 @@ export default {
             handler() {
                 this.isMark = !!this.joke?.mark?.length;
 
-                if (this.mode === 'single') {
+                if (this.mode === "single") {
                     if (this.joke?.post_author) {
-                        this.loadAuthor(this.joke.post_author)
+                        this.loadAuthor(this.joke.post_author);
                     }
                 }
 
                 this.count = this.joke?.count || 0;
-            }
+            },
         },
     },
     filters: {
@@ -126,26 +134,35 @@ export default {
         authorLink,
     },
     computed: {
-        /* isMark: function () {
-            return !!this.joke?.mark?.length;
-        }, */
+        isListPage: function () {
+            return this.mode != "single";
+        },
         isEditor: function () {
             return User.isEditor();
         },
-        authorName: function (){
-            return this.authorInfo?.display_name || this.joke?.author_info?.display_name || this.joke?.author || '匿名';
+        authorName: function () {
+            return (
+                this.authorInfo?.display_name ||
+                this.joke?.author_info?.display_name ||
+                this.joke?.author ||
+                "匿名"
+            );
         },
-        authorAvatar: function (){
-            return this.authorInfo?.user_avatar || this.joke?.author_info?.user_avatar || '';
-        }
+        authorAvatar: function () {
+            return (
+                this.authorInfo?.user_avatar ||
+                this.joke?.author_info?.user_avatar ||
+                ""
+            );
+        },
     },
     methods: {
         // 点赞
         addLike: function () {
-            if (!this.isLike) return
+            if (!this.isLike) return;
             this.count++;
             if (this.isLike) {
-                postStat('joke', this.joke?.ID, "likes");
+                postStat("joke", this.joke?.ID, "likes");
             }
             this.isLike = false;
         },
@@ -172,7 +189,7 @@ export default {
                 .then(() => {
                     this.$notify({
                         title: "成功",
-                        message: this.isMark ? '取消加精成功' : '加精成功',
+                        message: this.isMark ? "取消加精成功" : "加精成功",
                         type: "success",
                     });
                     this.isMark = !!mark.length;
@@ -192,39 +209,41 @@ export default {
          * 删除joke
          */
         delJoke() {
-            this.$confirm('此操作将会删除该骚话，是否继续？', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
+            this.$confirm("此操作将会删除该骚话，是否继续？", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning",
             }).then(() => {
                 removeJoke(this.joke.ID)
                     .then(() => {
                         this.$notify({
-                            title: '成功',
-                            message: '删除成功',
-                            type: 'success',
+                            title: "成功",
+                            message: "删除成功",
+                            type: "success",
                         });
-                        if (this.mode === 'single') {
+                        if (this.mode === "single") {
                             this.$router.go(-1);
                         } else {
-                            this.$emit('update')
+                            this.$emit("update");
                         }
                     })
-                    .catch(err => {
+                    .catch((err) => {
                         this.$notify({
-                            title: '错误',
-                            message: err?.message || '删除失败，请重试或者联系管理员',
-                            type: 'error'
-                        })
-                    })
-            })
+                            title: "错误",
+                            message:
+                                err?.message ||
+                                "删除失败，请重试或者联系管理员",
+                            type: "error",
+                        });
+                    });
+            });
         },
         // 获取作者信息
         loadAuthor: function (id) {
-            getAuthorInfo(id).then(res => {
-                this.authorInfo = res.data.data
-            })
-        }
+            getAuthorInfo(id).then((res) => {
+                this.authorInfo = res.data.data;
+            });
+        },
     },
 };
 </script>
