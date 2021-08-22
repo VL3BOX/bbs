@@ -16,8 +16,8 @@
         <!-- 列表 -->
         <template v-else>
             <h2 class="m-feedback-title">
-                <i class="el-icon-message"></i>
-                <span>反馈建议</span>
+                <i class="u-icon el-icon-message"></i>
+                <span class="u-title">反馈建议</span>
                 <a :href="feedback_url" class="u-email" target="_blank">
                     <i class="el-icon-phone-outline"></i>快捷邮件
                 </a>
