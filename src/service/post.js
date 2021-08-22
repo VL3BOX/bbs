@@ -26,11 +26,17 @@ function getPost(id) {
 function getMyPostCount() {
     return $cms().get("/api/cms/posts/user/my/count");
 }
-// TODO: 批量点赞
+
 function getLikes(params){
     return axios.get(`https://next2.jx3box.com/api/summary-any/batch`, {
         params
     })
 }
 
-export { getPosts, getPost, getMyPostCount, getMyPost, getLikes };
+function removeFeedback(id) {
+    return $cms().put(`/api/cms/post/${id}/setting`,{
+        post_status: "dustbin"
+    })
+}
+
+export { getPosts, getPost, getMyPostCount, getMyPost, getLikes, removeFeedback };
