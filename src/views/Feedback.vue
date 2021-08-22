@@ -44,7 +44,7 @@
                 <div class="m-feedback-list" v-if="data.length">
                     <ul class="u-list">
                         <li class="u-item" v-for="(item, i) in data" :key="i">
-                            <feedback-item :data="item" :order="order" />
+                            <feedback-item :data="item" :order="order" @update="handleUpdate" />
                         </li>
                     </ul>
                 </div>
@@ -194,6 +194,9 @@ export default {
         goBack: function () {
             this.$router.push("/feedback");
         },
+        handleUpdate: function (id){
+            this.data = this.data.filter(d => d.ID !== id);
+        }
     },
     filters: {
         dateFormat: function (val) {

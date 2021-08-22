@@ -31,4 +31,10 @@ function getLikes(params){
     })
 }
 
-export { getPosts, getPost, getMyPostCount, getMyPost, getLikes };
+function removeFeedback(id) {
+    return $cms().put(`/api/cms/post/${id}/setting`,{
+        post_status: "dustbin"
+    })
+}
+
+export { getPosts, getPost, getMyPostCount, getMyPost, getLikes, removeFeedback };

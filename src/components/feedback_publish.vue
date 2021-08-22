@@ -133,6 +133,13 @@ export default {
         },
         // 提交反馈
         publish: function () {
+            if (!this.post.post_content) {
+                this.$notify.warning({
+                    title: '提醒',
+                    message: '反馈内容不能为空'
+                })
+                return
+            }
             this.post.post_meta = this.imgs;
             this.processing = true;
             this.post.post_excerpt = this.post.post_content.slice(0, 200);
