@@ -192,7 +192,7 @@ export default {
                 const likes = res.data.data;
                 if(Object.keys(likes).length){
                     this.jokes.forEach((d) => {
-                        this.$set(d, 'count', likes?.[d.ID]?.likes)
+                        this.$set(d, 'count', likes?.['joke-' + d.ID]?.likes)
                     });
                 }
             });

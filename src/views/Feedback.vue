@@ -186,7 +186,7 @@ export default {
                 const likes = res.data.data;
                 if(Object.keys(likes).length){
                     this.data.forEach((d) => {
-                        this.$set(d, 'count', likes?.[d.ID]?.likes)
+                        this.$set(d, 'count', likes?.['feedback-' + d.ID]?.likes)
                     });
                 }
             });
