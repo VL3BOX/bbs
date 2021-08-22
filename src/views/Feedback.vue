@@ -175,10 +175,17 @@ export default {
         },
         // 批量点赞
         loadLike: function () {
-            const ids = this.data.map((d) => d.ID);
-            getLikes(ids).then((res) => {
+            let id = this.data.map((d) => d.ID);
+            id = id.join(',');
+            const params = {
+                post_type: 'feedback',
+                post_action: 'likes',
+                id
+            }
+            getLikes(params).then((res) => {
+                const likes = res.data.data;
                 this.data.forEach((d) => {
-                    console.log(d);
+                    this.$set(d, 'count', likes[d.ID]['likes'])
                 });
             });
         },
@@ -217,6 +224,12 @@ export default {
         "$route.query.page": function (val) {
             this.page = ~~val;
         },
+        data: {
+            deep: true,
+            handler: function() {
+                this.loadLike()
+            }
+        }
     },
     created: function () {
         this.page = ~~this.$route.query.page || 1;

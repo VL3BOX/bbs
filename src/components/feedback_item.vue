@@ -70,7 +70,7 @@
                     v-if="isListPage"
                 >
                     <i class="like-icon">{{isLike ? '♡' : '♥'}}</i>
-                    <span class="like-count">{{ count }}</span>
+                    <span class="like-count" v-if="count">{{ count }}</span>
                 </span>
             </div>
             </div>

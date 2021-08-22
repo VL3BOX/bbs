@@ -76,6 +76,7 @@
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import emotion from "@jx3box/jx3box-data/data/jokes/default.json";
 import { getJokes, getJoke } from "@/service/jokes";
+import { getLikes } from "../service/post";
 import joke_item from "../components/joke_item";
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
@@ -180,12 +181,19 @@ export default {
         },
         // 批量获取点赞
         loadLike: function (){
-            const ids = this.data.map(d => d.ID);
-            getLikes(ids).then(res => {
-                this.data.forEach(d => {
-                    console.log(d)
-                })
-            })
+            let id = this.jokes.map((d) => d.ID);
+            id = id.join(',');
+            const params = {
+                post_type: 'joke',
+                post_action: 'likes',
+                id
+            }
+            getLikes(params).then((res) => {
+                const likes = res.data.data;
+                this.jokes.forEach((d) => {
+                    this.$set(d, 'count', likes[d.ID]['likes'])
+                });
+            });
         }
     },
     watch: {
@@ -196,6 +204,12 @@ export default {
             deep: true,
             immediate: true,
         },
+        jokes: {
+            deep: true,
+            handler() {
+                this.loadLike()
+            }
+        }
     },
     created: function () {
         this.sortEmotion();

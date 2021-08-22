@@ -57,12 +57,18 @@ module.exports = {
             "/api/cms": {
                 "target": process.env["DEV_SERVER"] == "true" ? "http://localhost:5120" : "https://cms.jx3box.com",
             },
+            "/api/summary-any": {
+                "target": "https://next2.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            },
             "/api": {
                 "target": "https://next.jx3box.com",
                 "onProxyReq": function (request) {
                     request.setHeader("origin", "");
                 }
-            }
+            },
         },
         disableHostCheck: true
     },
