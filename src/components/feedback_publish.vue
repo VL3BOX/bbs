@@ -1,17 +1,18 @@
 <!-- 反馈建议发布 -->
 <template>
-    <div class="m-publish-feedback">
+    <div class="m-feedback-publish">
+        <el-alert class="u-msg" title="如涉及账号等私人信息请发送电子邮件至admin@jx3box.com" type="warning" show-icon></el-alert>
         <el-input
             v-model="post.post_content"
             type="textarea"
-            placeholder="输入反馈建议......"
+            placeholder="写下你想说的..."
             show-word-limit
-            :maxlength="5120"
+            :maxlength="1024"
             :rows="4"
         ></el-input>
-        <div class="u-feedback-actions">
+        <div class="m-feedback-actions">
             <el-upload
-                class="avatar-uploader"
+                class="u-upload avatar-uploader"
                 :action="url"
                 list-type="picture-card"
                 :on-remove="remove"
@@ -21,12 +22,17 @@
                 :limit="max"
                 title="上传图片"
                 with-credentials
-                accept="image/jpg,image/jpeg,image/gif,image/png,image/bmp"
+                accept="image/jpg, image/jpeg, image/gif, image/png, image/bmp"
             >
                 <i class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
             <div class="u-submit">
-                <el-button :loading="processing" @click="publish">提交</el-button>
+                <el-button
+                    :loading="processing"
+                    @click="publish"
+                    icon="el-icon-s-promotion"
+                    type="primary"
+                >提交</el-button>
             </div>
         </div>
     </div>
@@ -39,7 +45,7 @@ const API = API_Root + "api/cms/upload";
 
 import { push } from "@/service/notice.js";
 export default {
-    name: 'publishFeedback',
+    name: "publishFeedback",
     data() {
         return {
             imgs: [],
@@ -69,7 +75,7 @@ export default {
                 // 是否原创
                 original: 1,
                 // 客户端：std正式服、origin怀旧服
-                client: "all",
+                client: this.$store.state.client || "all",
                 // 语言：cn简体、tr繁体
                 lang: "cn",
                 // 资料片
@@ -88,15 +94,15 @@ export default {
                 // 阅读权限（0公开，1仅自己，2亲友，3密码，4付费，5粉丝）
                 visible: 0,
                 // 自定义标签 10上限
-                tags: []
+                tags: [],
             },
-            processing: false
-        }
+            processing: false,
+        };
     },
     methods: {
         // 提交图片成功
         done: function (res) {
-            this.imgs = [...this.imgs, res.data[0]]
+            this.imgs = [...this.imgs, res.data[0]];
         },
         // 提交图片失败
         fail: function (err) {
@@ -108,38 +114,38 @@ export default {
             }
         },
         // 图片上限
-        exceed: function (){
-            this.$message.warning(`上传的图片个数最多为${this.max}个`)
+        exceed: function () {
+            this.$message.warning(`上传的图片个数最多为${this.max}个`);
         },
         // 移除图片
-        remove: function (file){
-            this.imgs = this.imgs.filter(img => img !== file?.response?.data[0]);
+        remove: function (file) {
+            this.imgs = this.imgs.filter(
+                (img) => img !== file?.response?.data[0]
+            );
         },
         // 提交反馈
         publish: function () {
             this.post.post_meta = this.imgs;
             this.processing = true;
             this.post.post_excerpt = this.post.post_content.slice(0, 200);
-            
+
             push(this.post)
-                .then(res => {
+                .then((res) => {
                     let result = res.data.data;
-                    this.$emit('update', result);
-                    this.$message.success('反馈提交成功');
+                    this.$emit("update", result);
+                    this.$message.success("反馈提交成功");
 
                     // 清空表单
                     this.post = this.$options.data().post;
-                    this.imgs = []
-                }).catch(err => {
-                    this.$message.error('反馈提交失败')
-                }).finally(() => {
-                    this.processing = false
+                    this.imgs = [];
                 })
-        }
-    }
-}
+                .catch((err) => {
+                    this.$message.error("反馈提交失败");
+                })
+                .finally(() => {
+                    this.processing = false;
+                });
+        },
+    },
+};
 </script>
-
-<style lang="less">
-@import "../assets/css/pbulish_feedback.less";
-</style>

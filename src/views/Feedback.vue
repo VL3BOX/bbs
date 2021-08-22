@@ -2,7 +2,12 @@
     <div class="v-feedback" v-loading="loading">
         <!-- 单页 -->
         <template v-if="id">
-            <!-- <el-button size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button> -->
+            <div class="m-feedback-single-panel">
+                <el-button size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+                <a :href="feedback_url" class="u-email" target="_blank">
+                    <i class="el-icon-phone-outline"></i>快捷邮件
+                </a>
+            </div>
             <div class="m-single-feedback-container">
                 <feedback-item mode="single" :feedback-id="id" />
             </div>
@@ -10,6 +15,13 @@
 
         <!-- 列表 -->
         <template v-else>
+            <h2 class="m-feedback-title">
+                <i class="el-icon-message"></i>
+                <span>反馈建议</span>
+                <a :href="feedback_url" class="u-email" target="_blank">
+                    <i class="el-icon-phone-outline"></i>快捷邮件
+                </a>
+            </h2>
             <publish-feedback @update="handleFeedbackUpdate"></publish-feedback>
             <listbox
                 :data="data"
@@ -20,24 +32,10 @@
                 @appendPage="appendPage"
                 @changePage="changePage"
             >
-                <!-- 搜索 -->
-                <!-- <div class="m-feedback-search" slot="search-before">
-                    <el-input
-                        placeholder="请输入搜索内容"
-                        v-model="search"
-                        class="input-with-select"
-                    >
-                        <span slot="prepend">关键词</span>
-                        <el-button slot="append" icon="el-icon-search"></el-button>
-                    </el-input>
-                </div> -->
-
                 <!-- 过滤 -->
                 <template slot="filter">
                     <!-- 版本过滤 -->
                     <clientBy @filter="filter" :type="client"></clientBy>
-                    <!-- 角标过滤 -->
-                    <markBy @filter="filter"></markBy>
                     <!-- 排序过滤 -->
                     <orderBy @filter="filter"></orderBy>
                 </template>
@@ -57,7 +55,7 @@
 
 <script>
 import listbox from "@jx3box/jx3box-page/src/cms-list.vue";
-import publish_feedback from "@/components/publish_feedback.vue";
+import publish_feedback from "@/components/feedback_publish.vue";
 import feedbackItem from "@/components/feedback_item.vue";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import _ from "lodash";
@@ -67,7 +65,8 @@ import {
     __ossMirror,
     __imgPath,
     __ossRoot,
-    __Root
+    __Root,
+    feedback
 } from "@jx3box/jx3box-common/data/jx3box";
 import {
     showAvatar,
@@ -78,7 +77,7 @@ import {
 export default {
     name: "Feedback",
     props: [],
-    data: function() {
+    data: function () {
         return {
             loading: false, //加载状态
 
@@ -87,7 +86,7 @@ export default {
             total: 1, //总条目数
             pages: 1, //总页数
             per: 10, //每页条目
-            appendMode : false, //追加模式
+            appendMode: false, //追加模式
 
             search: "",
             searchType: "title",
@@ -95,11 +94,13 @@ export default {
             order: "update", //排序模式
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
+
+            feedback_url : feedback
         };
     },
     computed: {
-        id: function (){
-            return this.$route.params.id
+        id: function () {
+            return this.$route.params.id;
         },
         resetParams: function () {
             return [this.subtype, this.search, this.mark, this.client];
@@ -109,14 +110,9 @@ export default {
                 per: this.per,
                 page: ~~this.page || 1,
                 sticky: 1,
-                type: 'feedback'
+                type: "feedback",
             };
-            let optionalParams = [
-                "search",
-                "order",
-                "mark",
-                "client",
-            ];
+            let optionalParams = ["search", "order", "mark", "client"];
             optionalParams.forEach((item) => {
                 if (this[item]) {
                     params[item] = this[item];
@@ -124,19 +120,19 @@ export default {
             });
             return params;
         },
-        target: function() {
+        target: function () {
             return buildTarget();
         },
         // 根据栏目定义
-        defaultBanner: function() {
+        defaultBanner: function () {
             return __imgPath + "image/banner/null.png";
         },
-        publish_link: function(val) {
+        publish_link: function (val) {
             return publishLink("bbs");
         },
     },
     methods: {
-        loadPosts: function() {
+        loadPosts: function () {
             this.loading = true;
             getPosts(this.params, this)
                 .then((res) => {
@@ -149,83 +145,86 @@ export default {
                     this.pages = res.data.data.pages;
                 })
                 .finally(() => {
-                    this.appendMode = false
+                    this.appendMode = false;
                     this.loading = false;
                 });
         },
-        changePage: function(i) {
-            this.appendMode = false
-            this.page = i
+        changePage: function (i) {
+            this.appendMode = false;
+            this.page = i;
             window.scrollTo(0, 0);
         },
-        appendPage: function(i) {
-            this.appendMode = true
-            this.page = i
+        appendPage: function (i) {
+            this.appendMode = true;
+            this.page = i;
         },
-        filter: function(o) {
-            this.appendMode = false
+        filter: function (o) {
+            this.appendMode = false;
             this[o["type"]] = o["val"];
         },
-        showBanner: function(val, subtype) {
+        showBanner: function (val, subtype) {
             if (val) {
                 return showBanner(val);
             } else {
                 return __imgPath + "image/banner/bbs" + subtype + ".png?v=1";
             }
         },
-        handleFeedbackUpdate: function (val){
+        handleFeedbackUpdate: function (val) {
             // this.data = [val, ...this.data];
-            this.loadPosts()
+            this.loadPosts();
         },
         // 批量点赞
-        loadLike: function (){
-            const ids = this.data.map(d => d.ID);
-            getLikes(ids).then(res => {
-                this.data.forEach(d => {
-                    console.log(d)
-                })
-            })
-        }
+        loadLike: function () {
+            const ids = this.data.map((d) => d.ID);
+            getLikes(ids).then((res) => {
+                this.data.forEach((d) => {
+                    console.log(d);
+                });
+            });
+        },
+        goBack: function () {
+            this.$router.push("/feedback");
+        },
     },
     filters: {
-        dateFormat: function(val) {
+        dateFormat: function (val) {
             return dateFormat(new Date(val));
         },
-        showAvatar: function(val) {
+        showAvatar: function (val) {
             return showAvatar(val);
         },
-        isHighlight: function(val) {
+        isHighlight: function (val) {
             return val ? `color:${val};font-weight:600;` : "";
         },
-        showMark: function(val) {
+        showMark: function (val) {
             return mark_map[val];
         },
-        markcls : function (val){
-            return 'u-mark-' + val
+        markcls: function (val) {
+            return "u-mark-" + val;
         },
     },
-    watch : {
-        subtype : function (){
-            this.search = ''  
+    watch: {
+        subtype: function () {
+            this.search = "";
         },
-        params : {
-            deep : true,
-            immediate : true,
-            handler : function (val){
-                this.loadPosts()
-            }
+        params: {
+            deep: true,
+            immediate: true,
+            handler: function (val) {
+                this.loadPosts();
+            },
         },
-        '$route.query.page' : function (val){
-            this.page = ~~val
-        }
+        "$route.query.page": function (val) {
+            this.page = ~~val;
+        },
     },
-    created: function() {
-        this.page = ~~this.$route.query.page || 1
+    created: function () {
+        this.page = ~~this.$route.query.page || 1;
     },
     components: {
         listbox,
         "publish-feedback": publish_feedback,
-        feedbackItem
+        feedbackItem,
     },
 };
 </script>
