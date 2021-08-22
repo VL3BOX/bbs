@@ -13,9 +13,9 @@ module.exports = {
             template : 'public/index.html',
             filename:'index.html',
         },
-        post : {
+        bbs : {
             title : '茶馆交流 - JX3BOX',
-            entry:'src/post.js',
+            entry:'src/bbs.js',
             template : 'public/index.html',
             filename:'bbs.html',
         },
