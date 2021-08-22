@@ -17,7 +17,7 @@ module.exports = {
             title : '茶馆交流 - JX3BOX',
             entry:'src/post.js',
             template : 'public/index.html',
-            filename:'post.html',
+            filename:'bbs.html',
         },
         notice: {
             title : '茶馆交流 - JX3BOX',

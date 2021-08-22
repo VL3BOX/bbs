@@ -13,7 +13,7 @@
             <img slot="logo" svg-inline src="./assets/img/notice.svg" />
         </Breadcrumb>
         <Main :withoutRight="true" :withoutLeft="true">
-            <div class="m-notice-single">
+            <div class="m-notice-single" v-loading="loading">
                 <header class="m-single-header">
                     <h1 class="m-single-title">{{ post.post_title }}</h1>
 
@@ -87,7 +87,7 @@ export default {
             post: {},
             author: {},
             stat: {},
-            isAdmin : User.isAdmin()
+            isAdmin : false
         };
     },
     computed: {
@@ -133,6 +133,9 @@ export default {
             });
             postStat("bbs", this.id);
         }
+    },
+    mounted : function (){
+        this.isAdmin = User.isAdmin()
     },
     filters: {
         showDate,
