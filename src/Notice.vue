@@ -12,7 +12,7 @@
         >
             <img slot="logo" svg-inline src="./assets/img/notice.svg" />
         </Breadcrumb>
-        <Main :withoutRight="true" :withoutLeft="true">
+        <Main :withoutRight="true" :withoutLeft="true" :class="client">
             <div class="m-notice-single" v-loading="loading">
                 <header class="m-single-header">
                     <h1 class="m-single-title">{{ post.post_title }}</h1>
@@ -113,6 +113,9 @@ export default {
             str += '】'
             return str
         },
+        client : function (){
+            return this.$store.state.client || 'std'
+        }
     },
     methods: {},
     components: {
