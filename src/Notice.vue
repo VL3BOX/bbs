@@ -39,6 +39,10 @@
                     </div>
                 </header>
 
+                <div class="m-single-exceprt" v-if="post.post_excerpt">
+                    {{post.post_excerpt}}
+                </div>
+
                 <div class="m-single-post" v-if="post._check">
                     <div class="m-single-content">
                         <Article :content="content" />
@@ -143,6 +147,6 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 @import "./assets/css/notice.less";
 </style>

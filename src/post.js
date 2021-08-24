@@ -19,7 +19,7 @@ Vue.use(JX3BOX_UI);
 // 数据与路由
 import store from "@/store";
 
-import App from "./BBS.vue";
+import App from "./Post.vue";
 new Vue({
     store,
     render: h => h(App),
