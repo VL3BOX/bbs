@@ -26,7 +26,7 @@ function getMyPostCount() {
     return $cms().get("/api/cms/posts/user/my/count");
 }
 function getLikes(params){
-    return $next().get(`/api/summary-any/batch`, {
+    return $next().get(`/api/summary/batch`, {
         params
     })
 }
