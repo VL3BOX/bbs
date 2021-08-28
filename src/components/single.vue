@@ -6,7 +6,7 @@
                 {{ post_subtype }}
             </span>
         </div>
-        <div class="u-collection">
+        <div class="u-collection" v-if="collectionList && collectionList.length">
             <div class="u-collection-title" @click="handleShow" :class="{ on: showCollection }">
                 <span>该小册已关联</span>
                 <a @click.stop href="">《{{ collapseTitle }}》</a>
