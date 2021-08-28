@@ -8,23 +8,23 @@
         </div>
         <div class="u-collection" v-if="collectionList && collectionList.length">
             <div class="u-collection-title" @click="handleShow" :class="{ on: showCollection }">
-                <span>该小册已关联</span>
+                <span><i class="el-icon-notebook-1"></i> 该作品已被收录至作者的剑三小册</span>
                 <a @click.stop :href="collectionInfo.id | getLink">《{{ collapseTitle }}》</a>
             </div>
             <transition name="fade">
                 <div v-if="showCollection">
-                    <ul
+                    <ol
                         v-if="collectionList && collectionList.length"
                         class="u-list u-collection-content"
                         :style="{ display: showCollection ? 'block' : 'none' }"
                     >
-                        <li v-for="(item, i) in collectionList" :key="i">
+                        <li v-for="(item, i) in collectionList" :key="i" class="u-item">
                             <a v-if="item" :href="item | showLink" target="_blank">
                                 <i class="el-icon-link"></i>
                                 {{ item.title }}
                             </a>
                         </li>
-                    </ul>
+                    </ol>
                 </div>
             </transition>
         </div>
@@ -91,7 +91,14 @@ export default {
     filters: {
         getLink: function (id){
             return getLink('collection', id);
-        }
+        },
+        showLink: function (item) {
+            if (item.type == "custom") {
+                return item.url;
+            } else {
+                return getLink(item.type, item.id);
+            }
+        },
     },
     created: function() {
         if (this.id) {

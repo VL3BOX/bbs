@@ -1,32 +1,68 @@
-.m-thx{
+.m-thx {
     .mt(40px);
 }
 
 .u-collection {
-    .mb(18px);
+    .mb(28px);
     &-title {
         cursor: pointer;
         position: relative;
         border: 1px solid #ddd;
         background-color: #fafbfc;
-        padding: 8px 10px 8px 26px;
+        padding: 8px 10px 8px 10px;
         display: block;
         margin-bottom: 0;
         border-radius: 4px;
         line-height: 1.6;
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing: 0.5px;
+        i{
+            .fz(16px);
+            .y(-1px);
+        }
 
-        &::before {
+        &::after {
             content: ">";
             display: block;
             position: absolute;
-            left: 10px;
+            right: 10px;
             top: 8px;
             font-family: "宋体", Consolas;
             color: #aaa;
             -webkit-transform: rotate(0);
             transform: rotate(0);
+        }
+
+        a {
+            .underline(@color-link);
+        }
+    }
+
+    .u-list {
+        // list-style: decimal;
+        // list-style-position: inside;
+        padding: 10px 20px;
+        margin: 0;
+    }
+
+    counter-reset: collection;
+    .u-item {
+        .fz(13px,32px);
+        border-bottom: 1px solid #eee;
+        transition: 0.15s ease-in-out;
+        .nobreak;
+        a{
+            .db;
+            &:before{
+                counter-increment:collection;
+                content:counter(collection) ". ";
+                color:#aaa;
+                .mr(5px);
+            }
+            &:hover {
+                background-color: #f0f6fd;
+                color:@pink;
+            }
         }
     }
 
@@ -39,32 +75,16 @@
     }
 
     .on {
-        &::before {
+        &::after {
             transform: rotate(90deg);
         }
     }
 
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s;
     }
     .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
         opacity: 0;
-    }
-}
-
-.u-list {
-    list-style: none;
-    padding: 10px 20px;
-    margin: 0;
-    li {
-        .fz(13px, 36px);
-    }
-    a {
-        .db;
-        transition: 0.15s ease-in-out;
-        .nobreak;
-        &:hover {
-            background-color: #e6f0fb;
-        }
     }
 }
