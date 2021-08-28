@@ -13,10 +13,16 @@ let store = {
         id: getAppID(),
         user_id: 0,
         post: "",
+
+        // collections
+        collectionInfo: ''
     },
     mutations: {
         switchClient : function (state,val){
             state.client = val || 'std'
+        },
+        SET_COLLECTION: function (state, val) {
+            state.collectionInfo = val
         }
     },
     getters: {},

@@ -6,6 +6,28 @@
                 {{ post_subtype }}
             </span>
         </div>
+        <div class="u-collection">
+            <div class="u-collection-title" @click="handleShow" :class="{ on: showCollection }">
+                <span>该小册已关联</span>
+                <a @click.stop href="">《{{ collapseTitle }}》</a>
+            </div>
+            <transition name="fade">
+                <div v-if="showCollection">
+                    <ul
+                        v-if="collectionList && collectionList.length"
+                        class="u-list u-collection-content"
+                        :style="{ display: showCollection ? 'block' : 'none' }"
+                    >
+                        <li v-for="(item, i) in collectionList" :key="i">
+                            <a v-if="item" :href="item | showLink" target="_blank">
+                                <i class="el-icon-link"></i>
+                                {{ item.title }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </transition>
+        </div>
         <Thx class="m-thx" slot="single-append" :postId="id" postType="bbs" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true"/>
     </singlebox>
 </template>
@@ -14,6 +36,7 @@
 import singlebox from "@jx3box/jx3box-page/src/cms-single";
 import { getPost } from "@/service/post.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat.js";
+import bus from "@/store/bus.js";
 const types = {
     "1": "玩法心得",
     "2": "江湖回忆",
@@ -30,7 +53,9 @@ export default {
             post: {},
             author: {},
             stat: {},
-            isSuperAdmin : User.isSuperAdmin()
+            isSuperAdmin : User.isSuperAdmin(),
+
+            showCollection: false
         };
     },
     computed: {
@@ -48,8 +73,21 @@ export default {
                 return "";
             }
         },
+        collectionInfo: function (){
+            return this.$store.state.collectionInfo;
+        },
+        collapseTitle: function (){
+            return this.collectionInfo?.title
+        },
+        collectionList: function (){
+            return this.collectionInfo?.posts
+        }
     },
-    methods: {},
+    methods: {
+        handleShow: function (){
+            this.showCollection = !this.showCollection
+        }
+    },
     filters: {},
     created: function() {
         if (this.id) {
