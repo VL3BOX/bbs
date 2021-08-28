@@ -1,10 +1,10 @@
 <template>
     <div class="m-list-nav">
         <RightSideMsg>
-            <em>休闲玩法交流群</em> :
+            <em>综合交流反馈群</em> :
             <strong>
                 <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a>
-                <a href="https://jq.qq.com/?_wv=1027&k=InbtJGcw" v-else>658035079</a>
+                <a href="https://jq.qq.com/?_wv=1027&k=5umZoT3B" v-else>2471800</a>
             </strong>
         </RightSideMsg>
 
