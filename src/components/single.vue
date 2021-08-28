@@ -9,7 +9,7 @@
         <div class="u-collection" v-if="collectionList && collectionList.length">
             <div class="u-collection-title" @click="handleShow" :class="{ on: showCollection }">
                 <span>该小册已关联</span>
-                <a @click.stop href="">《{{ collapseTitle }}》</a>
+                <a @click.stop :href="collectionInfo.id | getLink">《{{ collapseTitle }}》</a>
             </div>
             <transition name="fade">
                 <div v-if="showCollection">
@@ -36,7 +36,7 @@
 import singlebox from "@jx3box/jx3box-page/src/cms-single";
 import { getPost } from "@/service/post.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat.js";
-import bus from "@/store/bus.js";
+import { getLink } from "@jx3box/jx3box-common/js/utils.js"
 const types = {
     "1": "玩法心得",
     "2": "江湖回忆",
@@ -85,10 +85,14 @@ export default {
     },
     methods: {
         handleShow: function (){
-            this.showCollection = !this.showCollection
+            this.showCollection = !this.showCollection;
+        },
+    },
+    filters: {
+        getLink: function (id){
+            return getLink('collection', id);
         }
     },
-    filters: {},
     created: function() {
         if (this.id) {
             this.loading = true;
