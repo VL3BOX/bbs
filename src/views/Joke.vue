@@ -74,7 +74,7 @@
 
 <script>
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
-import emotion from "@jx3box/jx3box-data/data/jokes/default.json";
+import emotion from "@jx3box/jx3box-emotion/data/default.json";
 import { getJokes, getJoke } from "@/service/jokes";
 import { getLikes } from "../service/post";
 import joke_item from "../components/joke_item";
