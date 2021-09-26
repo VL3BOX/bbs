@@ -9,12 +9,12 @@
         </RightSideMsg>
 
         <h5 class="u-title">分类导航</h5>
-        <div class="m-nav-group m-bbs-nav">
+        <!-- <div class="m-nav-group m-bbs-nav">
             <router-link class="u-type" to="/notice" :class="{ on: type == 'notice' }">
                 <i class="el-icon-bell"></i>
                 <b>公告</b>
             </router-link>
-        </div>
+        </div> -->
         <div class="m-nav-group m-bbs-nav">
             <router-link class="u-type" to="/namespace" :class="{ on: type == 'namespace' }">
                 <i class="el-icon-postcard"></i>
