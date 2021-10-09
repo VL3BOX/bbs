@@ -8,60 +8,26 @@
             </strong>
         </RightSideMsg>
 
-        <h5 class="u-title">分类导航</h5>
-        <!-- <div class="m-nav-group m-bbs-nav">
-            <router-link class="u-type" to="/notice" :class="{ on: type == 'notice' }">
-                <i class="el-icon-bell"></i>
-                <b>公告</b>
-            </router-link>
-        </div> -->
-        <div class="m-nav-group m-bbs-nav">
-            <router-link class="u-type" to="/namespace" :class="{ on: type == 'namespace' }">
-                <i class="el-icon-postcard"></i>
-                <b>铭牌</b>
-                <span class="u-desc">剑网3.com</span>
+        <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
+        <div class="m-nav-group m-tool-nav">
+            <router-link
+                v-for="(item,i) in menu"
+                :to="'/' + item.slug"
+                :key="i"
+            >
+                <i :class="item.icon"></i>
+                <b>{{item.name}}</b>
+                <span>{{item.desc}}</span>
             </router-link>
         </div>
-        <div class="m-nav-group m-bbs-nav">
-            <router-link class="u-type" to="/joke" :class="{ on: type == 'joke' }">
-                <i class="el-icon-cold-drink"></i>
-                <b>骚话</b>
-            </router-link>
-        </div>
-        <div class="m-nav-group m-bbs-nav">
-            <router-link class="u-type" to="/emotion" :class="{ on: type == 'emotion' }">
-                <i class="el-icon-picture-outline"></i>
-                <b>表情</b>
-            </router-link>
-        </div>
-        <div class="m-nav-group m-bbs-nav">
-            <router-link class="u-type" to="/forum" :class="{ on: type == 'forum' || type === 'feedback' }">
-                <i class="el-icon-receiving"></i>
-                <b>论坛</b>
-                <!-- <span class="u-desc">BBS</span> -->
-            </router-link>
-            <div class="u-sublist">
-                <router-link
-                    class="u-subtype"
-                    v-for="(item, i) in menu"
-                    :to="typeLink(item.slug)"
-                    :key="i"
-                    :class="{ on: item.slug == subtype }"
-                >
-                    <b>{{ item.name }}</b>
-                </router-link>
+
+        <div class="m-nav-tags">
+            <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
+            <div class="u-list">
+                <a :href="item.link" target="_blank" v-for="(item,i) in tags" :key="i">{{item.label}}</a>
             </div>
         </div>
-        <!-- <div class="m-nav-group m-bbs-nav">
-            <a
-                class="u-type"
-                href="/bbs#/live"
-                :class="{ on: type == 'live' }"
-            >
-                <i class="el-icon-video-camera"></i>
-                <b>直播</b>
-            </a>
-        </div> -->
+
         <router-link class="m-nav-feedback" to="/feedback">
             <img src="../assets/img/nav/hzn.png" alt="盒子娘">
             <b><i class="el-icon-message"></i> 反馈建议</b>
@@ -71,6 +37,7 @@
 </template>
 
 <script>
+import {getMenu} from '@/service/cms.js'
 export default {
     name: "list_nav",
     props: [],
@@ -78,49 +45,36 @@ export default {
         return {
             menu: [
                 {
-                    slug: 1,
-                    icon: "el-icon-collection",
-                    name: "玩法心得",
-                    desc: "Experience",
+                    slug: '',
+                    icon: "el-icon-receiving",
+                    name: "全部",
                 },
                 {
-                    slug: 2,
-                    icon: "el-icon-film",
-                    name: "江湖回忆",
-                    desc: "Memory",
+                    slug: 'forum',
+                    icon: "el-icon-discover",
+                    name: "茶馆交流",
                 },
                 {
-                    slug: 3,
-                    icon: "el-icon-video-camera",
-                    name: "同人影音",
-                    desc: "Media",
+                    slug: 'joke',
+                    icon: "el-icon-cold-drink",
+                    name: "剑三骚话",
                 },
                 {
-                    slug: 4,
-                    icon: "el-icon-chat-line-round",
-                    name: "交流讨论",
-                    desc: "Discuz",
+                    slug: 'emotion',
+                    icon: "el-icon-sugar",
+                    name: "剑三表情",
                 },
-                // {
-                //     slug: 5,
-                //     icon: "el-icon-goblet-square-full",
-                //     name: "反馈建议",
-                //     desc: "Idea",
-                // },
-                /* {
-                    slug: 6,
-                    icon: "el-icon-news",
-                    name: "公告资讯",
-                    desc: "Notice",
-                }, */
+                {
+                    slug: 'namespace',
+                    icon: "el-icon-postcard",
+                    name: "剑三铭牌",
+                    desc: "剑网3.com",
+                },
             ],
+            tags : []
         };
     },
     computed: {
-        subtype: function () {
-            // return this.$store.state.subtype || "";
-            return this.$route.params.subtype || "";
-        },
         type: function () {
             return this.$route.name;
         },
@@ -129,9 +83,11 @@ export default {
         },
     },
     methods: {
-        typeLink: function (subtype) {
-            return `/forum/${subtype}`;
-        },
+        loadTags : function (){
+            getMenu('bbs').then((res) => {
+                this.tags = res.data?.data?.val || []
+            })
+        }
     },
     mounted: function () {},
     components: {},
