@@ -28,16 +28,22 @@
             </div>
         </div>
 
-        <router-link class="m-nav-feedback" to="/feedback">
+        <!-- <router-link class="m-nav-feedback" to="/feedback">
             <img src="../assets/img/nav/hzn.png" alt="盒子娘">
             <b><i class="el-icon-message"></i> 反馈建议</b>
             <span>盒子娘的信箱 O(∩_∩)O </span>
-        </router-link>
+        </router-link> -->
+        <a class="m-nav-feedback" :href="feedback" target="_blank">
+            <img src="../assets/img/nav/hzn.png" alt="盒子娘">
+            <b><i class="el-icon-message"></i> 反馈建议</b>
+            <span>admin@jx3box.com</span>
+        </a>
     </div>
 </template>
 
 <script>
 import {getMenu} from '@/service/cms.js'
+import {feedback} from '@jx3box/jx3box-common/data/jx3box.json'
 export default {
     name: "list_nav",
     props: [],
@@ -71,7 +77,8 @@ export default {
                     desc: "剑网3.com",
                 },
             ],
-            tags : []
+            tags : [],
+            feedback
         };
     },
     computed: {

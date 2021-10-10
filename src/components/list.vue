@@ -1,5 +1,14 @@
 <template>
     <div class="m-archive" v-loading="loading">
+        <el-tabs v-model="subtype" class="m-archive-tabs">
+            <el-tab-pane label="全部" name="0">
+                <span slot="label"><i class="u-icon el-icon-menu"></i>全部</span>
+            </el-tab-pane>
+            <el-tab-pane :label="item.label" :name="key" v-for="(item,key) in subtypes" :key="key">
+                <span slot="label"><i :class="key | showSubtypeIcon" class="u-icon"></i>{{item.label}}</span>
+            </el-tab-pane>
+        </el-tabs>
+
         <listbox
             :data="data"
             :total="total"
@@ -11,17 +20,8 @@
         >
             <!-- 搜索 -->
             <div class="m-archive-search" slot="search-before">
-                <a
-                    :href="publish_link"
-                    class="u-publish el-button el-button--primary"
-                >
-                    + 发布作品
-                </a>
-                <el-input
-                    placeholder="请输入搜索内容"
-                    v-model="search"
-                    class="input-with-select"
-                >
+                <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
+                <el-input placeholder="请输入搜索内容" v-model="search" class="input-with-select">
                     <span slot="prepend">关键词</span>
                     <!-- <el-select
                         v-model="searchType"
@@ -30,7 +30,7 @@
                     >
                         <el-option label="标题" value="title"></el-option>
                         <el-option label="作者" value="authorname"></el-option>
-                    </el-select> -->
+                    </el-select>-->
                     <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
             </div>
@@ -50,28 +50,19 @@
                 <ul class="u-list">
                     <li class="u-item" v-for="(item, i) in data" :key="i">
                         <!-- Banner -->
-                        <a
-                            class="u-banner"
-                            :href="item.ID | postLink"
-                            :target="target"
-                            ><img
+                        <a class="u-banner" :href="item.ID | postLink" :target="target">
+                            <img
                                 :src="
                                     showBanner(
                                         item.post_banner,
                                         item.post_subtype
                                     )
                                 "
-                        /></a>
-
-                        <h2
-                            class="u-post"
-                            :class="{ isSticky: item.sticky }"
-                        >
-                            <img
-                                class="u-icon"
-                                svg-inline
-                                src="../assets/img/list/post.svg"
                             />
+                        </a>
+
+                        <h2 class="u-post" :class="{ isSticky: item.sticky }">
+                            <img class="u-icon" svg-inline src="../assets/img/list/post.svg" />
 
                             <!-- 标题文字 -->
                             <a
@@ -79,28 +70,21 @@
                                 :style="item.color | isHighlight"
                                 :href="item.ID | postLink"
                                 :target="target"
-                                >{{ item.post_title || "无标题" }}</a
-                            >
+                            >{{ item.post_title || "无标题" }}</a>
 
                             <!-- 角标 -->
-                            <span
-                                class="u-marks"
-                                v-if="item.mark && item.mark.length"
-                            >
+                            <span class="u-marks" v-if="item.mark && item.mark.length">
                                 <i
                                     v-for="mark in item.mark"
                                     class="u-mark"
                                     :class="mark | markcls"
                                     :key="mark"
-                                    >{{ mark | showMark }}</i
-                                >
+                                >{{ mark | showMark }}</i>
                             </span>
                         </h2>
 
                         <!-- 字段 -->
-                        <div class="u-content u-desc">
-                            {{ item.post_excerpt || item.post_title }}
-                        </div>
+                        <div class="u-content u-desc">{{ item.post_excerpt || item.post_title }}</div>
 
                         <!-- 作者 -->
                         <div class="u-misc">
@@ -130,6 +114,7 @@
 </template>
 
 <script>
+import subtypes from '@/assets/data/bbs_types.json'
 import listbox from "@jx3box/jx3box-page/src/cms-list.vue";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import _ from "lodash";
@@ -139,7 +124,7 @@ import {
     __ossMirror,
     __imgPath,
     __ossRoot,
-    __Root
+    __Root,
 } from "@jx3box/jx3box-common/data/jx3box";
 import {
     showAvatar,
@@ -147,12 +132,12 @@ import {
     showBanner,
     publishLink,
     buildTarget,
-    getAppType
+    getAppType,
 } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "list",
     props: [],
-    data: function() {
+    data: function () {
         return {
             loading: false, //加载状态
 
@@ -161,7 +146,7 @@ export default {
             total: 1, //总条目数
             pages: 1, //总页数
             per: 10, //每页条目
-            appendMode : false, //追加模式
+            appendMode: false, //追加模式
 
             search: "",
             searchType: "title",
@@ -169,12 +154,15 @@ export default {
             order: "update", //排序模式
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
+
+            subtype : '',
+            subtypes,
         };
     },
     computed: {
-        subtype: function() {
-            return this.$route.params.subtype;
-        },
+        // subtype: function () {
+        //     return this.$route.params.subtype;
+        // },
         resetParams: function () {
             return [this.subtype, this.search, this.mark, this.client];
         },
@@ -183,34 +171,39 @@ export default {
                 per: this.per,
                 page: ~~this.page || 1,
                 sticky: 1,
+                type : 'bbs'
             };
             let optionalParams = [
                 "search",
                 "order",
                 "mark",
                 "client",
-                "subtype",
             ];
             optionalParams.forEach((item) => {
                 if (this[item]) {
                     params[item] = this[item];
                 }
             });
+
+            if(!!~~this.subtype){
+                params.subtype = this.subtype
+            }
+
             return params;
         },
-        target: function() {
+        target: function () {
             return buildTarget();
         },
         // 根据栏目定义
-        defaultBanner: function() {
+        defaultBanner: function () {
             return __imgPath + "image/banner/null.png";
         },
-        publish_link: function(val) {
+        publish_link: function (val) {
             return publishLink("bbs");
         },
     },
     methods: {
-        loadPosts: function() {
+        loadPosts: function () {
             this.loading = true;
             getPosts(this.params, this)
                 .then((res) => {
@@ -223,24 +216,24 @@ export default {
                     this.pages = res.data.data.pages;
                 })
                 .finally(() => {
-                    this.appendMode = false
+                    this.appendMode = false;
                     this.loading = false;
                 });
         },
-        changePage: function(i) {
-            this.appendMode = false
-            this.page = i
+        changePage: function (i) {
+            this.appendMode = false;
+            this.page = i;
             window.scrollTo(0, 0);
         },
-        appendPage: function(i) {
-            this.appendMode = true
-            this.page = i
+        appendPage: function (i) {
+            this.appendMode = true;
+            this.page = i;
         },
-        filter: function(o) {
-            this.appendMode = false
+        filter: function (o) {
+            this.appendMode = false;
             this[o["type"]] = o["val"];
         },
-        showBanner: function(val, subtype) {
+        showBanner: function (val, subtype) {
             if (val) {
                 return showBanner(val);
             } else {
@@ -250,51 +243,55 @@ export default {
         },
     },
     filters: {
-        dateFormat: function(val) {
+        dateFormat: function (val) {
             return dateFormat(new Date(val));
         },
-        showAvatar: function(val) {
+        showAvatar: function (val) {
             return showAvatar(val);
         },
-        authorLink: function(val) {
+        authorLink: function (val) {
             return authorLink(val);
         },
-        postLink: function(val) {
-            return location.origin + '/bbs/' + val;
+        postLink: function (val) {
+            return location.origin + "/bbs/" + val;
         },
-        isHighlight: function(val) {
+        isHighlight: function (val) {
             return val ? `color:${val};font-weight:600;` : "";
         },
-        showMark: function(val) {
+        showMark: function (val) {
             return mark_map[val];
         },
-        markcls : function (val){
-            return 'u-mark-' + val
+        markcls: function (val) {
+            return "u-mark-" + val;
+        },
+        showSubtypeIcon : function (val){
+            return subtypes[val]['icon']
         }
     },
-    watch : {
-        subtype : function (){
-            this.search = ''  
+    watch: {
+        subtype: function () {
+            this.search = "";
         },
-        params : {
-            deep : true,
-            immediate : true,
-            handler : function (val){
-                this.loadPosts()
-            }
+        params: {
+            deep: true,
+            immediate: true,
+            handler: function (val) {
+                this.loadPosts();
+            },
         },
-        '$route.query.page' : function (val){
-            this.page = ~~val
+        "$route.query.page": function (val) {
+            this.page = ~~val;
         },
-        '$route.params.subtype' : function (val){
-            this.$store.state.subtype = val
-        }
+        "$route.params.subtype": function (val) {
+            this.$store.state.subtype = val;
+            this.subtype = val
+        },
     },
-    created: function() {
-        this.page = ~~this.$route.query.page || 1
+    created: function () {
+        this.page = ~~this.$route.query.page || 1;
     },
     components: {
-        listbox
+        listbox,
     },
 };
 </script>

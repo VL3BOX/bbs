@@ -91,11 +91,15 @@ export default {
         };
     },
     computed: {
+        client : function (){
+            return this.$store.state.client  
+        },
         params: function () {
             let _ = {
                 per: this.per,
                 page: ~~this.page || 1,
                 sticky: 1,
+                client : this.client
             };
             if(this.search){
                 _.search = this.search
