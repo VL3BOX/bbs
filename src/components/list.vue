@@ -2,10 +2,15 @@
     <div class="m-archive" v-loading="loading">
         <el-tabs v-model="subtype" class="m-archive-tabs">
             <el-tab-pane label="全部" name="0">
-                <span slot="label"><i class="u-icon el-icon-menu"></i>全部</span>
+                <span slot="label">
+                    <i class="u-icon el-icon-menu"></i>全部
+                </span>
             </el-tab-pane>
             <el-tab-pane :label="item.label" :name="key" v-for="(item,key) in subtypes" :key="key">
-                <span slot="label"><i :class="key | showSubtypeIcon" class="u-icon"></i>{{item.label}}</span>
+                <span slot="label">
+                    <i :class="key | showSubtypeIcon" class="u-icon"></i>
+                    {{item.label}}
+                </span>
             </el-tab-pane>
         </el-tabs>
 
@@ -114,7 +119,7 @@
 </template>
 
 <script>
-import subtypes from '@/assets/data/bbs_types.json'
+import subtypes from "@/assets/data/bbs_types.json";
 import listbox from "@jx3box/jx3box-page/src/cms-list.vue";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import _ from "lodash";
@@ -155,7 +160,7 @@ export default {
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
 
-            subtype : '',
+            subtype: "",
             subtypes,
         };
     },
@@ -171,22 +176,17 @@ export default {
                 per: this.per,
                 page: ~~this.page || 1,
                 sticky: 1,
-                type : 'bbs'
+                type: "bbs",
             };
-            let optionalParams = [
-                "search",
-                "order",
-                "mark",
-                "client",
-            ];
+            let optionalParams = ["search", "order", "mark", "client"];
             optionalParams.forEach((item) => {
                 if (this[item]) {
                     params[item] = this[item];
                 }
             });
 
-            if(!!~~this.subtype){
-                params.subtype = this.subtype
+            if (!!~~this.subtype) {
+                params.subtype = this.subtype;
             }
 
             return params;
@@ -264,31 +264,40 @@ export default {
         markcls: function (val) {
             return "u-mark-" + val;
         },
-        showSubtypeIcon : function (val){
-            return subtypes[val]['icon']
-        }
+        showSubtypeIcon: function (val) {
+            return subtypes[val]["icon"];
+        },
     },
     watch: {
         subtype: function () {
             this.search = "";
         },
+        "$route.params.subtype": function (val) {
+            this.$store.state.subtype = val;
+            this.subtype = val;
+        },
+        "$route.query.page": {
+            immediate: true,
+            handler: function (val) {
+                this.page = ~~val || 1;
+            },
+        },
+        "$route.query.search": {
+            immediate: true,
+            handler: function (val) {
+                this.search = val;
+            },
+        },
         params: {
             deep: true,
-            immediate: true,
+            // immediate: true,
             handler: function (val) {
                 this.loadPosts();
             },
         },
-        "$route.query.page": function (val) {
-            this.page = ~~val;
-        },
-        "$route.params.subtype": function (val) {
-            this.$store.state.subtype = val;
-            this.subtype = val
-        },
     },
-    created: function () {
-        this.page = ~~this.$route.query.page || 1;
+    mounted: function () {
+        this.loadPosts();
     },
     components: {
         listbox,

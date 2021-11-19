@@ -24,7 +24,7 @@
         <div class="m-nav-tags">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
             <div class="u-list">
-                <a :href="item.link" target="_blank" v-for="(item,i) in tags" :key="i">{{item.label}}</a>
+                <a :href="item.link" :target="item.meta_3" v-for="(item,i) in tags" :key="i" v-show="item.status">{{item.label}}</a>
             </div>
         </div>
 
@@ -96,7 +96,9 @@ export default {
             })
         }
     },
-    mounted: function () {},
+    mounted: function () {
+        this.loadTags()
+    },
     components: {},
 };
 </script>
