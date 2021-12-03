@@ -11,6 +11,7 @@
             :crumbEnable="true"
         >
             <img slot="logo" svg-inline :src="getAppIcon('bbs')" />
+            <Info />
             <publish-gate slot="op-append" />
         </Breadcrumb>
         <LeftSidebar>
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+import Info from "@/components/Info.vue";
 import Nav from "@/components/list_nav.vue";
 import Side from "@/components/list_side.vue";
 import publishGate from "@/components/publish_gate.vue";
@@ -45,6 +47,7 @@ export default {
         Nav,
         Side,
         "publish-gate": publishGate,
+        Info
     },
 };
 </script>

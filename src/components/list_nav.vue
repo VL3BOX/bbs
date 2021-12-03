@@ -58,7 +58,7 @@ export default {
                 {
                     slug: 'forum',
                     icon: "el-icon-discover",
-                    name: "茶馆交流",
+                    name: "剑三茶馆",
                 },
                 {
                     slug: 'joke',

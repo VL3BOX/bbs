@@ -7,13 +7,13 @@
             <!-- <span class="u-item" href="/house/#/rank">⚽️ <span>即将上线</span> · 云端宏排行榜</span> -->
         </div>
 
-        <!-- <div class="m-info-router">
-            <a :class="{on : isIndex}" href="./"><i class="el-icon-receiving"></i></a>
-            <a :class="{on : isActive(1)}" href="./?subtype=1"><i class="el-icon-collection"></i></a>
-            <a :class="{on : isActive(2)}" href="./?subtype=2"><i class="el-icon-film"></i></a>
-            <a :class="{on : isActive(3)}" href="./?subtype=3"><i class="el-icon-video-camera"></i></a>
-            <a :class="{on : isActive(4)}" href="./?subtype=4"><i class="el-icon-chat-line-round"></i></a>
-        </div> -->
+        <div class="m-info-router">
+            <router-link to="/"><i class="el-icon-receiving"></i></router-link>
+            <router-link to="/forum"><i class="el-icon-discover"></i></router-link>
+            <router-link to="/joke"><i class="el-icon-cold-drink"></i></router-link>
+            <router-link to="/emotion"><i class="el-icon-sugar"></i></router-link>
+            <router-link to="/namespace"><i class="el-icon-postcard"></i></router-link>
+        </div>
     </div>
 </template>
 
