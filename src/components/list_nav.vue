@@ -57,7 +57,7 @@ export default {
                 },
                 {
                     slug: 'forum',
-                    icon: "el-icon-discover",
+                    icon: "el-icon-collection",
                     name: "剑三茶馆",
                 },
                 {
