@@ -1,7 +1,7 @@
 .v-joke-list {
     .item {
         &:not(:last-of-type) {
-            margin-bottom: 20px;
+            margin-bottom: 50px;
         }
     }
 
@@ -21,7 +21,7 @@
     }
 }
 .v-joke-pagination {
-    margin-top: 10px;
+    margin-top: 50px;
 }
 .m-joke-types {
     padding: 10px 0;
@@ -76,9 +76,26 @@
 
 .m-joke-item {
     position: relative;
+    @width: 30;
 
     .u-content {
         margin-bottom: 8px;
+
+        &::after{
+            top: 100%;
+            left: 10px;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-style: solid;
+            border-color: transparent;
+            border-top-color:#f5f7fa;
+            border-width: unit(@width,px);
+            @margin:-@width;
+            margin-left: unit(@margin * 0.8,px);
+        }
     }
 
     .u-star {
@@ -107,6 +124,7 @@
 
     .u-sentence {
         line-height: 24px;
+
         div {
             .di;
         }
@@ -118,9 +136,24 @@
     .misc {
         .clearfix;
         .fz(12px, 20px);
+        .pa;
+        width: 100%;
+        bottom: -200%;
+        top: 60px;
+
+        .user {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 24px;
+
+            img {
+                margin-right: 8px;
+            }
+        }
     }
     .op {
         .fl;
+        display: flex;
         // .fz(14px,20px);
 
         .copy-btn {
@@ -175,15 +208,6 @@
 
         justify-content: space-between;
 
-        .user {
-            display: inline-flex;
-            align-items: center;
-            margin-right: 24px;
-
-            img {
-                margin-right: 8px;
-            }
-        }
         a:hover {
             color: @pink;
         }

@@ -1,17 +1,26 @@
 <template>
     <div class="m-joke-item">
-        <div class="u-content">
-            <i
+        <div class="u-content" @click="handleContent">
+            <!-- <i
                 v-if="isEditor"
                 class="u-star u-star-op"
                 :class="isMark ? 'on' : ''"
                 @click="handleMark"
             >★</i>
-            <i v-else class="u-star" v-show="isMark">★</i>
+            <i v-else class="u-star" v-show="isMark">★</i> -->
             <span class="u-sentence" v-html="parse(joke.post_title)"></span>
         </div>
         <div class="misc">
             <div class="op">
+                <span class="user">
+                    <img width="24" height="24" :src="authorAvatar | showAvatar" />
+                    <a
+                        :href="joke.post_author | authorLink"
+                        target="_blank"
+                        v-if="joke.post_author && joke.post_author != 1"
+                    >{{ authorName }}</a>
+                    <span v-else>{{ authorName }}</span>
+                </span>
                 <el-link
                     type="primary"
                     class="copy-btn"
@@ -21,13 +30,13 @@
                     <i class="el-icon-document-copy"></i>
                     {{ copyLabel }}
                 </el-link>
-                <router-link
+                <!-- <router-link
                     v-if="mode !== 'single'"
                     class="el-link el-link--primary is-underline copy-btn"
                     :to="'/joke/' + joke.ID"
                 >
                     <i class="el-icon-chat-dot-square"></i>评论
-                </router-link>
+                </router-link> -->
 
                 <a
                     v-if="mode === 'single'"
@@ -38,16 +47,16 @@
                     <i class="el-icon-edit-outline"></i> 编辑
                 </a>
 
-                <span
+                <a
                     class="like"
                     :class="{ disabled: !isLike ,on:!isLike}"
                     title="点赞"
                     @click="addLike"
                     v-if="isListPage"
                 >
-                    <i class="like-icon">{{isLike ? '♡' : '♥'}}</i>
+                    <i class="like-icon">{{isLike ? '♡' : '♥'}}</i> 点赞
                     <span class="like-count" v-if="count">{{ count }}</span>
-                </span>
+                </a>
                 <!-- <a
                     v-if="isEditor"
                     class="el-link el-link--primary is-underline"
@@ -58,15 +67,6 @@
                 </a>-->
             </div>
             <div class="u-other">
-                <span class="user">
-                    <img width="24" height="24" :src="authorAvatar | showAvatar" />
-                    <a
-                        :href="joke.post_author | authorLink"
-                        target="_blank"
-                        v-if="joke.post_author && joke.post_author != 1"
-                    >{{ authorName }}</a>
-                    <span v-else>{{ authorName }}</span>
-                </span>
                 <div class="u-time">
                     <span class="u-date">
                         <i class="el-icon-date"></i>&nbsp;
@@ -95,7 +95,7 @@ export default {
     props: ["joke", "mode"],
     data() {
         return {
-            copyLabel: "点击复制",
+            copyLabel: "复制",
             disabled: false,
             isMark: false,
 
@@ -176,7 +176,7 @@ export default {
                 this.copyLabel = "已复制";
 
                 setTimeout(() => {
-                    this.copyLabel = "点击复制";
+                    this.copyLabel = "复制";
                     this.disabled = false;
                 }, 3000);
             });
@@ -244,6 +244,9 @@ export default {
                 this.authorInfo = res.data.data;
             });
         },
+        handleContent: function (){
+            this.$router.push(`/joke/${this.joke.ID}`)
+        }
     },
 };
 </script>
