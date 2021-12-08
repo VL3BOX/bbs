@@ -2,7 +2,7 @@
     <div id="app">
         <Header></Header>
         <Breadcrumb
-            name="茶馆交流"
+            name="剑三茶馆"
             slug="bbs"
             root="/bbs"
             :publishEnable="false"

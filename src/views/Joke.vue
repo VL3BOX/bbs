@@ -19,7 +19,14 @@
                 <i class="el-icon-price-tag"></i>
                 <span class="u-tag" v-for="(tag,i) in joke.tags" :key="i">{{tag}}</span>
             </div>
-            <Thx class="m-thx" :postId="id" postType="joke" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="true"/>
+            <Thx
+                class="m-thx"
+                :postId="id"
+                postType="joke"
+                :userId="user_id"
+                :adminBoxcoinEnable="false"
+                :userBoxcoinEnable="true"
+            />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="post" v-if="id && !joke.comment" />
@@ -39,7 +46,11 @@
             <!-- 门派分类 -->
             <div class="m-joke-types">
                 <el-tabs v-model="type">
-                    <el-tab-pane name="all" label="全部"></el-tab-pane>
+                    <el-tab-pane name="all" label="全部">
+                        <span slot="label">
+                            <i class="u-icon el-icon-menu" style="vertical-align: 0;"></i>全部
+                        </span>
+                    </el-tab-pane>
                     <el-tab-pane v-for="(item,i) in schoolmap" :key="i" :name="i">
                         <div slot="label" style="min-width:57px;">
                             <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
@@ -121,9 +132,9 @@ export default {
         keys: function () {
             return [this.search, this.page, this.per, this.type, this.id];
         },
-        user_id : function (){
-            return this.joke?.post_author || 0
-        }
+        user_id: function () {
+            return this.joke?.post_author || 0;
+        },
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -176,27 +187,27 @@ export default {
         handleJokeUpdate: function () {
             this.loadList();
         },
-        skipTop : function (){
-            window.scrollTo(0,0);
+        skipTop: function () {
+            window.scrollTo(0, 0);
         },
         // 批量获取点赞
-        loadLike: function (){
-            let id = this.jokes.map((d) => ('joke-' + d.ID));
-            id = id.join(',');
+        loadLike: function () {
+            let id = this.jokes.map((d) => "joke-" + d.ID);
+            id = id.join(",");
             const params = {
-                post_type: 'joke',
-                post_action: 'likes',
-                id : 'joke-' + id
-            }
+                post_type: "joke",
+                post_action: "likes",
+                id: "joke-" + id,
+            };
             getLikes(params).then((res) => {
                 const likes = res.data.data;
-                if(Object.keys(likes).length){
+                if (Object.keys(likes).length) {
                     this.jokes.forEach((d) => {
-                        this.$set(d, 'count', likes?.['joke-' + d.ID]?.likes)
+                        this.$set(d, "count", likes?.["joke-" + d.ID]?.likes);
                     });
                 }
             });
-        }
+        },
     },
     watch: {
         keys: {
@@ -209,9 +220,9 @@ export default {
         jokes: {
             deep: true,
             handler() {
-                this.loadLike()
-            }
-        }
+                this.loadLike();
+            },
+        },
     },
     created: function () {
         this.sortEmotion();

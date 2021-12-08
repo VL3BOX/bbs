@@ -16,7 +16,7 @@
         &:hover{
             background-color:#e6f0fb;
             .u-title{
-                color:@pink;
+                // color:@pink;
             }
         }
     }
@@ -51,10 +51,22 @@
         flex-shrink: 0;
         padding:5px 10px;
     }
+    .u-prefix{
+        &.isType-1{color:#6f42c1;}
+        &.isType-2{color:#ff3399;}
+        &.isType-3{color:#fba524;}
+        &.isType-4{color:#49c10f;}
+    }
     .u-icon{
         font-style: normal;
         .mr(5px);
         .fz(16px);
+        .y;
+    }
+    .u-type{
+        .fz(12px,@h);
+        // color:#666;
+        .mr(5px);
     }
     .u-date{
         .fz(12px);

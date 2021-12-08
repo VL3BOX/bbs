@@ -1,13 +1,13 @@
 <template>
     <div class="m-joke-item">
-        <div class="u-content" @click="handleContent">
+        <div class="u-content" @click="handleContent" :class="mode === 'single' ? 'on' : ''">
             <!-- <i
                 v-if="isEditor"
                 class="u-star u-star-op"
                 :class="isMark ? 'on' : ''"
                 @click="handleMark"
             >★</i>
-            <i v-else class="u-star" v-show="isMark">★</i> -->
+            <i v-else class="u-star" v-show="isMark">★</i>-->
             <span class="u-sentence" v-html="parse(joke.post_title)"></span>
         </div>
         <div class="misc">
@@ -36,7 +36,7 @@
                     :to="'/joke/' + joke.ID"
                 >
                     <i class="el-icon-chat-dot-square"></i>评论
-                </router-link> -->
+                </router-link>-->
 
                 <a
                     v-if="mode === 'single'"
@@ -50,24 +50,36 @@
                 <a
                     class="like"
                     :class="{ disabled: !isLike ,on:!isLike}"
-                    title="点赞"
+                    title="赞"
                     @click="addLike"
                     v-if="isListPage"
                 >
-                    <i class="like-icon">{{isLike ? '♡' : '♥'}}</i> 点赞
+                    <i class="like-icon">{{isLike ? '♡' : '♥'}}</i>Like
                     <span class="like-count" v-if="count">{{ count }}</span>
                 </a>
-                <!-- <a
-                    v-if="isEditor"
-                    class="el-link el-link--primary is-underline"
-                    @click="handleMark"
-                >
-                    <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                    {{ isMark ? '取消精选' : '设为精选' }}
-                </a>-->
             </div>
             <div class="u-other">
                 <div class="u-time">
+                    <!-- <a
+                        v-if="isEditor"
+                        class="el-link el-link--primary is-underline"
+                        @click="handleMark"
+                    >
+                        <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
+                        {{ isMark ? '取消精选' : '设为精选' }}
+                    </a>-->
+                    <i
+                        v-if="isEditor"
+                        class="u-star u-star-op"
+                        :class="isMark ? 'on' : ''"
+                        @click="handleMark"
+                    >★</i>
+                    <!-- <i
+                        class="el-icon-close u-joke-delete"
+                        @click="delJoke"
+                        v-show="isEditor"
+                        title="删除"
+                    ></i> -->
                     <span class="u-date">
                         <i class="el-icon-date"></i>&nbsp;
                         <time>{{ joke.post_date | dateFormat }}</time>
@@ -75,7 +87,6 @@
                 </div>
             </div>
         </div>
-        <i class="el-icon-close u-joke-delete" @click="delJoke" v-show="isEditor" title="删除"></i>
     </div>
 </template>
 
@@ -244,9 +255,9 @@ export default {
                 this.authorInfo = res.data.data;
             });
         },
-        handleContent: function (){
-            this.$router.push(`/joke/${this.joke.ID}`)
-        }
+        handleContent: function () {
+            this.$router.push(`/joke/${this.joke.ID}`);
+        },
     },
 };
 </script>

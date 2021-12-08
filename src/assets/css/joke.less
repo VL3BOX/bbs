@@ -1,14 +1,8 @@
 .v-joke-list {
     .item {
         &:not(:last-of-type) {
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
-    }
-
-    &-item {
-        background: #f5f7fa;
-        padding: 15px 15px 10px 15px;
-        border-radius: 4px;
     }
 
     .joke-bottom {
@@ -78,24 +72,58 @@
     position: relative;
     @width: 30;
 
-    .u-content {
-        margin-bottom: 8px;
-
-        &::after{
+    .arrows(b,@width,@color,@bo-width,@bo-color,@x:50%){
+        &:before,&:after{
             top: 100%;
-            left: 10px;
+            left: @x;
             content: " ";
             height: 0;
             width: 0;
             position: absolute;
             pointer-events: none;
             border-style: solid;
-            border-color: transparent;
-            border-top-color:#f5f7fa;
+            border-color: transparent; 
+            // margin-top:-1px;
+        }
+        &:after{
+            border-top-color:@color;
             border-width: unit(@width,px);
             @margin:-@width;
-            margin-left: unit(@margin * 0.8,px);
+            margin-left: unit(@margin,px);
         }
+        &:before{
+            border-top-color:@bo-color;
+            @arrbo:@width+@bo-width;
+            border-width: unit(@arrbo,px);
+            @margin-bo:-@arrbo;
+            margin-left: unit(@margin-bo,px);
+        }
+    }
+
+    .u-content {
+        // margin-bottom: 8px;
+        .fz(15px);
+
+        background: #fafbfc;
+        padding: 20px 14px;
+        border-radius: 4px;
+        border:1px solid @border-hr;
+        .pr;
+
+        .arrows(b,10px,#fafbfc,1px,@border-hr,@x:20px);
+        .pointer;
+
+        transition: 0.1s ease-in-out;
+        &:hover,&.on{
+            background-color:#f3f9ff;
+            border-color: #3585de;
+            .arrows(b,10px,#f3f9ff,1px,#3585de,@x:20px);
+        }
+
+        &.on{
+            cursor: default;
+        }
+        
     }
 
     .u-star {
@@ -136,19 +164,23 @@
     .misc {
         .clearfix;
         .fz(12px, 20px);
-        .pa;
-        width: 100%;
-        bottom: -200%;
-        top: 60px;
+        // .pa;
+        // width: 100%;
+        // bottom: -200%;
+        // top: 60px;
+        .mt(15px);
 
         .user {
             display: inline-flex;
             align-items: center;
-            margin-right: 24px;
+            margin-right: 20px;
 
             img {
                 margin-right: 8px;
             }
+            a{.underline(@color-link);}
+
+            .ml(10px);
         }
     }
     .op {
@@ -156,8 +188,9 @@
         display: flex;
         // .fz(14px,20px);
 
-        .copy-btn {
+        .copy-btn,.u-edit {
             .mr(20px);
+            .fz(12px);
         }
 
         i {
@@ -180,6 +213,12 @@
         &.disabled {
             // .tm(0.5);
             cursor: default;
+        }
+
+        &:hover{
+            .like-icon{
+                color:#f00;
+            }
         }
 
         &.on{

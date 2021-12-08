@@ -1,9 +1,27 @@
 <template>
     <div class="m-archive" v-loading="loading">
+
+        <!-- 搜索 -->
+        <div class="m-archive-search" slot="search-before">
+            <!-- <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a> -->
+            <el-input placeholder="请输入搜索内容" v-model="search" class="input-with-select">
+                <span slot="prepend">关键词</span>
+                <!-- <el-select
+                    v-model="searchType"
+                    slot="prepend"
+                    placeholder="请选择"
+                >
+                    <el-option label="标题" value="title"></el-option>
+                    <el-option label="作者" value="authorname"></el-option>
+                </el-select>-->
+                <el-button slot="append" icon="el-icon-search"></el-button>
+            </el-input>
+        </div>
+
         <el-tabs v-model="subtype" class="m-archive-tabs">
             <el-tab-pane label="全部" name="0">
                 <span slot="label">
-                    <i class="u-icon el-icon-menu"></i>全部
+                    <i class="u-icon el-icon-menu"></i> 全部作品
                 </span>
             </el-tab-pane>
             <el-tab-pane :label="item.label" :name="key" v-for="(item,key) in subtypes" :key="key">
@@ -23,23 +41,6 @@
             @appendPage="appendPage"
             @changePage="changePage"
         >
-            <!-- 搜索 -->
-            <div class="m-archive-search" slot="search-before">
-                <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-                <el-input placeholder="请输入搜索内容" v-model="search" class="input-with-select">
-                    <span slot="prepend">关键词</span>
-                    <!-- <el-select
-                        v-model="searchType"
-                        slot="prepend"
-                        placeholder="请选择"
-                    >
-                        <el-option label="标题" value="title"></el-option>
-                        <el-option label="作者" value="authorname"></el-option>
-                    </el-select>-->
-                    <el-button slot="append" icon="el-icon-search"></el-button>
-                </el-input>
-            </div>
-
             <!-- 过滤 -->
             <template slot="filter">
                 <!-- 版本过滤 -->
