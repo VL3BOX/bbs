@@ -54,6 +54,3 @@ export default {
     mounted: function() {},
 };
 </script>
-<style scoped lang="less">
-// @import '../assets/css/var.less';
-</style>

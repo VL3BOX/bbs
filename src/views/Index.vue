@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import list from "@/components/list_index.vue";
-import joke from "@/components/joke_index.vue";
+import list from "@/components/bbs/list_index.vue";
+import joke from "@/components/joke/joke_index.vue";
 export default {
     name: "Index",
     props: [],

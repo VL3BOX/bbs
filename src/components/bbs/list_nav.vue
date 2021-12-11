@@ -34,7 +34,7 @@
             <span>盒子娘的信箱 O(∩_∩)O </span>
         </router-link> -->
         <a class="m-nav-feedback" :href="feedback" target="_blank">
-            <img src="../assets/img/nav/hzn.png" alt="盒子娘">
+            <img src="../../assets/img/nav/hzn.png" alt="盒子娘">
             <b><i class="el-icon-message"></i> 反馈建议</b>
             <span>admin@jx3box.com</span>
         </a>
@@ -108,5 +108,5 @@ export default {
 };
 </script>
 <style lang="less">
-@import "../assets/css/nav.less";
+@import "../../assets/css/nav.less";
 </style>

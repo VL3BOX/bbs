@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import List from "@/components/collection_list.vue";
-import Single from "@/components/collection_single.vue";
+import List from "@/components/collection/collection_list.vue";
+import Single from "@/components/collection/collection_single.vue";
 export default {
     name: "Collection",
     props: [],
@@ -20,7 +20,7 @@ export default {
     },
     computed: {
         mode: function () {
-            return this.$route.params.id ? "list" : "single";
+            return this.$route.params.id ? "single" : "list";
         },
     },
     watch: {},

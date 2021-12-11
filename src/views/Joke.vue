@@ -89,11 +89,11 @@
 </template>
 
 <script>
+import joke_item from "@/components/joke/joke_item";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import emotion from "@jx3box/jx3box-emotion/data/default.json";
 import { getJokes, getJoke } from "@/service/joke";
-import { getLikes } from "../service/next";
-import joke_item from "../components/joke_item";
+import { getLikes } from "@/service/next";
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 

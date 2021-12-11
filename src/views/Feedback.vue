@@ -55,12 +55,12 @@
 
 <script>
 import listbox from "@jx3box/jx3box-page/src/cms-list.vue";
-import publish_feedback from "@/components/feedback_publish.vue";
-import feedbackItem from "@/components/feedback_item.vue";
+import publish_feedback from "@/components/feedback/feedback_publish.vue";
+import feedbackItem from "@/components/feedback/feedback_item.vue";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import _ from "lodash";
-import { getPosts, getLikes } from "../service/post";
-import dateFormat from "../utils/dateFormat";
+import { getPosts, getLikes } from "@/service/post";
+import dateFormat from "@/utils/dateFormat";
 import {
     __ossMirror,
     __imgPath,

@@ -82,8 +82,7 @@
 </template>
 
 <script>
-import namespaceItem from "@/components/namespace_item";
-import Namespace_item from "../components/namespace_item.vue";
+import namespaceItem from "@/components/namespace/namespace_item";
 import { getNamespaceList } from "@/service/namespace.js";
 import { publishLink } from "@jx3box/jx3box-common/js/utils.js";
 

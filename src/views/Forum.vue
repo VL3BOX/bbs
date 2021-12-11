@@ -5,31 +5,18 @@
 </template>
 
 <script>
-import { getPosts } from "../service/post";
-import {
-    authorLink,
-    publishLink,
-    showAvatar,
-    resolveImagePath,
-} from "@jx3box/jx3box-common/js/utils";
-import lodash from "lodash";
-import list from '@/components/list.vue'
-
+import list from "@/components/bbs/list.vue";
 export default {
     name: "Index",
     props: [],
-    data: function() {
-        return {
-        };
+    data: function () {
+        return {};
     },
-    computed: {
-    },
-    methods: {
-    },
-    created: function() {
-    },
+    computed: {},
+    methods: {},
+    created: function () {},
     components: {
-        list
+        list,
     },
 };
 </script>

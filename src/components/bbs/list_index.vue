@@ -75,10 +75,10 @@ import {
     buildTarget,
 } from "@jx3box/jx3box-common/js/utils";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
-import dateFormat from "../utils/dateFormat";
+import dateFormat from "@/utils/dateFormat";
 import types from "@/assets/data/bbs_types.json";
 
-import { getPosts } from "../service/post";
+import { getPosts } from "@/service/post";
 
 export default {
     name: "Index",
@@ -161,10 +161,10 @@ export default {
             return "u-mark-" + val;
         },
         showTypeLabel: function (val) {
-            return types[val]["label"];
+            return types?.[val]?.["label"];
         },
         showTypeIcon: function (val) {
-            return types[val]["icon"];
+            return types?.[val]?.["icon"];
         },
     },
     watch: {

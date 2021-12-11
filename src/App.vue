@@ -6,7 +6,7 @@
             slug="bbs"
             root="/bbs"
             :publishEnable="false"
-            :adminEnable="true"
+            :adminEnable="false"
             :feedbackEnable="true"
             :crumbEnable="true"
         >
@@ -28,9 +28,9 @@
 
 <script>
 import Info from "@/components/Info.vue";
-import Nav from "@/components/list_nav.vue";
+import Nav from "@/components/bbs/list_nav.vue";
 import publishGate from "@/components/publish_gate.vue";
-import {getAppIcon} from '@jx3box/jx3box-common/js/utils'
+import { getAppIcon,getAppType } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",
     props: [],
@@ -38,23 +38,30 @@ export default {
         return {};
     },
     computed: {},
-    methods: {getAppIcon},
+    methods: { getAppIcon },
     components: {
         Nav,
         "publish-gate": publishGate,
-        Info
+        Info,
     },
+    created : function (){
+        let type = getAppType()
+        let id = location.href.split('/').pop()
+        if(type != 'bbs'){
+            this.$router.push(`/${type}/${id}`)
+        }
+    }
 };
 </script>
 
 <style lang="less">
 @import "./assets/css/app.less";
 @media screen and (max-width: @phone) {
-    .c-crumb{
+    .c-crumb {
         .none;
     }
-    .c-breadcrumb{
-        .u-op{
+    .c-breadcrumb {
+        .u-op {
             .none;
         }
     }
