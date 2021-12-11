@@ -24,7 +24,7 @@
 import lodash from "lodash";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getLink } from "@jx3box/jx3box-common/js/utils";
-import { getJokes } from "@/service/cms";
+import { getRecommendedJokes } from "@/service/joke";
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 
 export default {
@@ -41,7 +41,7 @@ export default {
     methods: {
         getLink,
         init: function () {
-            getJokes().then((res) => {
+            getRecommendedJokes().then((res) => {
                 this.data = res.data.data.list;
                 this.render();
             });

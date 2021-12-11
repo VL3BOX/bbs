@@ -98,7 +98,7 @@ import {
     authorLink,
     editLink,
 } from "@jx3box/jx3box-common/js/utils";
-import { setJokeMark, removeJoke, getAuthorInfo } from "@/service/jokes";
+import { setJokeMark, removeJoke } from "@/service/joke";
 import User from "@jx3box/jx3box-common/js/user";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 export default {
@@ -247,12 +247,6 @@ export default {
                             type: "error",
                         });
                     });
-            });
-        },
-        // 获取作者信息
-        loadAuthor: function (id) {
-            getAuthorInfo(id).then((res) => {
-                this.authorInfo = res.data.data;
             });
         },
         handleContent: function () {

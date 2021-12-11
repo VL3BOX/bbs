@@ -1,5 +1,4 @@
-import { $cms,$next } from "@jx3box/jx3box-common/js/https";
-import axios from 'axios'
+import { $cms, $next } from "@jx3box/jx3box-common/js/https";
 
 function getMyPost(params) {
     return $cms().get("/api/cms/posts/my", {
@@ -22,19 +21,11 @@ function getPost(id) {
     return $cms().get(`/api/cms/post/${id}`);
 }
 
-function getMyPostCount() {
-    return $cms().get("/api/cms/posts/user/my/count");
-}
-function getLikes(params){
-    return $next().get(`/api/summary/batch`, {
-        params
-    })
-}
 
 function removeFeedback(id) {
-    return $cms().put(`/api/cms/post/${id}/setting`,{
-        post_status: "dustbin"
-    })
+    return $cms().put(`/api/cms/post/${id}/setting`, {
+        post_status: "dustbin",
+    });
 }
 
-export { getPosts, getPost, getMyPostCount, getMyPost, getLikes, removeFeedback };
+export { getPosts, getPost, getMyPost, removeFeedback };

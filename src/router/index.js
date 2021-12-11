@@ -6,19 +6,19 @@ const Namespace = () => import("../views/Namespace.vue");
 const Joke = () => import("../views/Joke.vue");
 const Emotion = () => import("../views/Emotion.vue");
 const Forum = () => import("../views/Forum.vue");
-const Notice = () => import("../views/Notice.vue");
-const Feedback = () => import("../views/Feedback.vue");
+// const Feedback = () => import("../views/Feedback.vue");
+const Collection = () => import("../views/Collection.vue");
 
 Vue.use(VueRouter);
 
 const routes = [
     { name: "index", path: "/", component: Index },
     { name: "forum", path: "/forum/:subtype?", component: Forum },
-    { name: "feedback", path: "/feedback/:id?", component: Feedback },
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
-    { name: "notice", path: "/notice", component: Notice },
+    // { name: "feedback", path: "/feedback/:id?", component: Feedback },
+    { name: "collection", path: "/collection/:id?", component: Collection },
 ];
 
 const router = new VueRouter({

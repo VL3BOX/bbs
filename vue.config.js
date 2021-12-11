@@ -8,23 +8,17 @@ module.exports = {
     //❤️ Multiple pages ~
     pages:{
         index : {
-            title : '茶馆交流 - JX3BOX',
+            title : '剑三茶馆 - JX3BOX',
             entry:'src/main.js',
             template : 'public/index.html',
             filename:'index.html',
         },
         bbs : {
-            title : '茶馆交流 - JX3BOX',
+            title : '剑三茶馆 - JX3BOX',
             entry:'src/post.js',
             template : 'public/index.html',
             filename:'post.html',
         },
-        notice: {
-            title : '茶馆交流 - JX3BOX',
-            entry:'src/notice.js',
-            template : 'public/index.html',
-            filename:'notice.html',
-        }
     },
 
     //❤️ Porxy ~

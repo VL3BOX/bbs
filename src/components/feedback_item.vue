@@ -83,7 +83,7 @@
 import { getRelativeTime } from "../utils/dateFormat";
 import { showAvatar, authorLink } from "@jx3box/jx3box-common/js/utils";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
-import { getAuthorInfo } from "@/service/jokes";
+import { getAuthorInfo } from "@/service/cms";
 import { getPost, removeFeedback } from "@/service/post.js";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import User from "@jx3box/jx3box-common/js/user";

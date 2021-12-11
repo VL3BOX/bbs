@@ -21,12 +21,12 @@
             </router-link>
         </div>
 
-        <div class="m-nav-tags">
+        <!-- <div class="m-nav-tags">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
             <div class="u-list">
                 <a :href="item.link" :target="item.meta_3" v-for="(item,i) in tags" :key="i" v-show="item.status">{{item.label}}</a>
             </div>
-        </div>
+        </div> -->
 
         <!-- <router-link class="m-nav-feedback" to="/feedback">
             <img src="../assets/img/nav/hzn.png" alt="盒子娘">
@@ -76,6 +76,11 @@ export default {
                     name: "剑三铭牌",
                     desc: "剑网3.com",
                 },
+                {
+                    slug: 'collection',
+                    icon: "el-icon-paperclip",
+                    name: "剑三小册",
+                },
             ],
             tags : [],
             feedback
@@ -90,14 +95,14 @@ export default {
         },
     },
     methods: {
-        loadTags : function (){
-            getMenu('bbs').then((res) => {
-                this.tags = res.data?.data?.val || []
-            })
-        }
+        // loadTags : function (){
+        //     getMenu('bbs').then((res) => {
+        //         this.tags = res.data?.data?.val || []
+        //     })
+        // }
     },
     mounted: function () {
-        this.loadTags()
+        // this.loadTags()
     },
     components: {},
 };

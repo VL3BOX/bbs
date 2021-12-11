@@ -21,9 +21,6 @@
             <div class="m-main">
                 <router-view />
             </div>
-            <RightSidebar>
-                <Side class="m-extend" />
-            </RightSidebar>
             <Footer></Footer>
         </Main>
     </div>
@@ -32,7 +29,6 @@
 <script>
 import Info from "@/components/Info.vue";
 import Nav from "@/components/list_nav.vue";
-import Side from "@/components/list_side.vue";
 import publishGate from "@/components/publish_gate.vue";
 import {getAppIcon} from '@jx3box/jx3box-common/js/utils'
 export default {
@@ -45,7 +41,6 @@ export default {
     methods: {getAppIcon},
     components: {
         Nav,
-        Side,
         "publish-gate": publishGate,
         Info
     },

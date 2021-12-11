@@ -86,8 +86,8 @@
 <script>
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import emotion from "@jx3box/jx3box-emotion/data/default.json";
-import { getJokes, getJoke } from "@/service/jokes";
-import { getLikes } from "../service/post";
+import { getJokes, getJoke } from "@/service/joke";
+import { getLikes } from "../service/next";
 import joke_item from "../components/joke_item";
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
