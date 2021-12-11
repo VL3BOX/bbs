@@ -1,55 +1,41 @@
 <template>
     <div class="m-joke-item">
         <div class="u-content" @click="handleContent" :class="mode === 'single' ? 'on' : ''">
-            <!-- <i
-                v-if="isEditor"
-                class="u-star u-star-op"
-                :class="isMark ? 'on' : ''"
-                @click="handleMark"
-            >★</i>
-            <i v-else class="u-star" v-show="isMark">★</i>-->
-            <span class="u-sentence" v-html="parse(joke.post_title)"></span>
+            <i class="u-star" :class="joke.star ? 'on' : ''" v-if="joke.star" title="精选">★</i>
+            <span class="u-sentence" v-html="parse(joke.content)"></span>
         </div>
-        <div class="misc">
-            <div class="op">
-                <span class="user">
-                    <img width="24" height="24" :src="authorAvatar | showAvatar" />
+        <div class="u-misc">
+            <div class="u-op">
+                <span class="u-user">
+                    <img width="24" height="24" :src="user_avatar | showAvatar" />
                     <a
-                        :href="joke.post_author | authorLink"
+                        :href="joke.user_id | authorLink"
                         target="_blank"
-                        v-if="joke.post_author && joke.post_author != 1"
-                    >{{ authorName }}</a>
-                    <span v-else>{{ authorName }}</span>
+                        v-if="joke.user_id"
+                    >{{ user_name }}</a>
+                    <span v-else>{{ joke.author || '匿名' }}</span>
                 </span>
                 <el-link
                     type="primary"
-                    class="copy-btn"
+                    class="u-copy"
                     :disabled="disabled"
-                    @click="handleCopy(joke.post_title)"
+                    @click="handleCopy(joke.content)"
                 >
-                    <i class="el-icon-document-copy"></i>
-                    {{ copyLabel }}
+                    <i class="el-icon-document-copy"></i> 复制
                 </el-link>
-                <!-- <router-link
-                    v-if="mode !== 'single'"
-                    class="el-link el-link--primary is-underline copy-btn"
-                    :to="'/joke/' + joke.ID"
-                >
-                    <i class="el-icon-chat-dot-square"></i>评论
-                </router-link>-->
 
                 <a
                     v-if="mode === 'single'"
                     class="u-edit el-link el-link--primary is-underline"
-                    :href="editLink('joke',joke.ID)"
+                    :href="editLink('joke',joke.id)"
                     target="_blank"
                 >
                     <i class="el-icon-edit-outline"></i> 编辑
                 </a>
 
                 <a
-                    class="like"
-                    :class="{ disabled: !isLike ,on:!isLike}"
+                    class="u-like"
+                    :class="{ disabled: !isLike ,on:isLike}"
                     title="赞"
                     @click="addLike"
                     v-if="isListPage"
@@ -57,34 +43,25 @@
                     <i class="like-icon">{{isLike ? '♡' : '♥'}}</i>Like
                     <span class="like-count" v-if="count">{{ count }}</span>
                 </a>
+
+                <template v-if="isEditor">
+                    <span class="el-link el-link--primary is-underline" @click="handleStar">
+                        <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
+                        {{ isStar ? '取消精选' : '设为精选' }}
+                    </span>
+                    <span
+                        class="el-link el-link--primary is-underline u-delete"
+                        @click="handleDelete"
+                    >
+                        <i class="el-icon-delete"></i> 删除
+                    </span>
+                </template>
             </div>
             <div class="u-other">
-                <div class="u-time">
-                    <!-- <a
-                        v-if="isEditor"
-                        class="el-link el-link--primary is-underline"
-                        @click="handleMark"
-                    >
-                        <i :class="isMark ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                        {{ isMark ? '取消精选' : '设为精选' }}
-                    </a>-->
-                    <i
-                        v-if="isEditor"
-                        class="u-star u-star-op"
-                        :class="isMark ? 'on' : ''"
-                        @click="handleMark"
-                    >★</i>
-                    <!-- <i
-                        class="el-icon-close u-joke-delete"
-                        @click="delJoke"
-                        v-show="isEditor"
-                        title="删除"
-                    ></i> -->
-                    <span class="u-date">
-                        <i class="el-icon-date"></i>&nbsp;
-                        <time>{{ joke.post_date | dateFormat }}</time>
-                    </span>
-                </div>
+                <span class="u-date">
+                    <i class="el-icon-date"></i>&nbsp;
+                    <time>{{ joke.created_at | dateFormat }}</time>
+                </span>
             </div>
         </div>
     </div>
@@ -98,7 +75,7 @@ import {
     authorLink,
     editLink,
 } from "@jx3box/jx3box-common/js/utils";
-import { setJokeMark, removeJoke } from "@/service/joke";
+import { starJoke, removeJoke } from "@/service/joke";
 import User from "@jx3box/jx3box-common/js/user";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 export default {
@@ -106,34 +83,15 @@ export default {
     props: ["joke", "mode"],
     data() {
         return {
-            copyLabel: "复制",
             disabled: false,
-            isMark: false,
 
-            // 作者信息
-            authorInfo: null,
+            // 加星
+            isStar: joke.star,
 
             // 点赞
             count: 0,
-            isLike: true,
+            isLike: false,
         };
-    },
-    watch: {
-        joke: {
-            deep: true,
-            immediate: true,
-            handler() {
-                this.isMark = !!this.joke?.mark?.length;
-
-                if (this.mode === "single") {
-                    if (this.joke?.post_author) {
-                        this.loadAuthor(this.joke.post_author);
-                    }
-                }
-
-                this.count = this.joke?.count || 0;
-            },
-        },
     },
     filters: {
         dateFormat: function (val) {
@@ -151,36 +109,19 @@ export default {
         isEditor: function () {
             return User.isEditor();
         },
-        authorName: function () {
-            return (
-                this.authorInfo?.display_name ||
-                this.joke?.author_info?.display_name ||
-                this.joke?.author ||
-                "匿名"
-            );
+        user_avatar: function () {
+            return this.joke?.user_info?.user_avatar;
         },
-        authorAvatar: function () {
-            return (
-                this.authorInfo?.user_avatar ||
-                this.joke?.author_info?.user_avatar ||
-                ""
-            );
+        user_name: function () {
+            return this.joke?.user_info?.display_name;
         },
     },
     methods: {
-        // 点赞
-        addLike: function () {
-            if (!this.isLike) return;
-            this.count++;
-            if (this.isLike) {
-                postStat("joke", this.joke?.ID, "likes");
-            }
-            this.isLike = false;
-        },
         parse(str) {
             const ins = new JX3_EMOTION(str);
             return ins.code;
         },
+        // 复制
         handleCopy(str) {
             this.disabled = true;
             navigator.clipboard.writeText(str).then(() => {
@@ -192,65 +133,53 @@ export default {
                 }, 3000);
             });
         },
+        // 编辑
         editLink,
-        // 编辑精选
-        handleMark() {
-            let mark = this.isMark ? [] : ["recommended"];
-            setJokeMark({ id: this.joke.ID, data: { mark } })
-                .then(() => {
-                    this.$notify({
-                        title: "成功",
-                        message: this.isMark ? "取消加精成功" : "加精成功",
-                        type: "success",
-                    });
-                    this.isMark = !!mark.length;
-                    this.$forceUpdate();
-                    // this.$emit("update");
-                })
-                .catch((err) => {
-                    this.$notify({
-                        title: "错误",
-                        message:
-                            err?.message || "设置失败，请重试或者联系管理员",
-                        type: "error",
-                    });
-                });
+        // 点赞
+        addLike: function () {
+            if (!this.isLike) return;
+            this.count++;
+            if (this.isLike) {
+                postStat("joke", this.joke?.id, "likes");
+            }
+            this.isLike = false;
         },
-        /**
-         * 删除joke
-         */
-        delJoke() {
+        // 精选
+        handleStar() {
+            starJoke(this.joke.id).then(() => {
+                this.$notify({
+                    title: "成功",
+                    message: this.isStar ? "取消加精成功" : "加精成功",
+                    type: "success",
+                });
+                this.isStar = !!joke.star;
+                this.$forceUpdate();
+                // this.$emit("update");
+            });
+        },
+        // 删除
+        handleDelete() {
             this.$confirm("此操作将会删除该骚话，是否继续？", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning",
             }).then(() => {
-                removeJoke(this.joke.ID)
-                    .then(() => {
-                        this.$notify({
-                            title: "成功",
-                            message: "删除成功",
-                            type: "success",
-                        });
-                        if (this.mode === "single") {
-                            this.$router.go(-1);
-                        } else {
-                            this.$emit("update");
-                        }
-                    })
-                    .catch((err) => {
-                        this.$notify({
-                            title: "错误",
-                            message:
-                                err?.message ||
-                                "删除失败，请重试或者联系管理员",
-                            type: "error",
-                        });
+                removeJoke(this.joke.id).then(() => {
+                    this.$notify({
+                        title: "成功",
+                        message: "删除成功",
+                        type: "success",
                     });
+                    if (this.mode === "single") {
+                        this.$router.go(-1);
+                    } else {
+                        this.$emit("update");
+                    }
+                });
             });
         },
         handleContent: function () {
-            this.$router.push(`/joke/${this.joke.ID}`);
+            this.$router.push(`/joke/${this.joke.id}`);
         },
     },
 };
