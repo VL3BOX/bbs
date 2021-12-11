@@ -75,7 +75,7 @@ import {
     authorLink,
     editLink,
 } from "@jx3box/jx3box-common/js/utils";
-import { starJoke, removeJoke } from "@/service/joke";
+import { starJoke, removeJoke, unstarJoke } from "@/service/joke";
 import User from "@jx3box/jx3box-common/js/user";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 export default {
@@ -86,7 +86,7 @@ export default {
             disabled: false,
 
             // 加星
-            isStar: joke.star,
+            isStar: this.joke.star,
 
             // 点赞
             count: 0,
@@ -146,17 +146,34 @@ export default {
         },
         // 精选
         handleStar() {
-            starJoke(this.joke.id).then(() => {
+            if (!this.isStar) {
+                starJoke(this.joke.id).then(() => {
+                    this.$notify({
+                        title: "成功",
+                        message: "加精成功",
+                        type: "success",
+                    });
+                    this.isStar = true;
+                    this.$forceUpdate();
+                    // this.$emit("update");
+                });
+            } else {
+                this.unStar()
+            }
+        },
+
+        unStar: function (){
+            unstarJoke(this.joke.id).then(() => {
                 this.$notify({
                     title: "成功",
-                    message: this.isStar ? "取消加精成功" : "加精成功",
+                    message: "取消加精成功",
                     type: "success",
                 });
-                this.isStar = !!joke.star;
+                this.isStar = false;
                 this.$forceUpdate();
-                // this.$emit("update");
-            });
+            })
         },
+
         // 删除
         handleDelete() {
             this.$confirm("此操作将会删除该骚话，是否继续？", "提示", {

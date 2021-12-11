@@ -64,6 +64,8 @@
                     </el-tab-pane>
                 </el-tabs>
             </div>
+            <!-- 快捷发布 -->
+            <joke-post :type="type"></joke-post>
             <!-- 列表 -->
             <el-row class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
                 <el-col :span="24" v-for="(joke) in jokes" :key="joke.id">
@@ -96,12 +98,14 @@ import { getJokes, getJoke } from "@/service/joke";
 import { getLikes } from "@/service/next";
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import joke_post from "@/components/joke/joke_post.vue";
 
 export default {
     name: "Joke",
     components: {
         "joke-item": joke_item,
         Comment,
+        'joke-post': joke_post,
     },
     data: function () {
         return {
@@ -171,6 +175,7 @@ export default {
             this.loading = true;
             getJokes(this.params)
                 .then((res) => {
+                    // console.log(res.data.data.data.list)
                     this.jokes = res?.data?.data?.list;
                     this.total = res?.data?.data?.total;
                 })
@@ -225,7 +230,7 @@ export default {
                 this.init();
             },
             deep: true,
-            immediate: true,
+            // immediate: true,
         },
         jokes: {
             deep: true,
@@ -236,6 +241,8 @@ export default {
     },
     created: function () {
         this.sortEmotion();
+
+        this.init()
     },
 };
 </script>
