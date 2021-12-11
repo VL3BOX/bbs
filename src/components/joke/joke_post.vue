@@ -4,7 +4,7 @@
             v-model="content"
             type="textarea"
             :rows="4"
-            placeholder="请输入内容"
+            placeholder="快速发布一条骚话"
             id="textarea"
             :maxlength="128"
             :minlength="1"
@@ -12,9 +12,7 @@
         ></el-input>
         <div class="u-joke-actions">
             <joke-emotion @emotion="insertVariable"></joke-emotion>
-            <el-button type="primary" size="medium" @click="publish"
-                >发布</el-button
-            >
+            <el-button type="primary" size="medium" @click="publish" icon="el-icon-position">提交</el-button>
         </div>
     </div>
 </template>
@@ -23,13 +21,13 @@
 import joke_emotion from "@/components/joke/joke_emotion.vue";
 import emotion from "@jx3box/jx3box-emotion/data/default.json";
 import User from "@jx3box/jx3box-common/js/user";
-import { postJoke } from '@/service/joke'
+import { postJoke } from "@/service/joke";
 export default {
     props: {
         type: {
             type: String,
-            default: '0'
-        }
+            default: "0",
+        },
     },
     components: {
         "joke-emotion": joke_emotion,
@@ -41,9 +39,9 @@ export default {
         processing: false,
     }),
     computed: {
-        isLogin: function (){
-            return User.isLogin()
-        }
+        isLogin: function () {
+            return User.isLogin();
+        },
     },
     methods: {
         /**
@@ -73,9 +71,9 @@ export default {
             }
         },
         // 快捷发布
-        publish: function (){
+        publish: function () {
             if (!this.isLogin) {
-                User.toLogin()
+                User.toLogin();
             } else {
                 if (!this.check()) return;
 
@@ -83,21 +81,23 @@ export default {
 
                 postJoke({
                     type: this.type,
-                    content: this.content
-                }).then(res => {
-                    let id = res?.data?.data?.id;
-                    this.$message({
-                        message: "发布成功",
-                        type: "success",
-                    });
-
-                    // 跳转
-                    setTimeout(() => {
-                        location.href = getLink("joke", id);
-                    }, 500);
-                }).finally(() => {
-                    this.processing = false
+                    content: this.content,
                 })
+                    .then((res) => {
+                        let id = res?.data?.data?.id;
+                        this.$message({
+                            message: "发布成功",
+                            type: "success",
+                        });
+
+                        // 跳转
+                        setTimeout(() => {
+                            location.href = getLink("joke", id);
+                        }, 500);
+                    })
+                    .finally(() => {
+                        this.processing = false;
+                    });
             }
         },
         // 检查内容合法性
@@ -175,6 +175,6 @@ export default {
             }
             return true;
         },
-    }
+    },
 };
 </script>

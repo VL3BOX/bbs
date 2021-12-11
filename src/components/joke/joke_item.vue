@@ -35,12 +35,12 @@
 
                 <a
                     class="u-like"
-                    :class="{ disabled: !isLike ,on:isLike}"
+                    :class="{ on:isLike}"
                     title="赞"
                     @click="addLike"
                     v-if="isListPage"
                 >
-                    <i class="like-icon">{{isLike ? '♡' : '♥'}}</i>Like
+                    <i class="like-icon">{{isLike ? '♥' : '♡'}}</i>Like
                     <span class="like-count" v-if="count">{{ count }}</span>
                 </a>
 
@@ -137,12 +137,13 @@ export default {
         editLink,
         // 点赞
         addLike: function () {
-            if (!this.isLike) return;
+            if (this.isLike) return;
+
             this.count++;
-            if (this.isLike) {
+            if (!this.isLike) {
                 postStat("joke", this.joke?.id, "likes");
             }
-            this.isLike = false;
+            this.isLike = true;
         },
         // 精选
         handleStar() {
@@ -161,7 +162,6 @@ export default {
                 this.unStar()
             }
         },
-
         unStar: function (){
             unstarJoke(this.joke.id).then(() => {
                 this.$notify({

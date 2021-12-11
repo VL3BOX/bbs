@@ -16,7 +16,7 @@
             class="u-joke-popover-icon"
             style="cursor: pointer"
             title="选择表情"
-            >😀</span
+            >😀插入表情</span
         >
     </el-popover>
 </template>
@@ -47,6 +47,14 @@ export default {
     .m-publish-joke-emotion {
         margin: 0;
     }
+}
+.u-joke-popover-icon{
+    border:1px solid #3585de;
+    .r(3px);
+    padding:5px 10px;
+    .fz(14px);
+    background-color: #f3f9ff;
+    box-shadow: 0 0 3px rgba(0,0,0,.1);
 }
 </style>
 
