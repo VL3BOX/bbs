@@ -75,7 +75,7 @@ import {
     buildTarget,
 } from "@jx3box/jx3box-common/js/utils";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
-import dateFormat from "@/utils/dateFormat";
+import {dateFormat} from "@/utils/dateFormat";
 import types from "@/assets/data/bbs_types.json";
 
 import { getPosts } from "@/service/post";

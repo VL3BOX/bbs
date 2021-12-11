@@ -15,7 +15,7 @@
             <publish-gate slot="op-append" />
         </Breadcrumb>
         <LeftSidebar>
-            <Nav class="m-nav" />
+            <Nav />
         </LeftSidebar>
         <Main :withoutRight="true">
             <div class="m-main">
@@ -28,9 +28,9 @@
 
 <script>
 import Info from "@/components/Info.vue";
-import Nav from "@/components/bbs/list_nav.vue";
+import Nav from "@/components/nav/Nav.vue";
 import publishGate from "@/components/publish_gate.vue";
-import { getAppIcon,getAppType } from "@jx3box/jx3box-common/js/utils";
+import { getAppIcon, getAppType } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",
     props: [],
@@ -38,19 +38,37 @@ export default {
         return {};
     },
     computed: {},
-    methods: { getAppIcon },
+    methods: {
+        getAppIcon,
+        getAppId: function () {
+            let arr = location.href.replace('#','/').split("/");
+            let id = 0;
+            for (let i = arr.length - 1; i > -1; i--) {
+                if(arr[i]){
+                    id = arr[i]
+                    break;
+                }
+            }
+            return id
+        },
+    },
     components: {
         Nav,
         "publish-gate": publishGate,
         Info,
     },
-    created : function (){
-        let type = getAppType()
-        let id = location.href.split('/').pop()
-        if(type != 'bbs'){
-            this.$router.push(`/${type}/${id}`)
+    created: function () {
+        let type = getAppType();
+        let id = this.getAppId()
+        if (type && type != "bbs") {
+            this.$router.push({
+                name: type,
+                params: {
+                    id: id,
+                },
+            });
         }
-    }
+    },
 };
 </script>
 

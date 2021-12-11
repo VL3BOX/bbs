@@ -19,6 +19,12 @@ module.exports = {
             template : 'public/index.html',
             filename:'post.html',
         },
+        // collection : {
+        //     title : '剑三小册 - JX3BOX',
+        //     entry:'src/pages/collection.js',
+        //     template : 'public/index.html',
+        //     filename:'collection.html',
+        // },
     },
 
     //❤️ Porxy ~

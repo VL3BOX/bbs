@@ -1,7 +1,7 @@
 <template>
     <div class="m-collection">
-        <List v-if="mode == 'list'" />
-        <Single />
+        <List v-if="mode == 'list'"/>
+        <Single v-else/>
     </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     },
     computed: {
         mode: function () {
-            return this.$route.params.id ? "single" : "list";
+            return this.$route?.params.id ? "single" : "list";
         },
     },
     watch: {},

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Nav from "@/components/bbs/single_nav.vue";
+import Nav from "@/components/nav/single_nav.vue";
 import Side from "@/components/bbs/single_side.vue";
 import single from "@/components/bbs/single.vue";
 import publishGate from "@/components/publish_gate.vue";

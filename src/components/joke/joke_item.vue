@@ -69,7 +69,7 @@
 
 <script>
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
-import dateFormat from "@/utils/dateFormat";
+import {dateFormat} from "@/utils/dateFormat";
 import {
     showAvatar,
     authorLink,

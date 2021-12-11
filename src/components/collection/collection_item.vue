@@ -1,110 +1,93 @@
 <template>
     <div class="m-collection-item">
-        <router-link
-            class="u-image"
-            :to="{ name: 'view', params: { collection_id: collection.id } }"
-        >
-            <img :src="collection.image | getCover" />
+        <router-link class="u-image" :to="{ name: 'collection', params: { id: data.id } }" target="_blank">
+            <img :src="data.image | getCover" />
         </router-link>
         <div class="u-content">
-            <router-link
-                class="u-title"
-                :to="{ name: 'view', params: { collection_id: collection.id } }"
-            >
+            <router-link class="u-title" :to="{ name: 'collection', params: { id: data.id } }" target="_blank">
                 <!-- <i class="el-icon-collection"></i> -->
-                {{ collection.title }}</router-link
-            >
+                {{ data.title }}
+            </router-link>
             <div class="u-info">
-                <a
-                    :href="collection.user_id | author_url"
-                    class="u-user"
-                    target="_blank"
-                >
-                    <img
-                        class="u-avatar"
-                        :src="get_thumbnail(collection.user_avatar, 20, true)"
-                    />
-                    <span
-                        class="u-nickname"
-                        v-text="collection.user_nickname"
-                    ></span>
+                <a :href="data.user_id | authorLink" class="u-user" target="_blank">
+                    <img class="u-avatar" :src="data.user_avatar | showAvatar" />
+                    <span class="u-nickname" v-text="data.user_nickname"></span>
                 </a>
-                <ul
-                    class="u-tags"
-                    v-if="collection.tags && collection.tags.length"
-                >
-                    <li
-                        v-for="(tag, key) in collection.tags"
-                        :key="key"
-                        v-text="tag"
-                        class="u-tag"
-                    ></li>
-                </ul>
+                <!-- <ul class="u-tags" v-if="data.tags && data.tags.length">
+                    <li v-for="(tag, key) in data.tags" :key="key" v-text="tag" class="u-tag"></li>
+                </ul>-->
             </div>
             <!-- <div
                 class="u-excerpt"
-                v-html="collection.excerpt"
-                v-if="collection.excerpt"
-            ></div> -->
+                v-html="data.excerpt"
+                v-if="data.excerpt"
+            ></div>-->
             <div class="u-posts">
                 <!-- <i class="el-icon-notebook-2"></i> -->
                 <!-- <span class="u-posts-title">小册文章：</span> -->
-                <el-row :gutter="20">
-                    <el-col
-                        :span="6"
-                        v-for="(post, key) in collection.posts.slice(0, 8)"
-                        :key="key"
-                        ><a
+                <el-row :gutter="80">
+                    <el-col :span="6" v-for="(post, key) in data.posts.slice(0, 8)" :key="key">
+                        <a
                             class="u-post"
                             :href="
                                 post.type === 'custom'
                                     ? post.url
-                                    : get_link(post.type, post.id)
+                                    : getLink(post.type, post.id)
                             "
                             target="_blank"
-                            ><i class="el-icon-notebook-2"></i
-                            >{{ post.title }}</a
-                        ></el-col
-                    >
+                        >
+                            <i class="el-icon-notebook-2"></i>
+                            {{ post.title }}
+                        </a>
+                    </el-col>
                 </el-row>
             </div>
             <div class="u-meta">
-                <span class="u-updated"
-                    ><i class="el-icon-refresh"></i> 最后更新于{{
-                        date_format(collection.updated)
-                    }}</span
-                >
+                <span class="u-updated">
+                    <i class="el-icon-refresh"></i>
+                    最后更新于{{dateFormat(data.updated)}}
+                </span>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import date_format from "../filters/DateFormat";
 import {
     getThumbnail,
     getLink,
     resolveImagePath,
+    authorLink,
 } from "@jx3box/jx3box-common/js/utils";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import {dateFormat} from '@/utils/dateFormat.js'
 export default {
-    name: "CollectionSingle",
-    props: ["collection", "collectionId"],
+    name: "CollectionItem",
+    props: ["data"],
+    components: {},
+    data: function () {
+        return {};
+    },
+    computed: {},
+    watch: {},
     methods: {
-        date_format,
-        get_thumbnail: getThumbnail,
-        get_link: getLink,
+        getLink,
+        dateFormat : function (timestamp){
+            return dateFormat(new Date(timestamp * 1000))
+        }
     },
     filters: {
-        getCover: function(val) {
+        getCover: function (val) {
             return val
                 ? resolveImagePath(val)
                 : `${__imgPath}image/collection/default_cover.png`;
         },
+        authorLink,
+        showAvatar: function (url) {
+            return getThumbnail(url, 20, true);
+        },
     },
+    created: function () {},
+    mounted: function () {},
 };
 </script>
-
-<style lang="less">
-@import "../../assets/css/components/collection.less";
-</style>
