@@ -1,7 +1,7 @@
 <template>
     <div class="m-emotion-item" :class="{single: mode === 'single'}">
         <template v-if="mode === 'single'">
-            <img class="m-single-img" :src="emotion.url" alt="" @click="preview">
+            <img class="m-single-img" :src="emotionUrl(emotion.url)" alt="" @click="preview">
             <div>{{ emotion.desc }}</div>
             <!--<a
                 v-if="mode === 'single'"
@@ -11,6 +11,10 @@
             >
                 <i class="el-icon-edit-outline"></i>
             </a>-->
+            <el-radio-group v-model="imgType" size="small" class="u-image-type">
+                <el-radio-button label="png">PNG</el-radio-button>
+                <el-radio-button label="gif">GIF</el-radio-button>
+            </el-radio-group>
         </template>
         <template v-else>
             <a class="u-emotion">
@@ -72,7 +76,9 @@ export default {
     data() {
         return {
             isLike: false,
-            isStar: this.emotion.star
+            isStar: this.emotion.star,
+
+            imgType: 'png'
         }
     },
     computed: {
@@ -93,6 +99,9 @@ export default {
         authorLink,
     },
     methods: {
+        emotionUrl: function (val) {
+            return this.imgType === 'png' ? this.emotion.url : ''
+        },
         editLink,
         preview() {
             if (this.mode === 'single') {
