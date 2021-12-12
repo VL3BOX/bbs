@@ -68,7 +68,7 @@
             >加载更多</el-button>
             <!-- 分页 -->
             <el-pagination
-                class="m-joke-pagination"
+                class="m-emotion-pagination"
                 background
                 :page-size="per"
                 :hide-on-single-page="true"
@@ -108,12 +108,12 @@ export default {
             type: "all",
             star: 0,
             search: "",
-            per: 10,
+            per: 24,
             page: 1,
             pages: 1,
             total: 0,
-            emotions : [],  //当前页面列表
-            list: [],   //合并列表
+            emotions: [], //当前页面列表
+            list: [], //合并列表
             appendMode: false,
 
             emotion: "",
@@ -163,7 +163,7 @@ export default {
                         this.list = this.list.concat(
                             res.data?.data?.list || []
                         );
-                        this.emotions = res.data?.data?.list || []
+                        this.emotions = res.data?.data?.list || [];
                     } else {
                         this.list = this.emotions = res.data?.data?.list || [];
                     }
@@ -224,7 +224,11 @@ export default {
                 const likes = res.data.data;
                 if (Object.keys(likes).length) {
                     this.emotions.forEach((d) => {
-                        this.$set(d, "count", likes?.["emotion-" + d.id]?.likes);
+                        this.$set(
+                            d,
+                            "count",
+                            likes?.["emotion-" + d.id]?.likes
+                        );
                     });
                 }
             });
