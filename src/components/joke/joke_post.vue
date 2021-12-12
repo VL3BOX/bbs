@@ -84,16 +84,12 @@ export default {
                     content: this.content,
                 })
                     .then((res) => {
-                        let id = res?.data?.data?.id;
+                        let data = res?.data?.data
                         this.$message({
-                            message: "发布成功",
+                            message: "发布成功,请等待审核",
                             type: "success",
                         });
-
-                        // 跳转
-                        setTimeout(() => {
-                            location.href = getLink("joke", id);
-                        }, 500);
+                        this.content = ''
                     })
                     .finally(() => {
                         this.processing = false;
