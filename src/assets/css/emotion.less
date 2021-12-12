@@ -127,6 +127,41 @@
         .ml(5px);
     }
 
+    .u-like {
+        .pr;
+        .fr;
+        cursor: pointer;
+        user-select: none;
+        &.disabled {
+            // .tm(0.5);
+            cursor: default;
+        }
+
+        &:hover{
+            .like-icon{
+                color:#f00;
+            }
+        }
+
+        &.on{
+            .like-icon{
+                color:#f00;
+            }
+        }
+
+        .like-icon {
+            .fz(20px,1);
+            .h(16px);
+            .y(-3px);
+        }
+
+        .like-count {
+            color: #888;
+            .ml(6px);
+        }
+    }
+
+
     // &.single {
     //     text-align: center;
     //     margin-bottom: 20px;
@@ -159,4 +194,35 @@
 // 图片预览
 .he-img-view {
     max-width: 1200px !important;
+}
+
+.m-emotion-publish {
+    margin-bottom: 16px;
+}
+
+.u-extend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+
+    &-form {
+        display: flex;
+        align-items: center;
+    }
+
+    .u-original {
+        width: 100px;
+        margin-right: 10px;
+    }
+
+    .u-author {
+        max-width: 300px;
+        margin-right: 10px;
+    }
+
+    .u-action-btn {
+        float: right;
+        display: inline;
+    }
 }

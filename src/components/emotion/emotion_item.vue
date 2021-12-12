@@ -1,5 +1,5 @@
 <template>
-    <div class="m-emotion-item" :class="{single: mode === 'single'}">
+    <div class="m-emotion-item" :class="{ single: mode === 'single' }">
         <div class="u-emotion">
             <i class="u-img" @click="preview">
                 <img
@@ -17,9 +17,10 @@
             <router-link
                 v-if="mode != 'single'"
                 class="u-desc"
-                :to="{name:'emotion',params:{id:emotion.id}}"
-            >{{emotion.desc | showListDesc}}</router-link>
-            <span class="u-desc" v-else>{{emotion.desc}}</span>
+                :to="{ name: 'emotion', params: { id: emotion.id } }"
+                >{{ emotion.desc | showListDesc }}</router-link
+            >
+            <span class="u-desc" v-else>{{ emotion.desc }}</span>
         </div>
         <div class="u-user">
             <img class="u-user-avatar" :src="user_avatar | showAvatar" />
@@ -28,19 +29,38 @@
                 :href="emotion.user_id | authorLink"
                 target="_blank"
                 v-if="emotion.user_id"
-            >{{ emotion | showUserName }}</a>
-            <span class="u-user-name" v-else>{{ emotion.author || '匿名'}}</span>
-            <time class="u-time">{{ emotion.updated_at | showTime}}</time>
-            <i class="u-like" title="点赞" @click="addLike" v-if="mode == 'list'">♥</i>
+                >{{ emotion | showUserName }}</a
+            >
+            <span class="u-user-name" v-else>{{
+                emotion.author || "匿名"
+            }}</span>
+            <time class="u-time">{{ emotion.updated_at | showTime }}</time>
+            <a
+                class="u-like"
+                :class="{ on: isLike }"
+                title="赞"
+                @click="addLike"
+                v-if="isListPage"
+            >
+                <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i
+                >Like
+                <span class="like-count" v-if="count">{{ count }}</span>
+            </a>
         </div>
-        <div class="u-op" v-if="isEditor">
-            <!-- <i
-                    @click="handleStar"
-                    v-if="isEditor"
-                    class="u-op-star"
-                    :class="{on: isStar}"
-                    :title="isStar ? '取消加精' : '设为精选'"
-            >★</i>-->
+        <div class="u-op u-editor" v-if="isEditor">
+            <span
+                class="el-link el-link--primary is-underline"
+                @click="handleStar"
+            >
+                <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
+                {{ isStar ? "取消精选" : "设为精选" }}
+            </span>
+            <!-- <span
+                class="el-link el-link--primary is-underline u-delete"
+                @click="handleDelete"
+            >
+                <i class="el-icon-delete"></i> 删除
+            </span> -->
         </div>
         <!-- <div class="u-extend" v-if="mode == 'single'">
             <el-radio-group v-model="ext" size="small" v-if="types.length">
@@ -65,12 +85,13 @@ import {
 import { getRelativeTime } from "@/utils/dateFormat.js";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import User from "@jx3box/jx3box-common/js/user";
-import { starEmotion, unstarEmotion } from "@/service/emotion";
+import { starEmotion, unstarEmotion, removeEmotion } from "@/service/emotion";
 export default {
     props: ["mode", "emotion", "index"],
     name: "emotion_item",
     data() {
         return {
+            count: 0,
             isLike: false,
             isStar: this.emotion.star,
 
@@ -84,6 +105,18 @@ export default {
         },
         isEditor: function () {
             return User.isEditor();
+        },
+        isListPage: function () {
+            return this.mode != "single";
+        },
+    },
+    watch: {
+        emotion: {
+            deep: true,
+            immediate: true,
+            handler(val) {
+                this.count = val.count || 0;
+            },
         },
     },
     filters: {
@@ -167,9 +200,26 @@ export default {
                 this.ext = ext;
             }
         },
-    },
-    mounted: function () {
-        // this.checkImageExt();
+        handleDelete: function () {
+            this.$confirm("此操作将会删除该骚话，是否继续？", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning",
+            }).then(() => {
+                removeEmotion(this.emotion.id).then(() => {
+                    this.$notify({
+                        title: "成功",
+                        message: "删除成功",
+                        type: "success",
+                    });
+                    if (this.mode === "single") {
+                        this.$router.go(-1);
+                    } else {
+                        this.$emit("update");
+                    }
+                });
+            });
+        },
     },
 };
 </script>

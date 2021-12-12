@@ -263,6 +263,8 @@ export default {
                     }
                     this.total = res.data.data.total;
                     this.pages = res.data.data.pages;
+
+                    this.loadLike()
                 })
                 .then(() => {
                     let result = this.$refs.waterfall.repaints()
@@ -318,7 +320,7 @@ export default {
             const params = {
                 post_type: "emotion",
                 post_action: "likes",
-                id: "emotion-" + id,
+                id: id,
             };
             getLikes(params).then((res) => {
                 const likes = res.data.data;
@@ -341,12 +343,12 @@ export default {
                 this.init();
             },
         },
-        emotions: {
-            deep: true,
-            handler() {
-                this.loadLike();
-            },
-        },
+        // emotions: {
+        //     deep: true,
+        //     handler() {
+        //         this.loadLike();
+        //     },
+        // },
     },
     mounted: function () {
         this.init()

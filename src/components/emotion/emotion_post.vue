@@ -28,13 +28,42 @@
             <!--    <el-switch v-model.number="data.original" :active-value="1" :inactive-value="0"></el-switch>-->
             <!--</div>-->
             <!-- 按钮 -->
-            <div class="m-publish-buttons">
+            <div class="u-extend">
+                <div class="u-extend-form">    
+                    <el-switch
+                        class="u-original"
+                        v-model.number="data.original"
+                        inactive-text="原创"
+                        :active-value="1"
+                        :inactive-value="0"
+                    ></el-switch>
+                    <el-input
+                        class="u-author"
+                        v-model="data.author"
+                        placeholder="（非必填）"
+                        v-if="!data.original"
+                        size="mini"
+                    >
+                        <span slot="prepend">原作者</span>
+                    </el-input>
+                    <el-select v-model="data.type" size="mini" style="margin-left: 10px;" placeholder="请选择门派">
+                        <el-option v-for="(school,i) in schoolmap" :key="i" :value="i" :label="school">
+                            <div style="display: flex;align-items: center;">
+                                <img class="u-icon" style="margin-right: 20px" width="24" height="24" :src="i | showSchoolIcon" :alt="school" />
+                                {{school}}
+                            </div>
+                        </el-option>
+                    </el-select>
+                </div>
                 <el-button
+                class="u-action-btn"
                     type="primary"
                     @click="post"
                     :disabled="loading"
                     icon="el-icon-s-promotion"
-                >提交</el-button>
+                    size="mini"
+                    >提交</el-button
+                >
             </div>
         </div>
     </div>
@@ -42,9 +71,11 @@
 
 <script>
 import { uploadEmotion, postEmotion } from "@/service/emotion";
+import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "emotion_post",
-    props: ["type"],
     data() {
         return {
             data: {
@@ -52,13 +83,18 @@ export default {
                 desc: "",
                 original: 0,
                 author: "",
+                type: ''
             },
             loading: false,
+            schoolmap,
         };
     },
     computed: {
         fileInput: function () {
             return this.$refs.uploadInput;
+        },
+         isLogin: function () {
+            return User.isLogin();
         },
     },
     methods: {
@@ -83,25 +119,31 @@ export default {
             this.data.desc = "";
         },
         post: function () {
-            this.loading = true;
-            postEmotion({
-                ...this.data,
-                type: this.type === "all" ? "" : this.type,
-            })
-                .then(() => {
-                    this.$message({
-                        type: "success",
-                        message: "表情发布成功",
+            if (!this.isLogin) {
+                User.toLogin();
+            } else {
+                this.loading = true;
+                postEmotion(this.data)
+                    .then(() => {
+                        this.$message({
+                            type: "success",
+                            message: "表情发布成功",
+                        });
+                        this.fileInput.value = "";
+    
+                        this.data = this.$options.data().data;
+                    })
+                    .finally(() => {
+                        this.loading = false;
                     });
-                    this.fileInput.value = "";
-
-                    this.data = this.$options.data().data;
-                })
-                .finally(() => {
-                    this.loading = false;
-                });
+            }
         },
     },
+    filters: {
+        showSchoolIcon: function (val) {
+            return __imgPath + "image/school/" + val + ".png";
+        },
+    }
 };
 </script>
 
