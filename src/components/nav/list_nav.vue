@@ -3,8 +3,8 @@
         <RightSideMsg>
             <em>综合交流反馈群</em> :
             <strong>
-                <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a>
-                <a href="https://jq.qq.com/?_wv=1027&k=5umZoT3B" v-else>2471800</a>
+                <!-- <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a> -->
+                <a href="https://jq.qq.com/?_wv=1027&k=5umZoT3B">2471800</a>
             </strong>
         </RightSideMsg>
 

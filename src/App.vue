@@ -30,29 +30,18 @@
 import Info from "@/components/Info.vue";
 import Nav from "@/components/nav/Nav.vue";
 import publishGate from "@/components/publish_gate.vue";
-import { getAppIcon, getAppType } from "@jx3box/jx3box-common/js/utils";
-import {single_types} from '../setting.json'
+import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
+import { single_types } from "../setting.json";
+import { getAppID,getAppType } from "@/utils/common.js";
 export default {
     name: "App",
     props: [],
     data: function () {
-        return {
-        };
+        return {};
     },
     computed: {},
     methods: {
         getAppIcon,
-        getAppId: function () {
-            let arr = location.href.replace('#','/').split("/");
-            let id = 0;
-            for (let i = arr.length - 1; i > -1; i--) {
-                if(arr[i] && !isNaN(arr[i])){
-                    id = arr[i]
-                    break;
-                }
-            }
-            return id
-        },
     },
     components: {
         Nav,
@@ -61,7 +50,7 @@ export default {
     },
     created: function () {
         let type = getAppType();
-        let id = this.getAppId()
+        let id = getAppID();
         if (type && single_types.includes(type)) {
             this.$router.push({
                 name: type,
