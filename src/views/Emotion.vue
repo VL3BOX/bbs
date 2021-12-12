@@ -85,9 +85,10 @@
                 type="primary"
                 @click="loadMore"
                 v-show="page < pages"
+                icon="el-icon-arrow-down"
             >加载更多</el-button>
             <!-- 分页 -->
-            <el-pagination
+            <!-- <el-pagination
                 class="m-emotion-pagination"
                 background
                 :page-size="per"
@@ -96,7 +97,7 @@
                 layout="total, prev, pager, next, jumper"
                 :total="total"
                 @current-change="skipTop"
-            ></el-pagination>
+            ></el-pagination> -->
         </div>
     </div>
 </template>
