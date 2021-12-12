@@ -25,7 +25,7 @@
                 </el-link>
 
                 <a
-                    v-if="mode === 'single'"
+                    v-if="mode === 'single' && (isAuthor || isEditor)"
                     class="u-edit el-link el-link--primary is-underline"
                     :href="editLink('joke',joke.id)"
                     target="_blank"
@@ -115,6 +115,10 @@ export default {
         user_name: function () {
             return this.joke?.user_info?.display_name;
         },
+        isAuthor: function () {
+            const user = User.getInfo()
+            return user.uid === this.joke.user_id
+        }
     },
     methods: {
         parse(str) {
