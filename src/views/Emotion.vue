@@ -117,6 +117,7 @@ import { getLikes } from "@/service/next";
 export default {
     name: "Emotion",
     components: {
+        'emotion-post': emotion_post,
         "emotion-item": emotion_item,
         Comment,
         waterfall,
@@ -351,11 +352,6 @@ export default {
         showSchoolIcon: function (val) {
             return __imgPath + "image/school/" + val + ".png";
         },
-    },
-    components: {
-        'emotion-item': emotion_item,
-        'emotion-post': emotion_post,
-        Comment
     },
 };
 </script>

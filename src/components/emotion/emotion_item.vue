@@ -17,7 +17,7 @@
                 <el-radio-button label="gif">GIF</el-radio-button>
             </el-radio-group>
         </template>
-        <template v-else>
+        <!-- <template v-else>
             <div class="u-emotion">
                 <i class="u-img" @click="preview">
                     <i class="u-original" v-if="emotion.original">原创</i>
@@ -29,8 +29,8 @@
                     class="u-edit el-link el-link--primary is-underline"
                     @click="handleContent"
                     title="编辑"
-            >{{ emotion.desc }}</span>-->
-        </template>
+            >{{ emotion.desc }}</span>
+        </template> -->
         <!-- 列表页项目 -->
         <template v-else>
             <div class="u-emotion">
@@ -65,16 +65,16 @@
                     <i class="el-icon-date"></i>
                     {{ emotion.updated_at | showTime}}
                 </time>
+                <i class="u-like" title="点赞" @click="addLike">♥</i>
             </div>
-            <div class="u-op">
-                <i class="u-op-hot" title="点赞" @click="addLike">♥</i>
-                <i
+            <div class="u-op" v-if="isEditor">
+                <!-- <i
                     @click="handleStar"
                     v-if="isEditor"
                     class="u-op-star"
                     :class="{on: isStar}"
                     :title="isStar ? '取消加精' : '设为精选'"
-                >★</i>
+                >★</i> -->
             </div>
         </template>
     </div>
@@ -98,13 +98,9 @@ export default {
         return {
             isLike: false,
             isStar: this.emotion.star,
-<<<<<<< HEAD
-        };
-=======
 
             imgType: 'png'
         }
->>>>>>> 9719c2f975c1835525176487fa1778698f5b299d
     },
     computed: {
         user_avatar: function () {
