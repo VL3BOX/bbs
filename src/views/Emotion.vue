@@ -133,7 +133,7 @@ export default {
             type: 'all',
             star: 0,
             search: "",
-            per: 24,
+            per: 50,
             page: 1,
             pages: 1,
             total: 0,
