@@ -62,6 +62,7 @@
                     :fillBox="waterfall_options.fillBox"
                     :col-width="waterfall_options.colWidth"
                     :list="list"
+                    imgKey="src"
                     ref="waterfall"
                 >
                     <div
@@ -264,9 +265,10 @@ export default {
                     this.pages = res.data.data.pages;
                 })
                 .then(() => {
-                    this.$refs.waterfall.onRender = (res) => {
-                        console.log("渲染完毕", res);
-                    };
+                    let result = this.$refs.waterfall.repaints()
+                    // this.$refs.waterfall.onRender = (res) => {
+                    //     console.log("渲染完毕", res);
+                    // };
                 })
                 .finally(() => {
                     this.loading = false;

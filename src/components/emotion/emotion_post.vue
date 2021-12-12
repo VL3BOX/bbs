@@ -1,5 +1,8 @@
 <template>
     <div class="m-emotion-publish">
+        <div class="u-title">
+            <i class="el-icon-upload"></i>快速发布
+        </div>
         <div class="m-emotion-upload">
             <div v-if="data && data.url" class="u-emotion">
                 <img :src="data.url" />

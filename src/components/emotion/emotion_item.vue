@@ -1,81 +1,51 @@
 <template>
     <div class="m-emotion-item" :class="{single: mode === 'single'}">
-        <!-- 单页项目 -->
-        <template v-if="mode === 'single'">
-            <img class="m-single-img" :src="emotionUrl(emotion.url)" alt="" @click="preview">
-            <div>{{ emotion.desc }}</div>
-            <!--<a
-                v-if="mode === 'single'"
-                class="u-edit el-link el-link&#45;&#45;primary is-underline"
-                :href="editLink('emotion', emotion.id)"
+        <div class="u-emotion">
+            <i class="u-img" @click="preview">
+                <img
+                    class="u-pic u-emotion-pic waterfall-img"
+                    :src="emotion.url | showThumbnail"
+                    :alt="emotion.desc"
+                />
+            </i>
+        </div>
+        <div class="u-meta">
+            <i class="u-star" v-if="emotion.star">
+                <i class="el-icon-star-off"></i>精选
+            </i>
+            <i class="u-original" v-if="emotion.original">原创</i>
+            <router-link
+                class="u-desc"
+                :to="{name:'emotion',params:{id:emotion.id}}"
+            >{{emotion.desc | showListDesc}}</router-link>
+        </div>
+        <div class="u-user">
+            <img class="u-user-avatar" :alt="user_name" :src="user_avatar | showAvatar" />
+            <a
+                class="u-user-name"
+                :href="emotion.user_id | authorLink"
                 target="_blank"
-            >
-                <i class="el-icon-edit-outline"></i>
-            </a>-->
-            <el-radio-group v-model="imgType" size="small" class="u-image-type">
-                <el-radio-button label="png">PNG</el-radio-button>
-                <el-radio-button label="gif">GIF</el-radio-button>
-            </el-radio-group>
-        </template>
-        <!-- <template v-else>
-            <div class="u-emotion">
-                <i class="u-img" @click="preview">
-                    <i class="u-original" v-if="emotion.original">原创</i>
-                    <img class="u-pic u-emotion-pic" :src="emotion.url" alt="">
-                </i>
-            </div>
-            <div class="u-desc" >
-                <span
-                    class="u-edit el-link el-link--primary is-underline"
-                    @click="handleContent"
-                    title="编辑"
-            >{{ emotion.desc }}</span>
-        </template> -->
-        <!-- 列表页项目 -->
-        <template v-else>
-            <div class="u-emotion">
-                <i class="u-img" @click="preview">
-                    <img
-                        class="u-pic u-emotion-pic waterfall-img"
-                        :src="emotion.url | showThumbnail"
-                        :alt="emotion.desc"
-                    />
-                </i>
-            </div>
-            <div class="u-meta">
-                <i class="u-star" v-if="emotion.star">
-                    <i class="el-icon-star-off"></i>精选
-                </i>
-                <i class="u-original" v-if="emotion.original">原创</i>
-                <router-link
-                    class="u-desc"
-                    :to="{name:'emotion',params:{id:emotion.id}}"
-                >{{emotion.desc | showListDesc}}</router-link>
-            </div>
-            <div class="u-user">
-                <img class="u-user-avatar" :alt="user_name" :src="user_avatar | showAvatar" />
-                <a
-                    class="u-user-name"
-                    :href="emotion.user_id | authorLink"
-                    target="_blank"
-                    v-if="emotion.user_id"
-                >{{ user_name }}</a>
-                <span class="u-user-name" v-else>{{ emotion.author}}</span>
-                <time class="u-time">
-                    {{ emotion.updated_at | showTime}}
-                </time>
-                <i class="u-like" title="点赞" @click="addLike">♥</i>
-            </div>
-            <div class="u-op" v-if="isEditor">
-                <!-- <i
+                v-if="emotion.user_id"
+            >{{ user_name }}</a>
+            <span class="u-user-name" v-else>{{ emotion.author}}</span>
+            <time class="u-time">{{ emotion.updated_at | showTime}}</time>
+            <i class="u-like" title="点赞" @click="addLike" v-if="mode == 'list'">♥</i>
+        </div>
+        <div class="u-op" v-if="isEditor">
+            <!-- <i
                     @click="handleStar"
                     v-if="isEditor"
                     class="u-op-star"
                     :class="{on: isStar}"
                     :title="isStar ? '取消加精' : '设为精选'"
-                >★</i> -->
-            </div>
-        </template>
+            >★</i>-->
+        </div>
+        <div class="u-extend" v-if="mode == 'single'">
+            <el-radio-group v-model="imgType" size="small" class="u-image-type">
+                <el-radio-button label="png">PNG</el-radio-button>
+                <el-radio-button label="gif">GIF</el-radio-button>
+            </el-radio-group>
+        </div>
     </div>
 </template>
 
@@ -98,8 +68,8 @@ export default {
             isLike: false,
             isStar: this.emotion.star,
 
-            imgType: 'png'
-        }
+            imgType: "png",
+        };
     },
     computed: {
         user_avatar: function () {
@@ -129,7 +99,7 @@ export default {
     },
     methods: {
         emotionUrl: function (val) {
-            return this.imgType === 'png' ? this.emotion.url : ''
+            return this.imgType === "png" ? this.emotion.url : "";
         },
         editLink,
         preview() {
