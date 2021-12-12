@@ -11,7 +11,17 @@
             show-word-limit
         ></el-input>
         <div class="u-joke-actions">
-            <joke-emotion @emotion="insertVariable"></joke-emotion>
+            <div>
+                <joke-emotion @emotion="insertVariable"></joke-emotion>
+                <el-select v-model="type" size="medium" style="margin-left: 10px;" placeholder="请选择门派">
+                    <el-option v-for="(school,i) in schoolmap" :key="i" :value="i" :label="school">
+                        <div style="display: flex;align-items: center;">
+                            <img class="u-icon" style="margin-right: 20px" width="24" height="24" :src="i | showSchoolIcon" :alt="school" />
+                            {{school}}
+                        </div>
+                    </el-option>
+                </el-select> 
+            </div>
             <el-button type="primary" size="medium" @click="publish" icon="el-icon-position">提交</el-button>
         </div>
     </div>
@@ -20,21 +30,19 @@
 <script>
 import joke_emotion from "@/components/joke/joke_emotion.vue";
 import emotion from "@jx3box/jx3box-emotion/data/default.json";
+import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user";
 import { postJoke } from "@/service/joke";
 export default {
-    props: {
-        type: {
-            type: String,
-            default: "0",
-        },
-    },
     components: {
         "joke-emotion": joke_emotion,
     },
     data: () => ({
         // 快捷发布
         content: "",
+        type: '0',
+        schoolmap,
 
         processing: false,
     }),
@@ -80,7 +88,7 @@ export default {
                 this.processing = true;
 
                 postJoke({
-                    type: this.type,
+                    type: this.type === 'all' ? '0' : this.type,
                     content: this.content,
                 })
                     .then((res) => {
@@ -172,5 +180,10 @@ export default {
             return true;
         },
     },
+    filters: {
+        showSchoolIcon: function (val) {
+            return __imgPath + "image/school/" + val + ".png";
+        },
+    }
 };
 </script>

@@ -223,21 +223,23 @@ export default {
         },
         // 批量获取点赞
         loadLike: function () {
-            let id = this.jokes.map((d) => "joke-" + d.id);
-            id = id.join(",");
-            const params = {
-                post_type: "joke",
-                post_action: "likes",
-                id: id,
-            };
-            getLikes(params).then((res) => {
-                const likes = res.data.data;
-                if (Object.keys(likes).length) {
-                    this.jokes.forEach((d) => {
-                        this.$set(d, "count", likes?.["joke-" + d.id]?.likes);
-                    });
-                }
-            });
+            if (this.jokes && this.jokes.length) {
+                let id = this.jokes.map((d) => "joke-" + d.id);
+                id = id.join(",");
+                const params = {
+                    post_type: "joke",
+                    post_action: "likes",
+                    id: id,
+                };
+                getLikes(params).then((res) => {
+                    const likes = res.data.data;
+                    if (Object.keys(likes).length) {
+                        this.jokes.forEach((d) => {
+                            this.$set(d, "count", likes?.["joke-" + d.id]?.likes);
+                        });
+                    }
+                });
+            }
         },
     },
     watch: {

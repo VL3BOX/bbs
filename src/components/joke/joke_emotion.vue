@@ -50,6 +50,7 @@ export default {
 }
 .u-joke-popover-icon{
     border:1px solid #3585de;
+    height: 36px;
     .r(3px);
     padding:5px 10px;
     .fz(14px);
