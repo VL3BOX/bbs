@@ -271,7 +271,7 @@ export default {
                     this.loadLike()
                 })
                 .then(() => {
-                    let result = this.$refs.waterfall.repaints()
+                    // let result = this.$refs.waterfall.repaints()
                     // this.$refs.waterfall.onRender = (res) => {
                     //     console.log("渲染完毕", res);
                     // };
@@ -349,12 +349,17 @@ export default {
                 this.init();
             },
         },
+        // 分页重置
         reset_keys : {
             deep: true,
             handler: function () {
                 this.page = 1
             },
         },
+        // 类别重置
+        search : function (){
+            this.type = 'all'
+        }
         // emotions: {
         //     deep: true,
         //     handler() {

@@ -250,11 +250,16 @@ export default {
             },
             // immediate: true,
         },
+        // 分页重置
         reset_keys : {
             deep: true,
             handler: function () {
                 this.page = 1
             },
+        },
+        // 类别重置
+        search : function (){
+            this.type = 'all'
         },
         jokes: {
             deep: true,
