@@ -180,7 +180,7 @@ export default {
 
         // 删除
         handleDelete() {
-            this.$confirm("此操作将会删除该骚话，是否继续？", "提示", {
+            this.$confirm("此操作将会删除该表情，是否继续？", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning",

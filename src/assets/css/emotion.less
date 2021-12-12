@@ -39,6 +39,13 @@
         .mt(4px);
     }
 
+    .u-editor{
+        .el-link {
+            font-size: 12px;
+        }
+        justify-content: center !important;
+    }
+
     .u-op {
         display: flex;
         align-content: center;
@@ -50,6 +57,40 @@
             display: inline-flex;
             img {
                 .mr(4px);
+            }
+        }
+
+        .u-like {
+            .pr;
+            cursor: pointer;
+            user-select: none;
+            font-size: 12px;
+            &.disabled {
+                // .tm(0.5);
+                cursor: default;
+            }
+    
+            &:hover{
+                .like-icon{
+                    color:#f00;
+                }
+            }
+    
+            &.on{
+                .like-icon{
+                    color:#f00;
+                }
+            }
+    
+            .like-icon {
+                .fz(20px,1);
+                .h(16px);
+                .y(-3px);
+            }
+    
+            .like-count {
+                color: #888;
+                .ml(6px);
             }
         }
 
@@ -132,4 +173,34 @@
 // 图片预览
 .he-img-view{
     max-width: 1200px !important;
+}
+
+.m-emotion-publish {
+    margin-bottom: 16px;
+}
+
+.u-extend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-form {
+        display: flex;
+        align-items: center;
+    }
+
+    .u-original {
+        width: 100px;
+        margin-right: 10px;
+    }
+
+    .u-author {
+        max-width: 300px;
+        margin-right: 10px;
+    }
+
+    .u-action-btn {
+        float: right;
+        display: inline;
+    }
 }

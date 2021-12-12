@@ -52,11 +52,11 @@
                 </el-tabs>
             </div>
             <!--快速发布-->
-            <emotion-post :type="type"></emotion-post>
+            <emotion-post></emotion-post>
 
             <ul class="m-emotion-list" v-if="list && list.length">
                 <li class="u-item" v-for="(item, i) in list" :key="item.id">
-                    <emotion-item :emotion="item" :index="i" @preview="handlePreview"></emotion-item>
+                    <emotion-item :emotion="item" :index="i" @preview="handlePreview" @update="loadList"></emotion-item>
                 </li>
             </ul>
             <!-- 空 -->
@@ -173,6 +173,8 @@ export default {
                     }
                     this.total = res.data.data.total;
                     this.pages = res.data.data.pages;
+
+                    this.loadLike()
                 })
                 .finally(() => {
                     this.loading = false;
@@ -222,7 +224,7 @@ export default {
             const params = {
                 post_type: "emotion",
                 post_action: "likes",
-                id: "emotion-" + id,
+                id: id,
             };
             getLikes(params).then((res) => {
                 const likes = res.data.data;
@@ -245,12 +247,12 @@ export default {
                 this.init();
             },
         },
-        emotions: {
-            deep: true,
-            handler() {
-                this.loadLike();
-            },
-        },
+        // emotions: {
+        //     deep: true,
+        //     handler() {
+        //         this.loadLike();
+        //     },
+        // },
     },
     mounted: function () {
         this.init()

@@ -43,21 +43,33 @@
                     <span v-else>{{ emotion.author || '匿名' }}</span>
                 </span>
                 <span>
-                    <i
-                        class="u-op-hot"
-                        title="点赞"
+                    <a
+                        class="u-like"
+                        :class="{on: isLike}"
+                        title="赞"
                         @click="addLike"
-                    >♥</i>
-                    <i
-                        @click="handleStar"
-                        v-if="isEditor"
-                        class="u-op-star"
-                        :class="{on: isStar}"
-                        :title="isStar ? '取消加精' : '设为精选'"
-                    >★</i>
+                        v-if="isListPage"
+                    >
+                        <i class="like-icon">{{isLike ? '♥' : '♡'}}</i>Like
+                        <span class="like-count" v-if="count">{{ count }}</span>
+                    </a>
                 </span>
             </div>
         </template>
+        <div class="u-op u-editor">
+            <template v-if="isEditor">
+                <span class="el-link el-link--primary is-underline" @click="handleStar">
+                    <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
+                    {{ isStar ? '取消精选' : '设为精选' }}
+                </span>
+                <!-- <span
+                    class="el-link el-link--primary is-underline u-delete"
+                    @click="handleDelete"
+                >
+                    <i class="el-icon-delete"></i> 删除
+                </span> -->
+            </template>
+        </div>
     </div>
 </template>
 
@@ -69,12 +81,13 @@ import {
 } from "@jx3box/jx3box-common/js/utils";
 import {postStat} from "@jx3box/jx3box-common/js/stat";
 import User from "@jx3box/jx3box-common/js/user";
-import {starEmotion, unstarEmotion} from "@/service/emotion";
+import {starEmotion, unstarEmotion, removeEmotion} from "@/service/emotion";
 export default {
     props: ['mode', 'emotion', 'index'],
     name: "emotion_item",
     data() {
         return {
+            count: 0,
             isLike: false,
             isStar: this.emotion.star,
 
@@ -91,6 +104,18 @@ export default {
         isEditor: function () {
             return User.isEditor();
         },
+        isListPage: function () {
+            return this.mode != "single";
+        },
+    },
+    watch: {
+        emotion: {
+            deep: true,
+            immediate: true,
+            handler(val) {
+                this.count = val.count || 0
+            }
+        }
     },
     filters: {
         showAvatar: function (val) {
@@ -154,6 +179,26 @@ export default {
         handleContent: function () {
             this.$router.push(`/emotion/${this.emotion.id}`);
         },
+        handleDelete: function (){
+            this.$confirm("此操作将会删除该骚话，是否继续？", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning",
+            }).then(() => {
+                removeEmotion(this.emotion.id).then(() => {
+                    this.$notify({
+                        title: "成功",
+                        message: "删除成功",
+                        type: "success",
+                    });
+                    if (this.mode === "single") {
+                        this.$router.go(-1);
+                    } else {
+                        this.$emit("update");
+                    }
+                });
+            });
+        }
     }
 }
 </script>
