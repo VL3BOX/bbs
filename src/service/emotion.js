@@ -31,4 +31,9 @@ const removeEmotion = (id) => {
     return $cms().delete(`/api/cms/post/emotion/${id}`);
 };
 
-export { getEmotions, getEmotion, starEmotion, removeEmotion, postEmotion ,unstarEmotion};
+// 通用 - 上传文件
+function uploadEmotion(formdata) {
+    return $cms().post(`/api/cms/upload`, formdata);
+}
+
+export { getEmotions, getEmotion, starEmotion, removeEmotion, postEmotion ,unstarEmotion, uploadEmotion};

@@ -2,7 +2,7 @@
     <div class="m-emotion-item" :class="{single: mode === 'single'}">
         <!-- 单页项目 -->
         <template v-if="mode === 'single'">
-            <img class="m-single-img" :src="emotion.url" alt @click="preview" />
+            <img class="m-single-img" :src="emotionUrl(emotion.url)" alt="" @click="preview">
             <div>{{ emotion.desc }}</div>
             <!--<a
                 v-if="mode === 'single'"
@@ -12,7 +12,20 @@
             >
                 <i class="el-icon-edit-outline"></i>
             </a>-->
-            <!-- <span
+            <el-radio-group v-model="imgType" size="small" class="u-image-type">
+                <el-radio-button label="png">PNG</el-radio-button>
+                <el-radio-button label="gif">GIF</el-radio-button>
+            </el-radio-group>
+        </template>
+        <template v-else>
+            <div class="u-emotion">
+                <i class="u-img" @click="preview">
+                    <i class="u-original" v-if="emotion.original">原创</i>
+                    <img class="u-pic u-emotion-pic" :src="emotion.url" alt="">
+                </i>
+            </div>
+            <div class="u-desc" >
+                <span
                     class="u-edit el-link el-link--primary is-underline"
                     @click="handleContent"
                     title="编辑"
@@ -85,7 +98,13 @@ export default {
         return {
             isLike: false,
             isStar: this.emotion.star,
+<<<<<<< HEAD
         };
+=======
+
+            imgType: 'png'
+        }
+>>>>>>> 9719c2f975c1835525176487fa1778698f5b299d
     },
     computed: {
         user_avatar: function () {
@@ -114,6 +133,9 @@ export default {
         },
     },
     methods: {
+        emotionUrl: function (val) {
+            return this.imgType === 'png' ? this.emotion.url : ''
+        },
         editLink,
         preview() {
             if (this.mode === "single") {

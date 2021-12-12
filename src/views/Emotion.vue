@@ -51,8 +51,9 @@
                     </el-tab-pane>
                 </el-tabs>
             </div>
-            <!-- TODO:快捷发布 -->
-            <!-- 列表 -->
+            <!--快速发布-->
+            <emotion-post :type="type"></emotion-post>
+
             <ul class="m-emotion-list" v-if="list && list.length">
                 <waterfall
                     :autoResize="waterfall_options.autoResize"
@@ -100,9 +101,10 @@
 
 <script>
 // 模块
+import emotion_item from "@/components/emotion/emotion_item";
+import emotion_post from "@/components/emotion/emotion_post";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import waterfall from "vue-waterfall-rapid";
-import emotion_item from "@/components/emotion/emotion_item";
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -124,7 +126,8 @@ export default {
             loading: false,
             schoolmap,
 
-            type: "all",
+            // pagination
+            type: 'all',
             star: 0,
             search: "",
             per: 24,
@@ -227,6 +230,7 @@ export default {
                 this.type,
                 this.id,
                 this.star,
+                this.type
             ];
         },
         user_id: function () {
@@ -341,7 +345,17 @@ export default {
         },
     },
     mounted: function () {
-        this.init();
+        this.init()
+    },
+    filters: {
+        showSchoolIcon: function (val) {
+            return __imgPath + "image/school/" + val + ".png";
+        },
+    },
+    components: {
+        'emotion-item': emotion_item,
+        'emotion-post': emotion_post,
+        Comment
     },
 };
 </script>
