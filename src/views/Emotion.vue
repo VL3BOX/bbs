@@ -227,14 +227,18 @@ export default {
         },
         keys: function () {
             return [
+                this.id,
+
                 this.search,
+                this.type,
+                this.star,
+
                 this.page,
                 this.per,
-                this.type,
-                this.id,
-                this.star,
-                this.type
             ];
+        },
+        reset_keys : function (){
+            return [this.search,this.type,this.star]  
         },
         user_id: function () {
             return this.emotion?.user_id || 0;
@@ -341,6 +345,12 @@ export default {
             deep: true,
             handler: function () {
                 this.init();
+            },
+        },
+        reset_keys : {
+            deep: true,
+            handler: function () {
+                this.page = 1
             },
         },
         // emotions: {

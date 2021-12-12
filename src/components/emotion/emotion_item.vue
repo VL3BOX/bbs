@@ -1,5 +1,5 @@
 <template>
-    <div class="m-emotion-item" :class="{ single: mode === 'single' }">
+    <div class="m-emotion-item" :class="mode == 'single' ? 'single' : 'list' ">
         <div class="u-emotion">
             <i class="u-img" @click="preview">
                 <img
@@ -43,7 +43,7 @@
                 v-if="isListPage"
             >
                 <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i
-                >Like
+                ><span class="like-text">Like</span>
                 <span class="like-count" v-if="count">{{ count }}</span>
             </a>
         </div>
