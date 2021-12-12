@@ -25,7 +25,7 @@
             />
         </div>
         <div class="u-emotion-form">
-            <el-input class="u-emotion-desc" v-model="data.desc" placeholder="图片说明"></el-input>
+            <el-input class="u-emotion-desc" v-model="data.desc" type="textarea" :rows="3" :maxlength="120" show-word-limit  placeholder="图片说明"></el-input>
             <!--<div>-->
             <!--    <span>原创</span>-->
             <!--    <el-switch v-model.number="data.original" :active-value="1" :inactive-value="0"></el-switch>-->
