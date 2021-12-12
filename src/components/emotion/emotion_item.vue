@@ -62,7 +62,6 @@
                 >{{ user_name }}</a>
                 <span class="u-user-name" v-else>{{ emotion.author}}</span>
                 <time class="u-time">
-                    <i class="el-icon-date"></i>
                     {{ emotion.updated_at | showTime}}
                 </time>
                 <i class="u-like" title="点赞" @click="addLike">♥</i>

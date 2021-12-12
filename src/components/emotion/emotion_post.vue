@@ -4,28 +4,22 @@
             <div v-if="data && data.url" class="u-emotion">
                 <img :src="data.url" />
                 <i class="u-emotion-mask"></i>
-                <i
-                    class="u-emotion-delete el-icon-delete"
-                    title="移除"
-                    @click="handleRemove"
-                ></i>
+                <i class="u-emotion-delete el-icon-delete" title="移除" @click="handleRemove"></i>
             </div>
-            <div
-                v-else
-                class="u-upload el-upload el-upload--picture-card"
-                @click="select"
-            >
+            <div v-else class="u-upload el-upload el-upload--picture-card" @click="select">
                 <i class="el-icon-plus"></i>
             </div>
-            <input
-                class="u-upload-input"
-                type="file"
-                @change="upload"
-                ref="uploadInput"
-            />
+            <input class="u-upload-input" type="file" @change="upload" ref="uploadInput" />
         </div>
         <div class="u-emotion-form">
-            <el-input class="u-emotion-desc" v-model="data.desc" type="textarea" :rows="3" :maxlength="120" show-word-limit  placeholder="图片说明"></el-input>
+            <el-input
+                v-model="data.desc"
+                type="textarea"
+                :rows="4"
+                :maxlength="120"
+                show-word-limit
+                placeholder="快速发布一张表情，再配句骚话？"
+            ></el-input>
             <!--<div>-->
             <!--    <span>原创</span>-->
             <!--    <el-switch v-model.number="data.original" :active-value="1" :inactive-value="0"></el-switch>-->
@@ -44,20 +38,20 @@
 </template>
 
 <script>
-import {uploadEmotion, postEmotion} from "@/service/emotion";
+import { uploadEmotion, postEmotion } from "@/service/emotion";
 export default {
     name: "emotion_post",
-    props: ['type'],
+    props: ["type"],
     data() {
         return {
             data: {
-                url: '',
-                desc: '',
+                url: "",
+                desc: "",
                 original: 0,
-                author: '',
+                author: "",
             },
             loading: false,
-        }
+        };
     },
     computed: {
         fileInput: function () {
@@ -71,10 +65,10 @@ export default {
         upload: function () {
             let formdata = new FormData();
             formdata.append("file", this.fileInput.files[0]);
-            console.log(this.fileInput.files[0])
+            console.log(this.fileInput.files[0]);
             uploadEmotion(formdata).then((res) => {
                 this.data.url = res.data.data[0];
-                this.data.desc = this.fileInput.files[0]?.name || '无描述'
+                this.data.desc = this.fileInput.files[0]?.name || "无描述";
                 this.$message({
                     message: "上传成功",
                     type: "success",
@@ -83,24 +77,29 @@ export default {
         },
         handleRemove() {
             this.data.url = "";
-            this.data.desc = '';
+            this.data.desc = "";
         },
         post: function () {
             this.loading = true;
-            postEmotion({...this.data, type: this.type === 'all' ? '' : this.type}).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: '表情发布成功'
-                })
-                this.fileInput.value = '';
-
-                this.data = this.$options.data().data
-            }).finally(() => {
-                this.loading = false
+            postEmotion({
+                ...this.data,
+                type: this.type === "all" ? "" : this.type,
             })
-        }
-    }
-}
+                .then(() => {
+                    this.$message({
+                        type: "success",
+                        message: "表情发布成功",
+                    });
+                    this.fileInput.value = "";
+
+                    this.data = this.$options.data().data;
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
+        },
+    },
+};
 </script>
 
 <style lang="less" scoped>

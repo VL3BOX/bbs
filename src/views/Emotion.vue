@@ -51,8 +51,9 @@
                     </el-tab-pane>
                 </el-tabs>
             </div>
+
             <!--快速发布-->
-            <emotion-post :type="type"></emotion-post>
+            <emotion-post></emotion-post>
 
             <ul class="m-emotion-list" v-if="list && list.length">
                 <waterfall

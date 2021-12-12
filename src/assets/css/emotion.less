@@ -12,14 +12,13 @@
         color: @color;
     }
 }
-.m-emotion-pagination {
-    .mt(30px);
-}
-@media screen and (max-width: @phone) {
-    .m-emotion-pagination {
-        .x;
-        overflow-x: auto;
-    }
+
+.m-emotion-publish{
+    .mb(20px);
+    background-color:@bg-light;
+    padding:10px;
+    border:1px solid #eee;
+    .r(3px);
 }
 
 @keyframes fadeIn {
@@ -42,8 +41,6 @@
     }
 }
 
-// 单页
-// =======================
 .m-emotion-item {
     .u-emotion {
         .pointer;
@@ -57,57 +54,11 @@
         }
     }
 
-    // .u-op {
-    //     display: flex;
-    //     align-content: center;
-    //     justify-content: space-between;
-    //     line-height: 24px;
-    //     .mt(4px);
-
-    //     .u-user {
-    //         display: inline-flex;
-    //         img {
-    //             .mr(4px);
-    //         }
-    //     }
-
-    //     i {
-    //         font-size: 16px;
-    //         cursor: pointer;
-    //         font-style: normal;
-    //         color: #eee;
-    //         margin-left: 1px;
-    //         transition: .1s ease-in-out;
-    //         padding: 2px;
-
-    //         &.on {
-    //             color: #ff76ba;
-    //         }
-    //     }
-    // }
-
     .u-meta {
         .mt(5px);
     }
     .u-original,
     .u-star {
-        // position: absolute;
-        // background: #00cd32;
-        // padding: 0 5px;
-        // display: flex;
-        // align-items: center;
-        // height: 26px;
-        // color: #fff;
-
-        // &::after {
-        //     content: "";
-        //     position: absolute;
-        //     left: 100%;
-        //     top: 0;
-        //     border-color: #00cd32 transparent #00cd32 #00cd32;
-        //     border-width: 13px 13px 13px 0;
-        //     border-style: solid;
-        // }
         font-style: normal;
         border-radius: 2px;
         color: #fff;
@@ -149,7 +100,7 @@
     }
     .u-time {
         color: #999;
-        .ml(10px);
+        .ml(5px);
     }
 
     // &.single {
@@ -164,26 +115,28 @@
     // }
 }
 
-.v-emotion {
-    ul,
-    li {
-        list-style: none;
-        padding: 0;
-    }
-
-    .m-emotion-goback {
-        .mb(10px);
+.m-emotion-pagination {
+    .mt(30px);
+}
+@media screen and (max-width: @phone) {
+    .m-emotion-pagination {
+        .x;
+        overflow-x: auto;
     }
 }
 
-.m-single-img {
-    max-width: 800px;
-    max-height: 800px;
-    overflow: hidden;
-}
-.u-image-type {
-    .mt(10px);
-}
+// 单页
+// =======================
+
+
+// .m-single-img {
+//     max-width: 800px;
+//     max-height: 800px;
+//     overflow: hidden;
+// }
+// .u-image-type {
+//     .mt(10px);
+// }
         
 // 图片预览
 .he-img-view {
