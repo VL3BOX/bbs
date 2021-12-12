@@ -1,10 +1,10 @@
 <template>
-    <div class="m-emotion-item" :class="{ single: mode === 'single' }">
+    <div class="m-emotion-item" :class="mode == 'single' ? 'single' : 'list' ">
         <div class="u-emotion">
             <i class="u-img" @click="preview">
                 <img
                     class="u-pic u-emotion-pic waterfall-img"
-                    :src="emotion.url | showThumbnail"
+                    :src="showEmotion(emotion.url)"
                     :alt="emotion.desc"
                 />
             </i>
@@ -18,8 +18,10 @@
                 v-if="mode != 'single'"
                 class="u-desc"
                 :to="{ name: 'emotion', params: { id: emotion.id } }"
-                >{{ emotion.desc | showListDesc }}</router-link
             >
+                <i class="el-icon-link"></i>
+                {{ emotion.desc | showListDesc }}
+            </router-link>
             <span class="u-desc" v-else>{{ emotion.desc }}</span>
         </div>
         <div class="u-user">
@@ -29,38 +31,27 @@
                 :href="emotion.user_id | authorLink"
                 target="_blank"
                 v-if="emotion.user_id"
-                >{{ emotion | showUserName }}</a
-            >
-            <span class="u-user-name" v-else>{{
+            >{{ emotion | showUserName }}</a>
+            <span class="u-user-name" v-else>
+                {{
                 emotion.author || "匿名"
-            }}</span>
+                }}
+            </span>
             <time class="u-time">{{ emotion.updated_at | showTime }}</time>
-            <a
-                class="u-like"
-                :class="{ on: isLike }"
-                title="赞"
-                @click="addLike"
-                v-if="isListPage"
-            >
-                <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i
-                >Like
+            <a class="u-like" :class="{ on: isLike }" title="赞" @click="addLike" v-if="isListPage">
+                <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i>
+                <span class="like-text">Like</span>
                 <span class="like-count" v-if="count">{{ count }}</span>
             </a>
         </div>
         <div class="u-op u-editor" v-if="isEditor">
-            <span
-                class="el-link el-link--primary is-underline"
-                @click="handleStar"
-            >
+            <span class="el-link el-link--primary is-underline" @click="handleStar">
                 <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
                 {{ isStar ? "取消精选" : "设为精选" }}
             </span>
-            <!-- <span
-                class="el-link el-link--primary is-underline u-delete"
-                @click="handleDelete"
-            >
+            <span class="el-link el-link--primary is-underline u-delete" @click="handleDelete">
                 <i class="el-icon-delete"></i> 删除
-            </span> -->
+            </span>
         </div>
         <!-- <div class="u-extend" v-if="mode == 'single'">
             <el-radio-group v-model="ext" size="small" v-if="types.length">
@@ -71,7 +62,7 @@
                 >{{item.toUpperCase()}}</el-radio-button>
             </el-radio-group>
             <div class="u-tip"></div>
-        </div> -->
+        </div>-->
     </div>
 </template>
 
@@ -81,6 +72,7 @@ import {
     authorLink,
     editLink,
     getThumbnail,
+    resolveImagePath,
 } from "@jx3box/jx3box-common/js/utils";
 import { getRelativeTime } from "@/utils/dateFormat.js";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
@@ -138,9 +130,6 @@ export default {
         },
     },
     methods: {
-        emotionUrl: function (val) {
-            return this.imgType === "png" ? this.emotion.url : "";
-        },
         editLink,
         preview() {
             if (this.mode === "single") {
@@ -191,17 +180,9 @@ export default {
                 this.$forceUpdate();
             });
         },
-
-        // 图片格式
-        checkImageExt: function () {
-            let ext = this.emotion?.url?.split(".").pop().toLowerCase();
-            if (ext && ext != "gif") {
-                this.types.push(ext, "gif");
-                this.ext = ext;
-            }
-        },
+        // 删除
         handleDelete: function () {
-            this.$confirm("此操作将会删除该骚话，是否继续？", "提示", {
+            this.$confirm("此操作将会删除该表情，是否继续？", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning",
@@ -219,6 +200,29 @@ export default {
                     }
                 });
             });
+        },
+
+        // 图片格式
+        checkImageExt: function () {
+            let ext = this.emotion?.url?.split(".").pop().toLowerCase();
+            if (ext && ext != "gif") {
+                this.types.push(ext, "gif");
+                this.ext = ext;
+            }
+        },
+        checkIsGif: function (url) {
+            return url?.split(".").pop().toLowerCase() == "gif";
+        },
+        showEmotion: function (url) {
+            if (this.mode == "single") {
+                return resolveImagePath(url);
+            } else {
+                if (this.checkIsGif(url)) {
+                    return resolveImagePath(url);
+                } else {
+                    return getThumbnail(url, "emotion_thumbnail");
+                }
+            }
         },
     },
 };

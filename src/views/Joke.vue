@@ -149,13 +149,18 @@ export default {
         },
         keys: function () {
             return [
+                this.id,
+
                 this.search,
+                this.type,
+                this.star,
+
                 this.page,
                 this.per,
-                this.type,
-                this.id,
-                this.star,
             ];
+        },
+        reset_keys : function (){
+            return [this.search,this.type,this.star]  
         },
         user_id: function () {
             return this.joke?.user_id || 0;
@@ -245,6 +250,23 @@ export default {
                 this.init();
             },
             // immediate: true,
+        },
+        // 分页重置
+        reset_keys : {
+            deep: true,
+            handler: function () {
+                this.page = 1
+            },
+        },
+        // 类别重置
+        search : function (){
+            this.type = 'all'
+        },
+        jokes: {
+            deep: true,
+            handler() {
+                this.loadLike();
+            },
         },
     },
     created: function () {

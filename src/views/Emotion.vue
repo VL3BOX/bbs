@@ -133,7 +133,7 @@ export default {
             type: 'all',
             star: 0,
             search: "",
-            per: 24,
+            per: 50,
             page: 1,
             pages: 1,
             total: 0,
@@ -227,14 +227,18 @@ export default {
         },
         keys: function () {
             return [
+                this.id,
+
                 this.search,
+                this.type,
+                this.star,
+
                 this.page,
                 this.per,
-                this.type,
-                this.id,
-                this.star,
-                this.type
             ];
+        },
+        reset_keys : function (){
+            return [this.search,this.type,this.star]  
         },
         user_id: function () {
             return this.emotion?.user_id || 0;
@@ -267,7 +271,7 @@ export default {
                     this.loadLike()
                 })
                 .then(() => {
-                    let result = this.$refs.waterfall.repaints()
+                    // let result = this.$refs.waterfall.repaints()
                     // this.$refs.waterfall.onRender = (res) => {
                     //     console.log("渲染完毕", res);
                     // };
@@ -345,6 +349,17 @@ export default {
                 this.init();
             },
         },
+        // 分页重置
+        reset_keys : {
+            deep: true,
+            handler: function () {
+                this.page = 1
+            },
+        },
+        // 类别重置
+        search : function (){
+            this.type = 'all'
+        }
         // emotions: {
         //     deep: true,
         //     handler() {

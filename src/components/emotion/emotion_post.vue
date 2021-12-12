@@ -23,10 +23,6 @@
                 show-word-limit
                 placeholder="快速发布一张表情，再配句骚话？"
             ></el-input>
-            <!--<div>-->
-            <!--    <span>原创</span>-->
-            <!--    <el-switch v-model.number="data.original" :active-value="1" :inactive-value="0"></el-switch>-->
-            <!--</div>-->
             <!-- 按钮 -->
             <div class="u-extend">
                 <div class="u-extend-form">    
@@ -46,7 +42,7 @@
                     >
                         <span slot="prepend">原作者</span>
                     </el-input>
-                    <el-select v-model="data.type" size="mini" style="margin-left: 10px;" placeholder="请选择门派">
+                    <el-select v-model="data.type" size="mini" style="margin-left: 10px;" placeholder="选择门派（非必选）">
                         <el-option v-for="(school,i) in schoolmap" :key="i" :value="i" :label="school">
                             <div style="display: flex;align-items: center;">
                                 <img class="u-icon" style="margin-right: 20px" width="24" height="24" :src="i | showSchoolIcon" :alt="school" />

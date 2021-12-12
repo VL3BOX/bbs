@@ -12,8 +12,8 @@
         ></el-input>
         <div class="u-joke-actions">
             <div>
-                <joke-emotion @emotion="insertVariable"></joke-emotion>
-                <el-select v-model="type" size="medium" style="margin-left: 10px;" placeholder="请选择门派">
+                <joke-emotion @emotion="insertVariable" ></joke-emotion>
+                <el-select v-model="type" size="small" style="margin-left: 10px;position:relative;top:-1px;" placeholder="请选择门派">
                     <el-option v-for="(school,i) in schoolmap" :key="i" :value="i" :label="school">
                         <div style="display: flex;align-items: center;">
                             <img class="u-icon" style="margin-right: 20px" width="24" height="24" :src="i | showSchoolIcon" :alt="school" />
@@ -22,7 +22,7 @@
                     </el-option>
                 </el-select> 
             </div>
-            <el-button type="primary" size="medium" @click="publish" icon="el-icon-position">提交</el-button>
+            <el-button type="primary" size="small" @click="publish" icon="el-icon-position">提交</el-button>
         </div>
     </div>
 </template>
