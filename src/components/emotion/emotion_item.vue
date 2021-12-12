@@ -17,12 +17,12 @@
             </el-radio-group>
         </template>
         <template v-else>
-            <a class="u-emotion">
+            <div class="u-emotion">
                 <i class="u-img" @click="preview">
                     <i class="u-original" v-if="emotion.original">原创</i>
                     <img class="u-pic u-emotion-pic" :src="emotion.url" alt="">
                 </i>
-            </a>
+            </div>
             <div class="u-desc" >
                 <span
                     class="u-edit el-link el-link--primary is-underline"

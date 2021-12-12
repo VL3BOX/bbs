@@ -11,7 +11,7 @@
                 :postId="id"
                 postType="emotion"
                 :userId="user_id"
-                :adminBoxcoinEnable="false"
+                :adminBoxcoinEnable="true"
                 :userBoxcoinEnable="true"
             />
             <div class="m-single-comment">
@@ -26,7 +26,13 @@
             <div class="m-emotion-search" slot="search-before">
                 <el-input placeholder="请输入搜索内容" v-model="search">
                     <span slot="prepend">关键词</span>
-                    <el-button slot="append" icon="el-icon-search"></el-button>
+                    <el-switch
+                        slot="append"
+                        v-model="star"
+                        :inactive-value="0"
+                        :active-value="1"
+                        inactive-text="只看精选"
+                    ></el-switch>
                 </el-input>
             </div>
             <!-- 门派分类 -->
@@ -53,11 +59,17 @@
                     <emotion-item :emotion="item" :index="i" @preview="handlePreview"></emotion-item>
                 </li>
             </ul>
+            <!-- 空 -->
             <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-            <el-button style="width: 100%;" type="primary" @click="loadMore" v-show="page < pages">加载更多</el-button>
+            <el-button
+                style="width: 100%;"
+                type="primary"
+                @click="loadMore"
+                v-show="page < pages"
+            >加载更多</el-button>
             <!-- 分页 -->
             <el-pagination
-                class="m-joke-pagination"
+                class="m-emotion-pagination"
                 background
                 :page-size="per"
                 :hide-on-single-page="true"
@@ -66,88 +78,105 @@
                 :total="total"
                 @current-change="skipTop"
             ></el-pagination>
-            <!-- <el-alert title="即将登陆，敬请期待" type="warning" show-icon>
-            </el-alert> -->
         </div>
     </div>
 </template>
 
 <script>
-import {getEmotions,getEmotion} from '@/service/emotion';
+// 模块
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+
+// 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 
+// 数据
+import { getEmotions, getEmotion } from "@/service/emotion";
+import { getLikes } from "@/service/next";
+
 export default {
     name: "Emotion",
-    props: [],
+    components: {
+        "emotion-item": emotion_item,
+        Comment,
+    },
     data: function () {
         return {
-            search: '',
-            list: [],
             loading: false,
             schoolmap,
 
             // pagination
             type: 'all',
             star: 0,
-            per: 10,
+            search: "",
+            per: 24,
             page: 1,
             pages: 1,
             total: 0,
+            emotions: [], //当前页面列表
+            list: [], //合并列表
             appendMode: false,
 
-            emotion: ''
+            emotion: "",
         };
     },
     computed: {
-        params: function ({search, per, page, type}) {
-            return {
-                search,
-                per,
-                page,
-                type: type === 'all' ? '' : type
-            }
-        },
         id: function () {
             return ~~this.$route.params.id;
         },
-        images: function () {
-            return this.list.map(item => item.url)
-        },
-        user_id: function () {
-            return this.emotion?.user_id || 0;
+        params: function ({ search, per, page, star }) {
+            return {
+                per,
+                page,
+                type: this.type == "all" ? "" : this.type,
+                search,
+                star,
+            };
         },
         keys: function () {
             return [
                 this.search,
                 this.page,
                 this.per,
+                this.type,
                 this.id,
                 this.star,
                 this.type
             ];
         },
+        user_id: function () {
+            return this.emotion?.user_id || 0;
+        },
+        images: function () {
+            return this.list.map((item) => item.url);
+        },
+    },
+    filters: {
+        showSchoolIcon: function (val) {
+            return __imgPath + "image/school/" + val + ".png";
+        },
     },
     methods: {
-        goBack: function () {
-            this.$router.push("/emotion");
-        },
         loadList: function () {
-            this.loading = true
-            getEmotions(this.params).then(res => {
-                if (this.appendMode) {
-                    this.list = this.list.concat(res.data?.data?.list || [])
-                } else {
-                    this.list = res.data?.data?.list || []
-                }
-                this.total = res.data.data.total;
-                this.pages = res.data.data.pages;
-            }).finally(() => {
-                this.loading = false
-            })
+            this.loading = true;
+            getEmotions(this.params)
+                .then((res) => {
+                    if (this.appendMode) {
+                        this.list = this.list.concat(
+                            res.data?.data?.list || []
+                        );
+                        this.emotions = res.data?.data?.list || [];
+                    } else {
+                        this.list = this.emotions = res.data?.data?.list || [];
+                    }
+                    this.total = res.data.data.total;
+                    this.pages = res.data.data.pages;
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
         loadSingle() {
             this.loading = true;
@@ -159,6 +188,15 @@ export default {
                     this.loading = false;
                 });
         },
+        loadMore: function () {
+            this.appendMode = true;
+            this.page++;
+        },
+        init: function () {
+            this.id ? this.loadSingle() : this.loadList();
+        },
+
+        // 图片预览
         handlePreview: function (i) {
             this.$hevueImgPreview({
                 multiple: true, // 开启多图预览模式
@@ -168,24 +206,51 @@ export default {
                 clickMaskCLose: true,
             });
         },
+
+        // 杂项
+        goBack: function () {
+            this.$router.push("/emotion");
+        },
         skipTop: function () {
             window.scrollTo(0, 0);
         },
-        loadMore: function () {
-            this.appendMode = true
-            this.page++
-        },
-        init: function () {
-            this.id ? this.loadSingle() : this.loadList();
+
+        // 批量获取点赞
+        loadLike: function () {
+            let id = this.emotions.map((d) => "emotion-" + d.id);
+            id = id.join(",");
+            const params = {
+                post_type: "emotion",
+                post_action: "likes",
+                id: "emotion-" + id,
+            };
+            getLikes(params).then((res) => {
+                const likes = res.data.data;
+                if (Object.keys(likes).length) {
+                    this.emotions.forEach((d) => {
+                        this.$set(
+                            d,
+                            "count",
+                            likes?.["emotion-" + d.id]?.likes
+                        );
+                    });
+                }
+            });
         },
     },
     watch: {
         keys: {
             deep: true,
             handler: function () {
-                this.init()
-            }
-        }
+                this.init();
+            },
+        },
+        emotions: {
+            deep: true,
+            handler() {
+                this.loadLike();
+            },
+        },
     },
     mounted: function () {
         this.init()
@@ -204,5 +269,5 @@ export default {
 </script>
 
 <style lang="less">
-@import '~@/assets/css/emotion.less';
+@import "~@/assets/css/emotion.less";
 </style>

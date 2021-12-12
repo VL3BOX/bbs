@@ -1,103 +1,135 @@
-.v-emotion {
-    .m-emotion-types {
-        padding: 10px 0;
-        .u-icon {
-            .size(24px);
-            .y(-6px);
+// 列表页
+// =======================
+.m-emotion-types {
+    padding: 10px 0;
+    .u-icon {
+        .size(24px);
+        .y(-6px);
+    }
+}
+.m-emotion-search{
+    .el-switch__label{
+        color:@color;
+    }
+}
+.m-emotion-pagination {
+    .mt(30px);
+}
+@media screen and (max-width:@phone){
+    .m-emotion-pagination {
+        .x;
+        overflow-x: auto;
+    }
+}
+.m-emotion-list {
+    margin:0;
+    display: flex;
+    .u-item {
+        margin: 0 15px 15px 0;
+    }
+}
+
+// 单页
+// =======================
+.m-emotion-item {
+    .u-emotion{
+        .pointer;
+    }
+    .u-desc {
+        .mt(4px);
+    }
+
+    .u-op {
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        line-height: 24px;
+        .mt(4px);
+
+        .u-user {
+            display: inline-flex;
+            img {
+                .mr(4px);
+            }
+        }
+
+        i {
+            font-size: 16px;
+            cursor: pointer;
+            font-style: normal;
+            color: #eee;
+            margin-left: 1px;
+            transition: .1s ease-in-out;
+            padding: 2px;
+
+            &.on {
+                color: #ff76ba;
+            }
         }
     }
 
+    .u-pic {
+        width: 180px;
+        height: 180px;
+        display: block;
+        transition: all .2s ease-in-out;
+    }
+
+    .u-original {
+        position: absolute;
+        background: #00cd32;
+        padding: 0 5px;
+        display: flex;
+        align-items: center;
+        height: 26px;
+        color: #fff;
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 100%;
+            top: 0;
+            border-color: #00cd32 transparent #00cd32 #00cd32;
+            border-width: 13px 13px 13px 0;
+            border-style: solid;
+        }
+    }
+    &.single {
+        text-align: center;
+        margin-bottom: 20px;
+
+        .m-single-img {
+            max-width: 800px;
+            max-height: 800px;
+            overflow: hidden;
+        }
+    }
+}
+
+.v-emotion {
 
     ul, li {
         list-style: none;
         padding: 0;
-        margin: 0;
     }
 
-    .m-emotion-list {
-        display: flex;
-        .u-item {
-            margin: 15px 15px 15px 0;
-            font-size: 12px;
-
-            .u-desc {
-                .mt(4px);
-            }
-
-            .u-op {
-                display: flex;
-                align-content: center;
-                justify-content: space-between;
-                line-height: 24px;
-                .mt(4px);
-
-                .u-user {
-                    display: inline-flex;
-                    img {
-                        .mr(4px);
-                    }
-                }
-
-                i {
-                    font-size: 16px;
-                    cursor: pointer;
-                    font-style: normal;
-                    color: #eee;
-                    margin-left: 1px;
-                    transition: .1s ease-in-out;
-                    padding: 2px;
-
-                    &.on {
-                        color: #ff76ba;
-                    }
-                }
-            }
-
-            .u-pic {
-                width: 180px;
-                height: 180px;
-                display: block;
-                transition: all .2s ease-in-out;
-            }
-
-            .u-original {
-                position: absolute;
-                background: #00cd32;
-                padding: 0 5px;
-                display: flex;
-                align-items: center;
-                height: 26px;
-                color: #fff;
-
-                &::after {
-                    content: "";
-                    position: absolute;
-                    left: 100%;
-                    top: 0;
-                    border-color: #00cd32 transparent #00cd32 #00cd32;
-                    border-width: 13px 13px 13px 0;
-                    border-style: solid;
-                }
-            }
-
-        }
-    }
+    
     .m-emotion-goback {
         .mb(10px);
     }
-    .m-emotion-item {
-        &.single {
-            text-align: center;
-            margin-bottom: 20px;
+    
+}
 
-            .m-single-img {
-                max-width: 800px;
-                max-height: 800px;
-                overflow: hidden;
-            }
-            .u-image-type {
-                .mt(10px);
-            }
-        }
-    }
+.m-single-img {
+    max-width: 800px;
+    max-height: 800px;
+    overflow: hidden;
+}
+.u-image-type {
+    .mt(10px);
+}
+        
+// 图片预览
+.he-img-view{
+    max-width: 1200px !important;
 }
