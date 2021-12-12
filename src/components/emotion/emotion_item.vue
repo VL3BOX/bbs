@@ -52,7 +52,16 @@
             <span class="el-link el-link--primary is-underline u-delete" @click="handleDelete">
                 <i class="el-icon-delete"></i> 删除
             </span>
+            <a class="el-link el-link--primary is-underline" :href="editLink('emotion',emotion.id)">
+                <i class="el-icon-edit-outline"></i> 编辑
+            </a>
         </div>
+        <div class="u-op" v-if="mode == 'single' && isAuthor && !isEditor">
+            <a class="el-link el-link--primary is-underline" :href="editLink('emotion',emotion.id)">
+                <i class="el-icon-edit-outline"></i> 编辑
+            </a>
+        </div>
+
         <!-- <div class="u-extend" v-if="mode == 'single'">
             <el-radio-group v-model="ext" size="small" v-if="types.length">
                 <el-radio-button
@@ -101,6 +110,9 @@ export default {
         isListPage: function () {
             return this.mode != "single";
         },
+        isAuthor : function (){
+            return this.emotion.user_id == User.getInfo().uid
+        }
     },
     watch: {
         emotion: {
