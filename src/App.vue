@@ -53,13 +53,13 @@ export default {
     },
     created: function () {
         // 小册等类型兼容
-        let type = getAppType();
-        let id = getAppID();
-        if (type && single_types.includes(type)) {
-            let route = { name: type, params: {} };
-            if (id) route.params.id = id;
-            this.$router.push(route);
-        }
+        // let type = getAppType();
+        // let id = getAppID();
+        // if (type && single_types.includes(type)) {
+        //     let route = { name: type, params: {} };
+        //     if (id) route.params.id = id;
+        //     this.$router.push(route);
+        // }
     },
 };
 </script>

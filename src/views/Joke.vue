@@ -74,6 +74,7 @@
                     </div>
                 </el-col>
             </el-row>
+            <!-- 空 -->
             <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
             <!-- 分页 -->
             <el-pagination
@@ -91,14 +92,21 @@
 </template>
 
 <script>
+// 模块
 import joke_item from "@/components/joke/joke_item";
+import joke_post from "@/components/joke/joke_post.vue";
+import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+
+// 分类
+import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
-import emotion from "@jx3box/jx3box-emotion/data/default.json";
+
+// 数据
 import { getJokes, getJoke } from "@/service/joke";
 import { getLikes } from "@/service/next";
-import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
-import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
-import joke_post from "@/components/joke/joke_post.vue";
+
+// 其他
+import emotion from "@jx3box/jx3box-emotion/data/default.json";
 
 export default {
     name: "Joke",
@@ -110,15 +118,17 @@ export default {
     data: function () {
         return {
             loading: false,
-            sortedEmotions: [],
             schoolmap,
+
+            // 快捷发布
+            sortedEmotions: [],
 
             type: "all",
             star: 0,
             search: "",
             per: 10,
             page: 1,
-            total: 1,
+            total: 0,
             jokes: [],
 
             joke: "",
@@ -175,7 +185,6 @@ export default {
             this.loading = true;
             getJokes(this.params)
                 .then((res) => {
-                    // console.log(res.data.data.data.list)
                     this.jokes = res?.data?.data?.list;
                     this.total = res?.data?.data?.total;
                 })
@@ -193,14 +202,16 @@ export default {
                     this.loading = false;
                 });
         },
+        handleJokeUpdate: function () {
+            this.loadList();
+        },
         init: function () {
             this.id ? this.loadSingle() : this.loadList();
         },
+
+        // 杂项
         goBack: function () {
             this.$router.push("/joke");
-        },
-        handleJokeUpdate: function () {
-            this.loadList();
         },
         skipTop: function () {
             window.scrollTo(0, 0);
@@ -226,10 +237,10 @@ export default {
     },
     watch: {
         keys: {
+            deep: true,
             handler() {
                 this.init();
             },
-            deep: true,
             // immediate: true,
         },
         jokes: {
@@ -241,7 +252,6 @@ export default {
     },
     created: function () {
         this.sortEmotion();
-
         this.init()
     },
 };
