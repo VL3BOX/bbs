@@ -29,6 +29,25 @@
                     <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
             </div>
+            <!-- 门派分类 -->
+            <div class="m-emotion-types">
+                <el-tabs v-model="type">
+                    <el-tab-pane name="all" label="全部">
+                        <span slot="label">
+                            <i class="u-icon el-icon-menu" style="vertical-align: 0;"></i>全部
+                        </span>
+                    </el-tab-pane>
+                    <el-tab-pane v-for="(item,i) in schoolmap" :key="i" :name="i">
+                        <div slot="label" style="min-width:57px;">
+                            <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
+                            {{item}}
+                        </div>
+                    </el-tab-pane>
+                </el-tabs>
+            </div>
+            <!--快速发布-->
+            <emotion-post :type="type"></emotion-post>
+
             <ul class="m-emotion-list" v-if="list && list.length">
                 <li class="u-item" v-for="(item, i) in list" :key="item.id">
                     <emotion-item :emotion="item" :index="i" @preview="handlePreview"></emotion-item>
@@ -56,7 +75,10 @@
 <script>
 import {getEmotions,getEmotion} from '@/service/emotion';
 import emotion_item from "@/components/emotion/emotion_item";
+import emotion_post from "@/components/emotion/emotion_post";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
     name: "Emotion",
@@ -66,8 +88,10 @@ export default {
             search: '',
             list: [],
             loading: false,
+            schoolmap,
 
             // pagination
+            type: 'all',
             star: 0,
             per: 10,
             page: 1,
@@ -79,11 +103,12 @@ export default {
         };
     },
     computed: {
-        params: function ({search, per, page}) {
+        params: function ({search, per, page, type}) {
             return {
                 search,
                 per,
                 page,
+                type: type === 'all' ? '' : type
             }
         },
         id: function () {
@@ -102,6 +127,7 @@ export default {
                 this.per,
                 this.id,
                 this.star,
+                this.type
             ];
         },
     },
@@ -164,8 +190,14 @@ export default {
     mounted: function () {
         this.init()
     },
+    filters: {
+        showSchoolIcon: function (val) {
+            return __imgPath + "image/school/" + val + ".png";
+        },
+    },
     components: {
         'emotion-item': emotion_item,
+        'emotion-post': emotion_post,
         Comment
     },
 };
