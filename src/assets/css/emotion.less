@@ -51,6 +51,18 @@
     }
 }
 
+.m-emotion-pagination {
+    .mt(30px);
+}
+@media screen and (max-width: @phone) {
+    .m-emotion-pagination {
+        .x;
+        overflow-x: auto;
+    }
+}
+
+// 单页
+// =======================
 .m-emotion-item {
     .u-emotion {
         .pointer;
@@ -87,6 +99,8 @@
     }
     .u-desc {
         .fz(14px, 16px);
+    }
+    a.u-desc{
         &:hover {
             box-shadow: 0 1px 0 @color-link;
         }
@@ -125,24 +139,21 @@
     // }
 }
 
-.m-emotion-pagination {
-    .mt(30px);
-}
-@media screen and (max-width: @phone) {
-    .m-emotion-pagination {
-        .x;
-        overflow-x: auto;
-    }
-}
-
-// 单页
-// =======================
 .m-emotion-goback{
     .mb(10px);
 }
 .m-emotion-item.single{
     .x;
     .mb(20px);
+
+    .u-meta{
+        .mt(20px);
+        max-width:800px;
+        .auto(x);
+    }
+    .u-extend{
+        .mt(20px);
+    }
 }
         
 // 图片预览

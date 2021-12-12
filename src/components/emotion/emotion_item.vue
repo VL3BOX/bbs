@@ -15,19 +15,21 @@
             </i>
             <i class="u-original" v-if="emotion.original">原创</i>
             <router-link
+                v-if="mode != 'single'"
                 class="u-desc"
                 :to="{name:'emotion',params:{id:emotion.id}}"
             >{{emotion.desc | showListDesc}}</router-link>
+            <span class="u-desc" v-else>{{emotion.desc}}</span>
         </div>
         <div class="u-user">
-            <img class="u-user-avatar" :alt="user_name" :src="user_avatar | showAvatar" />
+            <img class="u-user-avatar" :src="user_avatar | showAvatar" />
             <a
                 class="u-user-name"
                 :href="emotion.user_id | authorLink"
                 target="_blank"
                 v-if="emotion.user_id"
-            >{{ user_name }}</a>
-            <span class="u-user-name" v-else>{{ emotion.author}}</span>
+            >{{ emotion | showUserName }}</a>
+            <span class="u-user-name" v-else>{{ emotion.author || '匿名'}}</span>
             <time class="u-time">{{ emotion.updated_at | showTime}}</time>
             <i class="u-like" title="点赞" @click="addLike" v-if="mode == 'list'">♥</i>
         </div>
@@ -40,12 +42,16 @@
                     :title="isStar ? '取消加精' : '设为精选'"
             >★</i>-->
         </div>
-        <div class="u-extend" v-if="mode == 'single'">
-            <el-radio-group v-model="imgType" size="small" class="u-image-type">
-                <el-radio-button label="png">PNG</el-radio-button>
-                <el-radio-button label="gif">GIF</el-radio-button>
+        <!-- <div class="u-extend" v-if="mode == 'single'">
+            <el-radio-group v-model="ext" size="small" v-if="types.length">
+                <el-radio-button
+                    :label="item"
+                    v-for="item in types"
+                    :key="item"
+                >{{item.toUpperCase()}}</el-radio-button>
             </el-radio-group>
-        </div>
+            <div class="u-tip"></div>
+        </div> -->
     </div>
 </template>
 
@@ -68,15 +74,13 @@ export default {
             isLike: false,
             isStar: this.emotion.star,
 
-            imgType: "png",
+            ext: "gif",
+            types: [],
         };
     },
     computed: {
         user_avatar: function () {
             return this.emotion?.user_info?.user_avatar;
-        },
-        user_name: function () {
-            return this.emotion?.user_info?.display_name || "匿名";
         },
         isEditor: function () {
             return User.isEditor();
@@ -96,6 +100,9 @@ export default {
         showTime: function (gmt) {
             return getRelativeTime(new Date(gmt));
         },
+        showUserName: function (emotion) {
+            return emotion?.user_info?.display_name.slice(0, 12) || "匿名";
+        },
     },
     methods: {
         emotionUrl: function (val) {
@@ -113,6 +120,7 @@ export default {
                 this.$emit("preview", this.index);
             }
         },
+
         // 点赞
         addLike: function () {
             if (this.isLike) return;
@@ -150,9 +158,18 @@ export default {
                 this.$forceUpdate();
             });
         },
-        handleContent: function () {
-            this.$router.push(`/emotion/${this.emotion.id}`);
+
+        // 图片格式
+        checkImageExt: function () {
+            let ext = this.emotion?.url?.split(".").pop().toLowerCase();
+            if (ext && ext != "gif") {
+                this.types.push(ext, "gif");
+                this.ext = ext;
+            }
         },
+    },
+    mounted: function () {
+        // this.checkImageExt();
     },
 };
 </script>
