@@ -1,38 +1,27 @@
 <template>
     <div class="m-emotion-publish">
+        <div class="u-title">
+            <i class="el-icon-upload"></i>快速发布
+        </div>
         <div class="m-emotion-upload">
             <div v-if="data && data.url" class="u-emotion">
                 <img :src="data.url" />
                 <i class="u-emotion-mask"></i>
-                <i
-                    class="u-emotion-delete el-icon-delete"
-                    title="移除"
-                    @click="handleRemove"
-                ></i>
+                <i class="u-emotion-delete el-icon-delete" title="移除" @click="handleRemove"></i>
             </div>
-            <div
-                v-else
-                class="u-upload el-upload el-upload--picture-card"
-                @click="select"
-            >
+            <div v-else class="u-upload el-upload el-upload--picture-card" @click="select">
                 <i class="el-icon-plus"></i>
             </div>
-            <input
-                class="u-upload-input"
-                type="file"
-                @change="upload"
-                ref="uploadInput"
-            />
+            <input class="u-upload-input" type="file" @change="upload" ref="uploadInput" />
         </div>
         <div class="u-emotion-form">
             <el-input
-                class="u-emotion-desc"
                 v-model="data.desc"
                 type="textarea"
-                :rows="3"
+                :rows="4"
                 :maxlength="120"
                 show-word-limit
-                placeholder="图片说明"
+                placeholder="快速发布一张表情，再配句骚话？"
             ></el-input>
             <!--<div>-->
             <!--    <span>原创</span>-->
