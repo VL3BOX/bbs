@@ -315,25 +315,27 @@ export default {
 
         // 批量获取点赞
         loadLike: function () {
-            let id = this.emotions.map((d) => "emotion-" + d.id);
-            id = id.join(",");
-            const params = {
-                post_type: "emotion",
-                post_action: "likes",
-                id: id,
-            };
-            getLikes(params).then((res) => {
-                const likes = res.data.data;
-                if (Object.keys(likes).length) {
-                    this.emotions.forEach((d) => {
-                        this.$set(
-                            d,
-                            "count",
-                            likes?.["emotion-" + d.id]?.likes
-                        );
-                    });
-                }
-            });
+            if (this.emotions && this.emotions.length) {
+                let id = this.emotions.map((d) => "emotion-" + d.id);
+                id = id.join(",");
+                const params = {
+                    post_type: "emotion",
+                    post_action: "likes",
+                    id: id,
+                };
+                getLikes(params).then((res) => {
+                    const likes = res.data.data;
+                    if (Object.keys(likes).length) {
+                        this.emotions.forEach((d) => {
+                            this.$set(
+                                d,
+                                "count",
+                                likes?.["emotion-" + d.id]?.likes
+                            );
+                        });
+                    }
+                });
+            }
         },
     },
     watch: {
