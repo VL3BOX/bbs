@@ -187,6 +187,7 @@ export default {
                 .then((res) => {
                     this.jokes = res?.data?.data?.list;
                     this.total = res?.data?.data?.total;
+                    this.loadLike()
                 })
                 .finally(() => {
                     this.loading = false;
@@ -244,12 +245,6 @@ export default {
                 this.init();
             },
             // immediate: true,
-        },
-        jokes: {
-            deep: true,
-            handler() {
-                this.loadLike();
-            },
         },
     },
     created: function () {
