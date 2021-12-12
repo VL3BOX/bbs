@@ -30,9 +30,12 @@
 import Info from "@/components/Info.vue";
 import Nav from "@/components/nav/Nav.vue";
 import publishGate from "@/components/publish_gate.vue";
-import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
+import {
+    getAppIcon,
+    getAppType,
+    getAppID,
+} from "@jx3box/jx3box-common/js/utils";
 import { single_types } from "../setting.json";
-import { getAppID,getAppType } from "@/utils/common.js";
 export default {
     name: "App",
     props: [],
@@ -49,15 +52,13 @@ export default {
         Info,
     },
     created: function () {
+        // 小册等类型兼容
         let type = getAppType();
         let id = getAppID();
         if (type && single_types.includes(type)) {
-            this.$router.push({
-                name: type,
-                params: {
-                    id: id,
-                },
-            });
+            let route = { name: type, params: {} };
+            if (id) route.params.id = id;
+            this.$router.push(route);
         }
     },
 };
