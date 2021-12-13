@@ -286,10 +286,12 @@ export default {
                     this.loadLike();
                 })
                 .then(() => {
+                    this.loading = true
                     // let result = this.$refs.waterfall.repaints()
-                    // this.$refs.waterfall.onRender = (res) => {
-                    //     console.log("渲染完毕", res);
-                    // };
+                    this.$refs.waterfall.onRender = (res) => {
+                        this.loading = false
+                        console.log("waterfall渲染完毕", res);
+                    };
                 })
                 .finally(() => {
                     this.loading = false;
