@@ -83,6 +83,7 @@
                             :emotion="item.data"
                             :index="item.index"
                             @preview="handlePreview"
+                            :key="'emotion-' + item.data.type + '-' + item.data.id "
                         ></emotion-item>
                     </div>
                 </waterfall>
@@ -95,6 +96,7 @@
                 @click="loadMore"
                 v-show="page < pages"
                 icon="el-icon-arrow-down"
+                :disabled="loading"
             >加载更多</el-button>
             <!-- 分页 -->
             <!-- <el-pagination
