@@ -65,7 +65,7 @@
             <emotion-post></emotion-post>
 
             <ul class="m-emotion-list" v-if="list && list.length">
-                <waterfall
+                <!-- <waterfall
                     :autoResize="waterfall_options.autoResize"
                     :moveTransitionDuration="0.4"
                     :fillBox="waterfall_options.fillBox"
@@ -86,6 +86,17 @@
                             :key="'emotion-' + item.data.type + '-' + item.data.id "
                         ></emotion-item>
                     </div>
+                </waterfall> -->
+                <waterfall :col="5" :width="260" :gutterWidth="20" :data="list">
+                    <template>
+                        <div v-for="(item, index) in list" :key="'emotion-' + item.type + '-' + item.id ">
+                            <emotion-item
+                                :emotion="item"
+                                :index="index"
+                                @preview="handlePreview"
+                            ></emotion-item>
+                        </div>
+                    </template>
                 </waterfall>
             </ul>
             <!-- 空 -->
@@ -118,7 +129,6 @@
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
-import waterfall from "vue-waterfall-rapid";
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -134,7 +144,6 @@ export default {
         "emotion-post": emotion_post,
         "emotion-item": emotion_item,
         Comment,
-        waterfall,
     },
     data: function () {
         return {
@@ -288,12 +297,12 @@ export default {
                     this.loadLike();
                 })
                 .then(() => {
-                    this.loading = true
+                    // this.loading = true
                     // let result = this.$refs.waterfall.repaints()
-                    this.$refs.waterfall.onRender = (res) => {
-                        this.loading = false
-                        console.log("waterfall渲染完毕", res);
-                    };
+                    // this.$refs.waterfall.onRender = (res) => {
+                    //     this.loading = false
+                    //     console.log("waterfall渲染完毕", res);
+                    // };
                 })
                 .finally(() => {
                     this.loading = false;
