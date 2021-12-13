@@ -10,17 +10,29 @@
             :minlength="1"
             show-word-limit
         ></el-input>
-        <div class="u-joke-actions">
+        <div class="u-actions">
             <div>
-                <joke-emotion @emotion="insertVariable" ></joke-emotion>
-                <el-select v-model="type" size="small" style="margin-left: 10px;position:relative;top:-1px;" placeholder="请选择门派">
+                <joke-emotion @emotion="insertVariable"></joke-emotion>
+                <el-select
+                    class="u-type"
+                    v-model="type"
+                    size="small"
+                    placeholder="请选择门派"
+                >
                     <el-option v-for="(school,i) in schoolmap" :key="i" :value="i" :label="school">
                         <div style="display: flex;align-items: center;">
-                            <img class="u-icon" style="margin-right: 20px" width="24" height="24" :src="i | showSchoolIcon" :alt="school" />
+                            <img
+                                class="u-icon"
+                                style="margin-right: 20px"
+                                width="24"
+                                height="24"
+                                :src="i | showSchoolIcon"
+                                :alt="school"
+                            />
                             {{school}}
                         </div>
                     </el-option>
-                </el-select> 
+                </el-select>
             </div>
             <el-button type="primary" size="small" @click="publish" icon="el-icon-position">提交</el-button>
         </div>
@@ -41,7 +53,7 @@ export default {
     data: () => ({
         // 快捷发布
         content: "",
-        type: '0',
+        type: "0",
         schoolmap,
 
         processing: false,
@@ -88,16 +100,16 @@ export default {
                 this.processing = true;
 
                 postJoke({
-                    type: this.type === 'all' ? '0' : this.type,
+                    type: this.type === "all" ? "0" : this.type,
                     content: this.content,
                 })
                     .then((res) => {
-                        let data = res?.data?.data
+                        let data = res?.data?.data;
                         this.$message({
                             message: "发布成功,请等待审核",
                             type: "success",
                         });
-                        this.content = ''
+                        this.content = "";
                     })
                     .finally(() => {
                         this.processing = false;
@@ -184,6 +196,6 @@ export default {
         showSchoolIcon: function (val) {
             return __imgPath + "image/school/" + val + ".png";
         },
-    }
+    },
 };
 </script>

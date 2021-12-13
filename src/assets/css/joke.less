@@ -7,28 +7,47 @@
         .y(-6px);
     }
 }
+.m-joke-search {
+    .el-switch__label {
+        color: @color;
+    }
+}
+@media screen and (max-width:@phone){
+    .m-joke-search{
+        .el-input-group__append{
+            .none;
+        }
+    }
+}
+
 .m-joke-publish {
-    .u-joke-actions {
+    .u-actions {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin: 10px 0;
     }
-}
-.m-joke-search{
-    .el-switch__label{
-        color:@color;
+    .u-type {
+        margin-left: 10px;
+        position: relative;
+        top: -1px;
     }
 }
-.m-joke-list {
+@media screen and (max-width: @phone) {
+    .m-joke-publish {
+        .u-type {
+            .none;
+        }
+    }
 }
-.m-joke-item{
+
+.m-joke-item {
     .mb(30px);
 }
 .m-joke-pagination {
     margin-top: 30px;
 }
-@media screen and (max-width:@phone){
+@media screen and (max-width: @phone) {
     .m-joke-pagination {
         .x;
         overflow-x: auto;
@@ -81,15 +100,15 @@
     }
 }
 
-
 // 骚话单项
 // =======================
 .m-joke-item {
     position: relative;
     @width: 30;
 
-    .arrows(b,@width,@color,@bo-width,@bo-color,@x:50%){
-        &:before,&:after{
+    .arrows(b,@width,@color,@bo-width,@bo-color,@x:50%) {
+        &:before,
+        &:after {
             top: 100%;
             left: @x;
             content: " ";
@@ -98,21 +117,21 @@
             position: absolute;
             pointer-events: none;
             border-style: solid;
-            border-color: transparent; 
+            border-color: transparent;
             // margin-top:-1px;
         }
-        &:after{
-            border-top-color:@color;
-            border-width: unit(@width,px);
-            @margin:-@width;
-            margin-left: unit(@margin,px);
+        &:after {
+            border-top-color: @color;
+            border-width: unit(@width, px);
+            @margin: -@width;
+            margin-left: unit(@margin, px);
         }
-        &:before{
-            border-top-color:@bo-color;
-            @arrbo:@width+@bo-width;
-            border-width: unit(@arrbo,px);
-            @margin-bo:-@arrbo;
-            margin-left: unit(@margin-bo,px);
+        &:before {
+            border-top-color: @bo-color;
+            @arrbo: @width+ @bo-width;
+            border-width: unit(@arrbo, px);
+            @margin-bo: -@arrbo;
+            margin-left: unit(@margin-bo, px);
         }
     }
 
@@ -123,23 +142,23 @@
         background: #fafbfc;
         padding: 20px 14px;
         border-radius: 4px;
-        border:1px solid @border-hr;
+        border: 1px solid @border-hr;
         .pr;
 
-        .arrows(b,10px,#fafbfc,1px,@border-hr,@x:20px);
+        .arrows(b, 10px, #fafbfc, 1px, @border-hr, @x:20px);
         .pointer;
 
         transition: 0.1s ease-in-out;
-        &:hover,&.on{
-            background-color:#f3f9ff;
+        &:hover,
+        &.on {
+            background-color: #f3f9ff;
             border-color: #3585de;
-            .arrows(b,10px,#f3f9ff,1px,#3585de,@x:20px);
+            .arrows(b, 10px, #f3f9ff, 1px, #3585de, @x:20px);
         }
 
-        &.on{
+        &.on {
             cursor: default;
         }
-        
     }
     .u-sentence {
         line-height: 24px;
@@ -192,11 +211,14 @@
             .r(2px);
             .mr(5px);
         }
-        a{.underline(@color-link);}
+        a {
+            .underline(@color-link);
+        }
 
         .ml(10px);
     }
-    .el-link,.u-like{
+    .el-link,
+    .u-like {
         .mr(20px);
         .fz(12px);
     }
@@ -209,20 +231,20 @@
             cursor: default;
         }
 
-        &:hover{
-            .like-icon{
-                color:#f00;
+        &:hover {
+            .like-icon {
+                color: #f00;
             }
         }
 
-        &.on{
-            .like-icon{
-                color:#f00;
+        &.on {
+            .like-icon {
+                color: #f00;
             }
         }
 
         .like-icon {
-            .fz(20px,1);
+            .fz(20px, 1);
             .h(16px);
             .y(-3px);
         }
@@ -260,10 +282,8 @@
     }
 }
 
-
 // 其它
 // =======================
 .m-thx {
     .mt(20px);
 }
-

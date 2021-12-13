@@ -6,18 +6,14 @@
         :offset="-200"
         v-model="showPop"
     >
-        <Emotion
-            class="m-publish-joke-emotion"
-            @selected="handleEmotionSelect"
-        />
+        <Emotion class="m-publish-joke-emotion" @selected="handleEmotionSelect" />
 
         <span
             slot="reference"
-            class="u-joke-popover-icon"
+            class="m-publish-joke-button"
             style="cursor: pointer"
             title="选择表情"
-            >😀插入表情</span
-        >
+        >😀插入表情</span>
     </el-popover>
 </template>
 
@@ -36,7 +32,7 @@ export default {
     methods: {
         handleEmotionSelect(key) {
             this.$emit("emotion", key);
-            this.showPop = false
+            this.showPop = false;
         },
     },
 };
@@ -48,14 +44,14 @@ export default {
         margin: 0;
     }
 }
-.u-joke-popover-icon{
-    border:1px solid #3585de;
+.m-publish-joke-button {
+    border: 1px solid #3585de;
     height: 36px;
     .r(3px);
-    padding:5px 10px;
+    padding: 5px 10px;
     .fz(14px);
     background-color: #f3f9ff;
-    box-shadow: 0 0 3px rgba(0,0,0,.1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 </style>
 
