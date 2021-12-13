@@ -16,7 +16,6 @@
                         <!-- 标题 -->
                         <div class="m-single-title">
                             <span class="u-title u-sub-block" :href="url" :title="collection.title">
-                                <!-- <img v-if="!collection.public" class="u-private" title="仅自己可见" /> -->
                                 <i
                                     class="u-private el-icon-lock"
                                     v-if="!collection.public"
@@ -28,14 +27,6 @@
 
                         <!-- 信息 -->
                         <div class="m-single-info">
-                            <!-- ID -->
-                            <!-- <span class="u-id u-sub-block"
-                                ><span class="u-id-label">小册ID</span
-                                ><span class="u-id-value">{{
-                                    collection.id
-                                }}</span></span
-                            >-->
-
                             <!-- 用户名 -->
                             <div class="u-author u-sub-block">
                                 <i class="u-author-icon">
@@ -83,11 +74,6 @@
                             </a>
                         </div>
                     </header>
-
-                    <!-- <div class="m-collection-detail-panel">
-                        <Fav class="u-fav" post-type="collection" :post-id="collection.id" />
-                        <Feed class="u-feed" post-type="collection" :post-id="collection.id" />
-                    </div> -->
                 </div>
 
                 <template v-if="collection.description">
@@ -221,6 +207,12 @@ export default {
         author_id: function () {
             return this.collection?.user_id || 0;
         },
+        canEdit: function () {
+            return (
+                this.author_id == User.getInfo().uid ||
+                User.isEditor()
+            );
+        },
     },
     watch: {
         "$route.params.id": {
@@ -237,13 +229,8 @@ export default {
         getThumbnail,
         getLink,
         getTypeLabel,
-        dateFormat : function (timestamp){
+        dateFormat: function (timestamp) {
             return dateFormat(new Date(timestamp * 1000));
-        },
-        canEdit: function () {
-            return (
-                this.collection.user_id == User.getInfo().uid || User.isEditor()
-            );
         },
         delete_handle($event, collection_id) {
             $event.preventDefault();
@@ -265,7 +252,7 @@ export default {
             })
                 .then((res) => {
                     this.collection = res?.data?.data?.collection || {};
-                    this.$store.state.user_id = this.collection.user_id
+                    this.$store.state.user_id = this.collection.user_id;
                 })
                 .finally(() => {
                     this.loading = false;
@@ -288,7 +275,7 @@ export default {
 
 
 <style scoped lang="less">
-    .m-single-header{
-        padding-top:0;
-    }
+.m-single-header {
+    padding-top: 0;
+}
 </style>
