@@ -26,13 +26,22 @@
             <div class="m-emotion-search" slot="search-before">
                 <el-input placeholder="请输入搜索内容" v-model="search">
                     <span slot="prepend">关键词</span>
-                    <el-switch
-                        slot="append"
-                        v-model="star"
-                        :inactive-value="0"
-                        :active-value="1"
-                        inactive-text="只看精选"
-                    ></el-switch>
+                    <template slot="append">
+                        <el-switch
+                            class="u-star"
+                            v-model="star"
+                            :inactive-value="0"
+                            :active-value="1"
+                            inactive-text="只看精选"
+                        ></el-switch>
+                        <el-switch
+                            class="u-original"
+                            v-model="original"
+                            :inactive-value="0"
+                            :active-value="1"
+                            inactive-text="只看原创"
+                        ></el-switch>
+                    </template>
                 </el-input>
             </div>
             <!-- 门派分类 -->
@@ -97,7 +106,7 @@
                 layout="total, prev, pager, next, jumper"
                 :total="total"
                 @current-change="skipTop"
-            ></el-pagination> -->
+            ></el-pagination>-->
         </div>
     </div>
 </template>
@@ -120,7 +129,7 @@ import { getLikes } from "@/service/next";
 export default {
     name: "Emotion",
     components: {
-        'emotion-post': emotion_post,
+        "emotion-post": emotion_post,
         "emotion-item": emotion_item,
         Comment,
         waterfall,
@@ -128,11 +137,14 @@ export default {
     data: function () {
         return {
             loading: false,
+
+            // types
             schoolmap,
 
             // pagination
-            type: 'all',
+            type: "all",
             star: 0,
+            original: 0,
             search: "",
             per: 50,
             page: 1,
@@ -217,13 +229,14 @@ export default {
         id: function () {
             return ~~this.$route.params.id;
         },
-        params: function ({ search, per, page, star }) {
+        params: function ({ search, per, page, star,original }) {
             return {
                 per,
                 page,
                 type: this.type == "all" ? "" : this.type,
                 search,
                 star,
+                original,
             };
         },
         keys: function () {
@@ -233,13 +246,14 @@ export default {
                 this.search,
                 this.type,
                 this.star,
+                this.original,
 
                 this.page,
                 this.per,
             ];
         },
-        reset_keys : function (){
-            return [this.search,this.type,this.star]  
+        reset_keys: function () {
+            return [this.search, this.type, this.star, this.original];
         },
         user_id: function () {
             return this.emotion?.user_id || 0;
@@ -269,7 +283,7 @@ export default {
                     this.total = res.data.data.total;
                     this.pages = res.data.data.pages;
 
-                    this.loadLike()
+                    this.loadLike();
                 })
                 .then(() => {
                     // let result = this.$refs.waterfall.repaints()
@@ -351,16 +365,16 @@ export default {
             },
         },
         // 分页重置
-        reset_keys : {
+        reset_keys: {
             deep: true,
             handler: function () {
-                this.page = 1
+                this.page = 1;
             },
         },
         // 类别重置
-        search : function (){
-            this.type = 'all'
-        }
+        search: function () {
+            this.type = "all";
+        },
         // emotions: {
         //     deep: true,
         //     handler() {
@@ -369,7 +383,7 @@ export default {
         // },
     },
     mounted: function () {
-        this.init()
+        this.init();
     },
     filters: {
         showSchoolIcon: function (val) {
