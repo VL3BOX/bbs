@@ -26,6 +26,7 @@
             <!-- 按钮 -->
             <div class="u-extend">
                 <div class="u-extend-form">    
+                    <a class="u-bulk" href="/publish/#/emotion" target="_blank">😀 批量上传</a>
                     <el-switch
                         class="u-original"
                         v-model.number="data.original"
