@@ -87,9 +87,9 @@
                         ></emotion-item>
                     </div>
                 </waterfall> -->
-                <waterfall :col="5" :width="260" :gutterWidth="20" :data="list">
+                <waterfall :col="waterfall2.col" :gutterWidth="20" :data="list">
                     <template>
-                        <div v-for="(item, index) in list" :key="'emotion-' + item.type + '-' + item.id ">
+                        <div class="u-item" v-for="(item, index) in list" :key="'emotion-' + item.type + '-' + item.id ">
                             <emotion-item
                                 :emotion="item"
                                 :index="index"
@@ -125,6 +125,8 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
+
 // 模块
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
@@ -234,6 +236,9 @@ export default {
                 //列数
                 // col: 5,
             },
+            waterfall2:{
+                col :  2
+            }
         };
     },
     computed: {
@@ -369,6 +374,19 @@ export default {
                 });
             }
         },
+        // 列数
+        calcCol : function (){
+            let w = window.innerWidth
+            let col = 0
+            if(w < 780){
+                col = 2
+            }else if(w > 1024){
+                col = parseInt((window.innerWidth - 330) / 260)  //扣除侧边栏
+            }else{
+                col = parseInt(window.innerWidth / 260)    //平板竖屏
+            }
+            return col
+        }
     },
     watch: {
         keys: {
@@ -396,7 +414,15 @@ export default {
         // },
     },
     mounted: function () {
+        this.waterfall2.col = this.calcCol()
         this.init();
+    },
+    created : function (){
+        const vm = this
+        let repaint = debounce(function (){
+            vm.waterfall2.col = vm.calcCol()
+        },200)
+        window.addEventListener('resize',repaint)
     },
     filters: {
         showSchoolIcon: function (val) {
