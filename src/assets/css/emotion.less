@@ -99,8 +99,11 @@
 }
 .m-emotion-list {
     margin: 0;
+    padding:0;
     display: flex;
     .u-item {
+        .w(260px);
+
         margin: 0 15px 15px 0;
         background-color: @bg-gray;
         padding: 20px 10px;
@@ -108,6 +111,16 @@
 
         &.fadeIn {
             animation: fadeIn 0.2s ease-in-out forwards;
+        }
+    }
+}
+@media screen and (max-width:@phone){
+    .m-emotion-list{
+        .u-item{
+            .w(130px);
+            &:nth-child(2n){
+                .mr(0);
+            }
         }
     }
 }
@@ -237,6 +250,12 @@
             .fz(12px);
             .mr(10px);
         }
+    }
+}
+@media screen and (max-width:@phone){
+    .m-emotion-item{
+        .u-like .like-text{.none;}
+        .u-op{.none;}
     }
 }
 

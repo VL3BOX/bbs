@@ -7,6 +7,7 @@
                     :src="showEmotion(emotion.url)"
                     :alt="emotion.desc"
                 />
+                <!-- loading="lazy" -->
             </i>
         </div>
         <div class="u-meta">

@@ -64,7 +64,7 @@
             <!--快速发布-->
             <emotion-post></emotion-post>
 
-            <ul class="m-emotion-list" v-if="list && list.length">
+            <ul class="m-emotion-list" id="m-emotion-waterfall">
                 <!-- <waterfall
                     :autoResize="waterfall_options.autoResize"
                     :moveTransitionDuration="0.4"
@@ -86,8 +86,8 @@
                             :key="'emotion-' + item.data.type + '-' + item.data.id "
                         ></emotion-item>
                     </div>
-                </waterfall> -->
-                <waterfall :col="waterfall2.col" :gutterWidth="20" :data="list">
+                </waterfall>-->
+                <!-- <waterfall :col="waterfall2.col" :gutterWidth="20" :data="list">
                     <template>
                         <div class="u-item" v-for="(item, index) in list" :key="'emotion-' + item.type + '-' + item.id ">
                             <emotion-item
@@ -97,10 +97,17 @@
                             ></emotion-item>
                         </div>
                     </template>
-                </waterfall>
+                </waterfall>-->
+                <div
+                    class="u-item u-emotion-waterfall-item"
+                    v-for="(item, index) in list"
+                    :key="'emotion-' + item.type + '-' + item.id "
+                >
+                    <emotion-item :emotion="item" :index="index" @preview="handlePreview"></emotion-item>
+                </div>
             </ul>
             <!-- 空 -->
-            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+            <!-- <el-alert title="没有找到相关条目" type="info" show-icon></el-alert> -->
             <el-button
                 style="width: 100%;"
                 type="primary"
@@ -125,7 +132,10 @@
 </template>
 
 <script>
-import debounce from 'lodash/debounce'
+import debounce from "lodash/debounce";
+// import waterfall from '@/utils/waterfall'
+import Masonry from "masonry-layout";
+import imagesLoaded from "imagesloaded";
 
 // 模块
 import emotion_item from "@/components/emotion/emotion_item";
@@ -226,26 +236,30 @@ export default {
             emotion: "",
 
             // 瀑布流
-            waterfall_options: {
-                //是否根据容器尺寸自动计算重绘
-                autoResize: true,
-                //是否始终填满容器
-                fillBox: false,
-                //列宽-有指定列数则此属性失效
-                colWidth: 260,
-                //列数
-                // col: 5,
-            },
-            waterfall2:{
-                col :  2
-            }
+            waterfall_box: "#m-emotion-waterfall",
+            waterfall_item: ".u-emotion-waterfall-item",
+            waterfall_ins: null,
+            waterfall_empty: true,
+            // waterfall_options: {
+            //     //是否根据容器尺寸自动计算重绘
+            //     autoResize: true,
+            //     //是否始终填满容器
+            //     fillBox: false,
+            //     //列宽-有指定列数则此属性失效
+            //     colWidth: 260,
+            //     //列数
+            //     // col: 5,
+            // },
+            // waterfall2: {
+            //     col: 2,
+            // },
         };
     },
     computed: {
         id: function () {
             return ~~this.$route.params.id;
         },
-        params: function ({ search, per, page, star,original }) {
+        params: function ({ search, per, page, star, original }) {
             return {
                 per,
                 page,
@@ -277,6 +291,11 @@ export default {
         images: function () {
             return this.list.map((item) => item.url);
         },
+        new_pics: function () {
+            return this.emotions.map((item) => {
+                item.url;
+            });
+        },
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -286,7 +305,7 @@ export default {
     methods: {
         loadList: function () {
             this.loading = true;
-            getEmotions(this.params)
+            return getEmotions(this.params)
                 .then((res) => {
                     if (this.appendMode) {
                         this.list = this.list.concat(
@@ -302,12 +321,28 @@ export default {
                     this.loadLike();
                 })
                 .then(() => {
-                    // this.loading = true
+                    this.loading = true;
+
                     // let result = this.$refs.waterfall.repaints()
                     // this.$refs.waterfall.onRender = (res) => {
                     //     this.loading = false
                     //     console.log("waterfall渲染完毕", res);
                     // };
+                    // waterfall('.m-emotion-list');
+                    // this.loadPictures().then((imgs) => {
+                    //     this.repaintWaterfall();
+                    //     this.loading = false;
+                    // });
+
+                    imagesLoaded(
+                        document.querySelector(".u-emotion-pic"),
+                        () => {
+                            this.installWaterfall()
+                            // this.waterfall_empty
+                            //     ? this.installWaterfall()
+                            //     : this.repaintWaterfall();
+                        }
+                    );
                 })
                 .finally(() => {
                     this.loading = false;
@@ -327,29 +362,6 @@ export default {
             this.appendMode = true;
             this.page++;
         },
-        init: function () {
-            this.id ? this.loadSingle() : this.loadList();
-        },
-
-        // 图片预览
-        handlePreview: function (i) {
-            this.$hevueImgPreview({
-                multiple: true, // 开启多图预览模式
-                nowImgIndex: i, // 多图预览，默认展示第二张图片
-                imgList: this.images, // 需要预览的多图数组
-                controlBar: false,
-                clickMaskCLose: true,
-            });
-        },
-
-        // 杂项
-        goBack: function () {
-            this.$router.push("/emotion");
-        },
-        skipTop: function () {
-            window.scrollTo(0, 0);
-        },
-
         // 批量获取点赞
         loadLike: function () {
             if (this.emotions && this.emotions.length) {
@@ -374,19 +386,81 @@ export default {
                 });
             }
         },
+        // 图片预览
+        handlePreview: function (i) {
+            this.$hevueImgPreview({
+                multiple: true, // 开启多图预览模式
+                nowImgIndex: i, // 多图预览，默认展示第二张图片
+                imgList: this.images, // 需要预览的多图数组
+                controlBar: false,
+                clickMaskCLose: true,
+            });
+        },
+
+        // 杂项
+        goBack: function () {
+            this.$router.push("/emotion");
+        },
+        skipTop: function () {
+            window.scrollTo(0, 0);
+        },
+
         // 列数
-        calcCol : function (){
-            let w = window.innerWidth
-            let col = 0
-            if(w < 780){
-                col = 2
-            }else if(w > 1024){
-                col = parseInt((window.innerWidth - 330) / 260)  //扣除侧边栏
-            }else{
-                col = parseInt(window.innerWidth / 260)    //平板竖屏
+        calcCol: function () {
+            let w = window.innerWidth;
+            let col = 0;
+            if (w < 780) {
+                col = 2;
+            } else if (w > 1024) {
+                col = parseInt((window.innerWidth - 330) / 260); //扣除侧边栏
+            } else {
+                col = parseInt(window.innerWidth / 260); //平板竖屏
             }
-            return col
-        }
+            return col;
+        },
+        // 监听图片加载
+        // loadPictures: function () {
+        // let mulitImg = this.new_pics;
+        // let promiseAll = [], img = [], imgTotal = mulitImg.length;
+        // for(let i = 0 ; i < imgTotal ; i++){
+        //     promiseAll[i] = new Promise((resolve, reject)=>{
+        //         img[i] = new Image()
+        //         img[i].src = mulitImg[i]
+        //         img[i].onload = function(){
+        //             //第i张加载完成
+        //             resolve(img[i])
+        //         }
+        //     })
+        // }
+        // return Promise.all(promiseAll)
+        // },
+        // 初始化瀑布流
+        installWaterfall: function () {
+            console.log('1')
+            this.waterfall_ins = new Masonry(this.waterfall_box, {
+                itemSelector: this.waterfall_item,
+                columnWidth: 260,
+                // gutter: 20,
+                percentPosition: false, //使用百分比宽度的响应式布局
+                horizontalOrder: true, //对项目进行布局以保持水平的从左到右的顺序,定义了此条件，照片一般会按照从左到右顺序排列，但也不是绝对的。
+                originLeft: true, //设置布局方式为从左到右，此项是默认值，可以不填写，如果你设置值为false，则会从右到左排序
+                originTop: true, //设置布局方式为从上到下，此项是默认值，可以不填写，如果你设置值为false，则会从下到上排序
+                transitionDuration: "0.8s", //更改位置或外观时的过渡持续时间,默认是0.4s
+                resize: true, //调整窗口大小时自动调整元素大小和位置，此项不推荐关闭
+                initLayout: true, //默认为true，在初始化时候启用布局，如果设置为在初始化时禁用布局，可以在初始布局之前使用方法或添加事件，执行玩自定义方法后，在使用$grid.masonry()方法来初始化
+            });
+            this.waterfall_empty = false;
+        },
+        // 重绘瀑布流
+        repaintWaterfall: function () {
+            console.log('2')
+            const ins = this.waterfall_ins;
+            ins.reloadItems();
+        },
+        // 初始化
+        init: function () {
+            this.id ? this.loadSingle() : this.loadList();
+        },
     },
     watch: {
         keys: {
@@ -414,15 +488,15 @@ export default {
         // },
     },
     mounted: function () {
-        this.waterfall2.col = this.calcCol()
+        // this.waterfall2.col = this.calcCol();
         this.init();
     },
-    created : function (){
-        const vm = this
-        let repaint = debounce(function (){
-            vm.waterfall2.col = vm.calcCol()
-        },200)
-        window.addEventListener('resize',repaint)
+    created: function () {
+        // const vm = this;
+        // let repaint = debounce(function () {
+        //     vm.waterfall2.col = vm.calcCol();
+        // }, 200);
+        // window.addEventListener("resize", repaint);
     },
     filters: {
         showSchoolIcon: function (val) {
