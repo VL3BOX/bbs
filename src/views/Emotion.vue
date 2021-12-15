@@ -122,6 +122,7 @@ import waterfall from "vue-waterfall-rapid";
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import {resolveImagePath} from '@jx3box/jx3box-common/js/utils'
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -208,7 +209,7 @@ export default {
             return this.emotion?.user_id || 0;
         },
         images: function () {
-            return this.list.map((item) => item.url);
+            return this.list.map((item) => resolveImagePath(item.url));
         },
         // new_pics: function () {
         //     return this.emotions.map((item) => {
