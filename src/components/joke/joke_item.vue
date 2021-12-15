@@ -104,7 +104,7 @@ export default {
     },
     computed: {
         isListPage: function () {
-            return this.mode != "single";
+            return this.mode !== "single";
         },
         isEditor: function () {
             return User.isEditor();
@@ -159,6 +159,7 @@ export default {
                         type: "success",
                     });
                     this.isStar = true;
+                    this.joke.star = true
                     this.$forceUpdate();
                     // this.$emit("update");
                 });
@@ -174,6 +175,7 @@ export default {
                     type: "success",
                 });
                 this.isStar = false;
+                this.joke.star = false
                 this.$forceUpdate();
             })
         },

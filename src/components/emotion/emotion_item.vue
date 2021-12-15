@@ -1,14 +1,14 @@
 <template>
-    <div class="m-emotion-item" :class="mode == 'single' ? 'single' : 'list' ">
+    <div class="m-emotion-item" :class="mode === 'single' ? 'single' : 'list' ">
         <div class="u-emotion">
-            <i class="u-img" @click="preview">
+            <div class="u-img" @click="preview">
                 <img
                     class="u-pic u-emotion-pic waterfall-img"
                     :src="showEmotion(emotion.url)"
                     :alt="emotion.desc"
+                    :key="emotion.url"
                 />
-                <!-- loading="lazy" -->
-            </i>
+            </div>
         </div>
         <div class="u-meta">
             <i class="u-star" v-if="emotion.star">
@@ -16,7 +16,7 @@
             </i>
             <i class="u-original" v-if="emotion.original">原创</i>
             <router-link
-                v-if="mode != 'single'"
+                v-if="mode !== 'single'"
                 class="u-desc"
                 :to="{ name: 'emotion', params: { id: emotion.id } }"
             >
@@ -26,7 +26,7 @@
             <span class="u-desc" v-else>{{ emotion.desc }}</span>
         </div>
         <div class="u-user">
-            <img class="u-user-avatar" :src="user_avatar | showAvatar" />
+            <img class="u-user-avatar waterfall-img" :src="user_avatar | showAvatar" :key="user_avatar" />
             <a
                 class="u-user-name"
                 :href="emotion.user_id | authorLink"
@@ -57,7 +57,7 @@
                 <i class="el-icon-edit-outline"></i> 编辑
             </a>
         </div>
-        <div class="u-op" v-if="mode == 'single' && isAuthor && !isEditor">
+        <div class="u-op" v-if="mode === 'single' && isAuthor && !isEditor">
             <a class="el-link el-link--primary is-underline" :href="editLink('emotion',emotion.id)">
                 <i class="el-icon-edit-outline"></i> 编辑
             </a>
@@ -109,7 +109,7 @@ export default {
             return User.isEditor();
         },
         isListPage: function () {
-            return this.mode != "single";
+            return this.mode !== "single";
         },
         isAuthor : function (){
             return this.emotion.user_id == User.getInfo().uid
@@ -176,6 +176,7 @@ export default {
                         type: "success",
                     });
                     this.isStar = true;
+                    this.emotion.star = true;
                     this.$forceUpdate();
                 });
             } else {
@@ -190,6 +191,7 @@ export default {
                     type: "success",
                 });
                 this.isStar = false;
+                this.emotion.star = false;
                 this.$forceUpdate();
             });
         },

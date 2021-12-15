@@ -64,15 +64,16 @@
             <!--快速发布-->
             <emotion-post></emotion-post>
 
-            <ul class="m-emotion-list" id="m-emotion-waterfall">
-                <!-- <waterfall
+            <ul class="m-emotion-list" v-if="list && list.length">
+                <waterfall
                     :autoResize="waterfall_options.autoResize"
                     :moveTransitionDuration="0.4"
                     :fillBox="waterfall_options.fillBox"
-                    :col-width="waterfall_options.colWidth"
                     :list="list"
                     imgKey="src"
                     ref="waterfall"
+                    :col-width="waterfall_options.colWidth"
+                    :col="waterfall_options.col"
                 >
                     <div
                         class="u-item waterfall-item"
@@ -86,28 +87,10 @@
                             :key="'emotion-' + item.data.type + '-' + item.data.id "
                         ></emotion-item>
                     </div>
-                </waterfall>-->
-                <!-- <waterfall :col="waterfall2.col" :gutterWidth="20" :data="list">
-                    <template>
-                        <div class="u-item" v-for="(item, index) in list" :key="'emotion-' + item.type + '-' + item.id ">
-                            <emotion-item
-                                :emotion="item"
-                                :index="index"
-                                @preview="handlePreview"
-                            ></emotion-item>
-                        </div>
-                    </template>
-                </waterfall>-->
-                <div
-                    class="u-item u-emotion-waterfall-item"
-                    v-for="(item, index) in list"
-                    :key="'emotion-' + item.type + '-' + item.id "
-                >
-                    <emotion-item :emotion="item" :index="index" @preview="handlePreview"></emotion-item>
-                </div>
+                </waterfall>
             </ul>
             <!-- 空 -->
-            <!-- <el-alert title="没有找到相关条目" type="info" show-icon></el-alert> -->
+            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
             <el-button
                 style="width: 100%;"
                 type="primary"
@@ -133,9 +116,7 @@
 
 <script>
 import debounce from "lodash/debounce";
-// import waterfall from '@/utils/waterfall'
-import Masonry from "masonry-layout";
-import imagesLoaded from "imagesloaded";
+import waterfall from "vue-waterfall-rapid";
 
 // 模块
 import emotion_item from "@/components/emotion/emotion_item";
@@ -156,6 +137,7 @@ export default {
         "emotion-post": emotion_post,
         "emotion-item": emotion_item,
         Comment,
+        waterfall,
     },
     data: function () {
         return {
@@ -174,85 +156,22 @@ export default {
             pages: 1,
             total: 0,
             emotions: [], //当前页面列表
-            list: [
-                // {
-                //     id: 1,
-                //     user_id: 8719,
-                //     desc: "花间 流离循环一图流.jpg",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8719_224036.jpg",
-                //     status: 1,
-                //     star: 0,
-                //     original: 1,
-                //     author: "",
-                //     created_at: "2021-12-10T16:01:31.000Z",
-                //     updated_at: "2021-12-12T11:55:31.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "醉栩",
-                //         user_avatar:
-                //             "https://oss.jx3box.com/upload/avatar/2021/4/9/1172849.jpg",
-                //     },
-                // },
-                // {
-                //     id: 2,
-                //     user_id: 8,
-                //     desc: "平胸奶花",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8_9134220.jpg",
-                //     status: 1,
-                //     star: 1,
-                //     original: 0,
-                //     author: "",
-                //     created_at: "2021-12-11T05:13:55.000Z",
-                //     updated_at: "2021-12-12T07:58:07.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "浮烟",
-                //         user_avatar: "https://oss.jx3box.com/2019/09/logo.png",
-                //     },
-                // },
-                // {
-                //     id: 3,
-                //     user_id: 8,
-                //     desc: "雷域大泽外卖",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8_6141742.jpg",
-                //     status: 1,
-                //     star: 1,
-                //     original: 0,
-                //     author: "",
-                //     created_at: "2021-12-11T05:13:55.000Z",
-                //     updated_at: "2021-12-12T07:56:23.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "浮烟",
-                //         user_avatar: "https://oss.jx3box.com/2019/09/logo.png",
-                //     },
-                // },
-            ], //合并列表
+            list: [], //合并列表
             appendMode: false,
 
             emotion: "",
 
             // 瀑布流
-            waterfall_box: "#m-emotion-waterfall",
-            waterfall_item: ".u-emotion-waterfall-item",
-            waterfall_ins: null,
-            waterfall_empty: true,
-            // waterfall_options: {
-            //     //是否根据容器尺寸自动计算重绘
-            //     autoResize: true,
-            //     //是否始终填满容器
-            //     fillBox: false,
-            //     //列宽-有指定列数则此属性失效
-            //     colWidth: 260,
-            //     //列数
-            //     // col: 5,
-            // },
-            // waterfall2: {
-            //     col: 2,
-            // },
+            waterfall_options: {
+                //是否根据容器尺寸自动计算重绘
+                autoResize: true,
+                //是否始终填满容器
+                fillBox: false,
+                //列宽-有指定列数则此属性失效
+                colWidth: 260,
+                //列数
+                col: 5,
+            },
         };
     },
     computed: {
@@ -291,11 +210,11 @@ export default {
         images: function () {
             return this.list.map((item) => item.url);
         },
-        new_pics: function () {
-            return this.emotions.map((item) => {
-                item.url;
-            });
-        },
+        // new_pics: function () {
+        //     return this.emotions.map((item) => {
+        //         item.url;
+        //     });
+        // },
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -319,30 +238,18 @@ export default {
                     this.pages = res.data.data.pages;
 
                     this.loadLike();
+                    this.$nextTick(() => {
+                        this.$refs.waterfall.repaints(this.page * this.per, 1);
+                    });
                 })
                 .then(() => {
                     this.loading = true;
 
                     // let result = this.$refs.waterfall.repaints()
-                    // this.$refs.waterfall.onRender = (res) => {
-                    //     this.loading = false
-                    //     console.log("waterfall渲染完毕", res);
-                    // };
-                    // waterfall('.m-emotion-list');
-                    // this.loadPictures().then((imgs) => {
-                    //     this.repaintWaterfall();
-                    //     this.loading = false;
-                    // });
-
-                    imagesLoaded(
-                        document.querySelector(".u-emotion-pic"),
-                        () => {
-                            this.installWaterfall()
-                            // this.waterfall_empty
-                            //     ? this.installWaterfall()
-                            //     : this.repaintWaterfall();
-                        }
-                    );
+                    this.$refs.waterfall.onRender = (res) => {
+                        this.loading = false;
+                        console.log("waterfall渲染完毕", res);
+                    };
                 })
                 .finally(() => {
                     this.loading = false;
@@ -386,16 +293,6 @@ export default {
                 });
             }
         },
-        // 图片预览
-        handlePreview: function (i) {
-            this.$hevueImgPreview({
-                multiple: true, // 开启多图预览模式
-                nowImgIndex: i, // 多图预览，默认展示第二张图片
-                imgList: this.images, // 需要预览的多图数组
-                controlBar: false,
-                clickMaskCLose: true,
-            });
-        },
 
         // 杂项
         goBack: function () {
@@ -405,7 +302,7 @@ export default {
             window.scrollTo(0, 0);
         },
 
-        // 列数
+        // 瀑布流
         calcCol: function () {
             let w = window.innerWidth;
             let col = 0;
@@ -418,48 +315,33 @@ export default {
             }
             return col;
         },
-        // 监听图片加载
-        // loadPictures: function () {
-        // let mulitImg = this.new_pics;
-        // let promiseAll = [], img = [], imgTotal = mulitImg.length;
-        // for(let i = 0 ; i < imgTotal ; i++){
-        //     promiseAll[i] = new Promise((resolve, reject)=>{
-        //         img[i] = new Image()
-        //         img[i].src = mulitImg[i]
-        //         img[i].onload = function(){
-        //             //第i张加载完成
-        //             resolve(img[i])
-        //         }
-        //     })
-        // }
-        // return Promise.all(promiseAll)
-        // },
-        // 初始化瀑布流
-        installWaterfall: function () {
-            console.log('1')
-            this.waterfall_ins = new Masonry(this.waterfall_box, {
-                itemSelector: this.waterfall_item,
-                columnWidth: 260,
-                // gutter: 20,
-                percentPosition: false, //使用百分比宽度的响应式布局
-                horizontalOrder: true, //对项目进行布局以保持水平的从左到右的顺序,定义了此条件，照片一般会按照从左到右顺序排列，但也不是绝对的。
-                originLeft: true, //设置布局方式为从左到右，此项是默认值，可以不填写，如果你设置值为false，则会从右到左排序
-                originTop: true, //设置布局方式为从上到下，此项是默认值，可以不填写，如果你设置值为false，则会从下到上排序
-                transitionDuration: "0.8s", //更改位置或外观时的过渡持续时间,默认是0.4s
-                resize: true, //调整窗口大小时自动调整元素大小和位置，此项不推荐关闭
-                initLayout: true, //默认为true，在初始化时候启用布局，如果设置为在初始化时禁用布局，可以在初始布局之前使用方法或添加事件，执行玩自定义方法后，在使用$grid.masonry()方法来初始化
+        // 重新计算列数
+        resizeCalc: function () {
+            const vm = this;
+            let repaint = debounce(function () {
+                vm.waterfall_options.col = vm.calcCol();
+            }, 200);
+            window.addEventListener("resize", repaint);
+        },
+        // 图片预览
+        handlePreview: function (i) {
+            this.$hevueImgPreview({
+                multiple: true, // 开启多图预览模式
+                nowImgIndex: i, // 多图预览，默认展示第二张图片
+                imgList: this.images, // 需要预览的多图数组
+                controlBar: false,
+                clickMaskCLose: true,
             });
-            this.waterfall_empty = false;
         },
-        // 重绘瀑布流
-        repaintWaterfall: function () {
-            console.log('2')
-            const ins = this.waterfall_ins;
-            ins.reloadItems();
-        },
+
         // 初始化
         init: function () {
-            this.id ? this.loadSingle() : this.loadList();
+            if(this.id){
+                this.loadSingle()
+            }else{
+                this.waterfall_options.col = this.calcCol();
+                this.loadList();
+            }
         },
     },
     watch: {
@@ -488,15 +370,10 @@ export default {
         // },
     },
     mounted: function () {
-        // this.waterfall2.col = this.calcCol();
         this.init();
     },
     created: function () {
-        // const vm = this;
-        // let repaint = debounce(function () {
-        //     vm.waterfall2.col = vm.calcCol();
-        // }, 200);
-        // window.addEventListener("resize", repaint);
+        this.resizeCalc()
     },
     filters: {
         showSchoolIcon: function (val) {
