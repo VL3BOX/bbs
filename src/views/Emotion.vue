@@ -65,7 +65,7 @@
             <emotion-post></emotion-post>
 
             <ul class="m-emotion-list" v-if="list && list.length">
-                <!-- <waterfall
+                <waterfall
                     :autoResize="waterfall_options.autoResize"
                     :moveTransitionDuration="0.4"
                     :fillBox="waterfall_options.fillBox"
@@ -86,8 +86,8 @@
                             :key="'emotion-' + item.data.type + '-' + item.data.id "
                         ></emotion-item>
                     </div>
-                </waterfall> -->
-                <waterfall :col="waterfall2.col" :gutterWidth="20" :data="list">
+                </waterfall>
+                <!-- <waterfall :col="waterfall2.col" :gutterWidth="20" :data="list">
                     <template>
                         <div class="u-item" v-for="(item, index) in list" :key="'emotion-' + item.type + '-' + item.id ">
                             <emotion-item
@@ -97,7 +97,7 @@
                             ></emotion-item>
                         </div>
                     </template>
-                </waterfall>
+                </waterfall> -->
             </ul>
             <!-- 空 -->
             <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
@@ -131,6 +131,7 @@ import debounce from 'lodash/debounce'
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import waterfall from 'vue-waterfall-rapid'
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -146,6 +147,7 @@ export default {
         "emotion-post": emotion_post,
         "emotion-item": emotion_item,
         Comment,
+        waterfall,
     },
     data: function () {
         return {
@@ -164,63 +166,7 @@ export default {
             pages: 1,
             total: 0,
             emotions: [], //当前页面列表
-            list: [
-                // {
-                //     id: 1,
-                //     user_id: 8719,
-                //     desc: "花间 流离循环一图流.jpg",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8719_224036.jpg",
-                //     status: 1,
-                //     star: 0,
-                //     original: 1,
-                //     author: "",
-                //     created_at: "2021-12-10T16:01:31.000Z",
-                //     updated_at: "2021-12-12T11:55:31.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "醉栩",
-                //         user_avatar:
-                //             "https://oss.jx3box.com/upload/avatar/2021/4/9/1172849.jpg",
-                //     },
-                // },
-                // {
-                //     id: 2,
-                //     user_id: 8,
-                //     desc: "平胸奶花",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8_9134220.jpg",
-                //     status: 1,
-                //     star: 1,
-                //     original: 0,
-                //     author: "",
-                //     created_at: "2021-12-11T05:13:55.000Z",
-                //     updated_at: "2021-12-12T07:58:07.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "浮烟",
-                //         user_avatar: "https://oss.jx3box.com/2019/09/logo.png",
-                //     },
-                // },
-                // {
-                //     id: 3,
-                //     user_id: 8,
-                //     desc: "雷域大泽外卖",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8_6141742.jpg",
-                //     status: 1,
-                //     star: 1,
-                //     original: 0,
-                //     author: "",
-                //     created_at: "2021-12-11T05:13:55.000Z",
-                //     updated_at: "2021-12-12T07:56:23.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "浮烟",
-                //         user_avatar: "https://oss.jx3box.com/2019/09/logo.png",
-                //     },
-                // },
-            ], //合并列表
+            list: [], //合并列表
             appendMode: false,
 
             emotion: "",
@@ -228,7 +174,7 @@ export default {
             // 瀑布流
             waterfall_options: {
                 //是否根据容器尺寸自动计算重绘
-                autoResize: true,
+                autoResize: false,
                 //是否始终填满容器
                 fillBox: false,
                 //列宽-有指定列数则此属性失效
@@ -300,14 +246,17 @@ export default {
                     this.pages = res.data.data.pages;
 
                     this.loadLike();
+                    this.$nextTick(() => {
+                        this.$refs.waterfall.repaints(this.page * this.per, 1)
+                    })
                 })
                 .then(() => {
                     // this.loading = true
                     // let result = this.$refs.waterfall.repaints()
-                    // this.$refs.waterfall.onRender = (res) => {
-                    //     this.loading = false
-                    //     console.log("waterfall渲染完毕", res);
-                    // };
+                    this.$refs.waterfall.onRender = (res) => {
+                        this.loading = false
+                        console.log("waterfall渲染完毕", res);
+                    };
                 })
                 .finally(() => {
                     this.loading = false;
