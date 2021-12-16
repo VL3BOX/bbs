@@ -1,0 +1,141 @@
+@default: #2682ea;
+@green: #66d362;
+@orange: #f49e40;
+@red: #ed4948;
+@tm: #2682ea00;
+
+.m-exam-search {
+    .mb(10px);
+}
+
+.m-exam-tags {
+    .mb(10px);
+
+    span {
+        .mr(10px);
+        .pointer;
+    }
+}
+
+.m-examlist {
+    .pt(20px);
+    .pb(20px);
+}
+
+
+.m-exam-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.m-paper-item {
+    .db;
+    .size(32%, 280px);
+    .r(5px);
+    .color(#303133);
+    .pointer;
+    padding: 48px 0 12px 0;
+    margin: 0 10px 30px 10px;
+    border: 1px solid #ebeef5;
+    box-sizing: border-box;
+
+    &:hover {
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+    }
+
+    .u-title,
+    .u-tags,
+    .u-info {
+        margin: 0 30px;
+    }
+
+    .u-title {
+        .fz(26px);
+        .pb(7px);
+        border-bottom: 7px solid #000;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &.default {
+            border-image: -webkit-linear-gradient(left, @default 25%, @tm 75%) 100 100 100 100;
+        }
+
+        &.green {
+            border-image: -webkit-linear-gradient(left, @green 25%, @tm 75%) 100 100 100 100;
+        }
+
+        &.orange {
+            border-image: -webkit-linear-gradient(left, @orange 25%, @tm 75%) 100 100 100 100;
+        }
+
+        &.red {
+            border-image: -webkit-linear-gradient(left, @red 25%, @tm 75%) 100 100 100 100;
+        }
+    }
+
+
+
+    .u-tags {
+        padding: 12px 0;
+
+        .u-tag {
+            .mr(5px);
+        }
+    }
+
+    .u-desc {
+        padding: 0 20px;
+        height: 60px;
+        overflow: hidden;
+
+        .u-icon {
+            .h(48px);
+            .w(60px);
+            .mt(6px);
+            fill: white;
+            .fl;
+        }
+
+        .u-text {
+            color: white;
+            margin: 6px 10px;
+            .fz(13px, 1.8);
+            .break(2);
+        }
+
+        &.default {
+            background: linear-gradient(90deg, @default 0, @tm 135%);
+        }
+
+        &.green {
+            background: linear-gradient(90deg, @green 0, @tm 135%);
+        }
+
+        &.orange {
+            background: linear-gradient(90deg, @orange 0, @tm 135%);
+        }
+
+        &.red {
+            background: linear-gradient(90deg, @red 0, @tm 135%);
+        }
+    }
+
+    .u-info {
+        display: flex;
+        justify-content: space-between;
+        .lh(60px);
+    }
+
+    .u-star {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.m-question-list {
+    .tag {
+        .mr(5px);
+    }
+}
