@@ -65,14 +65,15 @@
             <emotion-post></emotion-post>
 
             <ul class="m-emotion-list" v-if="list && list.length">
-                <!-- <waterfall
+                <waterfall
                     :autoResize="waterfall_options.autoResize"
                     :moveTransitionDuration="0.4"
                     :fillBox="waterfall_options.fillBox"
-                    :col-width="waterfall_options.colWidth"
                     :list="list"
                     imgKey="src"
                     ref="waterfall"
+                    :col-width="waterfall_options.colWidth"
+                    :col="waterfall_options.col"
                 >
                     <div
                         class="u-item waterfall-item"
@@ -86,17 +87,6 @@
                             :key="'emotion-' + item.data.type + '-' + item.data.id "
                         ></emotion-item>
                     </div>
-                </waterfall> -->
-                <waterfall :col="waterfall2.col" :gutterWidth="20" :data="list">
-                    <template>
-                        <div class="u-item" v-for="(item, index) in list" :key="'emotion-' + item.type + '-' + item.id ">
-                            <emotion-item
-                                :emotion="item"
-                                :index="index"
-                                @preview="handlePreview"
-                            ></emotion-item>
-                        </div>
-                    </template>
                 </waterfall>
             </ul>
             <!-- 空 -->
@@ -125,12 +115,14 @@
 </template>
 
 <script>
-import debounce from 'lodash/debounce'
+import debounce from "lodash/debounce";
+import waterfall from "vue-waterfall-rapid";
 
 // 模块
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import {resolveImagePath} from '@jx3box/jx3box-common/js/utils'
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -146,6 +138,7 @@ export default {
         "emotion-post": emotion_post,
         "emotion-item": emotion_item,
         Comment,
+        waterfall,
     },
     data: function () {
         return {
@@ -164,63 +157,7 @@ export default {
             pages: 1,
             total: 0,
             emotions: [], //当前页面列表
-            list: [
-                // {
-                //     id: 1,
-                //     user_id: 8719,
-                //     desc: "花间 流离循环一图流.jpg",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8719_224036.jpg",
-                //     status: 1,
-                //     star: 0,
-                //     original: 1,
-                //     author: "",
-                //     created_at: "2021-12-10T16:01:31.000Z",
-                //     updated_at: "2021-12-12T11:55:31.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "醉栩",
-                //         user_avatar:
-                //             "https://oss.jx3box.com/upload/avatar/2021/4/9/1172849.jpg",
-                //     },
-                // },
-                // {
-                //     id: 2,
-                //     user_id: 8,
-                //     desc: "平胸奶花",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8_9134220.jpg",
-                //     status: 1,
-                //     star: 1,
-                //     original: 0,
-                //     author: "",
-                //     created_at: "2021-12-11T05:13:55.000Z",
-                //     updated_at: "2021-12-12T07:58:07.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "浮烟",
-                //         user_avatar: "https://oss.jx3box.com/2019/09/logo.png",
-                //     },
-                // },
-                // {
-                //     id: 3,
-                //     user_id: 8,
-                //     desc: "雷域大泽外卖",
-                //     url:
-                //         "https://oss.jx3box.com/upload/post/2021/12/11/8_6141742.jpg",
-                //     status: 1,
-                //     star: 1,
-                //     original: 0,
-                //     author: "",
-                //     created_at: "2021-12-11T05:13:55.000Z",
-                //     updated_at: "2021-12-12T07:56:23.000Z",
-                //     deleted_at: null,
-                //     user_info: {
-                //         display_name: "浮烟",
-                //         user_avatar: "https://oss.jx3box.com/2019/09/logo.png",
-                //     },
-                // },
-            ], //合并列表
+            list: [], //合并列表
             appendMode: false,
 
             emotion: "",
@@ -234,18 +171,15 @@ export default {
                 //列宽-有指定列数则此属性失效
                 colWidth: 260,
                 //列数
-                // col: 5,
+                col: 5,
             },
-            waterfall2:{
-                col :  2
-            }
         };
     },
     computed: {
         id: function () {
             return ~~this.$route.params.id;
         },
-        params: function ({ search, per, page, star,original }) {
+        params: function ({ search, per, page, star, original }) {
             return {
                 per,
                 page,
@@ -275,8 +209,13 @@ export default {
             return this.emotion?.user_id || 0;
         },
         images: function () {
-            return this.list.map((item) => item.url);
+            return this.list.map((item) => resolveImagePath(item.url));
         },
+        // new_pics: function () {
+        //     return this.emotions.map((item) => {
+        //         item.url;
+        //     });
+        // },
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -286,7 +225,7 @@ export default {
     methods: {
         loadList: function () {
             this.loading = true;
-            getEmotions(this.params)
+            return getEmotions(this.params)
                 .then((res) => {
                     if (this.appendMode) {
                         this.list = this.list.concat(
@@ -300,14 +239,18 @@ export default {
                     this.pages = res.data.data.pages;
 
                     this.loadLike();
+                    this.$nextTick(() => {
+                        this.$refs.waterfall.repaints(this.page * this.per, 1);
+                    });
                 })
                 .then(() => {
-                    // this.loading = true
+                    this.loading = true;
+
                     // let result = this.$refs.waterfall.repaints()
-                    // this.$refs.waterfall.onRender = (res) => {
-                    //     this.loading = false
-                    //     console.log("waterfall渲染完毕", res);
-                    // };
+                    this.$refs.waterfall.onRender = (res) => {
+                        this.loading = false;
+                        console.log("waterfall渲染完毕", res);
+                    };
                 })
                 .finally(() => {
                     this.loading = false;
@@ -327,29 +270,6 @@ export default {
             this.appendMode = true;
             this.page++;
         },
-        init: function () {
-            this.id ? this.loadSingle() : this.loadList();
-        },
-
-        // 图片预览
-        handlePreview: function (i) {
-            this.$hevueImgPreview({
-                multiple: true, // 开启多图预览模式
-                nowImgIndex: i, // 多图预览，默认展示第二张图片
-                imgList: this.images, // 需要预览的多图数组
-                controlBar: false,
-                clickMaskCLose: true,
-            });
-        },
-
-        // 杂项
-        goBack: function () {
-            this.$router.push("/emotion");
-        },
-        skipTop: function () {
-            window.scrollTo(0, 0);
-        },
-
         // 批量获取点赞
         loadLike: function () {
             if (this.emotions && this.emotions.length) {
@@ -374,19 +294,56 @@ export default {
                 });
             }
         },
-        // 列数
-        calcCol : function (){
-            let w = window.innerWidth
-            let col = 0
-            if(w < 780){
-                col = 2
-            }else if(w > 1024){
-                col = parseInt((window.innerWidth - 330) / 260)  //扣除侧边栏
-            }else{
-                col = parseInt(window.innerWidth / 260)    //平板竖屏
+
+        // 杂项
+        goBack: function () {
+            this.$router.push("/emotion");
+        },
+        skipTop: function () {
+            window.scrollTo(0, 0);
+        },
+
+        // 瀑布流
+        calcCol: function () {
+            let w = window.innerWidth;
+            let col = 0;
+            if (w < 780) {
+                col = 2;
+            } else if (w > 1024) {
+                col = parseInt((window.innerWidth - 330) / 260); //扣除侧边栏
+            } else {
+                col = parseInt(window.innerWidth / 260); //平板竖屏
             }
-            return col
-        }
+            return col;
+        },
+        // 重新计算列数
+        resizeCalc: function () {
+            const vm = this;
+            let repaint = debounce(function () {
+                vm.waterfall_options.col = vm.calcCol();
+            }, 200);
+            window.addEventListener("resize", repaint);
+        },
+        // 图片预览
+        handlePreview: function (i) {
+            this.$hevueImgPreview({
+                multiple: true, // 开启多图预览模式
+                nowImgIndex: i, // 多图预览，默认展示第二张图片
+                imgList: this.images, // 需要预览的多图数组
+                controlBar: false,
+                clickMaskCLose: true,
+            });
+        },
+
+        // 初始化
+        init: function () {
+            if(this.id){
+                this.loadSingle()
+            }else{
+                this.waterfall_options.col = this.calcCol();
+                this.loadList();
+            }
+        },
     },
     watch: {
         keys: {
@@ -414,15 +371,10 @@ export default {
         // },
     },
     mounted: function () {
-        this.waterfall2.col = this.calcCol()
         this.init();
     },
-    created : function (){
-        const vm = this
-        let repaint = debounce(function (){
-            vm.waterfall2.col = vm.calcCol()
-        },200)
-        window.addEventListener('resize',repaint)
+    created: function () {
+        this.resizeCalc()
     },
     filters: {
         showSchoolIcon: function (val) {

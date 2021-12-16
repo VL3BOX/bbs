@@ -99,10 +99,17 @@
 }
 .m-emotion-list {
     margin: 0;
+    padding:0;
     display: flex;
     .u-item {
-        margin: 0 15px 15px 0;
+        // .w(260px);
+
+        margin: 0 25px 25px 0;
         background-color: @bg-gray;
+        transition: all 0.1s ease-in-out;
+        &:hover{
+            background-color:#e6f0fb;
+        }
         padding: 20px 10px;
         .r(3px);
 
@@ -237,6 +244,12 @@
             .fz(12px);
             .mr(10px);
         }
+    }
+}
+@media screen and (max-width:@phone){
+    .m-emotion-item{
+        .u-like .like-text{.none;}
+        .u-op{.none;}
     }
 }
 
