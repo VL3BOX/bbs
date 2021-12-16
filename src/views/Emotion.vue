@@ -3,7 +3,13 @@
         <!--单页-->
         <div class="m-emotion-single-container" v-if="id">
             <div class="m-emotion-goback">
-                <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+                <el-button
+                    class="u-back"
+                    size="mini"
+                    icon="el-icon-arrow-left"
+                    @click="goBack"
+                    >返回列表</el-button
+                >
             </div>
             <emotion-item :emotion="emotion" mode="single"></emotion-item>
             <Thx
@@ -49,13 +55,25 @@
                 <el-tabs v-model="type">
                     <el-tab-pane name="all" label="全部">
                         <span slot="label">
-                            <i class="u-icon el-icon-menu" style="vertical-align: 0;"></i>全部
+                            <i
+                                class="u-icon el-icon-menu"
+                                style="vertical-align: 0"
+                            ></i
+                            >全部
                         </span>
                     </el-tab-pane>
-                    <el-tab-pane v-for="(item,i) in schoolmap" :key="i" :name="i">
-                        <div slot="label" style="min-width:57px;">
-                            <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
-                            {{item}}
+                    <el-tab-pane
+                        v-for="(item, i) in schoolmap"
+                        :key="i"
+                        :name="i"
+                    >
+                        <div slot="label" style="min-width: 57px">
+                            <img
+                                class="u-icon"
+                                :src="i | showSchoolIcon"
+                                :alt="item"
+                            />
+                            {{ item }}
                         </div>
                     </el-tab-pane>
                 </el-tabs>
@@ -77,28 +95,36 @@
                 >
                     <div
                         class="u-item waterfall-item"
-                        :class="{fadeIn:item.state == 'show'}"
+                        :class="{ fadeIn: item.state == 'show' }"
                         slot-scope="item"
                     >
                         <emotion-item
                             :emotion="item.data"
                             :index="item.index"
                             @preview="handlePreview"
-                            :key="'emotion-' + item.data.type + '-' + item.data.id "
+                            :key="
+                                'emotion-' + item.data.type + '-' + item.data.id
+                            "
                         ></emotion-item>
                     </div>
                 </waterfall>
             </ul>
             <!-- 空 -->
-            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+            <el-alert
+                v-else
+                title="没有找到相关条目"
+                type="info"
+                show-icon
+            ></el-alert>
             <el-button
-                style="width: 100%;"
+                style="width: 100%"
                 type="primary"
                 @click="loadMore"
                 v-show="page < pages"
                 icon="el-icon-arrow-down"
                 :disabled="loading"
-            >加载更多</el-button>
+                >加载更多</el-button
+            >
             <!-- 分页 -->
             <!-- <el-pagination
                 class="m-emotion-pagination"
@@ -122,7 +148,7 @@ import waterfall from "vue-waterfall-rapid";
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
-import {resolveImagePath} from '@jx3box/jx3box-common/js/utils'
+import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -337,9 +363,9 @@ export default {
 
         // 初始化
         init: function () {
-            if(this.id){
-                this.loadSingle()
-            }else{
+            if (this.id) {
+                this.loadSingle();
+            } else {
                 this.waterfall_options.col = this.calcCol();
                 this.loadList();
             }
@@ -374,7 +400,7 @@ export default {
         this.init();
     },
     created: function () {
-        this.resizeCalc()
+        this.resizeCalc();
     },
     filters: {
         showSchoolIcon: function (val) {
