@@ -1,18 +1,29 @@
 <template>
     <div class="m-emotion-publish">
-        <div class="u-title">
-            <i class="el-icon-upload"></i>快速发布
-        </div>
+        <div class="u-title"><i class="el-icon-upload"></i>快速发布</div>
         <div class="m-emotion-upload">
             <div v-if="data && data.url" class="u-emotion">
                 <img :src="data.url" />
                 <i class="u-emotion-mask"></i>
-                <i class="u-emotion-delete el-icon-delete" title="移除" @click="handleRemove"></i>
+                <i
+                    class="u-emotion-delete el-icon-delete"
+                    title="移除"
+                    @click="handleRemove"
+                ></i>
             </div>
-            <div v-else class="u-upload el-upload el-upload--picture-card" @click="select">
+            <div
+                v-else
+                class="u-upload el-upload el-upload--picture-card"
+                @click="select"
+            >
                 <i class="el-icon-plus"></i>
             </div>
-            <input class="u-upload-input" type="file" @change="upload" ref="uploadInput" />
+            <input
+                class="u-upload-input"
+                type="file"
+                @change="upload"
+                ref="uploadInput"
+            />
         </div>
         <div class="u-emotion-form">
             <el-input
@@ -25,8 +36,10 @@
             ></el-input>
             <!-- 按钮 -->
             <div class="u-extend">
-                <div class="u-extend-form">    
-                    <a class="u-bulk" href="/publish/#/emotion" target="_blank">😀 批量上传</a>
+                <div class="u-extend-form">
+                    <a class="u-bulk" href="/publish/#/emotion" target="_blank"
+                        >😀 批量上传</a
+                    >
                     <el-switch
                         class="u-original"
                         v-model.number="data.original"
@@ -43,17 +56,34 @@
                     >
                         <span slot="prepend">原作者</span>
                     </el-input>
-                    <el-select v-model="data.type" size="mini" style="margin-left: 10px;" placeholder="选择门派（非必选）">
-                        <el-option v-for="(school,i) in schoolmap" :key="i" :value="i" :label="school">
-                            <div style="display: flex;align-items: center;">
-                                <img class="u-icon" style="margin-right: 20px" width="24" height="24" :src="i | showSchoolIcon" :alt="school" />
-                                {{school}}
+                    <el-select
+                        v-model="data.type"
+                        size="mini"
+                        style="margin-left: 10px"
+                        placeholder="选择门派（非必选）"
+                    >
+                        <el-option
+                            v-for="(school, i) in schoolmap"
+                            :key="i"
+                            :value="i"
+                            :label="school"
+                        >
+                            <div style="display: flex; align-items: center">
+                                <img
+                                    class="u-icon"
+                                    style="margin-right: 20px"
+                                    width="24"
+                                    height="24"
+                                    :src="i | showSchoolIcon"
+                                    :alt="school"
+                                />
+                                {{ school }}
                             </div>
                         </el-option>
                     </el-select>
                 </div>
                 <el-button
-                class="u-action-btn"
+                    class="u-action-btn"
                     type="primary"
                     @click="post"
                     :disabled="loading"
@@ -80,7 +110,7 @@ export default {
                 desc: "",
                 original: 0,
                 author: "",
-                type: ''
+                type: "",
             },
             loading: false,
             schoolmap,
@@ -90,7 +120,7 @@ export default {
         fileInput: function () {
             return this.$refs.uploadInput;
         },
-         isLogin: function () {
+        isLogin: function () {
             return User.isLogin();
         },
     },
@@ -127,7 +157,7 @@ export default {
                             message: "表情发布成功",
                         });
                         this.fileInput.value = "";
-    
+
                         this.data = this.$options.data().data;
                     })
                     .finally(() => {
@@ -140,7 +170,7 @@ export default {
         showSchoolIcon: function (val) {
             return __imgPath + "image/school/" + val + ".png";
         },
-    }
+    },
 };
 </script>
 
