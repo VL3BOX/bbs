@@ -119,10 +119,11 @@ export default {
     },
     type: {
       deep: true,
-      handler: function () {
+      handler: function (val) {
         this.pages = 1;
         this.search = "";
         this.tag = "";
+        sessionStorage.setItem("type", this.type);
         this.loadExamList();
       },
     },
@@ -165,7 +166,9 @@ export default {
     },
   },
   filters: {},
-  created: function () {},
+  created: function () {
+    this.type = sessionStorage.getItem("type") || "paper";
+  },
   mounted: function () {},
 };
 </script>
