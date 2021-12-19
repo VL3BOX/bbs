@@ -125,7 +125,7 @@ export default {
       });
     },
     takeQuestion(row, column, event) {
-      // console.log(row.id);
+      console.log(row.id);
       let id = row.id;
       this.$router.push({
         name: "question",
@@ -135,8 +135,6 @@ export default {
     handleEdit() {},
   },
   filters: {},
-  created: function () {},
-  mounted: function () {},
 };
 </script>
 

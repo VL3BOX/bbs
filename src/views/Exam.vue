@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import List from "@/components/exam/exam_list.vue";
+import List from "@/components/exam/list.vue";
 import tags from "@/assets/data/exam_tags.json";
 import { getExamPaperList, getExamQuestionList } from "@/service/exam.js";
 export default {
@@ -119,7 +119,7 @@ export default {
     },
     type: {
       deep: true,
-      handler: function (val) {
+      handler: function () {
         this.pages = 1;
         this.search = "";
         this.tag = "";
@@ -141,7 +141,6 @@ export default {
           .then((res) => {
             this.list = res.data.data || {};
             this.total = res.data.total || this.total;
-            console.log(this.list, typeof this.list, "getExamPaperList");
           })
           .finally(() => {
             this.loading = false;
@@ -151,7 +150,6 @@ export default {
           .then((res) => {
             this.list = res.data.data || {};
             this.total = res.data.total || this.total;
-            console.log(this.list, typeof this.list, "getExamQuestionList");
           })
           .finally(() => {
             this.loading = false;

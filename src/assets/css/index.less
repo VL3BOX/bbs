@@ -106,8 +106,10 @@
     .mb(10px);
 }
 
+
+// 骚话
 .m-index-joke{
-    .mb(20px);
+    .mb(15px);
     // background-color:@bg-gray;
     // border: 1px solid @border-hr;
     border:1px solid @color-link;
@@ -171,5 +173,27 @@
 @media screen and (max-width:@phone){
     .m-index-joke{
         padding:40px 20px 20px 20px;
+    }
+}
+
+// 表情
+.m-index-emotion{
+    .u-list{
+        list-style: none;
+        padding:10px;
+        margin:0 0 15px 0;
+        display: flex;
+        background-color:@bg-gray;
+        border:1px dashed @color-link;
+        .r(4px);
+    }
+    .u-item{
+        .h(150px);
+        .mr(15px);
+        // flex:1;
+    }
+    .u-item-img{
+        max-height: 100%;
+        max-width: none;
     }
 }
