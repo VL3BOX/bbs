@@ -265,18 +265,20 @@ export default {
                     this.pages = res.data.data.pages;
 
                     this.loadLike();
-                    this.$nextTick(() => {
-                        this.$refs.waterfall.repaints(this.page * this.per, 1);
-                    });
                 })
                 .then(() => {
                     this.loading = true;
 
                     // let result = this.$refs.waterfall.repaints()
-                    this.$refs.waterfall.onRender = (res) => {
-                        this.loading = false;
-                        console.log("waterfall渲染完毕", res);
-                    };
+                    if(this.$refs.waterfall) {      // Waterfall is sometimes undefined, why???
+                        this.$refs.waterfall.onRender = (res) => {
+                            this.loading = false;
+                            console.log("waterfall渲染完毕", res);
+                        };
+                        this.$nextTick(() => {
+                                this.$refs.waterfall.repaints(this.page * this.per, 1);
+                        });
+                    }
                 })
                 .finally(() => {
                     this.loading = false;
@@ -382,11 +384,13 @@ export default {
         reset_keys: {
             deep: true,
             handler: function () {
+                this.appendMode = false;
                 this.page = 1;
             },
         },
         // 类别重置
         search: function () {
+            this.appendMode = false;
             this.type = "all";
         },
         // emotions: {
