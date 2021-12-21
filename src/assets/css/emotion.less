@@ -111,6 +111,10 @@
         transition: all 0.1s ease-in-out;
         &:hover {
             background-color: #e6f0fb;
+
+            .u-op{
+                background-color:#fff;
+            }
         }
         padding: 20px 10px;
         .r(3px);
@@ -249,10 +253,17 @@
         background-color: #e6f0fb;
         padding: 5px;
         .r(3px);
+        i{
+            .mr(3px);
+            .pr;
+            top:1px;
+        }
         .el-link {
             .fz(12px);
             .mr(10px);
         }
+        display: flex;
+        align-items: center;
     }
 }
 @media screen and (max-width: @phone) {

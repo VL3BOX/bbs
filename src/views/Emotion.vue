@@ -3,23 +3,10 @@
         <!--单页-->
         <div class="m-emotion-single-container" v-if="id">
             <div class="m-emotion-goback">
-                <el-button
-                    class="u-back"
-                    size="mini"
-                    icon="el-icon-arrow-left"
-                    @click="goBack"
-                    >返回列表</el-button
-                >
+                <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
             </div>
             <emotion-item :emotion="emotion" mode="single"></emotion-item>
-            <Thx
-                class="m-thx"
-                :postId="id"
-                postType="emotion"
-                :userId="user_id"
-                :adminBoxcoinEnable="true"
-                :userBoxcoinEnable="true"
-            />
+            <Thx class="m-thx" :postId="id" postType="emotion" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="emotion" />
@@ -33,20 +20,8 @@
                 <el-input placeholder="请输入搜索内容" v-model="search">
                     <span slot="prepend">关键词</span>
                     <template slot="append">
-                        <el-switch
-                            class="u-star"
-                            v-model="star"
-                            :inactive-value="0"
-                            :active-value="1"
-                            inactive-text="只看精选"
-                        ></el-switch>
-                        <el-switch
-                            class="u-original"
-                            v-model="original"
-                            :inactive-value="0"
-                            :active-value="1"
-                            inactive-text="只看原创"
-                        ></el-switch>
+                        <el-switch class="u-star" v-model="star" :inactive-value="0" :active-value="1" inactive-text="只看精选"></el-switch>
+                        <el-switch class="u-original" v-model="original" :inactive-value="0" :active-value="1" inactive-text="只看原创"></el-switch>
                     </template>
                 </el-input>
             </div>
@@ -54,25 +29,11 @@
             <div class="m-emotion-types">
                 <el-tabs v-model="type">
                     <el-tab-pane name="all" label="全部">
-                        <span slot="label">
-                            <i
-                                class="u-icon el-icon-menu"
-                                style="vertical-align: 0"
-                            ></i
-                            >全部
-                        </span>
+                        <span slot="label"> <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部 </span>
                     </el-tab-pane>
-                    <el-tab-pane
-                        v-for="(item, i) in schoolmap"
-                        :key="i"
-                        :name="i"
-                    >
+                    <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
                         <div slot="label" style="min-width: 57px">
-                            <img
-                                class="u-icon"
-                                :src="i | showSchoolIcon"
-                                :alt="item"
-                            />
+                            <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
                             {{ item }}
                         </div>
                     </el-tab-pane>
@@ -93,38 +54,14 @@
                     :col-width="waterfall_options.colWidth"
                     :col="waterfall_options.col"
                 >
-                    <div
-                        class="u-item waterfall-item"
-                        :class="{ fadeIn: item.state == 'show' }"
-                        slot-scope="item"
-                    >
-                        <emotion-item
-                            :emotion="item.data"
-                            :index="item.index"
-                            @preview="handlePreview"
-                            :key="
-                                'emotion-' + item.data.type + '-' + item.data.id
-                            "
-                        ></emotion-item>
+                    <div class="u-item waterfall-item" :class="{ fadeIn: item.state == 'show' }" slot-scope="item">
+                        <emotion-item :emotion="item.data" :index="item.index" @preview="handlePreview" :key="'emotion-' + item.data.type + '-' + item.data.id"></emotion-item>
                     </div>
                 </waterfall>
             </ul>
             <!-- 空 -->
-            <el-alert
-                v-else
-                title="没有找到相关条目"
-                type="info"
-                show-icon
-            ></el-alert>
-            <el-button
-                style="width: 100%"
-                type="primary"
-                @click="loadMore"
-                v-show="page < pages"
-                icon="el-icon-arrow-down"
-                :disabled="loading"
-                >加载更多</el-button
-            >
+            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+            <el-button style="width: 100%" type="primary" @click="loadMore" v-show="page < pages" icon="el-icon-arrow-down" :disabled="loading">加载更多</el-button>
             <!-- 分页 -->
             <!-- <el-pagination
                 class="m-emotion-pagination"
@@ -166,7 +103,7 @@ export default {
         Comment,
         waterfall,
     },
-    data: function () {
+    data: function() {
         return {
             loading: false,
 
@@ -202,10 +139,10 @@ export default {
         };
     },
     computed: {
-        id: function () {
+        id: function() {
             return ~~this.$route.params.id;
         },
-        params: function ({ search, per, page, star, original }) {
+        params: function({ search, per, page, star, original }) {
             return {
                 per,
                 page,
@@ -215,26 +152,16 @@ export default {
                 original,
             };
         },
-        keys: function () {
-            return [
-                this.id,
-
-                this.search,
-                this.type,
-                this.star,
-                this.original,
-
-                this.page,
-                this.per,
-            ];
+        keys: function() {
+            return [this.id, this.search, this.type, this.star, this.original, this.page, this.per];
         },
-        reset_keys: function () {
+        reset_keys: function() {
             return [this.search, this.type, this.star, this.original];
         },
-        user_id: function () {
+        user_id: function() {
             return this.emotion?.user_id || 0;
         },
-        images: function () {
+        images: function() {
             return this.list.map((item) => resolveImagePath(item.url));
         },
         // new_pics: function () {
@@ -244,19 +171,17 @@ export default {
         // },
     },
     filters: {
-        showSchoolIcon: function (val) {
+        showSchoolIcon: function(val) {
             return __imgPath + "image/school/" + val + ".png";
         },
     },
     methods: {
-        loadList: function () {
+        loadList: function() {
             this.loading = true;
             return getEmotions(this.params)
                 .then((res) => {
                     if (this.appendMode) {
-                        this.list = this.list.concat(
-                            res.data?.data?.list || []
-                        );
+                        this.list = this.list.concat(res.data?.data?.list || []);
                         this.emotions = res.data?.data?.list || [];
                     } else {
                         this.list = this.emotions = res.data?.data?.list || [];
@@ -270,13 +195,14 @@ export default {
                     this.loading = true;
 
                     // let result = this.$refs.waterfall.repaints()
-                    if(this.$refs.waterfall) {      // Waterfall is sometimes undefined, why???
+                    if (this.$refs.waterfall) {
+                        // Waterfall is sometimes undefined, why???
                         this.$refs.waterfall.onRender = (res) => {
                             this.loading = false;
                             console.log("waterfall渲染完毕", res);
                         };
                         this.$nextTick(() => {
-                                this.$refs.waterfall.repaints(this.page * this.per, 1);
+                            this.$refs.waterfall.repaints(this.page * this.per, 1);
                         });
                     }
                 })
@@ -294,12 +220,12 @@ export default {
                     this.loading = false;
                 });
         },
-        loadMore: function () {
+        loadMore: function() {
             this.appendMode = true;
             this.page++;
         },
         // 批量获取点赞
-        loadLike: function () {
+        loadLike: function() {
             if (this.emotions && this.emotions.length) {
                 let id = this.emotions.map((d) => "emotion-" + d.id);
                 id = id.join(",");
@@ -312,11 +238,7 @@ export default {
                     const likes = res.data.data;
                     if (Object.keys(likes).length) {
                         this.emotions.forEach((d) => {
-                            this.$set(
-                                d,
-                                "count",
-                                likes?.["emotion-" + d.id]?.likes
-                            );
+                            this.$set(d, "count", likes?.["emotion-" + d.id]?.likes);
                         });
                     }
                 });
@@ -324,15 +246,15 @@ export default {
         },
 
         // 杂项
-        goBack: function () {
+        goBack: function() {
             this.$router.push("/emotion");
         },
-        skipTop: function () {
+        skipTop: function() {
             window.scrollTo(0, 0);
         },
 
         // 瀑布流
-        calcCol: function () {
+        calcCol: function() {
             let w = window.innerWidth;
             let col = 0;
             if (w < 780) {
@@ -345,15 +267,15 @@ export default {
             return col;
         },
         // 重新计算列数
-        resizeCalc: function () {
+        resizeCalc: function() {
             const vm = this;
-            let repaint = debounce(function () {
+            let repaint = debounce(function() {
                 vm.waterfall_options.col = vm.calcCol();
             }, 200);
             window.addEventListener("resize", repaint);
         },
         // 图片预览
-        handlePreview: function (i) {
+        handlePreview: function(i) {
             this.$hevueImgPreview({
                 multiple: true, // 开启多图预览模式
                 nowImgIndex: i, // 多图预览，默认展示第二张图片
@@ -364,7 +286,7 @@ export default {
         },
 
         // 初始化
-        init: function () {
+        init: function() {
             if (this.id) {
                 this.loadSingle();
             } else {
@@ -376,38 +298,32 @@ export default {
     watch: {
         keys: {
             deep: true,
-            handler: function () {
+            handler: function() {
                 this.init();
             },
         },
         // 分页重置
         reset_keys: {
             deep: true,
-            handler: function () {
+            handler: function() {
                 this.appendMode = false;
                 this.page = 1;
             },
         },
         // 类别重置
-        search: function () {
+        search: function() {
             this.appendMode = false;
             this.type = "all";
         },
-        // emotions: {
-        //     deep: true,
-        //     handler() {
-        //         this.loadLike();
-        //     },
-        // },
     },
-    mounted: function () {
+    mounted: function() {
         this.init();
     },
-    created: function () {
+    created: function() {
         this.resizeCalc();
     },
     filters: {
-        showSchoolIcon: function (val) {
+        showSchoolIcon: function(val) {
             return __imgPath + "image/school/" + val + ".png";
         },
     },
