@@ -55,13 +55,13 @@
                     :col="waterfall_options.col"
                 >
                     <div class="u-item waterfall-item" :class="{ fadeIn: item.state == 'show' }" slot-scope="item">
-                        <emotion-item :emotion="item.data" :index="item.index" @preview="handlePreview" :key="'emotion-' + item.data.type + '-' + item.data.id"></emotion-item>
+                        <emotion-item :emotion="item.data" :index="item.index" @preview="handlePreview" :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"></emotion-item>
                     </div>
                 </waterfall>
             </ul>
             <!-- 空 -->
             <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-            <el-button style="width: 100%" type="primary" @click="loadMore" v-show="page < pages" icon="el-icon-arrow-down" :disabled="loading">加载更多</el-button>
+            <el-button class="m-emotion-more" type="primary" @click="loadMore" v-show="page < pages" icon="el-icon-arrow-down" :disabled="loading">加载更多</el-button>
             <!-- 分页 -->
             <!-- <el-pagination
                 class="m-emotion-pagination"
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import cloneDeep from "lodash/cloneDeep";
 import debounce from "lodash/debounce";
 import waterfall from "vue-waterfall-rapid";
 
@@ -121,7 +122,7 @@ export default {
             total: 0,
             emotions: [], //当前页面列表
             list: [], //合并列表
-            appendMode: false,
+            // appendMode: false,
 
             emotion: "",
 
@@ -176,11 +177,15 @@ export default {
         },
     },
     methods: {
-        loadList: function() {
+        loadList: function(appendMode = false) {
             this.loading = true;
-            return getEmotions(this.params)
+            let params = cloneDeep(this.params);
+            if(appendMode) {
+                params.page += 1
+            }
+            return getEmotions(params)
                 .then((res) => {
-                    if (this.appendMode) {
+                    if (appendMode) {
                         this.list = this.list.concat(res.data?.data?.list || []);
                         this.emotions = res.data?.data?.list || [];
                     } else {
@@ -192,21 +197,26 @@ export default {
                     this.loadLike();
                 })
                 .then(() => {
-                    this.loading = true;
-
-                    // let result = this.$refs.waterfall.repaints()
+                    // 有内容时
                     if (this.$refs.waterfall) {
-                        // Waterfall is sometimes undefined, why???
-                        this.$refs.waterfall.onRender = (res) => {
-                            this.loading = false;
-                            console.log("waterfall渲染完毕", res);
-                        };
+                        this.loading = true;
                         this.$nextTick(() => {
-                            this.$refs.waterfall.repaints(this.page * this.per, 1);
-                        });
+                            // 渲染追加的部分
+                            if(appendMode){
+                                this.$refs.waterfall.repaints(params.page * this.per, 1);
+                            // 全部重新渲染（切分类等）
+                            }else{
+                                console.log(1)
+                                this.$refs.waterfall.init();
+                            }
+
+                            this.$refs.waterfall.onRender = (res) => {
+                                this.loading = false;
+                                console.log("waterfall渲染完毕", res);
+                            };
+                        })
                     }
-                })
-                .finally(() => {
+                }).finally(() => {
                     this.loading = false;
                 });
         },
@@ -221,8 +231,7 @@ export default {
                 });
         },
         loadMore: function() {
-            this.appendMode = true;
-            this.page++;
+            this.loadList(true)
         },
         // 批量获取点赞
         loadLike: function() {
@@ -306,13 +315,11 @@ export default {
         reset_keys: {
             deep: true,
             handler: function() {
-                this.appendMode = false;
                 this.page = 1;
             },
         },
         // 类别重置
         search: function() {
-            this.appendMode = false;
             this.type = "all";
         },
     },
