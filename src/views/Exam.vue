@@ -1,5 +1,5 @@
 <template>
-    <div class="v-exam m-exam">
+    <div class="v-exam m-exam" v-loading="loading">
         <!-- 搜索 -->
         <ExamSearch :type="type" @update="updateParams" />
         <!-- 列表 -->
@@ -37,6 +37,7 @@ export default {
     },
     data: function() {
         return {
+            loading: false,
             type: "paper",
             data: [],
             total: 0,
@@ -44,7 +45,7 @@ export default {
             // 主要参数
             search: "",
             tag: "",
-            per: 15,
+            per: 20,
             page: 1,
         };
     },
@@ -95,7 +96,7 @@ export default {
             this.loadMethods(this.params)
                 .then((res) => {
                     this.data = res.data?.data || "";
-                    this.total = res.data?.total || 0;
+                    this.total = res.data?.page.pageTotal || 0;
                 })
                 .finally(() => {
                     this.loading = false;

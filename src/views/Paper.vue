@@ -44,5 +44,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/css/paper.less";
+@import "../assets/css/exam/paper.less";
 </style>

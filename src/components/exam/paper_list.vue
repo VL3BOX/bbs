@@ -1,28 +1,28 @@
 <template>
-    <div class="v-paper-list">
-        <!-- list -->
-        <div class="m-list">
-            <a class="m-list-item" v-for="item in data" :key="item.id" @click="takePaper(item.id)">
-                <div class="u-title" :class="item.style">{{ item.title }}</div>
-                <div class="u-tags">
-                    <el-tag class="u-tag" v-for="tag in JSON.parse(item.tags).slice(0, 3)" :key="tag" size="small">
-                        {{ tag }}
-                    </el-tag>
-                </div>
-                <div class="u-desc" :class="item.style">
-                    <img class="u-icon" svg-inline src="../../assets/img/logo.svg" />
-                    <div class="u-text">{{ item.desc }}</div>
-                </div>
-                <div class="u-info">
-                    <div>出卷人： {{ item.createUser }}</div>
-                    <div class="u-star">
-                        难度：
-                        <el-rate v-model="item.hardStar" disabled text-color="#ff9900"></el-rate>
+    <div class="m-paper-list">
+        <el-row :gutter="20" class="u-list">
+            <el-col :span="12" v-for="item in list" :key="'paper' + item.id" class="u-item">
+                <router-link :to="{ name: 'paper', params: { id: item.id } }" class="u-link">
+                    <div class="u-title" :class="item.style">{{ item.title }}</div>
+                    <div class="u-tags">
+                        <el-tag class="u-tag" v-for="tag in item.tags" :key="tag" size="small">
+                            {{ tag }}
+                        </el-tag>
                     </div>
-                </div>
-            </a>
-        </div>
-        <!-- 翻页 -->
+                    <div class="u-desc" :class="item.style">
+                        <img class="u-icon" svg-inline src="../../assets/img/logo.svg" />
+                        <div class="u-text">{{ item.desc }}</div>
+                    </div>
+                    <div class="u-info">
+                        <div>出卷人： {{ item.createUser }}</div>
+                        <div class="u-star">
+                            难度：
+                            <el-rate v-model="item.hardStar" disabled text-color="#ff9900"></el-rate>
+                        </div>
+                    </div>
+                </router-link>
+            </el-col>
+        </el-row>
     </div>
 </template>
 <script>
@@ -33,16 +33,21 @@ export default {
     data: function() {
         return {};
     },
-    computed: {},
-    watch: {},
-    methods: {
-        takePaper(id) {
-            this.$router.push({
-                name: "paper",
-                params: { id: id },
+    computed: {
+        list: function() {
+            return this.data?.map((item, i) => {
+                try {
+                    item.tags = JSON.parse(item.tags).slice(0, 3);
+                } catch (e) {
+                    console.log("解析试卷列表tag异常", e);
+                    item.tags = [];
+                }
+                return item
             });
         },
     },
+    watch: {},
+    methods: {},
     filters: {},
     created: function() {},
     mounted: function() {},
@@ -50,5 +55,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/css/paper.less";
+@import "../../assets/css/exam/paper_list.less";
 </style>
