@@ -1,49 +1,35 @@
- <template>
-  <div class="v-paper-single">
+<template>
+  <div class="v-question-single">
     <SingleTitle :item="data" />
-    <div class="m-list">
-      <SingleCard
-        v-for="(item, index) in list"
-        :key="item.id"
-        :item="item"
-        :index="index + 1"
-        :answer="answer"
-        @changeVal="finalAnswer"
-      />
-    </div>
+    <SingleCard :item="data" :answer="answer" @changeVal="finalAnswer" />
     <div class="u-submit" @click="submit">提交</div>
   </div>
 </template>
 <script>
 import SingleCard from "@/components/exam/single_card.vue";
 import SingleTitle from "@/components/exam/single_title.vue";
-import { getPaper, submitAnswer } from "@/service/exam.js";
+import { getQuestion } from "@/service/exam.js";
 export default {
-  name: "PaperSingle",
+  name: "QuestionSingle",
   props: [],
   components: { SingleCard, SingleTitle },
   data: function () {
     return {
       data: {},
-      list: [],
       answer: "",
       userAnswers: {},
     };
   },
-
+  computed: {},
+  watch: {},
   methods: {
     loadData: function () {
       let id = this.$route.params.id;
-      getPaper(id).then((res) => {
+      getQuestion(id).then((res) => {
         let data = res.data;
         data.tags = JSON.parse(data.tags);
-        for (let item of data.questionDetailList) {
-          item.options = JSON.parse(item.options);
-          item.tags = JSON.parse(item.tags);
-        }
-
+        data.options = JSON.parse(data.options);
         this.data = data;
-        this.list = data.questionDetailList;
       });
     },
     finalAnswer: function (val) {
@@ -57,17 +43,16 @@ export default {
     },
     submit() {
       if (JSON.stringify(this.userAnswers) == "{}") {
-        this.$alert("不能交白卷哦~", "提交失败", {
+        this.$alert("你没有选择答案哦~", "提交失败", {
           type: "error",
         });
       } else {
-         //TODO: 判断是否登录
-        submitAnswer(this.data.id, this.userAnswers).then((res) => {
-          console.log(res.data, "submitAnswer");
-        });
+        //TODO: \提交答案
+
       }
     },
   },
+  filters: {},
   created: function () {
     this.loadData();
   },
@@ -75,5 +60,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/css/paper.less";
+@import "../../assets/css/question.less";
 </style>

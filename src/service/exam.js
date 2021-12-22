@@ -13,28 +13,28 @@ function getExamQuestionList(params) {
   });
 }
 
-function getPaper(examid) {
+function getPaper(id) {
   return $next({ proxy: true }).get(
-    "api/question/user-exam-paper/" + examid + "?details"
+    "api/question/user-exam-paper/" + id + "?details"
   );
 }
 
-function getQuestion(examid) {
-  return $next({ proxy: true }).get("api/question/" + examid + "/no-answer");
+function getQuestion(id) {
+  return $next({ proxy: true }).get("api/question/" + id + "/no-answer");
 }
 
-function submitAnswer(examid, answers, force = false) {
+function submitAnswer(id, answers, force = false) {
   return $next({ proxy: true }).post(
-    `api/question/user-exam-paper/${examid}/i-finish-all${
+    `api/question/user-exam-paper/${id}/i-finish-all${
       force ? "?force" : ""
     }`,
     answers
   );
 }
 
-function getAnswer(examid) {
+function getAnswer(id) {
   return $next({ proxy: true }).post(
-    `api/question/user-exam-paper/${examid}/i-need-answer`
+    `api/question/user-exam-paper/${id}/i-need-answer`
   );
 }
 
