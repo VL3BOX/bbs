@@ -72,12 +72,20 @@
     <div class="m-single-answer" v-if="answer">
       <div class="u-status">{{ myAnswers }}</div>
       <div class="u-answer">你的答案：<b>a</b></div>
-      <div class="u-answer">正确答案：<b>c</b></div>
+      <div class="u-answer">
+        正确答案：<b v-for="key in itemAnswer.answerList" :key="key">{{
+          key | letter
+        }}</b>
+      </div>
       <hr />
       <div class="m-analysis">
         <span class="u-label">解析：</span>
-        <div>222</div>
-        <Article :content="whyami[item.id]"></Article>
+
+        <Article
+          :content="itemAnswer.whyami"
+          v-if="itemAnswer.whyami"
+        ></Article>
+        <div v-else>暂无解析</div>
       </div>
     </div>
   </div>
@@ -99,11 +107,21 @@ export default {
   computed: {
     myAnswers: function () {
       if (null) return "未作答";
-      if (1) return "回答正确";
+      if (this.itemAnswer.myAnswerIsRight) return "回答正确";
       return "回答错误";
     },
     options: function () {
       return this.item.options;
+    },
+    itemAnswer: function () {
+      let data = {};
+      for (let i = 0; i < this.answer.length; i++) {
+        if (this.item.id == this.answer[i].id) {
+          data = this.answer[i];
+          break;
+        }
+      }
+      return data;
     },
   },
   methods: {
@@ -131,6 +149,19 @@ export default {
     },
     checkAnswers(key, val) {
       this.$emit("changeVal", { [key]: val });
+    },
+  },
+  watch: {
+    itemAnswer: {
+      handler(val) {
+        console.log(val, "valvalvalval");
+      },
+      deep: true,
+    },
+  },
+  filters: {
+    letter: function (val) {
+      return String.fromCharCode(65 + val);
     },
   },
 };

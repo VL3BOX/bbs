@@ -10,6 +10,7 @@
         :answer="answer"
         @changeVal="finalAnswer"
       />
+      <div class="m-mark" v-if="!isLogin" @click="prompt"></div>
     </div>
     <div class="u-submit" @click="submit">提交</div>
   </div>
@@ -18,16 +19,19 @@
 import SingleCard from "@/components/exam/single_card.vue";
 import SingleTitle from "@/components/exam/single_title.vue";
 import { getPaper, submitAnswer } from "@/service/exam.js";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
   name: "PaperSingle",
   props: [],
   components: { SingleCard, SingleTitle },
   data: function () {
     return {
+      isLogin: "",
       data: {},
       list: [],
       answer: "",
       userAnswers: {},
+      submitList: {},
     };
   },
 
@@ -46,14 +50,22 @@ export default {
         this.list = data.questionDetailList;
       });
     },
-    finalAnswer: function (val) {
-      let key, value;
-      for (var i in val) {
-        key = i;
-        value = val[i];
-      }
+    finalAnswer: function (e) {
+      let key, val;
 
-      this.$set(this.userAnswers, key, value);
+      for (const i in e) {
+        if(e[i] instanceof Array){
+          
+        }
+      }
+      // this.$set(this.userAnswers, answerKey, answerValue);
+
+      // this.$set(this.submitList, keys, keysValue);
+    },
+
+    // 提示登录
+    prompt() {
+      this.$message.error("请先登录");
     },
     submit() {
       if (JSON.stringify(this.userAnswers) == "{}") {
@@ -61,14 +73,23 @@ export default {
           type: "error",
         });
       } else {
-         //TODO: 判断是否登录
-        submitAnswer(this.data.id, this.userAnswers).then((res) => {
+        console.log(this.userAnswers, this.submitList, "...............");
+        submitAnswer(this.data.id, this.submitList, true).then((res) => {
           console.log(res.data, "submitAnswer");
+          if (res.data.score) {
+            this.answer = res.data.paper.questionDetailList;
+          }
         });
       }
     },
   },
   created: function () {
+    if (!User.isLogin()) {
+      this.prompt();
+      this.isLogin = false;
+    } else {
+      this.isLogin = true;
+    }
     this.loadData();
   },
 };

@@ -3,18 +3,21 @@
     <SingleTitle :item="data" />
     <SingleCard :item="data" :answer="answer" @changeVal="finalAnswer" />
     <div class="u-submit" @click="submit">提交</div>
+    <div class="m-mark" v-if="!isLogin" @click="prompt"></div>
   </div>
 </template>
 <script>
 import SingleCard from "@/components/exam/single_card.vue";
 import SingleTitle from "@/components/exam/single_title.vue";
 import { getQuestion } from "@/service/exam.js";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
   name: "QuestionSingle",
   props: [],
   components: { SingleCard, SingleTitle },
   data: function () {
     return {
+      isLogin: "",
       data: {},
       answer: "",
       userAnswers: {},
@@ -41,6 +44,9 @@ export default {
 
       this.$set(this.userAnswers, key, value);
     },
+    prompt() {
+      this.$message.error("请先登录");
+    },
     submit() {
       if (JSON.stringify(this.userAnswers) == "{}") {
         this.$alert("你没有选择答案哦~", "提交失败", {
@@ -48,12 +54,17 @@ export default {
         });
       } else {
         //TODO: \提交答案
-
       }
     },
   },
   filters: {},
   created: function () {
+    if (!User.isLogin()) {
+      this.prompt();
+      this.isLogin = false;
+    } else {
+      this.isLogin = true;
+    }
     this.loadData();
   },
 };
