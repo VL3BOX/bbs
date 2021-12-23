@@ -1,15 +1,7 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb
-            name="剑三茶馆"
-            slug="bbs"
-            root="/bbs"
-            :publishEnable="false"
-            :adminEnable="false"
-            :feedbackEnable="true"
-            :crumbEnable="true"
-        >
+        <Breadcrumb name="剑三茶馆" slug="bbs" root="/bbs" :publishEnable="false" :adminEnable="false" :feedbackEnable="true" :crumbEnable="true">
             <img slot="logo" svg-inline :src="getAppIcon('bbs')" />
             <Info />
             <publish-gate slot="op-append" />
@@ -30,16 +22,11 @@
 import Info from "@/components/Info.vue";
 import Nav from "@/components/nav/Nav.vue";
 import publishGate from "@/components/publish_gate.vue";
-import {
-    getAppIcon,
-    getAppType,
-    getAppID,
-} from "@jx3box/jx3box-common/js/utils";
-import { single_types } from "../setting.json";
+import { getAppIcon, getAppType, getAppID } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",
     props: [],
-    data: function () {
+    data: function() {
         return {};
     },
     computed: {},
@@ -51,25 +38,13 @@ export default {
         "publish-gate": publishGate,
         Info,
     },
-    created: function () {
-        // 小册等类型兼容
-        // let type = getAppType();
-        // let id = getAppID();
-        // if (type && single_types.includes(type)) {
-        //     let route = { name: type, params: {} };
-        //     if (id) route.params.id = id;
-        //     this.$router.push(route);
-        // }
-    },
+    created: function() {},
 };
 </script>
 
 <style lang="less">
 @import "./assets/css/app.less";
 @media screen and (max-width: @phone) {
-    .c-crumb {
-        .none;
-    }
     .c-breadcrumb {
         .u-op {
             .none;

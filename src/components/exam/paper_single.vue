@@ -96,5 +96,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/css/paper.less";
+@import "../../assets/css/exam/paper_single.less";
 </style>

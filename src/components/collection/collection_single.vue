@@ -1,13 +1,6 @@
 <template>
     <div class="m-collection-single">
-        <el-alert
-            v-if="!collection"
-            title="该剑三小册不存在或已被删除"
-            type="info"
-            center
-            show-icon
-            :closable="false"
-        ></el-alert>
+        <el-alert v-if="!collection" title="该剑三小册不存在或已被删除" type="info" center show-icon :closable="false"></el-alert>
 
         <template v-else>
             <div class="m-collection-detail-content">
@@ -16,12 +9,8 @@
                         <!-- 标题 -->
                         <div class="m-single-title">
                             <span class="u-title u-sub-block" :href="url" :title="collection.title">
-                                <i
-                                    class="u-private el-icon-lock"
-                                    v-if="!collection.public"
-                                    title="仅自己可见"
-                                ></i>
-                                <span class="u-title-text">{{collection.title}}</span>
+                                <i class="u-private el-icon-lock" v-if="!collection.public" title="仅自己可见"></i>
+                                <span class="u-title-text">{{ collection.title }}</span>
                             </span>
                         </div>
 
@@ -32,22 +21,19 @@
                                 <i class="u-author-icon">
                                     <img svg-inline src="../../assets/img/author.svg" />
                                 </i>
-                                <a
-                                    class="u-name"
-                                    :href="collection.user_id | authorLink"
-                                >{{ collection.user_nickname }}</a>
+                                <a class="u-name" :href="collection.user_id | authorLink">{{ collection.user_nickname }}</a>
                             </div>
 
                             <!-- 发布日期 -->
                             <span class="u-podate u-sub-block" title="发布日期">
                                 <i class="u-icon el-icon-date"></i>
-                                <time>{{dateFormat(collection.created)}}</time>
+                                <time>{{ dateFormat(collection.created) }}</time>
                             </span>
 
                             <!-- 最后更新 -->
                             <span class="u-modate u-sub-block" title="最后更新">
                                 <i class="u-icon el-icon-refresh"></i>
-                                <time>{{dateFormat(collection.updated)}}</time>
+                                <time>{{ dateFormat(collection.updated) }}</time>
                             </span>
 
                             <!-- 查看次数 -->
@@ -63,12 +49,7 @@
                             </a>
 
                             <!-- 删除 -->
-                            <a
-                                href="javascript:void(0)"
-                                class="u-delete u-sub-block"
-                                @click="delete_handle($event, collection.id)"
-                                v-if="canEdit"
-                            >
+                            <a href="javascript:void(0)" class="u-delete u-sub-block" @click="delete_handle($event, collection.id)" v-if="canEdit">
                                 <i class="u-icon-remove el-icon-delete"></i>
                                 <span>删除</span>
                             </a>
@@ -94,44 +75,14 @@
                     <ul class="u-list">
                         <li class="u-item" v-for="(post, key) in collection.posts" :key="key">
                             <span class="u-item-order">{{ key + 1 }}.</span>
-                            <span class="u-item-link" v-if="post.type === 'custom'">
-                                <i class="el-icon-link"></i>站外链接
-                            </span>
-                            <a
-                                class="u-item-author"
-                                v-if="post.type !== 'custom' && post.user_id"
-                                target="_blank"
-                                :href="post.user_id | authorLink"
-                            >
-                                <img
-                                    class="u-avatar"
-                                    :src="
-                                        getThumbnail(
-                                            post.user_avatar,
-                                            20,
-                                            true
-                                        )
-                                    "
-                                />
+                            <span class="u-item-link" v-if="post.type === 'custom'"> <i class="el-icon-link"></i>站外链接 </span>
+                            <a class="u-item-author" v-if="post.type !== 'custom' && post.user_id" target="_blank" :href="post.user_id | authorLink">
+                                <img class="u-avatar" :src="getThumbnail(post.user_avatar, 20, true)" />
                                 <span class="u-nickname" v-text="post.user_nickname"></span>
                                 <span class="u-div">/</span>
                             </a>
-                            <a
-                                class="u-item-title"
-                                target="_blank"
-                                :href="
-                                    post.type === 'custom'
-                                        ? post.url
-                                        : getLink(post.type, post.id)
-                                "
-                            >{{ post.title }}</a>
-                            <time
-                                class="u-updated"
-                                v-if="post.updated"
-                                v-text="
-                                    '最后更新于 ' + dateFormat(post.updated)
-                                "
-                            ></time>
+                            <a class="u-item-title" target="_blank" :href="post.type === 'custom' ? post.url : getLink(post.type, post.id)">{{ post.title }}</a>
+                            <time class="u-updated" v-if="post.updated" v-text="'最后更新于 ' + dateFormat(post.updated)"></time>
                         </li>
                     </ul>
                 </template>
@@ -147,20 +98,11 @@
                 </ul>
             </div>-->
 
-            <Thx
-                class="m-thx"
-                :postId="id"
-                postType="collection"
-                :userId="author_id"
-                :adminBoxcoinEnable="true"
-                :userBoxcoinEnable="true"
-            />
+            <Thx class="m-thx" :postId="id" postType="collection" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
 
             <div class="m-comments" v-if="id">
                 <el-divider content-position="left">
-                    <span style="color:#999999">
-                        <i class="el-icon-chat-line-square"></i> 讨论
-                    </span>
+                    <span style="color:#999999"> <i class="el-icon-chat-line-square"></i> 讨论 </span>
                 </el-divider>
                 <jx3-comment :id="id" category="collection" />
             </div>
@@ -173,13 +115,7 @@ import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import CollectionPublish from "@jx3box/jx3box-editor/service/enum/CollectionPublic";
 import { getCollection, removeCollection } from "@/service/helper";
 import { dateFormat } from "@/utils/dateFormat";
-import {
-    getThumbnail,
-    getLink,
-    getTypeLabel,
-    authorLink,
-    editLink,
-} from "@jx3box/jx3box-common/js/utils";
+import { getThumbnail, getLink, getTypeLabel, authorLink, editLink } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 export default {
@@ -188,7 +124,7 @@ export default {
     components: {
         "jx3-comment": Comment,
     },
-    data: function () {
+    data: function() {
         return {
             collection: "",
             publish: CollectionPublish,
@@ -198,20 +134,17 @@ export default {
         };
     },
     computed: {
-        edit_link: function () {
+        edit_link: function() {
             return editLink("collection", this.collection.id);
         },
-        id: function () {
+        id: function() {
             return this.collection?.id;
         },
-        author_id: function () {
+        author_id: function() {
             return this.collection?.user_id || 0;
         },
-        canEdit: function () {
-            return (
-                this.author_id == User.getInfo().uid ||
-                User.isEditor()
-            );
+        canEdit: function() {
+            return this.author_id == User.getInfo().uid || User.isEditor();
         },
     },
     watch: {
@@ -229,7 +162,7 @@ export default {
         getThumbnail,
         getLink,
         getTypeLabel,
-        dateFormat: function (timestamp) {
+        dateFormat: function(timestamp) {
             return dateFormat(new Date(timestamp * 1000));
         },
         delete_handle($event, collection_id) {
@@ -245,7 +178,7 @@ export default {
                 });
             });
         },
-        loadData: function (id) {
+        loadData: function(id) {
             this.loading = true;
             getCollection(id, {
                 post_extra: 1,
@@ -258,7 +191,7 @@ export default {
                     this.loading = false;
                 });
         },
-        execStat: function (id) {
+        execStat: function(id) {
             postStat("collection", id);
             getStat("collection", id).then((res) => {
                 this.views = res.data.views;
@@ -268,11 +201,10 @@ export default {
     filters: {
         authorLink,
     },
-    created: function () {},
-    mounted: function () {},
+    created: function() {},
+    mounted: function() {},
 };
 </script>
-
 
 <style scoped lang="less">
 .m-single-header {

@@ -1,11 +1,11 @@
 <template>
     <div class="v-index">
-        <list />
+        <!-- <list /> -->
     </div>
 </template>
 
 <script>
-import list from "@/components/bbs/list.vue";
+// import list from "@/components/bbs/list.vue";
 export default {
     name: "Index",
     props: [],
@@ -16,7 +16,7 @@ export default {
     methods: {},
     created: function () {},
     components: {
-        list,
+        // list,
     },
 };
 </script>
