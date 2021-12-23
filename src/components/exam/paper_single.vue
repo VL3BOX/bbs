@@ -2,17 +2,12 @@
   <div class="v-paper-single">
     <SingleTitle :item="data" />
     <div class="m-list">
-      <SingleCard
-        v-for="(item, index) in list"
-        :key="item.id"
-        :item="item"
-        :index="index + 1"
-        :answer="answer"
-        @changeVal="finalAnswer"
-      />
+      <SingleCard v-for="(item, index) in list" :key="item.id" :item="item" :index="index + 1" :answer="answer" :userAnswers="userAnswers" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
       <div class="m-mark" v-if="!isLogin" @click="prompt"></div>
     </div>
-    <div class="u-submit" @click="submit">提交</div>
+    <div class="u-submit" @click="submit">
+      <el-button class="u-btn">提交</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -26,12 +21,13 @@ export default {
   components: { SingleCard, SingleTitle },
   data: function () {
     return {
-      isLogin: "",
+      isLogin: false,
       data: {},
       list: [],
       answer: "",
       userAnswers: {},
       submitList: {},
+      isSubmitted: false
     };
   },
 
@@ -50,34 +46,60 @@ export default {
         this.list = data.questionDetailList;
       });
     },
-    finalAnswer: function (e) {
-      let key, val;
+    finalAnswer: function (val) {
+      let key, value;
 
-      for (const i in e) {
-        if(e[i] instanceof Array){
-          
+      for (var i in val) {
+        key = i;
+        if (val[i].length) {
+          value = val[i].sort();
         }
+        value = val[i];
       }
-      // this.$set(this.userAnswers, answerKey, answerValue);
 
-      // this.$set(this.submitList, keys, keysValue);
+      this.$set(this.userAnswers, key, value);
     },
 
     // 提示登录
-    prompt() {
+    prompt () {
       this.$message.error("请先登录");
     },
-    submit() {
+    submit () {
       if (JSON.stringify(this.userAnswers) == "{}") {
         this.$alert("不能交白卷哦~", "提交失败", {
           type: "error",
         });
       } else {
-        console.log(this.userAnswers, this.submitList, "...............");
+
+        let list = this.data.questionDetailList
+
+        for (let i = 0; i < list.length; i++) {
+          for (let j in this.userAnswers) {
+            if (list[i].id == j) {
+              let arr = []
+              for (let k = 0; k < list[i].options.length; k++) {
+                if (this.userAnswers[j].length) {
+                  for (let s = 0; s < this.userAnswers[j].length; s++) {
+                    if (this.userAnswers[j][s] == k) {
+                      arr.push(list[i].options[k])
+                    }
+                  }
+                } else {
+                  if (this.userAnswers[j] == k) {
+                    arr.push(list[i].options[k])
+                  }
+                }
+              }
+              this.$set(this.submitList, list[i].id, arr);
+            }
+          }
+        }
+
         submitAnswer(this.data.id, this.submitList, true).then((res) => {
           console.log(res.data, "submitAnswer");
           if (res.data.score) {
             this.answer = res.data.paper.questionDetailList;
+            this.isSubmitted = true
           }
         });
       }

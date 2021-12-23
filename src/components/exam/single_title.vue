@@ -4,23 +4,14 @@
       <div class="u-title">{{ title }}</div>
       <div class="u-info">
         <div class="u-tags">
-          <span>试卷标签：</span
-          ><el-tag
-            class="u-tag"
-            v-for="tag in item.tags"
-            :key="tag"
-            size="small"
-          >
+          <span>试卷标签：</span>
+          <el-tag class="u-tag" v-for="tag in item.tags" :key="tag" size="small">
             {{ tag }}
           </el-tag>
         </div>
         <div class="u-star">
           <span>题目难度：</span>
-          <el-rate
-            v-model="item.hardStar"
-            disabled
-            text-color="#ff9900"
-          ></el-rate>
+          <el-rate v-model="item.hardStar" disabled text-color="#ff9900"></el-rate>
         </div>
 
         <div>
@@ -34,32 +25,19 @@
         <span>PS：</span><b>{{ desc }}</b>
       </div>
     </div>
-    <div class="m-setbar">
+    <div class="m-setBar">
       <div class="u-col u-view">
         <i class="el-icon-view"></i><span>查看人数</span>
       </div>
-      <div
-        class="u-col"
-        :class="collected ? 'u-active' : ''"
-        @click="isCollected"
-      >
-        <i class="el-icon-star-off"></i
-        ><span>{{ collected ? "已收藏" : "未收藏" }}</span>
+      <div class="u-col" :class="collected ? 'u-active' : ''" @click="isCollected">
+        <i class="el-icon-star-off"></i><span>{{ collected ? "已收藏" : "未收藏" }}</span>
       </div>
-      <div class="u-col"><QRcode /></div>
       <div class="u-col">
-        <Sharing
-          :title="sharingTitle"
-          img="./assets/img/100.svg"
-          v-if="score >= 0"
-          key="beforeTest"
-        />
-        <Sharing
-          :title="sharingTitle"
-          img="./assets/img/100.svg"
-          v-else
-          key="afterTest"
-        />
+        <QRcode />
+      </div>
+      <div class="u-col">
+        <Sharing :title="sharingTitle" img="./assets/img/100.svg" v-if="score >= 0" key="beforeTest" />
+        <Sharing :title="sharingTitle" img="./assets/img/100.svg" v-else key="afterTest" />
       </div>
       <div class="u-col"><i class="el-icon-edit"></i><span>编辑</span></div>
       <div class="u-col"><i class="el-icon-delete"></i><span>删除</span></div>
@@ -93,13 +71,13 @@ export default {
   },
   watch: {},
   methods: {
-    isCollected() {
+    isCollected () {
       this.collected = !this.collected;
     },
   },
 
-  created: function () {},
-  mounted: function () {},
+  created: function () { },
+  mounted: function () { },
   filters: {},
   watch: {},
 };

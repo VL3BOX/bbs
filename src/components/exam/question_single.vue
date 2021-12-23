@@ -1,15 +1,17 @@
 <template>
   <div class="v-question-single">
     <SingleTitle :item="data" />
-    <SingleCard :item="data" :answer="answer" @changeVal="finalAnswer" />
-    <div class="u-submit" @click="submit">提交</div>
+    <SingleCard :item="data" :answer="answer" :userAnswers="userAnswers" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
+    <div class="u-submit" @click="submit">
+      <el-button class="u-btn">提交</el-button>
+    </div>
     <div class="m-mark" v-if="!isLogin" @click="prompt"></div>
   </div>
 </template>
 <script>
 import SingleCard from "@/components/exam/single_card.vue";
 import SingleTitle from "@/components/exam/single_title.vue";
-import { getQuestion } from "@/service/exam.js";
+import { getQuestion, submitQuestionAnswer } from "@/service/exam.js";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
   name: "QuestionSingle",
@@ -21,6 +23,8 @@ export default {
       data: {},
       answer: "",
       userAnswers: {},
+      submitAnswers: {},
+      isSubmitted: false
     };
   },
   computed: {},
@@ -37,23 +41,44 @@ export default {
     },
     finalAnswer: function (val) {
       let key, value;
+
       for (var i in val) {
         key = i;
+        if (val[i].length) {
+          value = val[i].sort();
+        }
         value = val[i];
       }
 
+      let arr = []
+      for (let i = 0; i < this.data.options.length; i++) {
+        for (let j = 0; j < value.length; j++) {
+          if (value[j] == i) {
+            arr.push(this.data.options[i])
+          }
+        }
+      }
+
+      this.submitAnswers = arr
       this.$set(this.userAnswers, key, value);
     },
-    prompt() {
+    prompt () {
       this.$message.error("请先登录");
     },
-    submit() {
+    submit () {
       if (JSON.stringify(this.userAnswers) == "{}") {
         this.$alert("你没有选择答案哦~", "提交失败", {
           type: "error",
         });
       } else {
-        //TODO: \提交答案
+        console.log(this.$route.params.id, this.submitAnswers)
+        submitQuestionAnswer(this.$route.params.id, this.submitAnswers).then((res) => {
+          console.log(res.data, 'qqqq')
+          if (res.data) {
+            this.answer = res.data
+            this.isSubmitted = true
+          }
+        })
       }
     },
   },
