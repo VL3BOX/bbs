@@ -13,6 +13,10 @@ let store = {
         id: getAppID(),
         user_id: 0,
         post: "",
+        extend : {
+            collection_data : '',
+            directory : false,
+        }
     },
     mutations: {
         switchClient : function (state,val){

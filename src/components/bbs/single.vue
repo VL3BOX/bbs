@@ -1,5 +1,5 @@
 <template>
-    <singlebox :post="post" :stat="stat" v-loading="loading">
+    <singlebox :post="post" :stat="stat" v-loading="loading" @extendUpdate="updateExtend">
         <!-- 头部子类型 -->
         <div class="u-meta u-sub-block" slot="single-header">
             <em class="u-label">类型</em>
@@ -34,6 +34,11 @@ export default {
             let subtype = this.post?.post_subtype;
             return subtype ? types[subtype]['label'] : "-";
         },
+    },
+    methods : {
+        updateExtend : function (val){
+            this.$store.state.extend = val
+        }
     },
     mounted: function() {
         if (this.id) {
