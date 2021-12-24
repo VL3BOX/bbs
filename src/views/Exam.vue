@@ -45,11 +45,13 @@ export default {
             // 主要参数
             search: "",
             tag: "",
-            per: 20,
             page: 1,
         };
     },
     computed: {
+        per : function (){
+            return this.type == 'paper' ? 9 : 15  
+        },
         // 组合请求参数
         params: function() {
             return {
@@ -98,7 +100,7 @@ export default {
             this.loadMethods(this.params)
                 .then((res) => {
                     this.data = res.data?.data || "";
-                    this.total = res.data?.page.pageTotal || 0;
+                    this.total = ~~res.data?.page.total || 0;
                 })
                 .finally(() => {
                     this.loading = false;
