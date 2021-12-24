@@ -9,15 +9,11 @@
         </RightSideMsg>
 
         <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
-        <div class="m-nav-group m-tool-nav">
-            <router-link
-                v-for="(item,i) in menu"
-                :to="'/' + item.slug"
-                :key="i"
-            >
+        <div class="m-nav-group m-bbs-nav">
+            <router-link v-for="(item, i) in menu" :to="'/' + item.slug" :key="i">
                 <i :class="item.icon"></i>
-                <b>{{item.name}}</b>
-                <span>{{item.desc}}</span>
+                <b>{{ item.name }}</b>
+                <span>{{ item.desc }}</span>
             </router-link>
         </div>
 
@@ -34,7 +30,7 @@
             <span>盒子娘的信箱 O(∩_∩)O </span>
         </router-link> -->
         <a class="m-nav-feedback" :href="feedback" target="_blank">
-            <img src="../../assets/img/nav/hzn.png" alt="盒子娘">
+            <img src="../../assets/img/nav/hzn.png" alt="盒子娘" />
             <b><i class="el-icon-message"></i> 反馈建议</b>
             <span>admin@jx3box.com</span>
         </a>
@@ -42,42 +38,42 @@
 </template>
 
 <script>
-import {getMenu} from '@/service/cms.js'
-import {feedback} from '@jx3box/jx3box-common/data/jx3box.json'
+// import {getMenu} from '@/service/cms.js'
+import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "list_nav",
     props: [],
-    data: function () {
+    data: function() {
         return {
             menu: [
                 {
-                    slug: '',
+                    slug: "",
                     icon: "el-icon-receiving",
                     name: "全部",
                 },
                 {
-                    slug: 'forum',
+                    slug: "forum",
                     icon: "el-icon-collection",
                     name: "剑三茶馆",
                 },
                 {
-                    slug: 'joke',
+                    slug: "joke",
                     icon: "el-icon-cold-drink",
                     name: "剑三骚话",
                 },
                 {
-                    slug: 'emotion',
+                    slug: "emotion",
                     icon: "el-icon-sugar",
                     name: "剑三表情",
                 },
                 {
-                    slug: 'namespace',
+                    slug: "namespace",
                     icon: "el-icon-postcard",
                     name: "剑三铭牌",
                     desc: "剑网3.com",
                 },
                 {
-                    slug: 'collection',
+                    slug: "collection",
                     icon: "el-icon-paperclip",
                     name: "剑三小册",
                 },
@@ -87,17 +83,9 @@ export default {
                 //     name: "剑三题库",
                 // },
             ],
-            tags : [],
-            feedback
+            tags: [],
+            feedback,
         };
-    },
-    computed: {
-        type: function () {
-            return this.$route.name;
-        },
-        client: function () {
-            return this.$store.state.client;
-        },
     },
     methods: {
         // loadTags : function (){
@@ -106,7 +94,7 @@ export default {
         //     })
         // }
     },
-    mounted: function () {
+    mounted: function() {
         // this.loadTags()
     },
     components: {},

@@ -14,7 +14,7 @@
             </div>
         </div>
         <!-- 空 -->
-        <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+        <el-alert class="m-collection-null" v-else title="没有找到相关条目" type="info" show-icon></el-alert>
         <!-- 分页 -->
         <el-pagination
             class="m-collection-pagination"
