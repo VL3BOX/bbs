@@ -160,7 +160,7 @@ export default {
     },
     myAnswers: {
       handler (val) {
-        console.log(val)
+        // console.log(val)
       },
       deep: true,
     }

@@ -63,6 +63,25 @@
 	.u-setbar {
 		.ml(20px);
 	}
+
+	.m-score {
+		.pa;
+		.rt(20px,20px);
+		.size(300px);
+		.x;
+		.u-label {
+			.fz(30px);
+			.lh(60px);
+			.bold;
+		}
+		.u-score {
+			.fz(120px);
+			.lh(120px);
+			color: #2682ea;
+			font-style: italic;
+			font-family: Georgia, Times New Roman, Times, serif;
+		}
+	}
 }
 
 .m-mark {
@@ -185,7 +204,10 @@
 	border-radius: 3px !important;
 	.el-checkbox__label,
 	.el-radio__label {
+		.lh(2.2em);
 		white-space: normal;
+		display: flex;
+		align-items: flex-start;
 		div,
 		p {
 			.dbi;

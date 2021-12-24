@@ -52,7 +52,6 @@ export default {
   watch: {},
   methods: {
     takeQuestion (row, column, event) {
-      console.log(row.id);
       let id = row.id;
       this.$router.push({
         name: "question",

@@ -1,6 +1,6 @@
  <template>
   <div class="v-paper-single">
-    <SingleTitle :item="data" />
+    <SingleTitle :item="data" :score="score" type="paper" />
     <div class="m-list">
       <SingleCard v-for="(item, index) in list" :key="item.id" :item="item" :index="index + 1" :answer="answer" :userAnswers="userAnswers" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
       <div class="m-mark" v-if="!isLogin" @click="prompt"></div>
@@ -25,6 +25,7 @@ export default {
       data: {},
       list: [],
       answer: "",
+      score: -1,
       userAnswers: {},
       submitList: {},
       isSubmitted: false
@@ -41,7 +42,7 @@ export default {
           item.options = JSON.parse(item.options);
           item.tags = JSON.parse(item.tags);
         }
-
+        console.log(data, ';;;;')
         this.data = data;
         this.list = data.questionDetailList;
       });
@@ -96,9 +97,9 @@ export default {
         }
 
         submitAnswer(this.data.id, this.submitList, true).then((res) => {
-          console.log(res.data, "submitAnswer");
           if (res.data.score) {
             this.answer = res.data.paper.questionDetailList;
+            this.score = res.data.score.score
             this.isSubmitted = true
           }
         });

@@ -88,7 +88,6 @@ export default {
       this.loading = true;
       this.loadMethods(this.params)
         .then((res) => {
-          console.log(res, '......')
           this.data = res.data?.data || "";
           this.total = res.data?.page.pageTotal || 0;
         })

@@ -1,6 +1,6 @@
 <template>
   <div class="v-question-single">
-    <SingleTitle :item="data" />
+    <SingleTitle :item="data" type="question" />
     <SingleCard :item="data" :answer="answer" :userAnswers="userAnswers" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
     <div class="u-submit" @click="submit">
       <el-button class="u-btn">提交</el-button>
@@ -71,9 +71,7 @@ export default {
           type: "error",
         });
       } else {
-        console.log(this.$route.params.id, this.submitAnswers)
         submitQuestionAnswer(this.$route.params.id, this.submitAnswers).then((res) => {
-          console.log(res.data, 'qqqq')
           if (res.data) {
             this.answer = res.data
             this.isSubmitted = true
