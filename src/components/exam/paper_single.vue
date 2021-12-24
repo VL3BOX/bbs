@@ -3,9 +3,9 @@
         <SingleTitle :item="data" :score="score" type="paper" />
         <div class="m-list">
             <SingleCard v-for="(item, index) in list" :key="item.id" :item="item" :index="index + 1" :answer="answer" :userAnswers="userAnswers" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
-            <div class="m-mark" v-if="!isLogin" @click="prompt"></div>
+            <div class="m-exam-mark" v-if="!isLogin" @click="prompt"></div>
         </div>
-        <div class="u-submit" @click="submit">
+        <div class="m-exam-submit" @click="submit">
             <el-button class="u-btn">提交</el-button>
         </div>
     </div>
@@ -42,7 +42,6 @@ export default {
                     item.options = JSON.parse(item.options);
                     item.tags = JSON.parse(item.tags);
                 }
-                console.log(data, ";;;;");
                 this.data = data;
                 this.list = data.questionDetailList;
             });
@@ -118,5 +117,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/css/exam/paper_single.less";
+@import "~@/assets/css/exam/exam.less";
+@import "~@/assets/css/exam/single_title.less";
+@import "~@/assets/css/exam/single_card.less";
 </style>

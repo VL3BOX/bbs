@@ -2,10 +2,10 @@
     <div class="v-question-single">
         <SingleTitle :item="data" type="question" />
         <SingleCard :item="data" :answer="answer" :userAnswers="userAnswers" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
-        <div class="u-submit" @click="submit">
+        <div class="m-exam-submit" @click="submit">
             <el-button class="u-btn">提交</el-button>
         </div>
-        <div class="m-mark" v-if="!isLogin" @click="prompt"></div>
+        <div class="m-exam-mark" v-if="!isLogin" @click="prompt"></div>
     </div>
 </template>
 <script>
@@ -94,5 +94,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/css/exam/question_single.less";
+@import "~@/assets/css/exam/exam.less";
+@import "~@/assets/css/exam/single_title.less";
+@import "~@/assets/css/exam/single_card.less";
 </style>
