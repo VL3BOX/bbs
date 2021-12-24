@@ -174,5 +174,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/css/namespace.less";
+@import "../assets/css/namespace/namespace.less";
 </style>

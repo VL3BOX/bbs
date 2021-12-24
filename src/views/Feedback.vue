@@ -248,6 +248,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/css/list.less";
-@import "../assets/css/feedback.less";
+@import "../assets/css/feedback/feedback.less";
 </style>

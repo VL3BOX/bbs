@@ -2,19 +2,19 @@
     <div class="v-index">
         <joke />
         <!-- <emotion /> -->
-        <!-- <list /> -->
+        <list />
     </div>
 </template>
 
 <script>
 // import emotion from "@/components/emotion/emotion_index.vue";
-// import list from "@/components/bbs/list_index.vue";
+import list from "@/components/bbs/list_index.vue";
 import joke from "@/components/joke/joke_index.vue";
 export default {
     name: "Index",
     props: [],
     components: {
-        // list,
+        list,
         joke,
         // emotion,
     },
@@ -31,5 +31,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/css/index.less";
+@import "../assets/css/bbs/index.less";
 </style>

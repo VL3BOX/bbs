@@ -71,5 +71,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/css/exam.less";
+@import "~@/assets/css/exam/exam.less";
 </style>

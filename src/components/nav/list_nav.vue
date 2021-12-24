@@ -10,7 +10,7 @@
 
         <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
         <div class="m-nav-group m-bbs-nav">
-            <router-link v-for="(item, i) in menu" :to="'/' + item.slug" :key="i">
+            <router-link v-for="(item, i) in menu" :to="'/' + item.slug" :key="i" :class="{on:isActive(item.slug)}">
                 <i :class="item.icon"></i>
                 <b>{{ item.name }}</b>
                 <span>{{ item.desc }}</span>
@@ -93,6 +93,9 @@ export default {
         //         this.tags = res.data?.data?.val || []
         //     })
         // }
+        isActive : function (slug){
+            return slug == this.$route.name
+        }
     },
     mounted: function() {
         // this.loadTags()

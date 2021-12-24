@@ -277,5 +277,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/css/joke.less";
+@import "../assets/css/joke/joke.less";
 </style>

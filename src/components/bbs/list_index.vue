@@ -1,9 +1,7 @@
 <template>
     <div class="v-index">
         <el-input class="m-index-search" v-model="search" placeholder="请输入关键词">
-            <span slot="prepend">
-                <i class="el-icon-search"></i> 搜索
-            </span>
+            <span slot="prepend"> <i class="el-icon-search"></i> 搜索 </span>
             <span slot="append">
                 <i class="el-icon-position"></i>
             </span>
@@ -15,36 +13,20 @@
                         <!-- <i class="u-icon">{{showIcon(item.post_subtype)}}</i> -->
                         <span class="u-prefix" :class="'isType-' + item.post_subtype">
                             <i class="u-icon" :class="item.post_subtype | showTypeIcon"></i>
-                            <span class="u-type">[{{item.post_subtype | showTypeLabel}}]</span>
+                            <span class="u-type">[{{ item.post_subtype | showTypeLabel }}]</span>
                         </span>
-                        <span
-                            class="u-title"
-                            :style="item.color | isHighlight"
-                        >{{ item.post_title || "无标题" }}</span>
+                        <span class="u-title" :style="item.color | isHighlight">{{ item.post_title || "无标题" }}</span>
                         <span class="u-marks" v-if="item.mark && item.mark.length">
-                            <i
-                                v-for="mark in item.mark"
-                                class="u-mark"
-                                :class="mark | markcls"
-                                :key="mark"
-                            >{{ mark | showMark }}</i>
+                            <i v-for="mark in item.mark" class="u-mark" :class="mark | markcls" :key="mark">{{ mark | showMark }}</i>
                         </span>
                     </a>
                     <span class="u-misc">
                         <span class="u-author">
-                            <a
-                                class="u-author-name"
-                                :href="item.post_author | authorLink"
-                                target="_blank"
-                            >{{ item.author_info.display_name }}</a>
-                            <img
-                                class="u-author-avatar"
-                                :src="item.author_info.user_avatar | showAvatar"
-                                :alt="item.author_info.display_name"
-                            />
+                            <a class="u-author-name" :href="item.post_author | authorLink" target="_blank">{{ item.author_info.display_name }}</a>
+                            <img class="u-author-avatar" :src="item.author_info.user_avatar | showAvatar" :alt="item.author_info.display_name" />
                         </span>
                         <span class="u-date">
-                            <time>{{item.post_modified | dateFormat}}</time>
+                            <time>{{ item.post_modified | dateFormat }}</time>
                         </span>
                     </span>
                 </li>
@@ -66,16 +48,9 @@
 </template>
 
 <script>
-import lodash from "lodash";
-import {
-    authorLink,
-    publishLink,
-    showAvatar,
-    resolveImagePath,
-    buildTarget,
-} from "@jx3box/jx3box-common/js/utils";
+import { authorLink, showAvatar, buildTarget } from "@jx3box/jx3box-common/js/utils";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
-import {dateFormat} from "@/utils/dateFormat";
+import { dateFormat } from "@/utils/dateFormat";
 import types from "@/assets/data/bbs_types.json";
 
 import { getPosts } from "@/service/post";
@@ -83,7 +58,7 @@ import { getPosts } from "@/service/post";
 export default {
     name: "Index",
     props: [],
-    data: function () {
+    data: function() {
         return {
             loading: false,
             search: "",
@@ -101,10 +76,10 @@ export default {
         };
     },
     computed: {
-        client: function () {
+        client: function() {
             return this.$store.state.client;
         },
-        params: function () {
+        params: function() {
             let _ = {
                 per: this.per,
                 page: ~~this.page || 1,
@@ -116,18 +91,18 @@ export default {
             }
             return _;
         },
-        target: function () {
+        target: function() {
             return buildTarget();
         },
     },
     methods: {
-        showIcon: function (subtype) {
+        showIcon: function(subtype) {
             return this.icon_map[subtype];
         },
-        skipTop: function () {
+        skipTop: function() {
             window.scrollTo(0, 0);
         },
-        loadPosts: function () {
+        loadPosts: function() {
             this.loading = true;
             getPosts(this.params, this)
                 .then((res) => {
@@ -138,44 +113,46 @@ export default {
                     this.loading = false;
                 });
         },
-        getIconClass: function (subtype) {
+        getIconClass: function(subtype) {
             return types[subtype]["icon"] + " " + `u-icon-${subtype}`;
         },
     },
     filters: {
-        dateFormat: function (val) {
+        dateFormat: function(val) {
             return dateFormat(new Date(val));
         },
         showAvatar,
         authorLink,
-        postLink: function (val) {
+        postLink: function(val) {
             return location.origin + "/bbs/" + val;
         },
-        isHighlight: function (val) {
+        isHighlight: function(val) {
             return val ? `color:${val};font-weight:600;` : "";
         },
-        showMark: function (val) {
+        showMark: function(val) {
             return mark_map[val];
         },
-        markcls: function (val) {
+        markcls: function(val) {
             return "u-mark-" + val;
         },
-        showTypeLabel: function (val) {
+        showTypeLabel: function(val) {
             return types?.[val]?.["label"];
         },
-        showTypeIcon: function (val) {
+        showTypeIcon: function(val) {
             return types?.[val]?.["icon"];
         },
     },
     watch: {
+        search : function (){
+            this.page = 1  
+        },
         params: {
             immediate: true,
             deep: true,
-            handler: function () {
+            handler: function() {
                 this.loadPosts();
             },
         },
     },
 };
 </script>
-
