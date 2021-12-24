@@ -1,7 +1,7 @@
 <template>
     <div class="m-collection-box" v-loading="loading">
         <!-- 搜索 -->
-        <div class="m-archive-search">
+        <div class="m-archive-search m-collection-search">
             <el-input placeholder="请输入搜索内容" v-model="search" class="input-with-select">
                 <span slot="prepend">关键词</span>
                 <el-button slot="append" icon="el-icon-search"></el-button>
