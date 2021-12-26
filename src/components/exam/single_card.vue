@@ -19,7 +19,7 @@
         <div class="u-option">
           <template v-if="item.type === 'checkbox'">
             <el-checkbox-group v-model="checkbox" @change="checkAnswers(item.id, checkbox)">
-              <el-checkbox v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? '':'']">
+              <el-checkbox v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? myAnswersBtnClass(index):'']">
                 {{ String.fromCharCode(65 + index) }}.
                 <Article :content="option"></Article>
               </el-checkbox>
@@ -27,7 +27,7 @@
           </template>
           <template v-else>
             <el-radio-group v-model="radio" @change="checkAnswers(item.id, radio)">
-              <el-radio v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit',answer ? '':'']">
+              <el-radio v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit',answer ? myAnswersBtnClass(index):'']">
                 {{ String.fromCharCode(65 + index) }}.
                 <Article :content="option"></Article>
               </el-radio>
@@ -102,8 +102,14 @@ export default {
       if (boolean) return 'isCorrect'
       return 'isWrong'
     },
-    myAnswersBtnClass(val, boolean) {
-      
+    myAnswersBtnClass(index) {
+      if(!this.answer.myAnswerIsRight){
+          for (const key in this.answer.answerList) {
+               if(index == this.answer.answerList[key]){
+                   return 'isCorrect'
+               }
+          }
+      }
     },
   },
   watch: {},
