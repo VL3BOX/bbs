@@ -1,4 +1,4 @@
-import { $cms } from "@jx3box/jx3box-common/js/https";
+import { $cms, $next } from "@jx3box/jx3box-common/js/https";
 
 function getMyPost(params) {
     return $cms().get("/api/cms/posts/my", {
@@ -21,8 +21,11 @@ function getPost(id) {
     return $cms().get(`/api/cms/post/${id}`);
 }
 
-function getMyPostCount() {
-    return $cms().get("/api/cms/posts/user/my/count");
+
+function removeFeedback(id) {
+    return $cms().put(`/api/cms/post/${id}/setting`, {
+        post_status: "dustbin",
+    });
 }
 
-export { getPosts, getPost, getMyPostCount, getMyPost };
+export { getPosts, getPost, getMyPost, removeFeedback };

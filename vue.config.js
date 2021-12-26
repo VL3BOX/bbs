@@ -8,22 +8,34 @@ module.exports = {
     //❤️ Multiple pages ~
     pages:{
         index : {
-            title : '茶馆交流 - JX3BOX',
+            title : '剑三茶馆 - JX3BOX',
             entry:'src/main.js',
             template : 'public/index.html',
             filename:'index.html',
         },
-        post : {
-            title : '茶馆交流 - JX3BOX',
+        bbs : {
+            title : '剑三茶馆 - JX3BOX',
             entry:'src/post.js',
             template : 'public/index.html',
             filename:'post.html',
         },
+        // collection : {
+        //     title : '剑三小册 - JX3BOX',
+        //     entry:'src/pages/collection.js',
+        //     template : 'public/index.html',
+        //     filename:'collection.html',
+        // },
     },
 
     //❤️ Porxy ~
     devServer: {
         proxy: {
+            "/api/inspire": {
+                "target": "https://pay.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            },
             "/api/vip": {
                 "target": "https://pay.jx3box.com",
                 "onProxyReq": function (request) {
@@ -31,13 +43,13 @@ module.exports = {
                 }
             },
             "/api/summary": {
-                "target": "https://next.jx3box.com",
+                "target": "https://next2.jx3box.com",
                 "onProxyReq": function (request) {
                     request.setHeader("origin", "");
                 }
             },
             "/api/comment": {
-                "target": "https://next.jx3box.com",
+                "target": "https://next2.jx3box.com",
                 "onProxyReq": function (request) {
                     request.setHeader("origin", "");
                 }
@@ -45,12 +57,24 @@ module.exports = {
             "/api/cms": {
                 "target": process.env["DEV_SERVER"] == "true" ? "http://localhost:5120" : "https://cms.jx3box.com",
             },
-            "/api": {
-                "target": "https://next.jx3box.com",
+            "/api/summary-any": {
+                "target": "https://next2.jx3box.com",
                 "onProxyReq": function (request) {
                     request.setHeader("origin", "");
                 }
-            }
+            },
+            "/api/team": {
+                target: "https://team.api.jx3box.com",
+                onProxyReq: function(request) {
+                    request.setHeader("origin", "");
+                },
+            },
+            "/api": {
+                "target": "https://next2.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            },
         },
         disableHostCheck: true
     },

@@ -11,15 +11,21 @@ export default {
     name: "publishGate",
     props: [],
     data: function () {
-        return {};
+        return {
+            redirect_types : ['index','forum','notice','feedback']
+        };
     },
     computed: {
         channel: function () {
-            let routename = this.$route.name
-            if(routename == 'index' || routename == 'forum'){
-                routename = 'bbs'
+            if(this.$route){
+                let routename = this.$route.name
+                if(this.redirect_types.includes(routename)){
+                    routename = 'bbs'
+                }
+                return routename;
+            }else{
+                return 'bbs'
             }
-            return routename;
         },
         publish_link: function () {
             return publishLink(this.channel)
