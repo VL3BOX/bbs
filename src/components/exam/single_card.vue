@@ -97,7 +97,11 @@ export default {
       }
     },
   },
-  watch: {},
+  watch: {
+      answer(val){
+          console.log(val,'??')
+      }
+  },
   filters: {
     letter: function(val) {
       return String.fromCharCode(65 + val)

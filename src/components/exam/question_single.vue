@@ -103,14 +103,14 @@ export default {
       let myAnswer = ''
       for (const key in this.userAnswers) {
         myAnswer = this.userAnswers[key]
-      }
+      } 
       newObj.answerList = obj.answerList
       newObj.myAnswerIsRight = obj.myAnswerIsRight
       newObj.whyami = obj.whyami
       newObj.id = obj.id
       newObj.type = obj.type
       newObj.myAnswer = myAnswer
-      return { [0]: newObj }
+      return newObj 
     },
   },
   filters: {},
