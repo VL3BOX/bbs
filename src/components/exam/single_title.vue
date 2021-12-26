@@ -23,13 +23,13 @@
                 </div>
             </div>
             <div class="u-desc" v-if="item.questionList">
-                <span>总共题数：</span><b>共{{ item.questionList.length }}题，每题{{ number }}分，满分100分。</b>
+                <span>总共题数：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
             </div>
             <div class="u-desc">简介：{{ desc }}</div>
         </div>
         <div class="m-setBar" v-if="canManage">
             <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit"></i><span>编辑</span></a>
-            <span class="u-delete"><i class="el-icon-delete"></i><span>删除</span></span>
+            <span class="u-delete" @click="check('delete')"><i class="el-icon-delete"></i><span>删除</span></span>
         </div>
         <div class="m-score" v-if="score && score !== -1">
             <div class="u-label">试卷成绩</div>

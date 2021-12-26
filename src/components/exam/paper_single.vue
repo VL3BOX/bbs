@@ -97,7 +97,7 @@ export default {
         }
         submitAnswer(this.data.id, submitList, true).then((res) => {
           if (res.data.score) {
-            this.answer = res.data.paper.questionDetailList
+            this.answer = this.toAnswer(res.data.paper.questionDetailList)
             this.score = res.data.score.score
             this.isSubmitted = true
           }
@@ -128,6 +128,27 @@ export default {
         }
       }
       return arr
+    },
+    toAnswer(obj) {
+      let newObj = {}
+      let myAnswer = this.userAnswers
+      console.log(typeof obj, obj, typeof myAnswer, myAnswer, 'toAnswer')
+      for (const i in obj) {
+        for (const j in myAnswer) {
+          if (obj[i].id == j) {
+            obj[i].myAnswer = myAnswer[j]
+          }
+        }
+      }
+      for (const key in obj) {
+        newObj[key].answerList = obj[key].answerList
+        newObj[key].myAnswer = obj[key].myAnswer
+        newObj[key].id = obj[key].id
+        newObj[key].myAnswerIsRight = obj[key].myAnswerIsRight
+        newObj[key].type = obj[key].type
+      }
+
+      return newObj
     },
   },
   created: function() {
