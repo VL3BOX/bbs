@@ -49,7 +49,8 @@
         <b v-else>-</b>
       </div>
       <div class="u-answer">
-        正确答案：<b v-for="key in answer.answerList" :key="key">{{ key | letter }}</b>
+        正确答案：
+        <b v-for="key in answer.answerList" :key="key">{{ key | letter }}</b>
       </div>
       <hr />
       <div class="m-analysis">
