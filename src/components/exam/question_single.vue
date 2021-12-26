@@ -6,17 +6,27 @@
             <el-button class="u-btn">提交</el-button>
         </div>
         <div class="m-exam-mark" v-if="!isLogin" @click="prompt"></div>
+
+        <p>&nbsp;</p>
+
+        <Thx class="m-thx" :postId="id" postType="emotion" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
+        <div class="m-single-comment">
+            <el-divider content-position="left">评论</el-divider>
+            <Comment :id="id" category="emotion" />
+        </div>
     </div>
 </template>
 <script>
 import SingleCard from "@/components/exam/single_card.vue";
 import SingleTitle from "@/components/exam/single_title.vue";
+import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import { postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { getQuestion, submitQuestionAnswer } from "@/service/exam.js";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "QuestionSingle",
     props: [],
-    components: { SingleCard, SingleTitle },
+    components: { SingleCard, SingleTitle, Comment },
     data: function() {
         return {
             isLogin: "",
@@ -27,7 +37,14 @@ export default {
             isSubmitted: false,
         };
     },
-    computed: {},
+    computed: {
+        id() {
+            return this.$route.params.id
+        },
+        user_id() {
+            return this.data.createUserId
+        }
+    },
     watch: {},
     methods: {
         loadData: function() {
@@ -37,6 +54,8 @@ export default {
                 data.tags = JSON.parse(data.tags);
                 data.options = JSON.parse(data.options);
                 this.data = data;
+
+                postStat("question", this.id)
             });
         },
         finalAnswer: function(val) {

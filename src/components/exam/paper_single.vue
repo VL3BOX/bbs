@@ -8,17 +8,27 @@
         <div class="m-exam-submit" @click="submit">
             <el-button class="u-btn">提交</el-button>
         </div>
+
+        <p>&nbsp;</p>
+
+        <Thx class="m-thx" :postId="id" postType="emotion" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
+        <div class="m-single-comment">
+            <el-divider content-position="left">评论</el-divider>
+            <Comment :id="id" category="emotion" />
+        </div>
     </div>
 </template>
 <script>
 import SingleCard from "@/components/exam/single_card.vue";
 import SingleTitle from "@/components/exam/single_title.vue";
+import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import { postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { getPaper, submitAnswer } from "@/service/exam.js";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "PaperSingle",
     props: [],
-    components: { SingleCard, SingleTitle },
+    components: { SingleCard, SingleTitle, Comment },
     data: function() {
         return {
             isLogin: false,
@@ -30,6 +40,14 @@ export default {
             submitList: {},
             isSubmitted: false,
         };
+    },
+    computed: {
+        id() {
+            return this.$route.params.id
+        },
+        user_id() {
+            return this.data.createUserId
+        }
     },
 
     methods: {
@@ -44,6 +62,8 @@ export default {
                 }
                 this.data = data;
                 this.list = data.questionDetailList;
+
+                postStat("paper", this.id)
             });
         },
         finalAnswer: function(val) {
