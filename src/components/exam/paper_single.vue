@@ -2,7 +2,7 @@
   <div class="v-paper-single">
     <SingleTitle :item="data" :score="score" type="paper" />
     <div class="m-list">
-      <SingleCard v-for="(item, index) in list" :key="item.id" :item="item" :index="index + 1" :answer="answer" :userAnswers="userAnswers" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
+      <SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
       <div class="m-exam-mark" v-if="!isLogin" @click="prompt"></div>
     </div>
     <div class="m-exam-submit" @click="submit">
@@ -60,8 +60,11 @@ export default {
           item.tags = JSON.parse(item.tags)
         }
         this.data = data
-        this.list = data.questionDetailList
-
+        let obj = []
+        for (const key in data.questionDetailList) {
+          obj.push({ list: data.questionDetailList[key] })
+        }
+        this.list = obj
         postStat('paper', this.id)
       })
     },
@@ -74,8 +77,7 @@ export default {
           value = val[i].sort()
         }
         value = val[i]
-      }
-
+      } 
       this.$set(this.userAnswers, key, value)
     },
 
@@ -97,7 +99,7 @@ export default {
         }
         submitAnswer(this.data.id, submitList, true).then((res) => {
           if (res.data.score) {
-            this.answer = this.toAnswer(res.data.paper.questionDetailList)
+            this.list = this.toAnswerList(this.toAnswer(res.data.paper.questionDetailList))
             this.score = res.data.score.score
             this.isSubmitted = true
           }
@@ -130,9 +132,7 @@ export default {
       return arr
     },
     toAnswer(obj) {
-      let newObj = {}
       let myAnswer = this.userAnswers
-      console.log(typeof obj, obj, typeof myAnswer, myAnswer, 'toAnswer')
       for (const i in obj) {
         for (const j in myAnswer) {
           if (obj[i].id == j) {
@@ -140,15 +140,18 @@ export default {
           }
         }
       }
-      for (const key in obj) {
-        newObj[key].answerList = obj[key].answerList
-        newObj[key].myAnswer = obj[key].myAnswer
-        newObj[key].id = obj[key].id
-        newObj[key].myAnswerIsRight = obj[key].myAnswerIsRight
-        newObj[key].type = obj[key].type
+      return obj
+    },
+    toAnswerList(obj) {
+        let arr = this.list
+      for (let i = 0; i < arr.length; i++) {
+        for (const key in obj) {
+          if (arr[i].list.id == obj[key].id) {
+            arr[i].answer = obj[key]
+          }
+        }
       }
-
-      return newObj
+      return arr
     },
   },
   created: function() {
