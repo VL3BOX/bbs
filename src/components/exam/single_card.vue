@@ -19,7 +19,7 @@
         <div class="u-option">
           <template v-if="item.type === 'checkbox'">
             <el-checkbox-group v-model="checkbox" @change="checkAnswers(item.id, checkbox)">
-              <el-checkbox v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? myAnswersBtnClass(index):'']">
+              <el-checkbox v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? myAnswersBtnClass(index) : '']">
                 {{ String.fromCharCode(65 + index) }}.
                 <Article :content="option"></Article>
               </el-checkbox>
@@ -27,7 +27,7 @@
           </template>
           <template v-else>
             <el-radio-group v-model="radio" @change="checkAnswers(item.id, radio)">
-              <el-radio v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit',answer ? myAnswersBtnClass(index):'']">
+              <el-radio v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? myAnswersBtnClass(index) : '']">
                 {{ String.fromCharCode(65 + index) }}.
                 <Article :content="option"></Article>
               </el-radio>
@@ -70,9 +70,6 @@ export default {
     return {
       checkbox: [],
       radio: {},
-      whyami: {},
-      itemAnswer: '',
-      Correct: false,
     }
   },
   computed: {
@@ -84,31 +81,18 @@ export default {
     checkAnswers(key, val) {
       this.$emit('changeVal', { [key]: val })
     },
-    getQuestionData() {
-      this.itemAnswer = this.answer.question
-    },
-    getPaperData() {
-      let data = {}
-      for (let i = 0; i < this.answer.length; i++) {
-        if (this.item.id == this.answer[i].id) {
-          data = this.answer[i]
-          break
-        }
-      }
-      this.itemAnswer = data
-    },
     myAnswersClass(val, boolean) {
       if (typeof val == 'undefined') return 'noAnswer'
       if (boolean) return 'isCorrect'
       return 'isWrong'
     },
     myAnswersBtnClass(index) {
-      if(!this.answer.myAnswerIsRight){
-          for (const key in this.answer.answerList) {
-               if(index == this.answer.answerList[key]){
-                   return 'isCorrect'
-               }
+      if (!this.answer.myAnswerIsRight) {
+        for (const key in this.answer.answerList) {
+          if (index == this.answer.answerList[key]) {
+            return 'isCorrect'
           }
+        }
       }
     },
   },
