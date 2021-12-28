@@ -27,27 +27,26 @@ export default {
   name: 'QuestionSingle',
   props: [],
   components: { SingleCard, SingleTitle, Comment },
-  data: function() {
+  data: function () {
     return {
       isLogin: '',
       data: {},
       answer: '',
       userAnswers: {},
-      submitAnswers: {},
       isSubmitted: false,
     }
   },
   computed: {
-    id() {
+    id () {
       return this.$route.params.id
     },
-    user_id() {
+    user_id () {
       return this.data.createUserId
     },
   },
   watch: {},
   methods: {
-    loadData: function() {
+    loadData () {
       let id = this.$route.params.id
       getQuestion(id).then((res) => {
         let data = res.data
@@ -58,63 +57,53 @@ export default {
         postStat('question', this.id)
       })
     },
-    finalAnswer: function(val) {
-      let key, value
-
-      for (var i in val) {
-        key = i
-        if (val[i].length) {
-          value = val[i].sort()
-        }
-        value = val[i]
+    finalAnswer (val) {
+      this.userAnswers = {
+        ...this.userAnswers,
+        ...val
       }
-
-      let arr = []
-      for (let i = 0; i < this.data.options.length; i++) {
-        for (let j = 0; j < value.length; j++) {
-          if (value[j] == i) {
-            arr.push(this.data.options[i])
-          }
-        }
-      }
-
-      this.submitAnswers = arr
-      this.$set(this.userAnswers, key, value)
     },
-    prompt() {
+    prompt () {
       this.$message.error('请先登录')
     },
-    submit() {
+    submit () {
       if (JSON.stringify(this.userAnswers) == '{}') {
         this.$alert('你没有选择答案哦~', '提交失败', {
           type: 'error',
         })
       } else {
-        submitQuestionAnswer(this.$route.params.id, this.submitAnswers).then((res) => {
+        let submitList = {};
+        let obj = this.userAnswers
+        for (const key in obj) {
+          submitList = obj[key].map(o => this.data.options[o])
+        }
+        submitQuestionAnswer(this.$route.params.id, submitList).then((res) => {
           if (res.data) {
             this.answer = this.toAnswer(res.data.question)
+            console.log(this.answer, 'res.data.question')
             this.isSubmitted = true
           }
         })
       }
     },
-    toAnswer(obj) {
-      let newObj = {}
+    toAnswer (obj) {
       let myAnswer = ''
       for (const key in this.userAnswers) {
-        myAnswer = this.userAnswers[key]
-      } 
-      newObj.answerList = obj.answerList
-      newObj.myAnswerIsRight = obj.myAnswerIsRight
-      newObj.whyami = obj.whyami
-      newObj.id = obj.id
-      newObj.type = obj.type
-      newObj.myAnswer = myAnswer
-      return newObj 
+        myAnswer = this.sortKey(this.userAnswers[key])
+      }
+      obj.answerList = this.sortKey(obj.answerList)
+      return { ...obj, myAnswer }
     },
+    sortKey (obj) {
+      let arr = []
+      for (const key in obj) {
+        arr.push(obj[key])
+      }
+      return arr.sort()
+    }
   },
   filters: {},
-  created: function() {
+  created: function () {
     if (!User.isLogin()) {
       this.prompt()
       this.isLogin = false
@@ -127,7 +116,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '~@/assets/css/exam/exam.less';
-@import '~@/assets/css/exam/single_title.less';
-@import '~@/assets/css/exam/single_card.less';
+@import "~@/assets/css/exam/exam.less";
+@import "~@/assets/css/exam/single_title.less";
+@import "~@/assets/css/exam/single_card.less";
 </style>

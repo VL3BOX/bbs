@@ -19,16 +19,16 @@
         <div class="u-option">
           <template v-if="item.type === 'checkbox'">
             <el-checkbox-group v-model="checkbox" @change="checkAnswers(item.id, checkbox)">
-              <el-checkbox v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? myAnswersBtnClass(index) : '']">
-                {{ String.fromCharCode(65 + index) }}.
+              <el-checkbox v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? answer.myAnswerIsRight? '': myWrongClass(i): '']">
+                {{ String.fromCharCode(65 + i) }}.
                 <Article :content="option"></Article>
               </el-checkbox>
             </el-checkbox-group>
           </template>
           <template v-else>
             <el-radio-group v-model="radio" @change="checkAnswers(item.id, radio)">
-              <el-radio v-for="(option, index) of options" :key="index" :label="index" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? myAnswersBtnClass(index) : '']">
-                {{ String.fromCharCode(65 + index) }}.
+              <el-radio v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit',answer ? answer.myAnswerIsRight? '': myWrongClass(i): '']">
+                {{ String.fromCharCode(65 + i) }}.
                 <Article :content="option"></Article>
               </el-radio>
             </el-radio-group>
@@ -41,10 +41,7 @@
       <div class="u-answer">
         你的答案：
         <span v-if="answer.myAnswer">
-          <span v-if="Object.keys(answer.myAnswer).length > 1">
-            <b v-for="key in answer.myAnswer" :key="key">{{ key | letter }}</b>
-          </span>
-          <b v-else>{{ answer.myAnswer | letter }}</b>
+          <b v-for="key in answer.myAnswer" :key="key">{{ key | letter }}</b>
         </span>
         <b v-else>-</b>
       </div>
@@ -67,53 +64,47 @@ export default {
   name: 'Card',
   props: ['item', 'answer', 'index', 'isSubmitted'],
   components: { Article },
-  data: function() {
+  data: function () {
     return {
       checkbox: [],
       radio: {},
     }
   },
   computed: {
-    options: function() {
+    options: function () {
       return this.item.options
     },
   },
   methods: {
-    checkAnswers(key, val) {
-      this.$emit('changeVal', { [key]: val })
+    checkAnswers (key, val) {
+      let value = Array.isArray(val) ? val : [val]
+      this.$emit("changeVal", { [key]: value });
     },
-    myAnswersClass(val, boolean) {
+    myAnswersClass (val, boolean) {
       if (typeof val == 'undefined') return 'noAnswer'
       if (boolean) return 'isCorrect'
       return 'isWrong'
     },
-    myAnswersBtnClass(index) {
-      if (!this.answer.myAnswerIsRight) {
-        for (const key in this.answer.answerList) {
-          if (index == this.answer.answerList[key]) {
-            return 'isCorrect'
-          }
-        }
+    myWrongClass (index) {
+      let list = this.answer.answerList
+      let my = this.answer.myAnswer || []
+      for (let i = 0; i < list.length; i++) {
+        if (index == list[i]) return 'isCorrect'
       }
-    },
-  },
-  watch: {
-      answer(val){
-          console.log(val,'??')
+      for (let j = 0; j < my.length; j++) {
+        if (index == my[j]) return 'isWrong'
       }
+    }
   },
+  watch: {},
   filters: {
-    letter: function(val) {
+    letter: function (val) {
       return String.fromCharCode(65 + val)
     },
-    isNoAnswer(val) {
-      if (typeof val == 'undefined') {
-        return '未作答'
-      } else {
-        return val
-      }
+    isNoAnswer (val) {
+      return typeof val == 'undefined' ? '未作答' : val
     },
-    isCorrect: function(val, boolean) {
+    isCorrect: function (val, boolean) {
       if (val == '未作答') return val
       if (boolean) {
         return '回答正确'

@@ -29,132 +29,99 @@ export default {
   name: 'PaperSingle',
   props: [],
   components: { SingleCard, SingleTitle, Comment },
-  data: function() {
+  data: function () {
     return {
       isLogin: false,
       data: {},
       list: [],
       answer: '',
-      score: -1,
+      score: "",
       userAnswers: {},
       isSubmitted: false,
     }
   },
   computed: {
-    id() {
+    id () {
       return this.$route.params.id
     },
-    user_id() {
+    user_id () {
       return this.data.createUserId
     },
   },
 
   methods: {
-    loadData: function() {
-      let id = this.$route.params.id
-      getPaper(id).then((res) => {
-        let data = res.data
-        data.tags = JSON.parse(data.tags)
-        for (let item of data.questionDetailList) {
-          item.options = JSON.parse(item.options)
-          item.tags = JSON.parse(item.tags)
-        }
-        this.data = data
-        let obj = []
-        for (const key in data.questionDetailList) {
-          obj.push({ list: data.questionDetailList[key] })
-        }
-        this.list = obj
-        postStat('paper', this.id)
+    loadData () {
+      getPaper(this.id).then((res) => {
+        let data = res.data;
+        data.tags = JSON.parse(data.tags);
+        data.questionDetailList = data.questionDetailList.map(item => {
+          item.options = JSON.parse(item.options);
+          item.tags = JSON.parse(item.tags);
+
+          return item
+        })
+        this.data = data;
+
+        this.list = data.questionDetailList.map(item => {
+          return {
+            list: item
+          }
+        });
+        postStat("paper", this.id);
       })
     },
-    finalAnswer: function(val) {
-      let key, value
-
-      for (var i in val) {
-        key = i
-        if (val[i].length) {
-          value = val[i].sort()
-        }
-        value = val[i]
-      } 
-      this.$set(this.userAnswers, key, value)
+    finalAnswer (val) {
+      this.userAnswers = {
+        ...this.userAnswers,
+        ...val
+      }
     },
-
     // 提示登录
-    prompt() {
+    prompt () {
       this.$message.error('请先登录')
     },
-    submit() {
-      if (JSON.stringify(this.userAnswers) == '{}') {
-        this.$alert('不能交白卷哦~', '提交失败', {
-          type: 'error',
-        })
+    submit () {
+      if (!Object.keys(this.userAnswers).length) {
+        this.$alert("不能交白卷哦~", "提交失败", {
+          type: "error",
+        });
       } else {
-        let list = this.data.questionDetailList
-        let obj = this.userAnswers
-        let submitList = {}
+        let list = this.data.questionDetailList;
+        let obj = this.userAnswers;
+        let submitList = {};
         for (const key in obj) {
-          submitList[key] = this.toSubmitList(key, obj[key], list)
+          const item = list.find(l => l.id === ~~key)
+          submitList[key] = obj[key].map(o => item.options[o])
         }
-        submitAnswer(this.data.id, submitList, true).then((res) => {
+        let userAnswers = []
+        for (let i in this.userAnswers) {
+          userAnswers.push({ id: [i], myAnswer: this.sortKey(this.userAnswers[i]) })
+        }
+        submitAnswer(this.id, submitList, true).then((res) => {
           if (res.data.score) {
-            this.list = this.toAnswerList(this.toAnswer(res.data.paper.questionDetailList))
-            this.score = res.data.score.score
-            this.isSubmitted = true
+            const paper = res.data.paper;
+            this.list = this.list.map(item => {
+              let answer = paper.questionDetailList.find(q => q.id === item.list.id);
+              answer.answerList = this.sortKey(answer.answerList)
+              const myAnswer = userAnswers.find(q => q.id == answer.id)
+              item.answer = { ...answer, ...myAnswer };
+              return item;
+            })
+            this.score = [] + res.data.score.score;
+            this.isSubmitted = true;
           }
-        })
+        });
       }
     },
-    toSubmitList(id, val, obj) {
+    sortKey (obj) {
       let arr = []
-      for (const i in obj) {
-        if (obj[i].id == id) {
-          if (typeof val == 'object') {
-            arr = this.toOptions(val, obj[i].options)
-          }
-          if (typeof val == 'number') {
-            arr = [obj[i].options[val]]
-          }
-        }
+      for (const key in obj) {
+        arr.push(obj[key])
       }
-      return arr
-    },
-    toOptions(obj, list) {
-      let arr = []
-      for (const i in list) {
-        for (const j in obj) {
-          if (i == j) {
-            arr.push(list[i])
-          }
-        }
-      }
-      return arr
-    },
-    toAnswer(obj) {
-      let myAnswer = this.userAnswers
-      for (const i in obj) {
-        for (const j in myAnswer) {
-          if (obj[i].id == j) {
-            obj[i].myAnswer = myAnswer[j]
-          }
-        }
-      }
-      return obj
-    },
-    toAnswerList(obj) {
-        let arr = this.list
-      for (let i = 0; i < arr.length; i++) {
-        for (const key in obj) {
-          if (arr[i].list.id == obj[key].id) {
-            arr[i].answer = obj[key]
-          }
-        }
-      }
-      return arr
-    },
+      return arr.sort()
+    }
   },
-  created: function() {
+  created: function () {
     if (!User.isLogin()) {
       this.prompt()
       this.isLogin = false
@@ -167,7 +134,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '~@/assets/css/exam/exam.less';
-@import '~@/assets/css/exam/single_title.less';
-@import '~@/assets/css/exam/single_card.less';
+@import "~@/assets/css/exam/exam.less";
+@import "~@/assets/css/exam/single_title.less";
+@import "~@/assets/css/exam/single_card.less";
 </style>
