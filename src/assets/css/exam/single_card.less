@@ -86,6 +86,23 @@
 	}
 
 	//选项
+	.el-radio:hover,
+	.el-checkbox:hover {
+		background: #2682ea;
+		color: #fff;
+		div {
+			color: #fff;
+		}
+	}
+	.el-radio.is-disabled:hover,
+	.el-checkbox.is-disabled:hover {
+		background: #f5f8f8;
+		color: #3d454d;
+		div {
+			color: #3d454d;
+		}
+	}
+
 	.el-checkbox,
 	.el-radio {
 		.w(100%);
@@ -107,7 +124,8 @@
 			background: #1acb4f !important;
 
 			.el-checkbox__label,
-			.el-radio__label {
+			.el-radio__label,
+			div {
 				color: white !important;
 			}
 			.c-article {
@@ -121,7 +139,8 @@
 			background: #f12e2e !important;
 
 			.el-checkbox__label,
-			.el-radio__label {
+			.el-radio__label,
+			div {
 				color: white !important;
 			}
 			.c-article {
@@ -159,15 +178,6 @@
 		background: #f5f8f8;
 		display: inline-block;
 		border: none !important;
-	}
-
-	.el-radio.noSubmit:hover,
-	.el-checkbox.noSubmit:hover {
-		background: #2682ea;
-		color: #fff;
-		div {
-			color: #fff;
-		}
 	}
 
 	.el-checkbox__input,
