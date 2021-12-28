@@ -89,18 +89,11 @@ export default {
     toAnswer (obj) {
       let myAnswer = ''
       for (const key in this.userAnswers) {
-        myAnswer = this.sortKey(this.userAnswers[key])
+        myAnswer = this.userAnswers[key].sort()
       }
-      obj.answerList = this.sortKey(obj.answerList)
+      obj.answerList = obj.answerList.sort()
       return { ...obj, myAnswer }
     },
-    sortKey (obj) {
-      let arr = []
-      for (const key in obj) {
-        arr.push(obj[key])
-      }
-      return arr.sort()
-    }
   },
   filters: {},
   created: function () {

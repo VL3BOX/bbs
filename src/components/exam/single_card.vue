@@ -19,7 +19,7 @@
         <div class="u-option">
           <template v-if="item.type === 'checkbox'">
             <el-checkbox-group v-model="checkbox" @change="checkAnswers(item.id, checkbox)">
-              <el-checkbox v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit', answer ? answer.myAnswerIsRight? '': myWrongClass(i): '']">
+              <el-checkbox v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="[{ noSubmit: isSubmitted },  myWrongClass(i)]">
                 {{ String.fromCharCode(65 + i) }}.
                 <Article :content="option"></Article>
               </el-checkbox>
@@ -27,7 +27,7 @@
           </template>
           <template v-else>
             <el-radio-group v-model="radio" @change="checkAnswers(item.id, radio)">
-              <el-radio v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="[isSubmitted ? '' : 'noSubmit',answer ? answer.myAnswerIsRight? '': myWrongClass(i): '']">
+              <el-radio v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="[{ noSubmit: isSubmitted },  myWrongClass(i)]">
                 {{ String.fromCharCode(65 + i) }}.
                 <Article :content="option"></Article>
               </el-radio>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="m-single-answer" v-if="answer">
-      <div class="u-status" :class="myAnswersClass(answer.myAnswer, answer.myAnswerIsRight)">{{ answer.myAnswer | isNoAnswer | isCorrect(answer.myAnswerIsRight) }}</div>
+      <div class="u-status" :class="myAnswersClass(answer.myAnswer, answer.myAnswerIsRight)">{{ status }}</div>
       <div class="u-answer">
         你的答案：
         <span v-if="answer.myAnswer">
@@ -74,6 +74,11 @@ export default {
     options: function () {
       return this.item.options
     },
+    status: function () {
+      if (!this.answer.myAnswer) return '未作答'
+      if (this.answer.myAnswerIsRight) return '回答正确'
+      return '回答错误'
+    }
   },
   methods: {
     checkAnswers (key, val) {
@@ -86,32 +91,21 @@ export default {
       return 'isWrong'
     },
     myWrongClass (index) {
-      let list = this.answer.answerList
-      let my = this.answer.myAnswer || []
-      for (let i = 0; i < list.length; i++) {
-        if (index == list[i]) return 'isCorrect'
-      }
-      for (let j = 0; j < my.length; j++) {
-        if (index == my[j]) return 'isWrong'
-      }
-    }
+      if (!this.answer) return ''
+      if (this.answer.myAnswerIsRight) return ''
+
+      let list = this.answer.answerList;
+      let my = this.answer.myAnswer || [];
+
+      if (list.includes(index)) return 'isCorrect'
+      if (my.includes(index)) return 'isWrong'
+    },
+
   },
-  watch: {},
   filters: {
     letter: function (val) {
       return String.fromCharCode(65 + val)
-    },
-    isNoAnswer (val) {
-      return typeof val == 'undefined' ? '未作答' : val
-    },
-    isCorrect: function (val, boolean) {
-      if (val == '未作答') return val
-      if (boolean) {
-        return '回答正确'
-      } else {
-        return '回答错误'
-      }
-    },
+    }
   },
 }
 </script>

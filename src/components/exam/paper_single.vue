@@ -95,31 +95,24 @@ export default {
         }
         let userAnswers = []
         for (let i in this.userAnswers) {
-          userAnswers.push({ id: [i], myAnswer: this.sortKey(this.userAnswers[i]) })
+          userAnswers.push({ id: [i], myAnswer: this.userAnswers[i].sort() })
         }
         submitAnswer(this.id, submitList, true).then((res) => {
           if (res.data.score) {
             const paper = res.data.paper;
             this.list = this.list.map(item => {
               let answer = paper.questionDetailList.find(q => q.id === item.list.id);
-              answer.answerList = this.sortKey(answer.answerList)
+              answer.answerList = answer.answerList.sort()
               const myAnswer = userAnswers.find(q => q.id == answer.id)
               item.answer = { ...answer, ...myAnswer };
               return item;
             })
-            this.score = [] + res.data.score.score;
+            this.score = String(res.data.score.score);
             this.isSubmitted = true;
           }
         });
       }
     },
-    sortKey (obj) {
-      let arr = []
-      for (const key in obj) {
-        arr.push(obj[key])
-      }
-      return arr.sort()
-    }
   },
   created: function () {
     if (!User.isLogin()) {
