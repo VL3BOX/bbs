@@ -2,8 +2,8 @@
   <div class="v-question-single">
     <SingleTitle :item="data" type="question" />
     <SingleCard :item="data" :answer="answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
-    <div class="m-exam-submit" @click="submit">
-      <el-button class="u-btn">提交</el-button>
+    <div class="m-exam-submit" @click="submit" :class="{isSubmitted}">
+      <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
     </div>
     <div class="m-exam-mark" v-if="!isLogin" @click="prompt"></div>
 

@@ -5,8 +5,8 @@
       <SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
       <div class="m-exam-mark" v-if="!isLogin" @click="prompt"></div>
     </div>
-    <div class="m-exam-submit" @click="submit">
-      <el-button class="u-btn">提交</el-button>
+    <div class="m-exam-submit" @click="submit" :class="{isSubmitted}">
+      <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
     </div>
 
     <p>&nbsp;</p>
