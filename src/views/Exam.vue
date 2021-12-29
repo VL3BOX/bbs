@@ -49,8 +49,8 @@ export default {
         };
     },
     computed: {
-        per : function (){
-            return this.type == 'paper' ? 9 : 15  
+        per: function() {
+            return this.type == "paper" ? 9 : 15;
         },
         // 组合请求参数
         params: function() {

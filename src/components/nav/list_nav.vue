@@ -77,11 +77,11 @@ export default {
                     icon: "el-icon-paperclip",
                     name: "剑三小册",
                 },
-                // {
-                //     slug: 'exam',
-                //     icon: "el-icon-document",
-                //     name: "剑三题库",
-                // },
+                {
+                    slug: 'exam',
+                    icon: "el-icon-document",
+                    name: "剑三题库",
+                },
             ],
             tags: [],
             feedback,

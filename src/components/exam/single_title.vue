@@ -25,7 +25,7 @@
             <div class="u-desc" v-if="item.questionList">
                 <span>总共题数：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
             </div>
-            <div class="u-desc">简介：{{ desc }}</div>
+            <div class="u-desc" v-if="item.desc">简介：{{ desc }}</div>
         </div>
         <div class="m-setBar" v-if="canManage">
             <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit"></i><span>编辑</span></a>
