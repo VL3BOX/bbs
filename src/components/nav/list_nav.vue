@@ -10,12 +10,12 @@
 
         <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
         <div class="m-nav-group m-bbs-nav">
-            <a v-for="(item, i) in menu" :href="'/bbs/#/' + item.slug" :key="i" :class="{ on: isActive(item.slug) }">
+            <a v-for="(item, i) in menu" :href="root + '/#/' + item.slug" :key="i" :class="{ on: isActive(item.slug) }">
                 <i :class="item.icon"></i>
                 <b>{{ item.name }}</b>
                 <span>{{ item.desc }}</span>
             </a>
-            <a href="/exam" :class="{ on: isActive('exam') }">
+            <a href="/exam" :class="{ on: isActivePage('exam') }">
                 <i class="el-icon-document"></i>
                 <b>剑三考试</b>
                 <span>exam</span>
@@ -53,7 +53,7 @@ export default {
         return {
             menu: [
                 {
-                    slug: "",
+                    slug: "index",
                     icon: "el-icon-receiving",
                     name: "全部",
                 },
@@ -93,6 +93,11 @@ export default {
             feedback,
         };
     },
+    computed : {
+        root : function (){
+            return location.hostname == 'localhost' ? '' : '/bbs'  
+        },
+    },
     methods: {
         // loadTags : function (){
         //     getMenu('bbs').then((res) => {
@@ -100,8 +105,11 @@ export default {
         //     })
         // }
         isActive: function(slug) {
-            return slug == this.$route.name || slug == getAppType();
+            return slug == this.$route.name;
         },
+        isActivePage : function (slug){
+            return getAppType() && getAppType() == slug
+        }
     },
     mounted: function() {
         // this.loadTags()
