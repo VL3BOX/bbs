@@ -14,9 +14,6 @@ const Emotion = () => import("../views/Emotion.vue");
 const Forum = () => import("../views/Forum.vue");
 // const Feedback = () => import("../views/Feedback.vue");
 const Collection = () => import("../views/Collection.vue");
-const Exam = () => import("../views/Exam.vue");
-const Paper = () => import("../views/Paper.vue");
-const Question = () => import("../views/Question.vue");
 
 Vue.use(VueRouter);
 
@@ -28,9 +25,6 @@ const routes = [
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
     // { name: "feedback", path: "/feedback/:id?", component: Feedback },
     { name: "collection", path: "/collection/:id?", component: Collection },
-    { name: "exam", path: "/exam", component: Exam },
-    { name: "paper", path: "/exam/paper/:id?", component: Paper },
-    { name: "question", path: "/exam/question/:id?", component: Question },
 ];
 
 const router = new VueRouter({

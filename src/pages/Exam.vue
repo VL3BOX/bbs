@@ -1,10 +1,9 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb name="剑三茶馆" slug="bbs" root="/bbs" :publishEnable="false" :adminEnable="false" :feedbackEnable="true" :crumbEnable="true">
-            <img slot="logo" svg-inline :src="getAppIcon('bbs')" />
+        <Breadcrumb name="剑三考试" slug="exam" root="/exam" :publishEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="false">
+            <img slot="logo" svg-inline :src="getAppIcon('exam')" />
             <Info />
-            <publish-gate slot="op-append" />
         </Breadcrumb>
         <LeftSidebar>
             <Nav />
@@ -21,8 +20,8 @@
 <script>
 import Info from "@/components/Info.vue";
 import Nav from "@/components/nav/Nav.vue";
-import publishGate from "@/components/publish_gate.vue";
-import { getAppIcon, getAppType, getAppID } from "@jx3box/jx3box-common/js/utils";
+// import publishGate from "@/components/publish_gate.vue";
+import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",
     props: [],
@@ -35,7 +34,7 @@ export default {
     },
     components: {
         Nav,
-        "publish-gate": publishGate,
+        // "publish-gate": publishGate,
         Info,
     },
     created: function() {},
@@ -43,5 +42,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "./assets/css/app.less";
+@import "~@/assets/css/app.less";
 </style>

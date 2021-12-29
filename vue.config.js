@@ -19,6 +19,12 @@ module.exports = {
             template : 'public/index.html',
             filename:'post.html',
         },
+        exam : {
+            title : '剑三考试 - JX3BOX',
+            entry:'src/pages/exam.js',
+            template : 'public/index.html',
+            filename:'exam/index.html',
+        },
         // collection : {
         //     title : '剑三小册 - JX3BOX',
         //     entry:'src/pages/collection.js',

@@ -10,11 +10,16 @@
 
         <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
         <div class="m-nav-group m-bbs-nav">
-            <router-link v-for="(item, i) in menu" :to="'/' + item.slug" :key="i" :class="{on:isActive(item.slug)}">
+            <a v-for="(item, i) in menu" :href="'/bbs/#/' + item.slug" :key="i" :class="{ on: isActive(item.slug) }">
                 <i :class="item.icon"></i>
                 <b>{{ item.name }}</b>
                 <span>{{ item.desc }}</span>
-            </router-link>
+            </a>
+            <a href="/exam" :class="{ on: isActive('exam') }">
+                <i class="el-icon-document"></i>
+                <b>剑三考试</b>
+                <span>exam</span>
+            </a>
         </div>
 
         <!-- <div class="m-nav-tags">
@@ -40,6 +45,7 @@
 <script>
 // import {getMenu} from '@/service/cms.js'
 import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
+import { getAppType } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "list_nav",
     props: [],
@@ -77,11 +83,11 @@ export default {
                     icon: "el-icon-paperclip",
                     name: "剑三小册",
                 },
-                {
-                    slug: 'exam',
-                    icon: "el-icon-document",
-                    name: "剑三题库",
-                },
+                // {
+                //     slug: "exam",
+                //     icon: "el-icon-document",
+                //     name: "剑三题库",
+                // },
             ],
             tags: [],
             feedback,
@@ -93,9 +99,9 @@ export default {
         //         this.tags = res.data?.data?.val || []
         //     })
         // }
-        isActive : function (slug){
-            return slug == this.$route.name
-        }
+        isActive: function(slug) {
+            return slug == this.$route.name || slug == getAppType();
+        },
     },
     mounted: function() {
         // this.loadTags()
