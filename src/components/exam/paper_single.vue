@@ -12,7 +12,7 @@
         <Thx class="m-thx" :postId="id" postType="paper" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
         <div class="m-single-comment">
             <el-divider content-position="left">评论</el-divider>
-            <Comment :id="id" category="question" />
+            <Comment :id="id" category="paper" />
         </div>
     </div>
 </template>

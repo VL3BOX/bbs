@@ -83,6 +83,7 @@ export default {
                 submitQuestionAnswer(this.$route.params.id, submitList).then((res) => {
                     if (res.data) {
                         this.answer = this.toAnswer(res.data.question);
+                        console.log(JSON.stringify(this.answer) === JSON.stringify(res.data.question))
                         // console.log(this.answer, "res.data.question");
                         this.isSubmitted = true;
                     }
