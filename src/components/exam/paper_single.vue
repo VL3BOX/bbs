@@ -62,19 +62,19 @@ export default {
                     }
 
                     data.tags = JSON.parse(data.tags);
-                    data.questionDetailList = data.questionDetailList.map((item) => {
+                    data.questionDetailList = data?.questionDetailList?.map((item) => {
                         item.options = JSON.parse(item.options);
                         item.tags = JSON.parse(item.tags);
 
                         return item;
-                    });
+                    }) || [];
                     this.data = data;
 
-                    this.list = data.questionDetailList.map((item) => {
+                    this.list = data?.questionDetailList?.map((item) => {
                         return {
                             list: item,
                         };
-                    });
+                    }) || [];
                 })
                 .finally(() => {
                     this.loading = false;
