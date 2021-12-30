@@ -64,7 +64,6 @@ export default {
 				...val,
 			};
 		},
-
 		submit() {
 			if (!User.isLogin()) return this.$message.error("请先登录");
 			if (JSON.stringify(this.userAnswers) == "{}") {
