@@ -1,19 +1,19 @@
 <template>
-  <div class="v-paper-single" v-loading="loading">
-    <SingleTitle :item="data" :score="score" type="paper" />
-    <div class="m-list">
-      <SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
-    </div>
-    <div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
-      <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
-    </div>
+	<div class="v-paper-single" v-loading="loading">
+		<SingleTitle :item="data" :score="score" type="paper" />
+		<div class="m-list">
+			<SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
+		</div>
+		<div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
+			<el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
+		</div>
 
-    <Thx class="m-thx" :postId="id" postType="paper" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
-    <div class="m-single-comment">
-      <el-divider content-position="left">评论</el-divider>
-      <Comment :id="id" category="paper" />
-    </div>
-  </div>
+		<Thx class="m-thx" :postId="id" postType="paper" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
+		<div class="m-single-comment">
+			<el-divider content-position="left">评论</el-divider>
+			<Comment :id="id" category="paper" />
+		</div>
+	</div>
 </template>
 <script>
 import SingleCard from "@/components/exam/single_card.vue";
@@ -23,100 +23,103 @@ import { postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { getPaper, submitAnswer } from "@/service/exam.js";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
-  name: "PaperSingle",
-  props: [],
-  components: { SingleCard, SingleTitle, Comment },
-  data: function () {
-    return {
-      data: {},
-      list: [],
-      answer: "",
-      score: "",
-      userAnswers: {},
-      isSubmitted: false,
-      loading: false,
-    };
-  },
-  computed: {
-    id () {
-      return this.$route.params.id;
-    },
-    user_id () {
-      return this.data.createUserId;
-    },
-  },
+	name: "PaperSingle",
+	props: [],
+	components: { SingleCard, SingleTitle, Comment },
+	data: function () {
+		return {
+			data: {},
+			list: [],
+			answer: "",
+			score: "",
+			userAnswers: {},
+			isSubmitted: false,
+			loading: false,
+		};
+	},
+	computed: {
+		id() {
+			return this.$route.params.id;
+		},
+		user_id() {
+			return this.data.createUserId;
+		},
+	},
 
-  methods: {
-    loadData () {
-      this.loading = true;
-      getPaper(this.id)
-        .then((res) => {
-          let data = res.data;
-          data.tags = JSON.parse(data.tags);
-          data.questionDetailList = data.questionDetailList.map((item) => {
-            item.options = JSON.parse(item.options);
-            item.tags = JSON.parse(item.tags);
+	methods: {
+		loadData() {
+			this.loading = true;
+			getPaper(this.id)
+				.then((res) => {
+					let data = res.data;
+					data.tags = JSON.parse(data.tags);
+					data.questionDetailList = data.questionDetailList.map((item) => {
+						item.options = JSON.parse(item.options);
+						item.tags = JSON.parse(item.tags);
 
-            return item;
-          });
-          this.data = data;
+						return item;
+					});
+					this.data = data;
 
-          this.list = data.questionDetailList.map((item) => {
-            return {
-              list: item,
-            };
-          });
-          postStat("paper", this.id);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
-    finalAnswer (val) {
-      this.userAnswers = {
-        ...this.userAnswers,
-        ...val,
-      };
-    },
+					this.list = data.questionDetailList.map((item) => {
+						return {
+							list: item,
+						};
+					});
+					postStat("paper", this.id);
+				})
+				.finally(() => {
+					this.loading = false;
+				});
+		},
+		finalAnswer(val) {
+			this.userAnswers = {
+				...this.userAnswers,
+				...val,
+			};
+		},
 
-    submit () {
-      if (!User.isLogin()) return this.$message.error("请先登录");
-      if (!Object.keys(this.userAnswers).length) {
-        this.$alert("不能交白卷哦~", "提交失败", {
-          type: "error",
-        });
-      } else {
-        let list = this.data.questionDetailList;
-        let obj = this.userAnswers;
-        let submitList = {};
-        for (const key in obj) {
-          const item = list.find((l) => l.id === ~~key);
-          submitList[key] = obj[key].map((o) => item.options[o]);
-        }
-        let userAnswers = [];
-        for (let i in this.userAnswers) {
-          userAnswers.push({ id: [i], myAnswer: this.userAnswers[i].sort() });
-        }
-        submitAnswer(this.id, submitList, true).then((res) => {
-          if (res.data.score) {
-            const paper = res.data.paper;
-            this.list = this.list.map((item) => {
-              let answer = paper.questionDetailList.find((q) => q.id === item.list.id);
-              answer.answerList = answer.answerList.sort();
-              const myAnswer = userAnswers.find((q) => q.id == answer.id);
-              item.answer = { ...answer, ...myAnswer };
-              return item;
-            });
-            this.score = String(res.data.score.score);
-            this.isSubmitted = true;
-          }
-        });
-      }
-    },
-  },
-  created: function () {
-    this.loadData();
-  },
+		submit() {
+			if (!User.isLogin()) return this.$message.error("请先登录");
+			if (!Object.keys(this.userAnswers).length) {
+				this.$alert("不能交白卷哦~", "提交失败", {
+					type: "error",
+				});
+			} else {
+				let list = this.data.questionDetailList;
+				let obj = this.userAnswers;
+				let submitList = {};
+				for (const key in obj) {
+					const item = list.find((l) => l.id === ~~key);
+					submitList[key] = obj[key].map((o) => item.options[o]);
+				}
+				let userAnswers = [];
+				for (let i in this.userAnswers) {
+					userAnswers.push({
+						id: [i],
+						myAnswer: this.userAnswers[i].sort(),
+					});
+				}
+				submitAnswer(this.id, submitList, true).then((res) => {
+					if (res.data.score) {
+						const paper = res.data.paper;
+						this.list = this.list.map((item) => {
+							let answer = paper.questionDetailList.find((q) => q.id === item.list.id);
+							answer.answerList = answer.answerList.sort();
+							const myAnswer = userAnswers.find((q) => q.id == answer.id);
+							item.answer = { ...answer, ...myAnswer };
+							return item;
+						});
+						this.score = String(res.data.score.score);
+						this.isSubmitted = true;
+					}
+				});
+			}
+		},
+	},
+	created: function () {
+		this.loadData();
+	},
 };
 </script>
 
