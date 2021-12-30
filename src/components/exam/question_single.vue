@@ -5,7 +5,6 @@
     <div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
       <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
     </div>
-    <div class="m-exam-mark" v-if="!isLogin" @click="prompt"></div>
 
     <Thx class="m-thx" :postId="id" postType="question" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
     <div class="m-single-comment">
@@ -27,7 +26,6 @@ export default {
   components: { SingleCard, SingleTitle, Comment },
   data: function () {
     return {
-      isLogin: "",
       data: {},
       answer: "",
       userAnswers: {},
@@ -66,10 +64,9 @@ export default {
         ...val,
       };
     },
-    prompt () {
-      this.$message.error("请先登录");
-    },
+
     submit () {
+      if (!User.isLogin()) return this.$message.error("请先登录");
       if (JSON.stringify(this.userAnswers) == "{}") {
         this.$alert("你没有选择答案哦~", "提交失败", {
           type: "error",
@@ -92,12 +89,6 @@ export default {
   },
   filters: {},
   created: function () {
-    if (!User.isLogin()) {
-      this.prompt();
-      this.isLogin = false;
-    } else {
-      this.isLogin = true;
-    }
     this.loadData();
   },
 };
