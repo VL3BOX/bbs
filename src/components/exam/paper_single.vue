@@ -1,18 +1,26 @@
 <template>
     <div class="v-paper-single" v-loading="loading">
         <SingleTitle :item="data" :score="score" type="paper" />
-        <div class="m-list">
-            <SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
-        </div>
-        <div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
-            <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
-        </div>
 
-        <Thx class="m-thx" :postId="id" postType="paper" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
-        <div class="m-single-comment">
-            <el-divider content-position="left">评论</el-divider>
-            <Comment :id="id" category="paper" />
-        </div>
+        <template v-if="isIframe">
+            <div class="m-paper-iframe">
+                当前试卷为外链，<a :href="data.iframe" target="_blank">点击前往</a>
+            </div>
+        </template>
+        <template v-else>
+            <div class="m-paper-list">
+                <SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
+            </div>
+            <div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
+                <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
+            </div>
+
+            <Thx class="m-thx" :postId="id" postType="paper" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
+            <div class="m-single-comment">
+                <el-divider content-position="left">评论</el-divider>
+                <Comment :id="id" category="paper" />
+            </div>
+        </template>
     </div>
 </template>
 <script>
@@ -44,6 +52,9 @@ export default {
         user_id() {
             return this.data.createUserId;
         },
+        isIframe: function() {
+            return this.data?.iframe;
+        },
     },
     methods: {
         loadData() {
@@ -56,25 +67,27 @@ export default {
                     postStat("paper", this.id);
 
                     // 外链跳转
-                    if(data.iframe){
-                        location.href = data.iframe
-                        return
-                    }
+                    // if(data.iframe){
+                    //     location.href = data.iframe
+                    //     return
+                    // }
 
                     data.tags = JSON.parse(data.tags);
-                    data.questionDetailList = data?.questionDetailList?.map((item) => {
-                        item.options = JSON.parse(item.options);
-                        item.tags = JSON.parse(item.tags);
+                    data.questionDetailList =
+                        data?.questionDetailList?.map((item) => {
+                            item.options = JSON.parse(item.options);
+                            item.tags = JSON.parse(item.tags);
 
-                        return item;
-                    }) || [];
+                            return item;
+                        }) || [];
                     this.data = data;
 
-                    this.list = data?.questionDetailList?.map((item) => {
-                        return {
-                            list: item,
-                        };
-                    }) || [];
+                    this.list =
+                        data?.questionDetailList?.map((item) => {
+                            return {
+                                list: item,
+                            };
+                        }) || [];
                 })
                 .finally(() => {
                     this.loading = false;
@@ -134,4 +147,5 @@ export default {
 @import "~@/assets/css/exam/exam.less";
 @import "~@/assets/css/exam/single_title.less";
 @import "~@/assets/css/exam/single_card.less";
+@import "~@/assets/css/exam/paper_single.less";
 </style>
