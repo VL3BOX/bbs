@@ -18,7 +18,8 @@ const Collection = () => import("../views/Collection.vue");
 Vue.use(VueRouter);
 
 const routes = [
-    { name: "index", path: "/", component: Index },
+    { name: "root", path: "/", component: Index },
+    { name: "index", path: "/index", component: Index },
     { name: "forum", path: "/forum/:subtype?", component: Forum },
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
