@@ -37,7 +37,7 @@
         <div class="m-joke-list-container" v-else>
             <!-- 搜索 -->
             <div class="m-joke-search" slot="search-before">
-                <el-input placeholder="请输入搜索内容" v-model="search">
+                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                     <span slot="prepend">关键词</span>
                     <el-switch
                         slot="append"

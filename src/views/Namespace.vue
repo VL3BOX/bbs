@@ -6,7 +6,7 @@
             slot="search-before"
             key="namespace-search"
         >
-            <el-input placeholder="请输入搜索内容" v-model="search" class="input-with-select">
+            <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" class="input-with-select">
                 <span slot="prepend">关键词</span>
                 <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>

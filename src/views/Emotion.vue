@@ -17,7 +17,7 @@
         <div class="m-emotion-list-container" v-else>
             <!-- 搜索 -->
             <div class="m-emotion-search" slot="search-before">
-                <el-input placeholder="请输入搜索内容" v-model="search">
+                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                     <span slot="prepend">关键词</span>
                     <template slot="append">
                         <el-switch class="u-star" v-model="star" :inactive-value="0" :active-value="1" inactive-text="只看精选"></el-switch>
