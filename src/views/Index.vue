@@ -19,14 +19,16 @@ export default {
         // emotion,
     },
     data: function () {
-        return {};
+        return {
+        };
     },
     computed: {},
     watch: {},
     methods: {},
     filters: {},
     created: function () {},
-    mounted: function () {},
+    mounted: function () {
+    },
 };
 </script>
 
