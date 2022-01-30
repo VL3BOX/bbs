@@ -52,11 +52,11 @@ export default {
     data: function() {
         return {
             menu: [
-                {
-                    slug: "index",
-                    icon: "el-icon-receiving",
-                    name: "全部",
-                },
+                // {
+                //     slug: "index",
+                //     icon: "el-icon-receiving",
+                //     name: "全部",
+                // },
                 {
                     slug: "forum",
                     icon: "el-icon-collection",
