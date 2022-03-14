@@ -1,8 +1,7 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb name="茶馆交流" slug="bbs" root="/bbs" :publishEnable="false" :adminEnable="true" :feedbackEnable="true" :crumbEnable="true">
-            <img slot="logo" svg-inline :src="getAppIcon('bbs')" />
+        <Breadcrumb name="茶馆交流" slug="bbs" :publishEnable="false" :adminEnable="true" :feedbackEnable="true" :crumbEnable="true">
             <publish-gate slot="op-append" />
         </Breadcrumb>
         <LeftSidebar>

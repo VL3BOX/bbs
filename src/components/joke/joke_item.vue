@@ -45,12 +45,12 @@
                 </a>
 
                 <template v-if="isEditor">
-                    <span class="el-link el-link--primary is-underline" @click="handleStar">
+                    <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
                         <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
                         {{ isStar ? '取消精选' : '设为精选' }}
                     </span>
                     <span
-                        class="el-link el-link--primary is-underline u-delete"
+                        class="u-delete el-link el-link--primary is-underline"
                         @click="handleDelete"
                     >
                         <i class="el-icon-delete"></i> 删除
