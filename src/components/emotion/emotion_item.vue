@@ -28,7 +28,7 @@
             </a>
         </div>
         <div class="u-op u-editor" v-if="isEditor">
-            <span class="u-star el-link el-link--primary is-underline" @click="handleStar">
+            <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
                 <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
                 {{ isStar ? "取消精选" : "设为精选" }}
             </span>
