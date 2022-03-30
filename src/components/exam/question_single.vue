@@ -6,7 +6,7 @@
 			<el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
 		</div>
 
-		<Thx class="m-thx" :postId="id" postType="question" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
+		<Thx class="m-thx" :postId="id" postType="question" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
 		<div class="m-single-comment">
 			<el-divider content-position="left">评论</el-divider>
 			<Comment :id="id" category="question" />
@@ -40,6 +40,9 @@ export default {
 		user_id() {
 			return this.data.createUserId;
 		},
+        title : function (){
+            return this.data.title
+        }
 	},
 	watch: {},
 	methods: {

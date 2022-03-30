@@ -23,6 +23,7 @@
                 class="m-thx"
                 :postId="id"
                 postType="joke"
+                :postTitle="title"
                 :userId="user_id"
                 :adminBoxcoinEnable="false"
                 :userBoxcoinEnable="true"
@@ -160,11 +161,14 @@ export default {
             ];
         },
         reset_keys : function (){
-            return [this.search,this.type,this.star]  
+            return [this.search,this.type,this.star]
         },
         user_id: function () {
             return this.joke?.user_id || 0;
         },
+        title : function (){
+            return this.joke?.content
+        }
     },
     filters: {
         showSchoolIcon: function (val) {

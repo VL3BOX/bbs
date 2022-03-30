@@ -6,7 +6,7 @@
                 <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
             </div>
             <emotion-item :emotion="emotion" mode="single"></emotion-item>
-            <Thx class="m-thx" :postId="id" postType="emotion" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
+            <Thx class="m-thx" :postId="id" postType="emotion" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="emotion" />
@@ -170,6 +170,9 @@ export default {
         //         item.url;
         //     });
         // },
+        title : function (){
+            return this.emotion?.desc || '无标题'
+        }
     },
     filters: {
         showSchoolIcon: function(val) {

@@ -98,7 +98,7 @@
                 </ul>
             </div>-->
 
-            <Thx class="m-thx" :postId="id" postType="collection" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
+            <Thx class="m-thx" :postId="id" postType="collection" :postTitle="title" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
 
             <div class="m-comments" v-if="id">
                 <el-divider content-position="left">
@@ -146,6 +146,9 @@ export default {
         canEdit: function() {
             return this.author_id == User.getInfo().uid || User.isEditor();
         },
+        title : function (){
+            return this.collection.title
+        }
     },
     watch: {
         "$route.params.id": {
