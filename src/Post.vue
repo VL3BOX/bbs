@@ -5,7 +5,7 @@
             <publish-gate slot="op-append" />
         </Breadcrumb>
         <LeftSidebar>
-            <Nav :id="id" class="m-nav" />
+            <Nav :id="id" />
         </LeftSidebar>
         <Main :withoutRight="false">
             <single :id="id" />
