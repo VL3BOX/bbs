@@ -6,7 +6,15 @@
                 <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
             </div>
             <emotion-item :emotion="emotion" mode="single"></emotion-item>
-            <Thx class="m-thx" :postId="id" postType="emotion" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
+            <Thx
+                class="m-thx"
+                :postId="id"
+                postType="emotion"
+                :postTitle="title"
+                :userId="user_id"
+                :adminBoxcoinEnable="true"
+                :userBoxcoinEnable="true"
+            />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="emotion" />
@@ -20,8 +28,20 @@
                 <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                     <span slot="prepend">关键词</span>
                     <template slot="append">
-                        <el-switch class="u-star" v-model="star" :inactive-value="0" :active-value="1" inactive-text="只看精选"></el-switch>
-                        <el-switch class="u-original" v-model="original" :inactive-value="0" :active-value="1" inactive-text="只看原创"></el-switch>
+                        <el-switch
+                            class="u-star"
+                            v-model="star"
+                            :inactive-value="0"
+                            :active-value="1"
+                            inactive-text="只看精选"
+                        ></el-switch>
+                        <el-switch
+                            class="u-original"
+                            v-model="original"
+                            :inactive-value="0"
+                            :active-value="1"
+                            inactive-text="只看原创"
+                        ></el-switch>
                     </template>
                 </el-input>
             </div>
@@ -55,13 +75,26 @@
                     :col="waterfall_options.col"
                 >
                     <div class="u-item waterfall-item" :class="{ fadeIn: item.state == 'show' }" slot-scope="item">
-                        <emotion-item :emotion="item.data" :index="item.index" @preview="handlePreview" :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"></emotion-item>
+                        <emotion-item
+                            :emotion="item.data"
+                            :index="item.index"
+                            @preview="handlePreview"
+                            :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"
+                        ></emotion-item>
                     </div>
                 </waterfall>
             </ul>
             <!-- 空 -->
             <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-            <el-button class="m-emotion-more" type="primary" @click="loadMore" v-show="page < pages" icon="el-icon-arrow-down" :disabled="loading">加载更多</el-button>
+            <el-button
+                class="m-emotion-more"
+                type="primary"
+                @click="loadMore"
+                v-show="page < pages"
+                icon="el-icon-arrow-down"
+                :disabled="loading"
+                >加载更多</el-button
+            >
             <!-- 分页 -->
             <!-- <el-pagination
                 class="m-emotion-pagination"
@@ -149,8 +182,8 @@ export default {
                 page,
                 type: this.type == "all" ? "" : this.type,
                 search,
-                star,
-                original,
+                star: !!this.star ? 1 : "",
+                original: !!this.original ? 1 : "",
             };
         },
         keys: function() {
@@ -170,9 +203,9 @@ export default {
         //         item.url;
         //     });
         // },
-        title : function (){
-            return this.emotion?.desc || '无标题'
-        }
+        title: function() {
+            return this.emotion?.desc || "无标题";
+        },
     },
     filters: {
         showSchoolIcon: function(val) {
@@ -182,10 +215,10 @@ export default {
     methods: {
         loadList: function(appendMode = false) {
             this.loading = true;
-            let params = cloneDeep(this.params);
-            if(appendMode) {
-                params.page += 1
+            if (appendMode) {
+                this.params.page += 1;
             }
+            let params = cloneDeep(this.params);
             return getEmotions(params)
                 .then((res) => {
                     if (appendMode) {
@@ -205,11 +238,11 @@ export default {
                         this.loading = true;
                         this.$nextTick(() => {
                             // 渲染追加的部分
-                            if(appendMode){
+                            if (appendMode) {
                                 this.$refs.waterfall.repaints(params.page * this.per, 1);
-                            // 全部重新渲染（切分类等）
-                            }else{
-                                console.log(1)
+                                // 全部重新渲染（切分类等）
+                            } else {
+                                console.log(1);
                                 this.$refs.waterfall.init();
                             }
 
@@ -217,9 +250,10 @@ export default {
                                 this.loading = false;
                                 console.log("waterfall渲染完毕", res);
                             };
-                        })
+                        });
                     }
-                }).finally(() => {
+                })
+                .finally(() => {
                     this.loading = false;
                 });
         },
@@ -234,7 +268,7 @@ export default {
                 });
         },
         loadMore: function() {
-            this.loadList(true)
+            this.loadList(true);
         },
         // 批量获取点赞
         loadLike: function() {

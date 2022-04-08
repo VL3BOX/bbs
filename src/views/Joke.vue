@@ -145,7 +145,7 @@ export default {
                 page: ~~this.page,
                 type: this.type == "all" ? "" : this.type,
                 search: this.search,
-                star: this.star,
+                star: !!this.star ? 1 : '',
             };
         },
         keys: function () {
