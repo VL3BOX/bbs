@@ -18,7 +18,13 @@ const Collection = () => import("../views/Collection.vue");
 Vue.use(VueRouter);
 
 const routes = [
-    { name: "root", path: "/", component: Forum },
+    {
+        name: "root",
+        path: "/",
+        redirect: (to) => {
+            return { path: "/forum" };
+        },
+    },
     { name: "index", path: "/index", component: Forum },
     { name: "forum", path: "/forum/:subtype?", component: Forum },
     { name: "namespace", path: "/namespace", component: Namespace },
