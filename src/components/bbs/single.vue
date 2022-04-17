@@ -32,7 +32,7 @@ export default {
     computed: {
         post_subtype: function() {
             let subtype = this.post?.post_subtype;
-            return subtype ? types[subtype]['label'] : "-";
+            return subtype ? types[subtype]?.['label'] : "-";
         },
     },
     methods : {
