@@ -98,7 +98,7 @@ export default {
             return dateFormat(new Date(val));
         },
         showAvatar: function (val) {
-            return showAvatar(val, 24);
+            return showAvatar(val);
         },
         authorLink,
     },

@@ -77,7 +77,7 @@
                             <span class="u-item-order">{{ key + 1 }}.</span>
                             <span class="u-item-link" v-if="post.type === 'custom'"> <i class="el-icon-link"></i>站外链接 </span>
                             <a class="u-item-author" v-if="post.type !== 'custom' && post.user_id" target="_blank" :href="post.user_id | authorLink">
-                                <img class="u-avatar" :src="getThumbnail(post.user_avatar, 20, true)" />
+                                <img class="u-avatar" :src="showAvatar(post.user_avatar)" />
                                 <span class="u-nickname" v-text="post.user_nickname"></span>
                                 <span class="u-div">/</span>
                             </a>
@@ -115,7 +115,7 @@ import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import CollectionPublish from "@jx3box/jx3box-editor/service/enum/CollectionPublic";
 import { getCollection, removeCollection } from "@/service/helper";
 import { dateFormat } from "@/utils/dateFormat";
-import { getThumbnail, getLink, getTypeLabel, authorLink, editLink } from "@jx3box/jx3box-common/js/utils";
+import { getThumbnail, getLink, getTypeLabel, authorLink, editLink,showAvatar } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 export default {
@@ -165,6 +165,7 @@ export default {
         getThumbnail,
         getLink,
         getTypeLabel,
+        showAvatar,
         dateFormat: function(timestamp) {
             return dateFormat(new Date(timestamp * 1000));
         },

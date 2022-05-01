@@ -54,7 +54,7 @@
 
 <script>
 import {
-    getThumbnail,
+    showAvatar,
     getLink,
     resolveImagePath,
     authorLink,
@@ -84,7 +84,7 @@ export default {
         },
         authorLink,
         showAvatar: function (url) {
-            return getThumbnail(url, 20, true);
+            return showAvatar(url);
         },
     },
     created: function () {},

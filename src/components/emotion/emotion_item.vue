@@ -96,7 +96,7 @@
         },
         filters: {
             showAvatar: function(val) {
-                return showAvatar(val, 24);
+                return showAvatar(val);
             },
             authorLink,
             showThumbnail: function(url) {
