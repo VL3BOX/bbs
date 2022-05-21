@@ -259,7 +259,7 @@ export default {
             handler() {
                 this.init();
             },
-            // immediate: true,
+            immediate: true,
         },
         // 分页重置
         reset_keys : {
@@ -275,13 +275,13 @@ export default {
         jokes: {
             deep: true,
             handler() {
-                this.loadLike();
+                // this.loadLike();
             },
         },
     },
     created: function () {
         this.sortEmotion();
-        this.init()
+        // this.init()
     },
 };
 </script>

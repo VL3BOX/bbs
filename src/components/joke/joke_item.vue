@@ -120,6 +120,15 @@ export default {
             return user.uid === this.joke.user_id
         }
     },
+    watch: {
+        joke: {
+            handler: function (val) {
+                this.count = val.count;
+            },
+            deep: true,
+            immediate: true,
+        },
+    },
     methods: {
         parse(str) {
             const ins = new JX3_EMOTION(str);
