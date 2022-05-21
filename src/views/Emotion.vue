@@ -24,7 +24,8 @@
         <!--列表-->
         <div class="m-emotion-list-container" v-else>
             <!-- 搜索 -->
-            <div class="m-emotion-search" slot="search-before">
+            <div class="m-archive-search m-emotion-search" slot="search-before">
+                <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
                 <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                     <span slot="prepend">关键词</span>
                     <template slot="append">
@@ -128,6 +129,7 @@ import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 // 数据
 import { getEmotions, getEmotion } from "@/service/emotion";
 import { getLikes } from "@/service/next";
+import { publishLink } from "@jx3box/jx3box-common/js/utils";
 
 export default {
     name: "Emotion",
@@ -173,6 +175,10 @@ export default {
         };
     },
     computed: {
+        // 发布按钮链接
+        publish_link: function() {
+            return publishLink('emotion');
+        },
         id: function() {
             return ~~this.$route.params.id;
         },
@@ -375,5 +381,6 @@ export default {
 </script>
 
 <style lang="less">
+@import "~@/assets/css/app.less";
 @import "~@/assets/css/emotion/emotion.less";
 </style>

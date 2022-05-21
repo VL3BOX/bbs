@@ -1,7 +1,7 @@
 <template>
-    <div class="m-namespace-item">
+    <div class="m-namespace-item" @click="goNamespace(namespace.link)">
         <h5 class="u-title">
-            <a :href="namespace.link" target="_blank"
+            <a :href="namespace.link" target="_blank" @click.stop
                 ><i class="u-icon el-icon-postcard"></i
                 >{{ namespace.key || "未知" }} <span class="u-preview">剑网3.com/{{namespace.key}}</span>
             </a>
@@ -11,7 +11,7 @@
         <div class="u-misc">
             <span class="u-author">
                 <i class="el-icon-user"></i
-                ><a :href="namespace.uid | authorLink" target="_blank">
+                ><a :href="namespace.uid | authorLink" target="_blank" @click.stop>
                     {{ namespace.user.nickname || "匿名" }}</a
                 >
             </span>
@@ -50,6 +50,9 @@ export default {
         isMyNamespace: function(val) {
             return this.uid && val == this.uid;
         },
+        goNamespace(link) {
+            window.open(link,'_blank')
+        }
     },
     mounted: function() {},
 };

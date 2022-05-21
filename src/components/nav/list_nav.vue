@@ -29,16 +29,6 @@
             </div>
         </div> -->
 
-        <!-- <router-link class="m-nav-feedback" to="/feedback">
-            <img src="../assets/img/nav/hzn.png" alt="盒子娘">
-            <b><i class="el-icon-message"></i> 反馈建议</b>
-            <span>盒子娘的信箱 O(∩_∩)O </span>
-        </router-link> -->
-        <a class="m-nav-feedback" :href="feedback" target="_blank">
-            <img src="../../assets/img/nav/hzn.png" alt="盒子娘" />
-            <b><i class="el-icon-message"></i> 反馈建议</b>
-            <span>admin@jx3box.com</span>
-        </a>
     </div>
 </template>
 
@@ -63,6 +53,11 @@ export default {
                     name: "剑三茶馆",
                 },
                 {
+                    slug: "collection",
+                    icon: "el-icon-paperclip",
+                    name: "剑三小册",
+                },
+                {
                     slug: "joke",
                     icon: "el-icon-cold-drink",
                     name: "剑三骚话",
@@ -78,11 +73,6 @@ export default {
                     name: "剑三铭牌",
                     desc: "剑网3.com",
                 },
-                {
-                    slug: "collection",
-                    icon: "el-icon-paperclip",
-                    name: "剑三小册",
-                },
                 // {
                 //     slug: "exam",
                 //     icon: "el-icon-document",
@@ -95,7 +85,7 @@ export default {
     },
     computed : {
         root : function (){
-            return location.hostname == 'localhost' ? '' : '/bbs'  
+            return location.hostname == 'localhost' ? '' : '/bbs'
         },
     },
     methods: {

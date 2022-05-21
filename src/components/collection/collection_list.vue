@@ -2,6 +2,7 @@
     <div class="m-collection-box" v-loading="loading">
         <!-- 搜索 -->
         <div class="m-archive-search m-collection-search">
+            <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
             <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" class="input-with-select">
                 <span slot="prepend">关键词</span>
                 <el-button slot="append" icon="el-icon-search"></el-button>
@@ -30,6 +31,7 @@
 </template>
 
 <script>
+import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import collection_item from "./collection_item.vue";
 import { getCollections } from "@/service/helper.js";
 export default {
@@ -51,6 +53,10 @@ export default {
         };
     },
     computed: {
+        // 发布按钮链接
+        publish_link: function() {
+            return publishLink('collection');
+        },
         params: function () {
             return {
                 page: this.page,

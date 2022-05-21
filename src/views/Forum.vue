@@ -1,7 +1,7 @@
 <template>
     <div class="m-archive-box" v-loading="loading">
         <!-- 搜索 -->
-        <div class="m-archive-search" slot="search-before">
+        <div class="m-archive-search m-bbs-search" slot="search-before">
             <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
             <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                 <span slot="prepend">关键词</span>
@@ -237,5 +237,6 @@ export default {
 </script>
 
 <style lang="less">
+@import "~@/assets/css/app.less";
 @import "~@/assets/css/bbs/list.less";
 </style>
