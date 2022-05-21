@@ -1,7 +1,7 @@
 <template>
     <div class="v-single-title" v-if="item">
         <div class="m-title">
-            <div class="u-title">{{ title }}</div>
+            <div class="u-title" v-if="isPaper">{{ title }}</div>
             <div class="u-info">
                 <div class="u-info-subblock u-tags">
                     <span>标签：</span>
@@ -21,11 +21,15 @@
                 <div class="u-info-subblock u-views">
                     考生数：<span>{{ views }}</span>
                 </div>
+
+                <div class="u-info-subblock u-time">
+                    贡献时间：<span>{{showTime(item.createTime)}}</span>
+                </div>
             </div>
             <div class="u-desc" v-if="item.questionList">
-                <span>总共题数：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
+                <span>计分：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
             </div>
-            <div class="u-desc" v-if="item.desc">简介：{{ desc }}</div>
+            <div class="u-desc" v-if="item.desc">简介：{{ desc || '-' }}</div>
         </div>
         <div class="m-setBar" v-if="canManage">
             <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit"></i><span>编辑</span></a>
@@ -41,6 +45,7 @@
 import { publishLink, authorLink, editLink } from "@jx3box/jx3box-common/js/utils";
 import { getStat, checkPaper } from "@/service/exam.js";
 import User from "@jx3box/jx3box-common/js/user";
+import {showTime} from '@jx3box/jx3box-common/js/moment'
 export default {
     name: "Title",
     props: ["item", "score", "type"],
@@ -52,6 +57,9 @@ export default {
         };
     },
     computed: {
+        isPaper : function (){
+            return this.type == 'paper'
+        },
         id: function() {
             return this.$route.params.id;
         },
@@ -103,6 +111,9 @@ export default {
             }
         },
         editLink,
+        showTime : function (val){
+            return showTime(new Date(val*1000))
+        }
     },
     filters: {
         authorLink,
@@ -114,7 +125,7 @@ export default {
         });
 	},
     mounted: function() {
-        
+
     },
 };
 </script>

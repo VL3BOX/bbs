@@ -38,7 +38,7 @@ export default {
     data: function() {
         return {
             loading: false,
-            type: "paper",
+            type: "question",
             data: [],
             total: 0,
 
@@ -115,5 +115,6 @@ export default {
 </script>
 
 <style lang="less">
+@import "~@/assets/css/app.less";
 @import "../assets/css/exam/exam.less";
 </style>

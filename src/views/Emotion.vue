@@ -85,6 +85,7 @@
                     </div>
                 </waterfall>
             </ul>
+
             <!-- 空 -->
             <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
             <el-button
@@ -139,7 +140,7 @@ export default {
         Comment,
         waterfall,
     },
-    data: function() {
+    data: function () {
         return {
             loading: false,
 
@@ -176,13 +177,13 @@ export default {
     },
     computed: {
         // 发布按钮链接
-        publish_link: function() {
-            return publishLink('emotion');
+        publish_link: function () {
+            return publishLink("emotion");
         },
-        id: function() {
+        id: function () {
             return ~~this.$route.params.id;
         },
-        params: function({ search, per, page, star, original }) {
+        params: function ({ search, per, page, star, original }) {
             return {
                 per,
                 page,
@@ -192,16 +193,16 @@ export default {
                 original: !!this.original ? 1 : "",
             };
         },
-        keys: function() {
+        keys: function () {
             return [this.id, this.search, this.type, this.star, this.original, this.page, this.per];
         },
-        reset_keys: function() {
+        reset_keys: function () {
             return [this.search, this.type, this.star, this.original];
         },
-        user_id: function() {
+        user_id: function () {
             return this.emotion?.user_id || 0;
         },
-        images: function() {
+        images: function () {
             return this.list.map((item) => resolveImagePath(item.url));
         },
         // new_pics: function () {
@@ -209,17 +210,17 @@ export default {
         //         item.url;
         //     });
         // },
-        title: function() {
+        title: function () {
             return this.emotion?.desc || "无标题";
         },
     },
     filters: {
-        showSchoolIcon: function(val) {
+        showSchoolIcon: function (val) {
             return __imgPath + "image/school/" + val + ".png";
         },
     },
     methods: {
-        loadList: function(appendMode = false) {
+        loadList: function (appendMode = false) {
             this.loading = true;
             if (appendMode) {
                 this.params.page += 1;
@@ -273,11 +274,11 @@ export default {
                     this.loading = false;
                 });
         },
-        loadMore: function() {
+        loadMore: function () {
             this.loadList(true);
         },
         // 批量获取点赞
-        loadLike: function() {
+        loadLike: function () {
             if (this.emotions && this.emotions.length) {
                 let id = this.emotions.map((d) => "emotion-" + d.id);
                 id = id.join(",");
@@ -298,15 +299,15 @@ export default {
         },
 
         // 杂项
-        goBack: function() {
+        goBack: function () {
             this.$router.push("/emotion");
         },
-        skipTop: function() {
+        skipTop: function () {
             window.scrollTo(0, 0);
         },
 
         // 瀑布流
-        calcCol: function() {
+        calcCol: function () {
             let w = window.innerWidth;
             let col = 0;
             if (w < 780) {
@@ -319,15 +320,15 @@ export default {
             return col;
         },
         // 重新计算列数
-        resizeCalc: function() {
+        resizeCalc: function () {
             const vm = this;
-            let repaint = debounce(function() {
+            let repaint = debounce(function () {
                 vm.waterfall_options.col = vm.calcCol();
             }, 200);
             window.addEventListener("resize", repaint);
         },
         // 图片预览
-        handlePreview: function(i) {
+        handlePreview: function (i) {
             this.$hevueImgPreview({
                 multiple: true, // 开启多图预览模式
                 nowImgIndex: i, // 多图预览，默认展示第二张图片
@@ -338,7 +339,7 @@ export default {
         },
 
         // 初始化
-        init: function() {
+        init: function () {
             if (this.id) {
                 this.loadSingle();
             } else {
@@ -350,30 +351,30 @@ export default {
     watch: {
         keys: {
             deep: true,
-            handler: function() {
+            handler: function () {
                 this.init();
             },
         },
         // 分页重置
         reset_keys: {
             deep: true,
-            handler: function() {
+            handler: function () {
                 this.page = 1;
             },
         },
         // 类别重置
-        search: function() {
+        search: function () {
             this.type = "all";
         },
     },
-    mounted: function() {
+    mounted: function () {
         this.init();
     },
-    created: function() {
+    created: function () {
         this.resizeCalc();
     },
     filters: {
-        showSchoolIcon: function(val) {
+        showSchoolIcon: function (val) {
             return __imgPath + "image/school/" + val + ".png";
         },
     },

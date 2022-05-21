@@ -1,5 +1,8 @@
 <template>
 	<div class="v-question-single" v-loading="loading">
+        <div class="m-goback">
+            <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+        </div>
 		<SingleTitle :item="data" type="question" />
 		<SingleCard :item="data" :answer="answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
 		<div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
@@ -23,7 +26,9 @@ import User from "@jx3box/jx3box-common/js/user";
 export default {
 	name: "QuestionSingle",
 	props: [],
-	components: { SingleCard, SingleTitle, Comment },
+	components: { SingleCard,
+    SingleTitle,
+    Comment },
 	data: function () {
 		return {
 			data: {},
@@ -91,6 +96,9 @@ export default {
 				});
 			}
 		},
+        goBack: function () {
+            this.$router.push("/");
+        },
 	},
 	filters: {},
 	created: function () {

@@ -2,6 +2,7 @@
 	<div class="v-search">
 		<!-- 搜索 -->
 		<div class="m-archive-search m-exam-search" slot="search-before" key="exam-search">
+            <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
 			<el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" class="input-with-select">
 				<span slot="prepend">关键词</span>
 				<el-button slot="append" icon="el-icon-search"></el-button>
@@ -15,13 +16,14 @@
 
 		<!-- tags搜索 -->
 		<div class="m-exam-tags">
-			<span @click="selected(item, i)" class="el-tag el-tag--small" v-for="(item, i) in tags" :key="i" :class="tag_index == i ? 'active' : ''">{{ item }}</span>
+			<span @click="selected(item, i)" class="el-tag el-tag--small el-tag--plain" v-for="(item, i) in tags" :key="i" :class="tag_index == i ? 'active' : ''">{{ item }}</span>
 		</div>
 	</div>
 </template>
 
 <script>
 import tags from "@/assets/data/exam_tags.json";
+import { publishLink } from "@jx3box/jx3box-common/js/utils";
 export default {
 	name: "Search",
 	components: {},
@@ -31,10 +33,10 @@ export default {
 			search: "",
 
 			// 类型
-			type: "paper",
+			type: "question",
 			types: [
-				{ label: "综合试卷", value: "paper" },
-				{ label: "趣味问题", value: "question" },
+				{ label: "试题库", value: "question" },
+                { label: "试卷库", value: "paper" },
 			],
 
 			// 标签
@@ -43,7 +45,12 @@ export default {
 			tag_index: 0,
 		};
 	},
-	computed: {},
+	computed: {
+        // 发布按钮链接
+        publish_link: function() {
+            return publishLink('exam');
+        },
+    },
 	watch: {
 		search: {
 			handler: function (val) {

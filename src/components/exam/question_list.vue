@@ -6,7 +6,7 @@
             <el-table-column prop="title" label="标题"> </el-table-column>
             <el-table-column prop="tags" label="标签" width="180">
                 <template slot-scope="scope">
-                    <el-tag class="tag" v-for="tag of scope.row.tags" :key="scope.row.id + '_' + tag" size="small">{{ tag }}</el-tag>
+                    <el-tag class="u-tag" effect="plain" type="info" v-for="tag of scope.row.tags" :key="scope.row.id + '_' + tag" size="small" >{{ tag }}</el-tag>
                 </template>
             </el-table-column>
             <el-table-column prop="hardStar" label="难度" width="120">
@@ -21,7 +21,7 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="120">
                 <template>
-                    <el-button type="primary">去答题</el-button>
+                    <el-button size="small" plain type="primary" icon="el-icon-edit">去答题</el-button>
                 </template>
             </el-table-column>
         </el-table>

@@ -7,7 +7,7 @@
 						{{ item.title }}
 					</div>
 					<div class="u-tags">
-						<el-tag class="u-tag" v-for="tag in item.tags" :key="tag" size="small">
+						<el-tag class="u-tag el-tag--plain" v-for="tag in item.tags" :key="tag" size="small" effect="plain">
 							{{ tag }}
 						</el-tag>
 					</div>
