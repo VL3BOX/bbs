@@ -79,7 +79,7 @@ export default {
             return Math.floor(100 / this.item.questionIdList.length);
         },
         canManage: function() {
-            return User.isEditor() || User.getInfo().uid == item.createUserId;
+            return User.isEditor() || User.getInfo().uid == this.item.createUserId;
         },
     },
     watch: {},

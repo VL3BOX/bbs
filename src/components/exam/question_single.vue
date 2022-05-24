@@ -9,7 +9,7 @@
 			<el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
 		</div>
 
-		<Thx class="m-thx" :postId="id" postType="question" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" />
+		<Thx class="m-thx" :postId="id" postType="question" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
 		<div class="m-single-comment">
 			<el-divider content-position="left">评论</el-divider>
 			<Comment :id="id" category="question" />
