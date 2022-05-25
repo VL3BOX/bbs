@@ -10,16 +10,7 @@
         <!-- 空 -->
         <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
         <!-- 分页 -->
-        <el-pagination
-            class="m-exam-pagination"
-            background
-            :page-size="per"
-            :hide-on-single-page="true"
-            :current-page.sync="page"
-            layout="total, prev, pager, next, jumper"
-            :total="total"
-            @current-change="skipTop"
-        ></el-pagination>
+        <el-pagination class="m-exam-pagination" background :page-size="per" :hide-on-single-page="true" :current-page.sync="page" layout="total, prev, pager, next, jumper" :total="total" @current-change="skipTop"></el-pagination>
     </div>
 </template>
 <script>
@@ -35,7 +26,7 @@ export default {
         PaperList,
         QuestionList,
     },
-    data: function() {
+    data: function () {
         return {
             loading: false,
             type: "question",
@@ -49,25 +40,25 @@ export default {
         };
     },
     computed: {
-        per: function() {
-            return this.type == "paper" ? 9 : 15;
+        per: function () {
+            return this.type == "paper" ? 12 : 15;
         },
         // 组合请求参数
-        params: function() {
+        params: function () {
             return {
                 pageIndex: this.page,
                 pageSize: this.per,
                 title: this.search,
-                tag: this.tag,
+                tag: this.tag, 
             };
         },
-        loadMethods: function() {
+        loadMethods: function () {
             return this.type == "paper" ? getExamPaperList : getExamQuestionList;
         },
     },
     watch: {
         // 切换类别
-        type: function() {
+        type: function () {
             this.resetParams();
             this.loadExamData();
         },
@@ -75,14 +66,14 @@ export default {
         params: {
             immediate: true,
             deep: true,
-            handler: function() {
+            handler: function () {
                 this.loadExamData();
             },
         },
     },
     methods: {
         // 重置参数
-        resetParams: function() {
+        resetParams: function () {
             this.page = 1;
             this.tag = "";
             this.data = "";
@@ -90,7 +81,7 @@ export default {
         },
         // 更新参数
         updateParams(payload) {
-            console.log(payload)
+            console.log(payload);
             let { key, val } = payload;
             if (val == "全部") val = "";
             this[key] = val;
@@ -108,7 +99,7 @@ export default {
                 });
         },
         // 杂项
-        skipTop: function() {
+        skipTop: function () {
             window.scrollTo(0, 0);
         },
     },
@@ -116,6 +107,6 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/app.less";
-@import "../assets/css/exam/exam.less";
+    @import "~@/assets/css/app.less";
+    @import "../assets/css/exam/exam.less";
 </style>
