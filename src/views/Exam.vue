@@ -90,6 +90,7 @@ export default {
         },
         // 更新参数
         updateParams(payload) {
+            console.log(payload)
             let { key, val } = payload;
             if (val == "全部") val = "";
             this[key] = val;
