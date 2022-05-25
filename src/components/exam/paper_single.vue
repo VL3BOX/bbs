@@ -38,7 +38,7 @@ export default {
     name: "PaperSingle",
     props: [],
     components: { SingleCard, SingleTitle, Comment },
-    data: function() {
+    data: function () {
         return {
             data: {},
             list: [],
@@ -56,12 +56,12 @@ export default {
         user_id() {
             return this.data.createUserId;
         },
-        isIframe: function() {
+        isIframe: function () {
             return this.data?.iframe;
         },
-        title : function (){
-            return this.data.title || '无标题'
-        }
+        title: function () {
+            return this.data.title || "无标题";
+        },
     },
     methods: {
         loadData() {
@@ -123,6 +123,7 @@ export default {
                 }
                 submitAnswer(this.id, submitList, true).then((res) => {
                     if (res.data.score) {
+                        document.documentElement.scrollTop = 0;
                         const paper = res.data.paper;
                         this.list = this.list.map((item) => {
                             let answer = paper.questionDetailList.find((q) => q.id === item.list.id);
@@ -141,15 +142,15 @@ export default {
             this.$router.push("/");
         },
     },
-    created: function() {
+    created: function () {
         this.loadData();
     },
 };
 </script>
 
 <style lang="less">
-@import "~@/assets/css/exam/exam.less";
-@import "~@/assets/css/exam/single_title.less";
-@import "~@/assets/css/exam/single_card.less";
-@import "~@/assets/css/exam/paper_single.less";
+    @import "~@/assets/css/exam/exam.less";
+    @import "~@/assets/css/exam/single_title.less";
+    @import "~@/assets/css/exam/single_card.less";
+    @import "~@/assets/css/exam/paper_single.less";
 </style>
