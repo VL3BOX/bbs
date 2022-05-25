@@ -9,6 +9,11 @@
             width: 25%;
             box-sizing: border-box;
             padding: 0 20px 20px 0;
+            a.router-link-active,
+            a:hover {
+                box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+                transition: 0.3s;
+            }
         }
     }
     .u-link {
@@ -20,11 +25,6 @@
         padding: 48px 0 12px 0;
         border: 1px solid @border-hr;
         box-sizing: border-box;
-
-        &:hover {
-            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-            transition: 0.3s;
-        }
 
         .u-title,
         .u-tags,
