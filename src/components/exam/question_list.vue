@@ -3,7 +3,7 @@
         <!-- 表格 -->
         <el-table class="m-list" :data="list" style="width: 100%" @row-click="takeQuestion">
             <el-table-column prop="id" label="编号" width="56"></el-table-column>
-            <el-table-column prop="title" label="标题" width="300"> </el-table-column>
+            <el-table-column prop="title" label="标题"> </el-table-column>
             <el-table-column prop="tags" label="标签" width="180">
                 <template slot-scope="scope">
                     <el-tag class="u-tag" effect="plain" type="info" v-for="tag of scope.row.tags" :key="scope.row.id + '_' + tag" size="small">{{ tag }}</el-tag>

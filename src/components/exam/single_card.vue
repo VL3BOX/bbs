@@ -11,8 +11,8 @@
                     </el-tag>
                 </div>
                 <div class="u-right" v-else>
-                    <a class="u-user" :href="authorLink(item.createUserId)" target="_blank">{{item.createUser}}</a>
-                    <a class="u-exam" :href="`${exam_link}${item.id}`" target="_blank">题目ID：{{item.id}}</a>
+                    <a class="u-user" :href="authorLink(item.createUserId)" target="_blank"><span class="u-label">出题人</span>{{item.createUser}}</a>
+                    <a class="u-exam" :href="`${exam_link}${item.id}`" target="_blank"><span class="u-label">试题编号</span>{{item.id}}</a>
                 </div>
             </div>
             <div class="u-cont">
