@@ -10,7 +10,10 @@
                         {{ tag }}
                     </el-tag>
                 </div>
-                <a class="u-user" v-else :href="authorLink(item.createUserId)" target="_blank" rel="noopener noreferrer">{{item.createUser}}</a>
+                <div class="u-right" v-else>
+                    <a class="u-user" :href="authorLink(item.createUserId)" target="_blank">{{item.createUser}}</a>
+                    <a class="u-exam" :href="`${exam_link}${item.id}`" target="_blank">题目ID：{{item.id}}</a>
+                </div>
             </div>
             <div class="u-cont">
                 <div class="u-title">
@@ -64,6 +67,7 @@
 <script>
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "Card",
     props: ["item", "answer", "index", "isSubmitted"],
@@ -81,6 +85,9 @@ export default {
         status: function () {
             if (!this.answer.myAnswer) return "未作答";
             return this.answer.myAnswerIsRight ? "回答正确" : "回答错误";
+        },
+        exam_link() {
+            return __Root + `exam/question/`;
         },
     },
     methods: {

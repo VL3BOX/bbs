@@ -2,11 +2,11 @@
     <div class="m-question-list">
         <!-- 表格 -->
         <el-table class="m-list" :data="list" style="width: 100%" @row-click="takeQuestion">
-            <el-table-column prop="id" label="编号" width="60"></el-table-column>
-            <el-table-column prop="title" label="标题"> </el-table-column>
+            <el-table-column prop="id" label="编号" width="56"></el-table-column>
+            <el-table-column prop="title" label="标题" width="300"> </el-table-column>
             <el-table-column prop="tags" label="标签" width="180">
                 <template slot-scope="scope">
-                    <el-tag class="u-tag" effect="plain" type="info" v-for="tag of scope.row.tags" :key="scope.row.id + '_' + tag" size="small" >{{ tag }}</el-tag>
+                    <el-tag class="u-tag" effect="plain" type="info" v-for="tag of scope.row.tags" :key="scope.row.id + '_' + tag" size="small">{{ tag }}</el-tag>
                 </template>
             </el-table-column>
             <el-table-column prop="hardStar" label="难度" width="120">
@@ -19,7 +19,7 @@
                     {{ scope.row.createUser }}
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="120">
+            <el-table-column fixed="right" label="操作" width="100">
                 <template>
                     <el-button size="small" plain type="primary" icon="el-icon-edit">去答题</el-button>
                 </template>
@@ -32,11 +32,11 @@ export default {
     name: "QuestionList",
     props: ["data"],
     components: {},
-    data: function() {
+    data: function () {
         return {};
     },
     computed: {
-        list: function() {
+        list: function () {
             return this.data?.map((item, i) => {
                 try {
                     item.tags = JSON.parse(item.tags).slice(0, 3);
@@ -62,5 +62,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/css/exam/question_list.less";
+    @import "../../assets/css/exam/question_list.less";
 </style>

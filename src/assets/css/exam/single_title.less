@@ -29,11 +29,16 @@
         .u-star {
             .mr(40px);
         }
-        .u-tags {
-            .nobreak;
-            text-overflow: clip;
-            max-width: 100%;
-            margin: 5px 0;
+
+        .u-info {
+            .fz(12px);
+            .flex;
+            flex-wrap: wrap;
+            .u-tags {
+                .nobreak;
+                width: 100%;
+                margin: 5px 0;
+            }
         }
         .u-star .el-rate__icon {
             .mr(0);
@@ -103,6 +108,17 @@
     }
 }
 
+@media screen and (max-width: @ipad-y) {
+    .v-single-title .m-title {
+        .u-info {
+            .fz(12px);
+            .flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+    }
+}
 @media screen and (max-width: @phone) {
     .v-single-title {
         .m-title {
@@ -111,13 +127,6 @@
             }
             .u-info-subblock {
                 .mr(10px);
-            }
-            .u-info {
-                .fz(12px);
-                .flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: flex-start;
             }
         }
         .m-score {

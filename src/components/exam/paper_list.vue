@@ -3,11 +3,12 @@
         <div class="u-list">
             <div class="u-item" v-for="item in list" :key="'paper' + item.id">
                 <router-link :to="{ name: 'paper', params: { id: item.id } }" class="u-link">
-                    <div class="u-title" :class="item.style">
-                        {{ item.title }}
+                    <div class="u-title">
+                        <span>{{ item.title }}</span>
+                        <span class="u-line" :class="item.style"></span>
                     </div>
                     <div class="u-tags">
-                        <el-tag class="u-tag el-tag--plain" v-for="tag in item.tags" :key="tag" size="small" effect="plain">
+                        <el-tag class="u-tag el-tag--plain" v-for="tag in item.tags" :key="tag" size="small" effect="plain" type="info">
                             {{ tag }}
                         </el-tag>
                     </div>
