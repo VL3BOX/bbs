@@ -12,9 +12,15 @@ const routes = [
     { name: "paper", path: "/paper/:id", component: Paper },
     { name: "question", path: "/question/:id", component: Question },
 ];
-
 const router = new VueRouter({
+    mode: "history",
+    base: "/exam",
     routes,
 });
-
+router.beforeEach((to, from, next) => {
+    if (to.fullPath.includes("/#")) {
+        next(to.fullPath.replace("/#", ""));
+    }
+    next();
+});
 export default router;
