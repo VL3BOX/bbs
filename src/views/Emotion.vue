@@ -14,6 +14,7 @@
                 :userId="user_id"
                 :adminBoxcoinEnable="true"
                 :userBoxcoinEnable="true"
+                client="all"
             />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>

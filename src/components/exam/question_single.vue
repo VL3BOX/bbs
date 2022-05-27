@@ -9,7 +9,7 @@
             <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
         </div>
 
-        <Thx class="m-thx" :postId="id" postType="question" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
+        <Thx class="m-thx" :postId="id" postType="question" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" :client="client" />
         <div class="m-single-comment">
             <el-divider content-position="left">评论</el-divider>
             <Comment :id="id" category="question" />
@@ -46,6 +46,9 @@ export default {
         title: function () {
             return this.data.title;
         },
+        client(){
+            return this.data.client || 'all'
+        }
     },
     watch: {},
     methods: {

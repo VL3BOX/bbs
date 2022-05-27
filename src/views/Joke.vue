@@ -25,8 +25,9 @@
                 postType="joke"
                 :postTitle="title"
                 :userId="user_id"
-                :adminBoxcoinEnable="false"
+                :adminBoxcoinEnable="true"
                 :userBoxcoinEnable="true"
+                client="all"
             />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>

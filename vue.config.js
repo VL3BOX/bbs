@@ -32,7 +32,7 @@ module.exports = {
         },
     },
 
-    //❤️ Porxy ~
+    //❤️ Proxy ~
     devServer: {
         proxy: {
             "/api/inspire": {

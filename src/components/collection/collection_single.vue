@@ -98,7 +98,7 @@
                 </ul>
             </div>-->
 
-            <Thx class="m-thx" :postId="id" postType="collection" :postTitle="title" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
+            <Thx class="m-thx" :postId="id" postType="collection" :postTitle="title" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all"/>
 
             <div class="m-comments" v-if="id">
                 <el-divider content-position="left">

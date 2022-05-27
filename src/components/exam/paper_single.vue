@@ -19,7 +19,7 @@
                 <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
             </div>
 
-            <Thx class="m-thx" :postId="id" postType="paper" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" />
+            <Thx class="m-thx" :postId="id" postType="paper" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" :client="client"/>
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="paper" />
@@ -57,11 +57,14 @@ export default {
             return this.data.createUserId;
         },
         isIframe: function () {
-            return this.data?.iframe;
+            return this.data.iframe;
         },
         title: function () {
             return this.data.title || "无标题";
         },
+        client(){
+            return this.data.client || 'all'
+        }
     },
     methods: {
         loadData() {
