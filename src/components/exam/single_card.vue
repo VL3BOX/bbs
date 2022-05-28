@@ -33,7 +33,6 @@
                                     <span class="u-num">{{ String.fromCharCode(65 + i) }}.</span>
                                     <Article :content="option"></Article>
                                 </div>
-
                             </el-radio>
                         </el-radio-group>
                     </template>
@@ -118,4 +117,3 @@ export default {
     },
 };
 </script>
- 

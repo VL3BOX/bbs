@@ -3,13 +3,16 @@
         <div class="m-title">
             <div class="u-title" v-if="isPaper">{{ title }}</div>
             <div class="u-info">
-                <div class="u-info-subblock">
+                <div class="u-info-subblock u-line ">
                     <span>适用客户端：</span>
                     <span :class="`u-client i-client-${client}`">{{clients[client]}}</span>
                 </div>
-                <div class="u-info-subblock u-tags">
+                <div class="u-info-subblock u-tags u-line ">
                     <span>标签：</span>
                     <span class="u-tag" v-for="tag in item.tags" :key="tag"> {{ tag }}</span>
+                </div>
+                <div class="u-info-subblock u-line " v-if="item.questionList">
+                    <span>计分：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
                 </div>
                 <div class="u-info-subblock u-star">
                     <span>难度：</span>
@@ -27,9 +30,7 @@
                 <div class="u-info-subblock u-time">
                     贡献时间：<span>{{showTime(item.createTime)}}</span>
                 </div>
-                <div class="u-info-subblock" v-if="item.questionList">
-                    <span>计分：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
-                </div>
+
                 <div class="u-info-subblock" v-if="canManage"> <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit-outline"></i><span>编辑</span></a></div>
             </div>
             <div class="u-desc" v-if="item.desc">简介：{{ desc || '-' }}</div>
