@@ -5,12 +5,7 @@
                 <div class="u-num">
                     <span v-if="index">{{ index }}</span>
                 </div>
-                <div class="u-tags" v-if="!index">
-                    <el-tag class="u-tag" v-for="tag in item.tags" :key="tag" size="small">
-                        {{ tag }}
-                    </el-tag>
-                </div>
-                <div class="u-right" v-else>
+                <div class="u-right">
                     <a class="u-user" :href="authorLink(item.createUserId)" target="_blank"><span class="u-label">出题人</span>{{item.createUser}}</a>
                     <a class="u-exam" :href="`${exam_link}${item.id}`" target="_blank"><span class="u-label">试题编号</span>{{item.id}}</a>
                 </div>
@@ -24,16 +19,21 @@
                     <template v-if="item.type === 'checkbox'">
                         <el-checkbox-group v-model="checkbox" @change="checkAnswers(item.id, checkbox)">
                             <el-checkbox v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="myWrongClass(i)">
-                                {{ String.fromCharCode(65 + i) }}.
-                                <Article :content="option"></Article>
+                                <div class="u-radio">
+                                    <span class="u-num">{{ String.fromCharCode(65 + i) }}.</span>
+                                    <Article :content="option"></Article>
+                                </div>
                             </el-checkbox>
                         </el-checkbox-group>
                     </template>
                     <template v-else>
                         <el-radio-group v-model="radio" @change="checkAnswers(item.id, radio)">
                             <el-radio v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="myWrongClass(i)">
-                                {{ String.fromCharCode(65 + i) }}.
-                                <Article :content="option"></Article>
+                                <div class="u-radio">
+                                    <span class="u-num">{{ String.fromCharCode(65 + i) }}.</span>
+                                    <Article :content="option"></Article>
+                                </div>
+
                             </el-radio>
                         </el-radio-group>
                     </template>
@@ -118,3 +118,4 @@ export default {
     },
 };
 </script>
+ 

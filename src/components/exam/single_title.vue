@@ -3,11 +3,13 @@
         <div class="m-title">
             <div class="u-title" v-if="isPaper">{{ title }}</div>
             <div class="u-info">
+                <div class="u-info-subblock">
+                    <span>适用客户端：</span>
+                    <span :class="`u-client i-client-${client}`">{{clients[client]}}</span>
+                </div>
                 <div class="u-info-subblock u-tags">
                     <span>标签：</span>
-                    <el-tag class="u-tag" v-for="tag in item.tags" :key="tag" size="small">
-                        {{ tag }}
-                    </el-tag>
+                    <span class="u-tag" v-for="tag in item.tags" :key="tag"> {{ tag }}</span>
                 </div>
                 <div class="u-info-subblock u-star">
                     <span>难度：</span>
@@ -25,14 +27,16 @@
                 <div class="u-info-subblock u-time">
                     贡献时间：<span>{{showTime(item.createTime)}}</span>
                 </div>
-            </div>
-            <div class="u-desc" v-if="item.questionList">
-                <span>计分：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
+                <div class="u-info-subblock" v-if="item.questionList">
+                    <span>计分：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
+                </div>
+                <div class="u-info-subblock" v-if="canManage"> <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit-outline"></i><span>编辑</span></a></div>
             </div>
             <div class="u-desc" v-if="item.desc">简介：{{ desc || '-' }}</div>
+
         </div>
-        <div class="m-setBar" v-if="canManage">
-            <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit"></i><span>编辑</span></a>
+        <div class="m-setBar">
+
         </div>
         <div class="m-score" v-if="score && score !== -1">
             <div class="u-label">试卷成绩</div>
@@ -42,48 +46,54 @@
 </template>
 <script>
 import { publishLink, authorLink, editLink } from "@jx3box/jx3box-common/js/utils";
+import { __clients } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getStat, checkPaper } from "@/service/exam.js";
 import User from "@jx3box/jx3box-common/js/user";
-import {showTime} from '@jx3box/jx3box-common/js/moment'
+import { showTime } from "@jx3box/jx3box-common/js/moment";
+
 export default {
     name: "Title",
     props: ["item", "score", "type"],
     components: {},
-    data: function() {
+    data: function () {
         return {
             collected: false,
             views: -1,
+            clients: __clients,
         };
     },
     computed: {
-        isPaper : function (){
-            return this.type == 'paper'
+        client: function () {
+            return location.href.includes("origin") ? "origin" : "std";
         },
-        id: function() {
+        isPaper: function () {
+            return this.type == "paper";
+        },
+        id: function () {
             return this.$route.params.id;
         },
-        title: function() {
+        title: function () {
             if (this.type == "paper") return "《" + this.item.title + "》";
             return this.item.title;
         },
-        desc: function() {
+        desc: function () {
             return this.item.desc || "作者很懒，没有备注";
         },
 
-        sharingTitle: function() {
+        sharingTitle: function () {
             if (this.type == "paper") return "试卷";
             return "问题";
         },
-        number: function() {
+        number: function () {
             return Math.floor(100 / this.item.questionIdList.length);
         },
-        canManage: function() {
+        canManage: function () {
             return User.isEditor() || User.getInfo().uid == this.item.createUserId;
         },
     },
     watch: {},
     methods: {
-        check: function(action) {
+        check: function (action) {
             if (action == "delete") {
                 this.$alert("确定删除吗？", "消息", {
                     confirmButtonText: "确定",
@@ -110,25 +120,23 @@ export default {
             }
         },
         editLink,
-        showTime : function (val){
-            return showTime(new Date(val*1000))
-        }
+        showTime: function (val) {
+            return showTime(new Date(val * 1000));
+        },
     },
     filters: {
         authorLink,
         publishLink,
     },
-    created: function() {
-		getStat(this.type, this.id).then((res) => {
+    created: function () {
+        getStat(this.type, this.id).then((res) => {
             this.views = res.data?.views;
         });
-	},
-    mounted: function() {
-
     },
+    mounted: function () {},
 };
 </script>
 
 <style lang="less">
-@import "~@/assets/css/exam/single_title.less";
+    @import "~@/assets/css/exam/single_title.less";
 </style>

@@ -3,7 +3,11 @@
         <!-- 表格 -->
         <el-table class="m-list" :data="list" style="width: 100%" @row-click="takeQuestion">
             <el-table-column prop="id" label="编号" width="56"></el-table-column>
-            <el-table-column prop="title" label="标题"> </el-table-column>
+            <el-table-column prop="title" label="标题" min-width="200">
+                <div class="u-title" slot-scope="scope">
+                    <span :class="`u-client i-client-${client}`">{{clients[client]}}</span> {{scope.row.title}}
+                </div>
+            </el-table-column>
             <el-table-column prop="tags" label="标签" width="180">
                 <template slot-scope="scope">
                     <el-tag class="u-tag" effect="plain" type="info" v-for="tag of scope.row.tags" :key="scope.row.id + '_' + tag" size="small">{{ tag }}</el-tag>
@@ -28,17 +32,23 @@
     </div>
 </template>
 <script>
+import { __clients } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "QuestionList",
     props: ["data"],
     components: {},
     data: function () {
-        return {};
+        return { clients: __clients };
     },
     computed: {
+        client: function () {
+            return location.href.includes("origin") ? "origin" : "std";
+        },
         list: function () {
             return this.data?.map((item, i) => {
                 try {
+                    console.log(item);
+                    item.title = item.title.indexOf("src") == -1 ? "【文字试题】" : "【图片试题】";
                     item.tags = JSON.parse(item.tags).slice(0, 3);
                 } catch (e) {
                     console.log("解析题目列表tag异常", e);

@@ -8,19 +8,19 @@ let store = {
     state: {
         // client
         client: location.href.includes("origin") ? "origin" : "std",
-        subtype : '',
+        subtype: "",
         // post
         id: getAppID(),
         user_id: 0,
         post: "",
-        extend : {
-            collection_data : '',
-            directory : false,
-        }
+        extend: {
+            collection_data: "",
+            directory: false,
+        },
     },
     mutations: {
-        switchClient : function (state,val){
-            state.client = val || 'std'
+        switchClient: function (state, val) {
+            state.client = val || "std";
         },
     },
     getters: {},

@@ -18,7 +18,7 @@
 
         .u-info,
         .u-desc {
-            .fz(13px);
+            .fz(13px,26rpx);
         }
         .u-info,
         .u-star {
@@ -31,13 +31,25 @@
         }
 
         .u-info {
-            .fz(12px);
             .flex;
             flex-wrap: wrap;
             .u-tags {
+                .flex;
+                align-items: center;
                 .nobreak;
                 width: 100%;
-                margin: 5px 0;
+                .u-tag {
+                    .fz(12px,20px);
+                    .r(3px);
+                    .mr(8px);
+                    padding: 0 12px;
+                    border: 1px solid #ddd;
+                }
+            }
+            .u-client {
+                .fz(12px,20px);
+                .mr(5px);
+                padding: 0 12px;
             }
         }
         .u-star .el-rate__icon {
@@ -46,6 +58,25 @@
         .u-tag {
             .mr(5px);
         }
+        .u-edit {
+            .pr;
+            .color(#0366d6);
+            i {
+                .mr(5px);
+            }
+            &:hover {
+                &:before {
+                    content: "";
+                    width: 100%;
+                    height: 1px;
+                    border-color: #0366d6;
+                    .pa;
+                    .db;
+                    .lb(0,-4px);
+                }
+            }
+        }
+
         &.paper {
             .u-info,
             .u-desc {
@@ -60,21 +91,6 @@
 
         .u-info-subblock {
             .mr(20px);
-        }
-    }
-
-    .m-setBar {
-        display: flex;
-        background-color: #f2f6fc;
-        padding: 10px;
-        .r(4px);
-        .fz(14px);
-        .mt(10px);
-        .u-edit {
-            .mr(15px);
-        }
-        i {
-            .mr(5px);
         }
     }
 
@@ -110,8 +126,11 @@
 
 @media screen and (max-width: @ipad-y) {
     .v-single-title .m-title {
-        .u-info {
+        .u-info,
+        .u-desc {
             .fz(12px);
+        }
+        .u-info {
             .flex;
             flex-direction: column;
             justify-content: flex-start;
