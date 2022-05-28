@@ -47,8 +47,8 @@ export default {
         list: function () {
             return this.data?.map((item, i) => {
                 try {
-                    let type = item.type == "radio" ? "单选题" : "多选题";
-                    item.title = item.title.indexOf("src") == -1 ? `【文字】${type}` : `【图片】${type}`;
+                    let str = /<img[^>]*>*<\/img[^>]*>/gi;
+                    item.title = item.title.replace(str, "[图片]");
                     item.tags = JSON.parse(item.tags).slice(0, 3);
                 } catch (e) {
                     console.log("解析题目列表tag异常", e);
