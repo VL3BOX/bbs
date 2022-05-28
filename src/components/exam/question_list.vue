@@ -47,7 +47,7 @@ export default {
         list: function () {
             return this.data?.map((item, i) => {
                 try {
-                    let str = /<img[^>]*>*<\/img[^>]*>/gi;
+                    let str = /<img[^>]*>|(<img[^>]*>*<\/img[^>]*>)/gi;
                     item.title = item.title.replace(str, "[图片]");
                     item.tags = JSON.parse(item.tags).slice(0, 3);
                 } catch (e) {
