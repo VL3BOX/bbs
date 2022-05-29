@@ -1,6 +1,6 @@
 <template>
     <div class="v-single-card" v-if="item">
-        <div class="m-single-question" :class="answer?'m-show':''">
+        <div class="m-single-question">
             <div class="u-number">
                 <div class="u-num">
                     <span v-if="index">{{ index }}</span>

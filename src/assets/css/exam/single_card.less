@@ -1,21 +1,22 @@
 //card
 .v-single-card {
-    padding: 40px 20px 10px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    transition: 0.3s;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid #ebeef5;
+    background-color: #fff;
+    .r(6px);
+    .mb(10px);
+    .mt(40px);
 }
 
 .m-single-question,
 .m-single-answer {
-    .r(4px);
-    overflow: hidden;
+    width: 100%;
     box-sizing: border-box;
-    border: 1px solid #ebeef5;
-    background-color: #fff;
     color: #303133;
-    transition: 0.3s;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .m-single-question {
@@ -86,7 +87,8 @@
 }
 
 .m-single-answer {
-    padding: 50px 40px;
+    border-top: 1px dashed #ddd;
+    padding: 20px 40px;
     white-space: pre-line;
 }
 
@@ -221,25 +223,7 @@
         .w(100%);
     }
 }
-.animation {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
-.toLeft {
-    -webkit-animation-name: toLeft;
-    animation-name: toLeft;
-}
-@keyframes toLeft {
-    0% {
-        width: 100%;
-    }
 
-    100% {
-        width: 65%;
-    }
-}
 .m-analysis .u-label {
     .fz(20px,2em);
     .bold;
@@ -262,10 +246,6 @@
             .u-title .c-article {
                 .pb(20px);
             }
-        }
-        .m-single-question,
-        .m-single-answer {
-            width: 100% !important;
         }
         .m-single-answer {
             padding: 20px;

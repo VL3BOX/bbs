@@ -1,7 +1,12 @@
 <template>
     <div class="v-question">
         <template v-if="mode == 'list'">
-            <QuestionList :data="data" />
+            <!-- 搜索 -->
+            <QuestionSearch :type="`paper`" @update="updateParams" />
+            <QuestionList :data="data" v-if="data && data.length" />
+            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+            <!-- 分页 -->
+            <el-pagination class="m-exam-pagination" background :page-size="per" :hide-on-single-page="true" :current-page.sync="page" layout="total, prev, pager, next, jumper" :total="total" @current-change="skipTop"></el-pagination>
         </template>
         <template v-else>
             <QuestionSingle />
@@ -9,40 +14,69 @@
     </div>
 </template>
 <script>
+import QuestionSearch from "@/components/exam/search.vue";
 import QuestionList from "@/components/exam/question_list.vue";
 import QuestionSingle from "@/components/exam/question_single.vue";
 import { getExamQuestionList } from "@/service/exam.js";
 export default {
     name: "Question",
-    props: [],
-    components: { QuestionList, QuestionSingle },
-    data: function() {
+    components: { QuestionList, QuestionSingle, QuestionSearch },
+    data: function () {
         return {
             data: [],
-            params: { pageIndex: 1 },
+            search: "",
+            tag: "",
+            per: 12,
+            page: 1,
+            total: 0,
         };
     },
     computed: {
-        mode: function() {
+        mode: function () {
             return this.$route.params.id ? "single" : "list";
+        },
+        params: function () {
+            return {
+                pageIndex: this.page,
+                pageSize: this.per,
+                title: this.search,
+                tag: this.tag,
+            };
         },
     },
     methods: {
         getListData() {
             getExamQuestionList(this.params).then((res) => {
-                this.data = res.data.data || {};
+                this.data = res.data?.data || "";
+                this.total = ~~res.data?.page.total || 0;
             });
         },
+        // 更新参数
+        updateParams(payload) {
+            let { key, val } = payload;
+            if (val == "全部") val = "";
+            this[key] = val;
+        },
+        skipTop: function () {
+            window.scrollTo(0, 0);
+        },
     },
-    created: function() {
+    created: function () {
         if (this.mode == "list") this.getListData();
     },
-    mounted: function() {},
-    filters: {},
-    watch: {},
+    watch: {
+        // 监听参数更新
+        params: {
+            immediate: true,
+            deep: true,
+            handler: function () {
+                this.getListData();
+            },
+        },
+    },
 };
 </script>
 
 <style lang="less">
-@import "../assets/css/exam/question.less";
+    @import "../assets/css/exam/question.less";
 </style>
