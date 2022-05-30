@@ -50,6 +50,7 @@ export default {
             // 主要参数
             search: "",
             tag: "",
+            client: "",
             page: 1,
         };
     },
@@ -65,6 +66,7 @@ export default {
             };
             if (this.tag) _params.tag = this.tag;
             if (this.search) _params.title = this.search;
+            if (this.client) _params.client = this.client;
             return _params;
         },
         loadMethods: function () {
@@ -99,11 +101,9 @@ export default {
             this.search = "";
         },
         // 更新参数
-        updateParams(payload) {
-            let { key, val } = payload;
+        updateParams({ key, val }) {
             if (val == "全部") val = "";
             this[key] = val;
-            console.log(payload);
         },
         // 加载数据
         loadExamData() {

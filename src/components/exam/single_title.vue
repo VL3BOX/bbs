@@ -5,7 +5,7 @@
             <div class="u-info">
                 <div class="u-info-subblock">
                     <span>适用客户端：</span>
-                    <span :class="`u-client i-client-${item.client}`">{{ clients[item.client] }}</span>
+                    <span :class="`u-client i-client-${item.client || 'std'}`">{{ clients[item.client||'std']}}</span>
                 </div>
                 <div class="u-info-subblock u-star">
                     <span>难度：</span>
@@ -23,12 +23,11 @@
                 </div>
 
                 <div class="u-info-subblock u-author">
-                    <span>出卷人：</span
-                    ><a :href="item.createUserId | authorLink" target="_blank">{{ item.createUser }}</a>
+                    <span>出卷人：</span><a :href="authorLink(item.createUserId) " target="_blank">{{ item.createUser }}</a>
                 </div>
 
                 <div class="u-info-subblock u-views">
-                    考生数：<span>{{ views }}</span>
+                    考生数：<span>{{ views || '-'}}</span>
                 </div>
 
                 <div class="u-info-subblock u-time">
@@ -36,9 +35,7 @@
                 </div>
 
                 <div class="u-info-subblock" v-if="canManage">
-                    <a class="u-edit" :href="editLink(type, item.id)"
-                        ><i class="el-icon-edit-outline"></i><span>编辑</span></a
-                    >
+                    <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit-outline"></i><span>编辑</span></a>
                 </div>
             </div>
             <div class="u-desc" v-if="item.desc">简介：{{ desc || "-" }}</div>
@@ -129,8 +126,6 @@ export default {
         showTime: function (val) {
             return showTime(new Date(val * 1000));
         },
-    },
-    filters: {
         authorLink,
         publishLink,
     },
@@ -144,5 +139,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/exam/single_title.less";
+    @import "~@/assets/css/exam/single_title.less";
 </style>

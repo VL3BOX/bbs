@@ -2,9 +2,13 @@
     <div class="v-single-card" v-if="item">
         <div class="m-single-question">
             <div class="u-number">
-                <div class="u-num">
-                    <span v-if="index">{{ index }}</span>
+                <div class="u-left" v-if="index">
+                    <span class="u-num">{{ index }}</span>
+                    <template v-if="item_tags.length">
+                        <a :href="tagsLink(item)" target="_blank" class="u-tag" v-for="(item,i) in item_tags" :key="i">{{item}}</a>
+                    </template>
                 </div>
+
                 <div class="u-right">
                     <a class="u-user" :href="authorLink(item.createUserId)" target="_blank"><span class="u-label">出题人</span>{{item.createUser}}</a>
                     <a class="u-exam" :href="`${exam_link}${item.id}`" target="_blank"><span class="u-label">试题编号</span>{{item.id}}</a>
@@ -46,13 +50,13 @@
             <div class="u-answer">
                 你的答案：
                 <span v-if="answer.myAnswer">
-                    <b v-for="key in answer.myAnswer" :key="key">{{ key | letter }}</b>
+                    <b v-for="key in answer.myAnswer" :key="key">{{ letter(key) }}</b>
                 </span>
                 <b v-else>-</b>
             </div>
             <div class="u-answer">
                 正确答案：
-                <b v-for="key in answer.answerList" :key="key">{{ key | letter }}</b>
+                <b v-for="key in answer.answerList" :key="key">{{ letter(key)  }}</b>
             </div>
             <hr />
             <div class="m-analysis">
@@ -67,9 +71,10 @@
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
+
 export default {
     name: "Card",
-    props: ["item", "answer", "index", "isSubmitted"],
+    props: ["item", "answer", "index", "isSubmitted", "tags"],
     components: { Article },
     data: function () {
         return {
@@ -87,6 +92,13 @@ export default {
         },
         exam_link() {
             return __Root + `exam/question/`;
+        },
+        item_tags() {
+            return this.item.tags
+                .map((item) => {
+                    if (this.tags.indexOf(item) !== -1) return item;
+                })
+                .filter(Boolean);
         },
     },
     methods: {
@@ -109,10 +121,11 @@ export default {
             if (list.includes(index)) return "isCorrect";
             if (my.includes(index)) return "isWrong";
         },
-    },
-    filters: {
         letter: function (val) {
             return String.fromCharCode(65 + val);
+        },
+        tagsLink(tag) {
+            return __Root + `exam/?tag=${tag}`;
         },
     },
 };

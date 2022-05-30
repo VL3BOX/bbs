@@ -22,21 +22,39 @@
 .m-single-question {
     .w(100%);
     .u-number {
-        display: flex;
+        .flex;
         justify-content: space-between;
         align-items: center;
         background: linear-gradient(90deg, #2682ea00 -50%, #2682ea 100%);
-        .u-num {
-            .size(50px);
-            .fz(30px);
-            .lh(50px);
-            .x;
-            span {
+        .u-left {
+            .flex;
+            align-items: center;
+            gap: 10px;
+            .u-num {
+                .size(50px);
+                .fz(30px);
+                .lh(50px);
+                .x;
                 .db;
                 background-color: #2682ea;
                 color: #fff;
             }
+            .u-tag {
+                .pointer;
+                .fz(12px,1.8);
+                .r(3px);
+                background-color: #fff;
+                color: #2682ea;
+                font-size: 12px;
+                border: 1px solid #2682ea;
+                padding: 0 12px;
+                &:hover {
+                    background-color: #59a7fd;
+                    color: #f0f7ff;
+                }
+            }
         }
+
         .u-tags {
             .pr(50px);
             .u-tag {
