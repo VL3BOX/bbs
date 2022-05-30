@@ -13,7 +13,7 @@
         </template>
         <template v-else>
             <div class="m-paper-list">
-                <SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :tags="tags" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
+                <SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
             </div>
             <div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
                 <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
@@ -34,7 +34,7 @@ import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { getPaper, submitAnswer } from "@/service/exam.js";
 import User from "@jx3box/jx3box-common/js/user";
-import tags from "@/assets/data/exam_tags.json";
+
 export default {
     name: "PaperSingle",
     props: [],
@@ -65,9 +65,6 @@ export default {
         },
         client() {
             return this.data.client || "all";
-        },
-        tags() {
-            return tags.slice(5, -1);
         },
     },
     methods: {

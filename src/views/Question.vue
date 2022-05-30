@@ -26,6 +26,7 @@ export default {
             data: [],
             search: "",
             tag: "",
+               client: "",
             per: 12,
             page: 1,
             total: 0,
@@ -35,13 +36,15 @@ export default {
         mode: function () {
             return this.$route.params.id ? "single" : "list";
         },
-        params: function () {
-            return {
+  params: function () {
+            let _params = {
                 pageIndex: this.page,
                 pageSize: this.per,
-                title: this.search,
-                tag: this.tag,
             };
+            if (this.tag) _params.tag = this.tag;
+            if (this.search) _params.title = this.search;
+            if (this.client) _params.client = this.client;
+            return _params;
         },
     },
     methods: {
@@ -52,8 +55,7 @@ export default {
             });
         },
         // 更新参数
-        updateParams(payload) {
-            let { key, val } = payload;
+        updateParams({ key, val }) {
             if (val == "全部") val = "";
             this[key] = val;
         },

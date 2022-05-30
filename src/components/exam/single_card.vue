@@ -2,9 +2,9 @@
     <div class="v-single-card" v-if="item">
         <div class="m-single-question">
             <div class="u-number">
-                <div class="u-left" v-if="index">
-                    <span class="u-num">{{ index }}</span>
-                    <template v-if="item_tags.length">
+                <div class="u-left">
+                    <span class="u-num" v-if="index">{{ index }}</span>
+                    <template v-if="index && item_tags.length">
                         <a :href="tagsLink(item)" target="_blank" class="u-tag" v-for="(item,i) in item_tags" :key="i">{{item}}</a>
                     </template>
                 </div>
@@ -71,10 +71,10 @@
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
-
+import tags from "@/assets/data/exam_tags.json";
 export default {
     name: "Card",
-    props: ["item", "answer", "index", "isSubmitted", "tags"],
+    props: ["item", "answer", "index", "isSubmitted"],
     components: { Article },
     data: function () {
         return {
@@ -99,6 +99,9 @@ export default {
                     if (this.tags.indexOf(item) !== -1) return item;
                 })
                 .filter(Boolean);
+        },
+        tags() {
+            return tags.slice(5, -1);
         },
     },
     methods: {

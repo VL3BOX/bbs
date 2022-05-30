@@ -23,9 +23,10 @@ export default {
     components: { PaperList, PaperSingle, paperSearch },
     data: function () {
         return {
-            data: [], 
+            data: [],
             search: "",
             tag: "",
+            client: "",
             per: 12,
             page: 1,
             total: 0,
@@ -36,12 +37,14 @@ export default {
             return this.$route.params.id ? "single" : "list";
         },
         params: function () {
-            return {
+            let _params = {
                 pageIndex: this.page,
                 pageSize: this.per,
-                title: this.search,
-                tag: this.tag,
             };
+            if (this.tag) _params.tag = this.tag;
+            if (this.search) _params.title = this.search;
+            if (this.client) _params.client = this.client;
+            return _params;
         },
     },
     methods: {
@@ -52,8 +55,7 @@ export default {
             });
         },
         // 更新参数
-        updateParams(payload) {
-            let { key, val } = payload;
+        updateParams({ key, val }) {
             if (val == "全部") val = "";
             this[key] = val;
         },
@@ -64,7 +66,7 @@ export default {
     created: function () {
         if (this.mode == "list") this.getListData();
     },
- 
+
     watch: {
         // 监听参数更新
         params: {
