@@ -5,7 +5,7 @@
             <el-table-column prop="id" label="编号" width="56"></el-table-column>
             <el-table-column prop="title" label="标题" min-width="200">
                 <div class="u-title" slot-scope="scope">
-                    <span :class="`u-client i-client-${client}`">{{clients[client]}}</span> {{scope.row.title}}
+                    <span :class="`u-client i-client-${scope.row.client}`">{{clients[scope.row.client]}}</span> {{scope.row.title}}
                 </div>
             </el-table-column>
             <el-table-column prop="tags" label="标签" width="180">

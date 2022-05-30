@@ -5,7 +5,7 @@
             <div class="u-info">
                 <div class="u-info-subblock">
                     <span>适用客户端：</span>
-                    <span :class="`u-client i-client-${client}`">{{ clients[client] }}</span>
+                    <span :class="`u-client i-client-${item.client}`">{{ clients[item.client] }}</span>
                 </div>
                 <div class="u-info-subblock u-star">
                     <span>难度：</span>
