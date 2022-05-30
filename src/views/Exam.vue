@@ -103,7 +103,6 @@ export default {
             let { key, val } = payload;
             if (val == "全部") val = "";
             this[key] = val;
-            console.log(payload);
         },
         // 加载数据
         loadExamData() {
