@@ -25,7 +25,7 @@ import { getAppIcon, getAppType, getAppID } from "@jx3box/jx3box-common/js/utils
 export default {
     name: "App",
     props: [],
-    data: function() {
+    data: function () {
         return {};
     },
     computed: {},
@@ -37,10 +37,10 @@ export default {
         "publish-gate": publishGate,
         Info,
     },
-    created: function() {},
+    created: function () {},
 };
 </script>
 
 <style lang="less">
-@import "./assets/css/app.less";
+    @import "./assets/css/app.less";
 </style>

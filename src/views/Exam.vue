@@ -1,11 +1,18 @@
 <template>
     <div class="v-exam m-exam" v-loading="loading">
         <!-- 搜索 -->
-        <ExamSearch :type="type" @update="updateParams" />
+        <ExamSearch @update="updateParams" />
+
+        <!-- 切换 -->
+        <div class="u-tabs">
+            <div class="u-tab-item" v-for="(item, i) in types" :key="i" @click="clickTabs(i,item.value)" :class="i == activeIndex ? 'active' : ''">
+                <span class="u-tabs-span">{{ item.label }}</span>
+            </div>
+        </div>
+
         <!-- 列表 -->
         <template v-if="data && data.length">
-            <PaperList v-if="type == 'paper'" :data="data" />
-            <QuestionList v-else :data="data" />
+            <component :is="component" :data="data"></component>
         </template>
         <!-- 空 -->
         <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
@@ -29,7 +36,14 @@ export default {
     data: function () {
         return {
             loading: false,
+            // 类型
+            activeIndex: 0,
             type: "question",
+            types: [
+                { label: "试题库", value: "question" },
+                { label: "试卷库", value: "paper" },
+            ],
+
             data: [],
             total: 0,
 
@@ -45,15 +59,19 @@ export default {
         },
         // 组合请求参数
         params: function () {
-            return {
+            let _params = {
                 pageIndex: this.page,
                 pageSize: this.per,
-                title: this.search,
-                tag: this.tag,
             };
+            if (this.tag) _params.tag = this.tag;
+            if (this.search) _params.title = this.search;
+            return _params;
         },
         loadMethods: function () {
             return this.type == "paper" ? getExamPaperList : getExamQuestionList;
+        },
+        component() {
+            return this.type == "paper" ? "PaperList" : "QuestionList";
         },
     },
     watch: {
@@ -73,17 +91,19 @@ export default {
     },
     methods: {
         // 重置参数
-        resetParams: function () {
+        resetParams() {
             this.page = 1;
             this.tag = "";
             this.data = "";
             this.total = 0;
+            this.search = "";
         },
         // 更新参数
         updateParams(payload) {
             let { key, val } = payload;
             if (val == "全部") val = "";
             this[key] = val;
+            console.log(payload);
         },
         // 加载数据
         loadExamData() {
@@ -96,6 +116,10 @@ export default {
                 .finally(() => {
                     this.loading = false;
                 });
+        },
+        clickTabs(i, val) {
+            this.activeIndex = i;
+            this.type = val;
         },
         // 杂项
         skipTop: function () {

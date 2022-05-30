@@ -46,9 +46,9 @@ export default {
         title: function () {
             return this.data.title;
         },
-        client(){
-            return this.data.client || 'all'
-        }
+        client() {
+            return this.data.client || "all";
+        },
     },
     watch: {},
     methods: {
@@ -99,7 +99,7 @@ export default {
             }
         },
         goBack: function () {
-            this.$router.push("/");
+            this.$router.push({ name: "index", params: { type: "question" } });
         },
     },
     filters: {},
