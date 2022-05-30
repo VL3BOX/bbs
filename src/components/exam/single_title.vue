@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="u-info-subblock u-views">
-                    考生数：<span>{{ views || '-'}}</span>
+                    考生数：<span>{{ examinee(views) }}</span>
                 </div>
 
                 <div class="u-info-subblock u-time">
@@ -128,6 +128,9 @@ export default {
         },
         authorLink,
         publishLink,
+        examinee(num) {
+            return num < 1 ? "-" : num;
+        },
     },
     created: function () {
         getStat(this.type, this.id).then((res) => {
