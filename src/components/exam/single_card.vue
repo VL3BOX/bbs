@@ -94,11 +94,13 @@ export default {
             return `/exam/question/`;
         },
         item_tags() {
-            return this.item.tags
+            let arr = this.item.tags
                 .map((item) => {
                     if (this.tags.indexOf(item) !== -1) return item;
                 })
                 .filter(Boolean);
+            if (!arr.length) arr[0] = this.item.tags[0];
+            return arr.slice(0, 1);
         },
         tags() {
             return tags.slice(5, -1);
