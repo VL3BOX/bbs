@@ -91,7 +91,7 @@ export default {
             return this.answer.myAnswerIsRight ? "回答正确" : "回答错误";
         },
         exam_link() {
-            return __Root + `exam/question/`;
+            return `/exam/question/`;
         },
         item_tags() {
             return this.item.tags
@@ -128,7 +128,7 @@ export default {
             return String.fromCharCode(65 + val);
         },
         tagsLink(tag) {
-            return __Root + `exam/?tag=${tag}`;
+            return `/exam/?tag=${tag}`;
         },
     },
 };
