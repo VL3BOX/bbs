@@ -118,7 +118,7 @@ export default {
         // 更新参数
         updateParams({ key, val }) {
             if (val == "全部") val = "";
-            if (key == "tag" || key == "search") this.page = 1;
+            if (key == "tag" || key == "search" || key == "client") this.page = 1;
             this[key] = val;
         },
         // 加载数据
