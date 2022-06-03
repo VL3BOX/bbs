@@ -5,7 +5,13 @@
 
         <!-- 切换 -->
         <div class="u-tabs">
-            <div class="u-tab-item" v-for="(item, i) in types" :key="i" @click="clickTabs(i,item.value)" :class="i == activeIndex ? 'active' : ''">
+            <div
+                class="u-tab-item"
+                v-for="(item, i) in types"
+                :key="i"
+                @click="clickTabs(i, item.value)"
+                :class="i == activeIndex ? 'active' : ''"
+            >
                 <span class="u-tabs-span">{{ item.label }}</span>
             </div>
         </div>
@@ -17,7 +23,16 @@
         <!-- 空 -->
         <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
         <!-- 分页 -->
-        <el-pagination class="m-exam-pagination" background :page-size="per" :hide-on-single-page="true" :current-page.sync="page" layout="total, prev, pager, next, jumper" :total="total" @current-change="skipTop"></el-pagination>
+        <el-pagination
+            class="m-exam-pagination"
+            background
+            :page-size="per"
+            :hide-on-single-page="true"
+            :current-page.sync="page"
+            layout="total, prev, pager, next, jumper"
+            :total="total"
+            @current-change="skipTop"
+        ></el-pagination>
     </div>
 </template>
 <script>
@@ -103,6 +118,7 @@ export default {
         // 更新参数
         updateParams({ key, val }) {
             if (val == "全部") val = "";
+            if (key == "tag" || key == "search") this.page = 1;
             this[key] = val;
         },
         // 加载数据
@@ -130,6 +146,6 @@ export default {
 </script>
 
 <style lang="less">
-    @import "~@/assets/css/app.less";
-    @import "../assets/css/exam/exam.less";
+@import "~@/assets/css/app.less";
+@import "../assets/css/exam/exam.less";
 </style>

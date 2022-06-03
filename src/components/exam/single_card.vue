@@ -103,7 +103,7 @@ export default {
             return arr.slice(0, 1);
         },
         tags() {
-            return tags.slice(5, -1);
+            return tags.slice(5, tags.length);
         },
     },
     methods: {
