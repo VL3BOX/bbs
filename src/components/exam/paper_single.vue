@@ -86,6 +86,7 @@ export default {
                             return item;
                         }) || [];
                     this.data = data;
+                    console.log(this.data)
 
                     this.list =
                         data?.questionDetailList?.map((item) => {
