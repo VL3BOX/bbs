@@ -86,7 +86,7 @@ export default {
                             return item;
                         }) || [];
                     this.data = data;
-                    console.log(this.data)
+                    console.log(this.data);
 
                     this.list =
                         data?.questionDetailList?.map((item) => {
@@ -126,7 +126,9 @@ export default {
                         myAnswer: this.userAnswers[i].sort(),
                     });
                 }
+                console.log(submitList,'submitList')
                 submitAnswer(this.id, submitList, true).then((res) => {
+                    console.log(res, "submitAnswer");
                     if (res.data.score) {
                         document.documentElement.scrollTop = 0;
                         const paper = res.data.paper;

@@ -11,15 +11,7 @@
             </el-table-column>
             <el-table-column prop="tags" label="标签" width="180">
                 <template slot-scope="scope">
-                    <el-tag
-                        class="u-tag"
-                        effect="plain"
-                        type="info"
-                        v-for="tag of scope.row.tags"
-                        :key="scope.row.id + '_' + tag"
-                        size="small"
-                        >{{ tag }}</el-tag
-                    >
+                    <el-tag class="u-tag" effect="plain" type="info" v-for="tag of scope.row.tags" :key="scope.row.id + '_' + tag" size="small">{{ tag }}</el-tag>
                 </template>
             </el-table-column>
             <el-table-column prop="hardStar" label="难度" width="120">
@@ -79,5 +71,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../assets/css/exam/question_list.less";
+    @import "../../assets/css/exam/question_list.less";
 </style>
