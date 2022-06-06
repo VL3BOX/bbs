@@ -48,8 +48,8 @@ export default {
             return this.data?.map((item, i) => {
                 try {
                     let img = /<img[^>]*>|(<img[^>]*>*<\/img[^>]*>)/gi;
-                    let html = /<("[^"]*"|'[^']*'|[^'">])*>/g;
-                    item.title = item.title.replace(img, "[图片]").replace(html, "");
+                    let html = /^<([a-z]+)([^>]+)*(?:>(.*)<\/\1>|\s+\/>)$/gm
+                    item.title = item.title.replace(img, "[图片]").replace(html, "")
                     item.tags = JSON.parse(item.tags).slice(0, 3);
                 } catch (e) {
                     console.log("解析题目列表tag异常", e);
