@@ -56,8 +56,8 @@ export default {
         list: function () {
             return this.data?.map((item, i) => {
                 try {
-                    let reg = /^<([a-z]+)([^>]+)*(>(.*)<\/\1>|\s+\/>)$/gm;
-                    item.title = item.title.replace(reg, "");
+                    // let reg = /^<([a-z]+)([^>]+)*(>(.*)<\/\1>|\s+\/>)$/gm;
+                    // item.title = item.title.replace(reg, "");
                     item.tags = JSON.parse(item.tags).slice(0, 3);
                 } catch (e) {
                     console.log("解析题目列表tag异常", e);
