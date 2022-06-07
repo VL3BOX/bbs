@@ -76,7 +76,7 @@ export default {
         },
         switchClient(val, i) {
             this.client = val.key;
-            this.client_index = i;
+            this.client_index = i; 
         },
     },
     created() {

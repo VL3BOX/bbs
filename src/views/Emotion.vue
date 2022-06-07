@@ -249,8 +249,7 @@ export default {
                             if (appendMode) {
                                 this.$refs.waterfall.repaints(params.page * this.per, 1);
                                 // 全部重新渲染（切分类等）
-                            } else {
-                                console.log(1);
+                            } else { 
                                 this.$refs.waterfall.init();
                             }
 
