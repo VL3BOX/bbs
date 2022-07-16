@@ -1,8 +1,13 @@
-const regex = /\/bbs\/?#\/?(\w+?)\/(\d+)/
-if(regex.test(location.pathname)) {
-    location.href = location.origin + location.pathname.replace(regex, '/$1/$2')
+try {
+    let subtype = location.hash.slice(1)?.split("/")?.[0];
+    let id = location.hash.slice(1)?.split("/")?.[1];
+    const oldSubtypes = ["collection", "emotion", "joke"];
+    if (oldSubtypes.includes(subtype)) {
+        location.href = location.origin + "/" + subtype + '/' + id;
+    }
+} catch (e) {
+    console.log('旧地址匹配异常',e);
 }
-
 
 Vue.config.productionTip = false;
 
@@ -11,14 +16,14 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 Vue.use(ElementUI);
 
-import hevueImgPreview from 'hevue-img-preview'
-Vue.use(hevueImgPreview)
+import hevueImgPreview from "hevue-img-preview";
+Vue.use(hevueImgPreview);
 
 // import waterfall from "vue-waterfall2";
 // Vue.use(waterfall)
 
 // 通用UI模块
-import JX3BOX_UI from '@jx3box/jx3box-common-ui'
+import JX3BOX_UI from "@jx3box/jx3box-common-ui";
 import "@jx3box/jx3box-common/css/element.css";
 import "@jx3box/jx3box-common/css/normalize.css";
 Vue.use(JX3BOX_UI);
@@ -32,6 +37,5 @@ import App from "./App.vue";
 new Vue({
     router,
     store,
-    render: h => h(App),
+    render: (h) => h(App),
 }).$mount("#app");
-
