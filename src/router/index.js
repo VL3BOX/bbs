@@ -39,10 +39,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.fullPath.includes('/bbs#')) {
-        next(to.fullPath.replace('/bbs#', ''));
-    } else if (to.fullPath.includes('/#')) {
-        next(to.fullPath.replace('/#', ''));
+    const regex = /\/bbs\/?#\/?(\w+?)\/(\d+)/
+    if (to.fullPath.match(regex)) {
+        next(to.fullPath.replace(regex, '/$1/$2'));
     }
     next()
 });
