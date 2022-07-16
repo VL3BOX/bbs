@@ -10,7 +10,7 @@
 
         <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
         <div class="m-nav-group m-bbs-nav">
-            <a v-for="(item, i) in menu" :href="root + '/#/' + item.slug" :key="i" :class="{ on: isActive(item.slug) }">
+            <a v-for="(item, i) in menu" :href="'/' + item.slug" :key="i" :class="{ on: isActive(item.slug) }">
                 <i :class="item.icon"></i>
                 <b>{{ item.name }}</b>
                 <span>{{ item.desc }}</span>
