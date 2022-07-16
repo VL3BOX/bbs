@@ -1,6 +1,5 @@
 try {
-    let subtype = location.hash.slice(1)?.split("/")?.[0];
-    let id = location.hash.slice(1)?.split("/")?.[1];
+    let [subtype,id] = location.hash.slice(2)?.split("/");
     const oldSubtypes = ["collection", "emotion", "joke"];
     if (oldSubtypes.includes(subtype)) {
         location.href = location.origin + "/" + subtype + '/' + id;
