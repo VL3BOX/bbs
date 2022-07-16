@@ -40,6 +40,8 @@ export default {
     methods: {},
     filters: {},
     created: function() {
+        const regex = /\/bbs\/?#\/?(\w+?)\/(\d+)/
+        location.pathname.match(regex) && (location.href = location.pathname.replace(regex, '/$1/$2'))
     },
 };
 </script>

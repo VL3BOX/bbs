@@ -16,6 +16,10 @@ import router from "@/router/collection.js";
 import store from "@/store/index";
 
 import App from "./Collection.vue";
+
+const regex = /\/bbs\/?#\/?(\w+?)\/(\d+)/
+location.pathname.match(regex) && (location.href = location.pathname.replace(regex, '/$1/$2'))
+
 new Vue({
     router,
     store,

@@ -22,6 +22,10 @@ import router from "./router";
 import store from "./store";
 
 import App from "./App.vue";
+
+const regex = /\/bbs\/?#\/?(\w+?)\/(\d+)/
+location.pathname.match(regex) && router.push(location.pathname.replace(regex, '/$1/$2'))
+
 new Vue({
     router,
     store,
