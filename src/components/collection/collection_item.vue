@@ -1,10 +1,10 @@
 <template>
     <div class="m-collection-item">
-        <router-link class="u-image" :to="{ name: 'collection', params: { id: data.id } }" target="_blank">
+        <router-link class="u-image" :to="{ name: 'view', params: { id: data.id } }" target="_blank">
             <img :src="data.image | getCover" />
         </router-link>
         <div class="u-content">
-            <router-link class="u-title" :to="{ name: 'collection', params: { id: data.id } }" target="_blank">
+            <router-link class="u-title" :to="{ name: 'view', params: { id: data.id } }" target="_blank">
                 <!-- <i class="el-icon-collection"></i> -->
                 {{ data.title }}
             </router-link>

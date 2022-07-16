@@ -15,6 +15,10 @@
                 <b>{{ item.name }}</b>
                 <span>{{ item.desc }}</span>
             </a>
+            <a href="/collection" :class="{ on: isActivePage('collection') }">
+                <i class="el-icon-paperclip"></i>
+                <b>剑三小册</b>
+            </a>
             <a href="/exam" :class="{ on: isActivePage('exam') }">
                 <i class="el-icon-document"></i>
                 <b>剑三考试</b>
@@ -52,11 +56,11 @@ export default {
                     icon: "el-icon-collection",
                     name: "剑三茶馆",
                 },
-                {
-                    slug: "collection",
-                    icon: "el-icon-paperclip",
-                    name: "剑三小册",
-                },
+                // {
+                //     slug: "collection",
+                //     icon: "el-icon-paperclip",
+                //     name: "剑三小册",
+                // },
                 {
                     slug: "joke",
                     icon: "el-icon-cold-drink",
@@ -65,7 +69,7 @@ export default {
                 {
                     slug: "emotion",
                     icon: "el-icon-sugar",
-                    name: "剑三表情",
+                    name: "剑三趣图",
                 },
                 {
                     slug: "namespace",

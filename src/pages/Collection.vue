@@ -5,14 +5,31 @@
  * @Description:
 -->
 <template>
-    <router-view />
+    <div id="app">
+        <Header></Header>
+        <Breadcrumb name="剑三小册" slug="exam" :publishEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="false">
+            <Info />
+        </Breadcrumb>
+        <LeftSidebar>
+            <Nav />
+        </LeftSidebar>
+        <Main :withoutRight="true">
+            <div class="m-main">
+                <router-view />
+            </div>
+            <Footer></Footer>
+        </Main>
+    </div>
 </template>
 
 <script>
+import Nav from "@/components/nav/Nav.vue";
 export default {
-    name: "CollectionRedirect",
+    name: "Collection",
     props: [],
-    components: {},
+    components: {
+        Nav
+    },
     data: function() {
         return {};
     },
@@ -24,3 +41,8 @@ export default {
     },
 };
 </script>
+
+<style lang="less">
+@import "~@/assets/css/app.less";
+@import '~@/assets/css/collection/collection.less';
+</style>
