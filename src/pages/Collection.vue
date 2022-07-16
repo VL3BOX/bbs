@@ -1,5 +1,11 @@
+<!--
+ * @Author: iRuxu
+ * @Date: 2022-05-05 01:50:16
+ * @LastEditTime: 2022-07-16 23:49:24
+ * @Description:
+-->
 <template>
-    <div></div>
+    <router-view />
 </template>
 
 <script>
@@ -15,12 +21,6 @@ export default {
     methods: {},
     filters: {},
     created: function() {
-        if (this.$route.name == "view") {
-            let id = this.$route.params.id;
-            location.href = `/bbs/#/collection/${id}`;
-        } else {
-            location.href = "/bbs/#/collection";
-        }
     },
 };
 </script>

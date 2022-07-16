@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 const routes = [
     { name: "index", path: "/" },
-    { name: "view", path: "/view/:id?" },
+    { name: "view", path: "/:id?" },
 ];
 
 const router = new VueRouter({
@@ -15,11 +15,11 @@ const router = new VueRouter({
     mode: 'history'
 });
 
-router.beforeEach((to, from, next) => {
-    if (to.fullPath.includes('/#')) {
-        next(to.fullPath.replace('/#', ''));
-    }
-    next()
-});
+// router.beforeEach((to, from, next) => {
+//     if (to.fullPath.includes('/#')) {
+//         next(to.fullPath.replace('/#', ''));
+//     }
+//     next()
+// });
 
 export default router;

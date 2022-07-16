@@ -7,7 +7,7 @@ VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch((err) => err);
 };
 
-const Index = () => import("../views/Index.vue");
+// const Index = () => import("../views/Index.vue");
 const Namespace = () => import("../views/Namespace.vue");
 const Joke = () => import("../views/Joke.vue");
 const Emotion = () => import("../views/Emotion.vue");
