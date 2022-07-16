@@ -13,10 +13,12 @@ Vue.config.productionTip = false;
 // 第三方UI组件
 // 数据与路由
 import router from "@/router/collection.js";
+import store from "@/store/index";
 
 import App from "./Collection.vue";
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount("#app");
 

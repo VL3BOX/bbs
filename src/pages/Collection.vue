@@ -23,12 +23,14 @@
 </template>
 
 <script>
+import Info from "@/components/Info.vue";
 import Nav from "@/components/nav/Nav.vue";
 export default {
     name: "Collection",
     props: [],
     components: {
-        Nav
+        Nav,
+        Info
     },
     data: function() {
         return {};

@@ -16,7 +16,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.fullPath.includes('/#')) {
+    if (to.fullPath.includes('/bbs#')) {
+        next(to.fullPath.replace('/bbs#', ''));
+    } else if (to.fullPath.includes('/#')) {
         next(to.fullPath.replace('/#', ''));
     }
     next()
