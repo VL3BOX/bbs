@@ -15,11 +15,11 @@ const router = new VueRouter({
     mode: 'history'
 });
 
-// router.beforeEach((to, from, next) => {
-//     if (to.fullPath.includes('/#')) {
-//         next(to.fullPath.replace('/#', ''));
-//     }
-//     next()
-// });
+router.beforeEach((to, from, next) => {
+    if (to.fullPath.includes('/#')) {
+        next(to.fullPath.replace('/#', ''));
+    }
+    next()
+});
 
 export default router;
