@@ -1,13 +1,13 @@
 <!--
  * @Author: iRuxu
  * @Date: 2022-05-05 01:50:16
- * @LastEditTime: 2022-07-16 23:49:24
+ * @LastEditTime: 2022-07-17 19:57:27
  * @Description:
 -->
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb name="剑三小册" slug="exam" :publishEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="false">
+        <Breadcrumb name="剑三小册" slug="collection" :publishEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="false">
             <Info />
         </Breadcrumb>
         <LeftSidebar>
