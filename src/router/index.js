@@ -37,13 +37,4 @@ const router = new VueRouter({
     mode: 'history'
 });
 
-router.beforeEach((to, from, next) => {
-    console.log(to, from);
-    const regex = /\/bbs\/?#\/?(\w+?)\/(\d+)/
-    if (to.fullPath.match(regex)) {
-        next(to.fullPath.replace(regex, '/$1/$2'));
-    }
-    next()
-});
-
 export default router;
