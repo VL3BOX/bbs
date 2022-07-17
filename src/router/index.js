@@ -1,3 +1,9 @@
+/*
+ * @Author: iRuxu
+ * @Date: 2022-07-17 01:25:16
+ * @LastEditTime: 2022-07-17 19:58:24
+ * @Description:
+ */
 import Vue from "vue";
 import VueRouter from "vue-router";
 
@@ -20,11 +26,11 @@ const routes = [
         name: "root",
         path: "/",
         redirect: (to) => {
-            return { path: "/forum" };
+            return { path: "/bbs" };
         },
     },
-    { name: "index", path: "/index", component: Forum },
-    { name: "forum", path: "/forum/:subtype?", component: Forum },
+    // { name: "index", path: "/index", component: Forum },
+    { name: "bbs", path: "/bbs/:subtype?", component: Forum },
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },

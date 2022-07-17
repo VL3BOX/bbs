@@ -52,7 +52,7 @@ export default {
                 //     name: "全部",
                 // },
                 {
-                    slug: "forum",
+                    slug: "bbs",
                     icon: "el-icon-collection",
                     name: "剑三茶馆",
                 },
