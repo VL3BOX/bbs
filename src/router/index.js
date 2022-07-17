@@ -1,7 +1,7 @@
 /*
  * @Author: iRuxu
  * @Date: 2022-07-17 01:25:16
- * @LastEditTime: 2022-07-17 19:58:24
+ * @LastEditTime: 2022-07-17 20:06:34
  * @Description:
  */
 import Vue from "vue";
@@ -22,15 +22,16 @@ const Forum = () => import("../views/Forum.vue");
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        name: "root",
-        path: "/",
-        redirect: (to) => {
-            return { path: "/bbs" };
-        },
-    },
+    // {
+    //     name: "root",
+    //     path: "/",
+    //     redirect: (to) => {
+    //         return { path: "/bbs" };
+    //     },
+    // },
     // { name: "index", path: "/index", component: Forum },
-    { name: "bbs", path: "/bbs/:subtype?", component: Forum },
+    { name: "index", path: "/", component: Forum },
+    { name: "bbs", path: "/bbs", component: Forum },
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
