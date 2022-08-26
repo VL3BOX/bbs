@@ -10,19 +10,10 @@
 
         <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
         <div class="m-nav-group m-bbs-nav">
-            <a v-for="(item, i) in menu" :href="'/' + item.slug" :key="i" :class="{ on: isActive(item.slug) }">
+            <a v-for="(item, i) in menu" :href="'/' + item.slug" :key="i" :class="{ on: item.isActive ? item.isActive(item.slug) : isActive(item.slug) }">
                 <i :class="item.icon"></i>
                 <b>{{ item.name }}</b>
                 <span>{{ item.desc }}</span>
-            </a>
-            <a href="/collection" :class="{ on: isActivePage('collection') }">
-                <i class="el-icon-paperclip"></i>
-                <b>剑三小册</b>
-            </a>
-            <a href="/exam" :class="{ on: isActivePage('exam') }">
-                <i class="el-icon-document"></i>
-                <b>剑三考试</b>
-                <span>exam</span>
             </a>
         </div>
 
@@ -56,26 +47,36 @@ export default {
                     icon: "el-icon-collection",
                     name: "剑三茶馆",
                 },
-                // {
-                //     slug: "collection",
-                //     icon: "el-icon-paperclip",
-                //     name: "剑三小册",
-                // },
                 {
                     slug: "joke",
                     icon: "el-icon-cold-drink",
                     name: "剑三骚话",
+                    isActive: this.isActive,
                 },
                 {
                     slug: "emotion",
                     icon: "el-icon-sugar",
                     name: "剑三趣图",
+                    isActive: this.isActive,
+                },
+                {
+                    slug: "exam",
+                    icon: "el-icon-document",
+                    name: "剑三考试",
+                    isActive: this.isActivePage
                 },
                 {
                     slug: "namespace",
                     icon: "el-icon-postcard",
                     name: "剑三铭牌",
                     desc: "剑网3.com",
+                    isActive: this.isActive,
+                },
+                {
+                    slug: "collection",
+                    icon: "el-icon-paperclip",
+                    name: "剑三小册",
+                    isActive: this.isActivePage
                 },
                 // {
                 //     slug: "exam",
