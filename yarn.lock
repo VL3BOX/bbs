@@ -1028,10 +1028,10 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.2.5":
-  "integrity" "sha512-8M7o3XeB4HJuzm1cMR3mOEpdm89gEopqJXl1dwMEhvFn3l4CHqz3RTD6W/wBKvm3lUESBHrrWrS9AQALb5kdzg=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.2.5.tgz"
-  "version" "6.2.5"
+"@jx3box/jx3box-common-ui@^6.2.6":
+  "integrity" "sha512-fStHSG5Q3eq0Eo9jLyerf1ZLli1f4xDXabpUR4j+57almpkJ2JN5W+utdaPe+wUgUmpfQOd0o0PbCy0TNdSyoQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.2.6.tgz"
+  "version" "6.2.6"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.1"
     "@jx3box/jx3box-common" "^7.4.2"
