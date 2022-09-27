@@ -1,13 +1,12 @@
 <template>
     <div class="m-info">
         <div class="m-info-router" v-if="isRouter">
-            <!-- <router-link to="/"><i class="el-icon-receiving"></i></router-link> -->
-            <router-link to="/forum"><i class="el-icon-collection"></i></router-link>
-            <router-link to="/joke"><i class="el-icon-cold-drink"></i></router-link>
-            <router-link to="/emotion"><i class="el-icon-sugar"></i></router-link>
-            <router-link to="/namespace"><i class="el-icon-postcard"></i></router-link>
-            <router-link to="/collection"><i class="el-icon-paperclip"></i></router-link>
-            <!-- <a href="/exam"><i class="el-icon-document"></i></a> -->
+            <a href="/bbs"><i class="el-icon-collection"></i></a>
+            <a href="/joke"><i class="el-icon-cold-drink"></i></a>
+            <a href="/emotion"><i class="el-icon-sugar"></i></a>
+            <a href="/namespace"><i class="el-icon-postcard"></i></a>
+            <a href="/collection"><i class="el-icon-paperclip"></i></a>
+            <a href="/exam"><i class="el-icon-document"></i></a>
         </div>
     </div>
 </template>
