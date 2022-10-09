@@ -86,22 +86,22 @@
             <hr />
             <div class="m-analysis">
                 <span class="u-label">解析：</span>
-                <Article :content="answer.whyami" v-if="answer.whyami"></Article>
+                <!-- <Article :content="answer.whyami" v-if="answer.whyami"></Article> -->
+                <span v-if="answer.whyami" v-html="answer.whyami"></span>
                 <div v-else>暂无解析</div>
             </div>
         </div>
     </div>
 </template>
 <script>
-import $ from "jquery";
-import Article from "@jx3box/jx3box-editor/src/Article.vue";
+// import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 import tags from "@/assets/data/exam_tags.json";
 export default {
     name: "Card",
     props: ["item", "answer", "index", "isSubmitted"],
-    components: { Article },
+    // components: { Article },
     data: function () {
         return {
             checkbox: [],
