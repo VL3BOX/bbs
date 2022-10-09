@@ -9,7 +9,7 @@
                     <a class="u-item" :href="'/bbs/#/joke/' + item.id" target="_blank">
                         <span class="u-author">{{item.author || '匿名'}}</span>
                         <span class="u-div"> : </span>
-                        <span class="u-joke" v-html="item.html"></span>
+                        <span class="u-joke" v-html="resolveImagePath(item.html)"></span>
                     </a>
                 </el-carousel-item>
             </el-carousel>
@@ -26,6 +26,7 @@ import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import { getRecommendedJokes } from "@/service/joke";
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
+import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 
 export default {
     name: "joke",
@@ -40,6 +41,7 @@ export default {
     computed: {},
     methods: {
         getLink,
+        resolveImagePath,
         init: function () {
             getRecommendedJokes().then((res) => {
                 this.data = res.data.data.list;

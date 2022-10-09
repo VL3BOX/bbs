@@ -28,7 +28,7 @@
             <div class="u-cont">
                 <div class="u-title">
                     <span class="u-hint"> [{{ item.type == "checkbox" ? "多选题" : "单选题" }}] </span>
-                    <span v-html="item.title" class="m-html-title"> </span>
+                    <span v-html="resolveImagePath(item.title)" class="m-html-title"> </span>
                 </div>
                 <div class="u-option">
                     <template v-if="item.type === 'checkbox'">
@@ -43,7 +43,7 @@
                             >
                                 <div class="u-radio">
                                     <span class="u-num">{{ String.fromCharCode(65 + i) }}.</span>
-                                    <span v-html="option"></span>
+                                    <span class="m-option-content" v-html="resolveImagePath(option)"></span>
                                 </div>
                             </el-checkbox>
                         </el-checkbox-group>
@@ -60,7 +60,7 @@
                             >
                                 <div class="u-radio">
                                     <span class="u-num">{{ String.fromCharCode(65 + i) }}.</span>
-                                    <span v-html="option"></span>
+                                    <span class="m-option-content" v-html="resolveImagePath(option)"></span>
                                 </div>
                             </el-radio>
                         </el-radio-group>
@@ -95,7 +95,7 @@
 </template>
 <script>
 // import Article from "@jx3box/jx3box-editor/src/Article.vue";
-import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { authorLink, showAvatar, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 import tags from "@/assets/data/exam_tags.json";
 export default {
@@ -132,8 +132,20 @@ export default {
             return tags.slice(5, tags.length);
         },
     },
+    watch: {
+        item: {
+            deep: true,
+            immediate: true,
+            handler: function () {
+                this.$nextTick(() => {
+                    this.initImgViewer();
+                })
+            },
+        }
+    },
     methods: {
         authorLink,
+        resolveImagePath,
         checkAnswers(key, val) {
             let value = Array.isArray(val) ? val : [val];
             this.$emit("changeVal", { [key]: value });
@@ -158,6 +170,18 @@ export default {
         tagsLink(tag) {
             return `/exam/?tag=${tag}`;
         },
+        initImgViewer() {
+            const images = document.querySelectorAll(".m-html-title img");
+            images.forEach((img) => {
+                img.onclick = () => {
+                    this.$hevueImgPreview({
+                        url: img.src,
+                        controlBar: false,
+                        clickMaskCLose: true,
+                    });
+                };
+            });
+        }
     },
 };
 </script>

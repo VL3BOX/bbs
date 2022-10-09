@@ -11,6 +11,9 @@ import "@jx3box/jx3box-common/css/element.css";
 import "@jx3box/jx3box-common/css/normalize.css";
 Vue.use(JX3BOX_UI);
 
+import hevueImgPreview from "hevue-img-preview";
+Vue.use(hevueImgPreview);
+
 // 数据与路由
 import router from "@/router/exam.js";
 // import store from "@/store/index";

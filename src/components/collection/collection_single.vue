@@ -63,7 +63,7 @@
                         小册简介
                     </el-divider>
                     <div class="u-description">
-                        <p v-html="collection.description"></p>
+                        <p v-html="resolveImagePath(collection.description)"></p>
                     </div>
                 </template>
 
@@ -115,7 +115,7 @@ import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import CollectionPublish from "@jx3box/jx3box-editor/service/enum/CollectionPublic";
 import { getCollection, removeCollection } from "@/service/helper";
 import { dateFormat } from "@/utils/dateFormat";
-import { getThumbnail, getLink, getTypeLabel, authorLink, editLink,showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { getThumbnail, getLink, getTypeLabel, authorLink, editLink,showAvatar, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 export default {
@@ -166,6 +166,7 @@ export default {
         getLink,
         getTypeLabel,
         showAvatar,
+        resolveImagePath,
         dateFormat: function(timestamp) {
             return dateFormat(new Date(timestamp * 1000));
         },
