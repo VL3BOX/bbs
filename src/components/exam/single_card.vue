@@ -5,37 +5,62 @@
                 <div class="u-left">
                     <span class="u-num" v-if="index">{{ index }}</span>
                     <template v-if="index && item_tags.length">
-                        <a :href="tagsLink(item)" target="_blank" class="u-tag" v-for="(item,i) in item_tags" :key="i">{{item}}</a>
+                        <a
+                            :href="tagsLink(item)"
+                            target="_blank"
+                            class="u-tag"
+                            v-for="(item, i) in item_tags"
+                            :key="i"
+                            >{{ item }}</a
+                        >
                     </template>
                 </div>
 
                 <div class="u-right">
-                    <a class="u-user" :href="authorLink(item.createUserId)" target="_blank"><span class="u-label">出题人</span>{{item.createUser}}</a>
-                    <a class="u-exam" :href="`${exam_link}${item.id}`" target="_blank"><span class="u-label">试题编号</span>{{item.id}}</a>
+                    <a class="u-user" :href="authorLink(item.createUserId)" target="_blank"
+                        ><span class="u-label">出题人</span>{{ item.createUser }}</a
+                    >
+                    <a class="u-exam" :href="`${exam_link}${item.id}`" target="_blank"
+                        ><span class="u-label">试题编号</span>{{ item.id }}</a
+                    >
                 </div>
             </div>
             <div class="u-cont">
                 <div class="u-title">
                     <span class="u-hint"> [{{ item.type == "checkbox" ? "多选题" : "单选题" }}] </span>
-                    <Article :content="item.title"></Article>
+                    <span v-html="item.title" class="m-html-title"> </span>
                 </div>
                 <div class="u-option">
                     <template v-if="item.type === 'checkbox'">
                         <el-checkbox-group v-model="checkbox" @change="checkAnswers(item.id, checkbox)">
-                            <el-checkbox v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="myWrongClass(i)">
+                            <el-checkbox
+                                v-for="(option, i) of options"
+                                :key="i"
+                                :label="i"
+                                border
+                                :disabled="isSubmitted"
+                                :class="myWrongClass(i)"
+                            >
                                 <div class="u-radio">
                                     <span class="u-num">{{ String.fromCharCode(65 + i) }}.</span>
-                                    <Article :content="option"></Article>
+                                    <span v-html="option"></span>
                                 </div>
                             </el-checkbox>
                         </el-checkbox-group>
                     </template>
                     <template v-else>
                         <el-radio-group v-model="radio" @change="checkAnswers(item.id, radio)">
-                            <el-radio v-for="(option, i) of options" :key="i" :label="i" border :disabled="isSubmitted" :class="myWrongClass(i)">
+                            <el-radio
+                                v-for="(option, i) of options"
+                                :key="i"
+                                :label="i"
+                                border
+                                :disabled="isSubmitted"
+                                :class="myWrongClass(i)"
+                            >
                                 <div class="u-radio">
                                     <span class="u-num">{{ String.fromCharCode(65 + i) }}.</span>
-                                    <Article :content="option"></Article>
+                                    <span v-html="option"></span>
                                 </div>
                             </el-radio>
                         </el-radio-group>
@@ -56,7 +81,7 @@
             </div>
             <div class="u-answer">
                 正确答案：
-                <b v-for="key in answer.answerList" :key="key">{{ letter(key)  }}</b>
+                <b v-for="key in answer.answerList" :key="key">{{ letter(key) }}</b>
             </div>
             <hr />
             <div class="m-analysis">
@@ -68,6 +93,7 @@
     </div>
 </template>
 <script>
+import $ from "jquery";
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
