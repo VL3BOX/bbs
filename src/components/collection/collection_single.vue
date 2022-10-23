@@ -199,7 +199,7 @@ export default {
         execStat: function(id) {
             postStat("collection", id);
             getStat("collection", id).then((res) => {
-                this.views = res.data.views;
+                this.views = res.data.views || 0;
             });
         },
     },
