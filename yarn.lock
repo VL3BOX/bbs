@@ -1028,10 +1028,10 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.3.7":
-  "integrity" "sha512-XMEywAXieCcaMvlTI6DfL19s5S+m9c5ih4ZCT2dXCmQoAbx81ncPvDkLAg0IjxFgaGgIQRDm4yW/Z++KVcFYPQ=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.3.7.tgz"
-  "version" "6.3.7"
+"@jx3box/jx3box-common-ui@^6.4.0":
+  "integrity" "sha512-G/eQz/LOsIEUvxtpT9hLeXK96WUHD70D5ozog8L0K+ZZqc2LWOYciUHatf5v4qWyU+GVQq+AzFIbQ1tzp6U5uQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.4.0.tgz"
+  "version" "6.4.0"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.1"
     "@jx3box/jx3box-common" "^7.4.8"
@@ -1079,10 +1079,10 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.4.8", "@jx3box/jx3box-common@^7.4.9":
-  "integrity" "sha512-QBa48479EOse03tuhvjnECSpITJsACmXAddPFcDZOTB84u4Y2/mrSPbFN5q8kw38U9heAMafKQ7eaBCTmDq2ow=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.4.9.tgz"
-  "version" "7.4.9"
+"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.4.8", "@jx3box/jx3box-common@^7.5.0":
+  "integrity" "sha512-zt/FCjVUEeeagoh2gnMsvHtweP5PsBiUO3qBEayVc3fTSWWauxBQj2I0F+6QUSuZvypepOdsjzpDZdnnTS3Nag=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.5.0.tgz"
+  "version" "7.5.0"
   dependencies:
     "axios" "^0.20.0"
     "cheerio" "1.0.0-rc.10"
@@ -1091,10 +1091,10 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-data@^1.0.9", "@jx3box/jx3box-data@^1.11.1", "@jx3box/jx3box-data@^1.11.5":
-  "integrity" "sha512-GMoBXDuYsF+7eAGvRyrp5zmppcX0q3OQQfgWtj3U/GAg40ToNBDfx1UQj3dHz1a1kQk2jweYgTKGwIuspnXMlQ=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-1.11.5.tgz"
-  "version" "1.11.5"
+"@jx3box/jx3box-data@^1.0.9", "@jx3box/jx3box-data@^1.11.1", "@jx3box/jx3box-data@^1.11.5", "@jx3box/jx3box-data@^1.11.8":
+  "integrity" "sha512-LFXkG65ehOGXzNc+fDNJM34SwMFAwzfgXEyaRHEbGT5KI+s+UDr459CJZrBQdO6IYpbME+OBnEcJgbzz+fNEgg=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-1.11.8.tgz"
+  "version" "1.11.8"
   dependencies:
     "csv-parse" "^5.3.0"
     "fs" "0.0.1-security"
