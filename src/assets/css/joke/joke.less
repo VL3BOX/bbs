@@ -12,6 +12,19 @@
         color: @color;
     }
 }
+.m-joke-main{
+    .m-joke-content{
+        .w(100%)
+    }
+}
+
+@media screen and (min-width:900px){
+    .m-joke-main{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
 @media screen and (max-width:@phone){
     .m-joke-search{
         .el-input-group__append{

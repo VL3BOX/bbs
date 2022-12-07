@@ -19,16 +19,8 @@
                 <i class="el-icon-price-tag"></i>
                 <span class="u-tag" v-for="(tag,i) in joke.tags" :key="i">{{tag}}</span>
             </div>-->
-            <Thx
-                class="m-thx"
-                :postId="id"
-                postType="joke"
-                :postTitle="title"
-                :userId="user_id"
-                :adminBoxcoinEnable="true"
-                :userBoxcoinEnable="true"
-                client="all"
-            />
+            <Thx class="m-thx" :postId="id" postType="joke" :postTitle="title" :userId="user_id"
+                :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="joke" />
@@ -42,54 +34,48 @@
                 <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
                 <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                     <span slot="prepend">关键词</span>
-                    <el-switch
-                        slot="append"
-                        v-model="star"
-                        :inactive-value="0"
-                        :active-value="1"
-                        inactive-text="只看精选"
-                    ></el-switch>
+                    <el-switch slot="append" v-model="star" :inactive-value="0" :active-value="1"
+                        inactive-text="只看精选"></el-switch>
                 </el-input>
             </div>
-            <!-- 门派分类 -->
-            <div class="m-joke-types">
-                <el-tabs v-model="type">
-                    <el-tab-pane name="all" label="全部">
-                        <span slot="label">
-                            <i class="u-icon el-icon-menu" style="vertical-align: 0;"></i>全部
-                        </span>
-                    </el-tab-pane>
-                    <el-tab-pane v-for="(item,i) in schoolmap" :key="i" :name="i">
-                        <div slot="label" style="min-width:57px;">
-                            <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
-                            {{item}}
-                        </div>
-                    </el-tab-pane>
-                </el-tabs>
+            <div class="m-joke-main">
+                <!-- 门派分类 -->
+                <div class="m-joke-types">
+                    <el-tabs v-model="type" :tabPosition="windowHeight <= 900 ? 'top' : 'left'">
+                        <el-tab-pane name="all" label="全部">
+                            <span slot="label">
+                                <i class="u-icon el-icon-menu" style="vertical-align: 0;"></i>全部
+                            </span>
+                        </el-tab-pane>
+                        <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
+                            <div slot="label" style="min-width:57px;">
+                                <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
+                                {{ item }}
+                            </div>
+                        </el-tab-pane>
+                    </el-tabs>
+                </div>
+                <div class="m-joke-content">
+                    <!-- 快捷发布 -->
+                    <joke-post :type="type"></joke-post>
+                    <!-- 列表 -->
+                    <el-row class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
+                        <el-col :span="24" v-for="(joke) in jokes" :key="joke.id">
+                            <div class="m-joke-item">
+                                <joke-item :joke="joke" @update="handleJokeUpdate" />
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <!-- 空 -->
+                    <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+                    <!-- 分页 -->
+                    <el-pagination class="m-joke-pagination" background :page-size="per" :hide-on-single-page="true"
+                        :current-page.sync="page" layout="total, prev, pager, next, jumper" :total="total"
+                        @current-change="skipTop"></el-pagination>
+                </div>
             </div>
-            <!-- 快捷发布 -->
-            <joke-post :type="type"></joke-post>
-            <!-- 列表 -->
-            <el-row class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
-                <el-col :span="24" v-for="(joke) in jokes" :key="joke.id">
-                    <div class="m-joke-item">
-                        <joke-item :joke="joke" @update="handleJokeUpdate" />
-                    </div>
-                </el-col>
-            </el-row>
-            <!-- 空 -->
-            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-            <!-- 分页 -->
-            <el-pagination
-                class="m-joke-pagination"
-                background
-                :page-size="per"
-                :hide-on-single-page="true"
-                :current-page.sync="page"
-                layout="total, prev, pager, next, jumper"
-                :total="total"
-                @current-change="skipTop"
-            ></el-pagination>
+
+
         </div>
     </div>
 </template>
@@ -136,11 +122,13 @@ export default {
             jokes: [],
 
             joke: "",
+
+            windowHeight: document.documentElement.clientHeight,
         };
     },
     computed: {
         // 发布按钮链接
-        publish_link: function() {
+        publish_link: function () {
             return publishLink('joke');
         },
         id: function () {
@@ -167,15 +155,16 @@ export default {
                 this.per,
             ];
         },
-        reset_keys : function (){
-            return [this.search,this.type,this.star]
+        reset_keys: function () {
+            return [this.search, this.type, this.star]
         },
         user_id: function () {
             return this.joke?.user_id || 0;
         },
-        title : function (){
+        title: function () {
             return this.joke?.content
-        }
+        },
+
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -263,14 +252,14 @@ export default {
             immediate: true,
         },
         // 分页重置
-        reset_keys : {
+        reset_keys: {
             deep: true,
             handler: function () {
                 this.page = 1
             },
         },
         // 类别重置
-        search : function (){
+        search: function () {
             this.type = 'all'
         },
         jokes: {
@@ -279,6 +268,14 @@ export default {
                 // this.loadLike();
             },
         },
+    },
+    mounted: function () {
+        const that = this
+        window.onresize = () => {
+            console.log(document.documentElement.clientHeight);
+            that.windowHeight = document.documentElement.clientHeight
+        }
+
     },
     created: function () {
         this.sortEmotion();
