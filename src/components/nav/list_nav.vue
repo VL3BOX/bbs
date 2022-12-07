@@ -66,17 +66,17 @@ export default {
                     isActive: this.isActivePage
                 },
                 {
+                    slug: "collection",
+                    icon: "el-icon-paperclip",
+                    name: "剑三小册",
+                    isActive: this.isActivePage
+                },
+                {
                     slug: "namespace",
                     icon: "el-icon-postcard",
                     name: "剑三铭牌",
                     desc: "剑网3.com",
                     isActive: this.isActive,
-                },
-                {
-                    slug: "collection",
-                    icon: "el-icon-paperclip",
-                    name: "剑三小册",
-                    isActive: this.isActivePage
                 },
                 // {
                 //     slug: "exam",
