@@ -1,7 +1,11 @@
 // 列表页
 // =======================
 .m-emotion-types {
+    position: sticky;
+    top: 112px;
     margin-bottom: 10px;
+    background-color: #fff;
+    z-index: 100;
     .u-icon {
         .size(24px);
         .y(-6px);
@@ -13,6 +17,13 @@
     }
     .u-original {
         .ml(10px);
+    }
+}
+@media screen and (min-width:900px){
+    .m-emotion-main{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
     }
 }
 @media screen and (max-width: @phone) {
