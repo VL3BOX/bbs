@@ -6,16 +6,8 @@
                 <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
             </div>
             <emotion-item :emotion="emotion" mode="single"></emotion-item>
-            <Thx
-                class="m-thx"
-                :postId="id"
-                postType="emotion"
-                :postTitle="title"
-                :userId="user_id"
-                :adminBoxcoinEnable="true"
-                :userBoxcoinEnable="true"
-                client="all"
-            />
+            <Thx class="m-thx" :postId="id" postType="emotion" :postTitle="title" :userId="user_id"
+                :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="emotion" />
@@ -30,76 +22,49 @@
                 <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                     <span slot="prepend">关键词</span>
                     <template slot="append">
-                        <el-switch
-                            class="u-star"
-                            v-model="star"
-                            :inactive-value="0"
-                            :active-value="1"
-                            inactive-text="只看精选"
-                        ></el-switch>
-                        <el-switch
-                            class="u-original"
-                            v-model="original"
-                            :inactive-value="0"
-                            :active-value="1"
-                            inactive-text="只看原创"
-                        ></el-switch>
+                        <el-switch class="u-star" v-model="star" :inactive-value="0" :active-value="1"
+                            inactive-text="只看精选"></el-switch>
+                        <el-switch class="u-original" v-model="original" :inactive-value="0" :active-value="1"
+                            inactive-text="只看原创"></el-switch>
                     </template>
                 </el-input>
             </div>
-            <!-- 门派分类 -->
-            <div class="m-emotion-types">
-                <el-tabs v-model="type">
-                    <el-tab-pane name="all" label="全部">
-                        <span slot="label"> <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部 </span>
-                    </el-tab-pane>
-                    <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
-                        <div slot="label" style="min-width: 57px">
-                            <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
-                            {{ item }}
-                        </div>
-                    </el-tab-pane>
-                </el-tabs>
-            </div>
+            <div class="m-emotion-main">
+                <!-- 门派分类 -->
+                <div class="m-emotion-types">
+                    <el-tabs v-model="type" :tabPosition="windowHeight <= 900 ? 'top' : 'left'">
+                        <el-tab-pane name="all" label="全部">
+                            <span slot="label"> <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部 </span>
+                        </el-tab-pane>
+                        <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
+                            <div slot="label" style="min-width: 57px">
+                                <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
+                                {{ item }}
+                            </div>
+                        </el-tab-pane>
+                    </el-tabs>
+                </div>
+                <div class="m-emotion-content">
+                    <!--快速发布-->
+                    <emotion-post></emotion-post>
+                    <ul class="m-emotion-list" v-if="list && list.length">
+                        <waterfall :autoResize="waterfall_options.autoResize" :moveTransitionDuration="0.4"
+                            :fillBox="waterfall_options.fillBox" :list="list" imgKey="src" ref="waterfall"
+                            :col-width="waterfall_options.colWidth" :col="waterfall_options.col">
+                            <div class="u-item waterfall-item" :class="{ fadeIn: item.state == 'show' }"
+                                slot-scope="item">
+                                <emotion-item :emotion="item.data" :index="item.index" @preview="handlePreview"
+                                    :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"></emotion-item>
+                            </div>
+                        </waterfall>
+                    </ul>
 
-            <!--快速发布-->
-            <emotion-post></emotion-post>
-
-            <ul class="m-emotion-list" v-if="list && list.length">
-                <waterfall
-                    :autoResize="waterfall_options.autoResize"
-                    :moveTransitionDuration="0.4"
-                    :fillBox="waterfall_options.fillBox"
-                    :list="list"
-                    imgKey="src"
-                    ref="waterfall"
-                    :col-width="waterfall_options.colWidth"
-                    :col="waterfall_options.col"
-                >
-                    <div class="u-item waterfall-item" :class="{ fadeIn: item.state == 'show' }" slot-scope="item">
-                        <emotion-item
-                            :emotion="item.data"
-                            :index="item.index"
-                            @preview="handlePreview"
-                            :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"
-                        ></emotion-item>
-                    </div>
-                </waterfall>
-            </ul>
-
-            <!-- 空 -->
-            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-            <el-button
-                class="m-emotion-more"
-                type="primary"
-                @click="loadMore"
-                v-show="page < pages"
-                icon="el-icon-arrow-down"
-                :disabled="loading"
-                >加载更多</el-button
-            >
-            <!-- 分页 -->
-            <!-- <el-pagination
+                    <!-- 空 -->
+                    <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+                    <el-button class="m-emotion-more" type="primary" @click="loadMore" v-show="page < pages"
+                        icon="el-icon-arrow-down" :disabled="loading">加载更多</el-button>
+                    <!-- 分页 -->
+                    <!-- <el-pagination
                 class="m-emotion-pagination"
                 background
                 :page-size="per"
@@ -109,6 +74,8 @@
                 :total="total"
                 @current-change="skipTop"
             ></el-pagination>-->
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -174,6 +141,7 @@ export default {
                 //列数
                 col: 5,
             },
+            windowHeight:document.documentElement.clientHeight,
         };
     },
     computed: {
@@ -249,7 +217,7 @@ export default {
                             if (appendMode) {
                                 this.$refs.waterfall.repaints(params.page * this.per, 1);
                                 // 全部重新渲染（切分类等）
-                            } else { 
+                            } else {
                                 this.$refs.waterfall.init();
                             }
 
@@ -369,6 +337,11 @@ export default {
     },
     mounted: function () {
         this.init();
+        const that = this
+        window.onresize = () => {
+            console.log(document.documentElement.clientHeight);
+            that.windowHeight = document.documentElement.clientHeight
+        }
     },
     created: function () {
         this.resizeCalc();
