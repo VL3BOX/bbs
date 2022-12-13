@@ -41,7 +41,7 @@
             <div class="m-joke-main">
                 <!-- 门派分类 -->
                 <div class="m-joke-types">
-                    <el-tabs v-model="type" :tabPosition="windowHeight <= 900 ? 'top' : 'left'">
+                    <el-tabs v-model="type" :tabPosition="windowWidth <= 900 ? 'top' : 'left'">
                         <el-tab-pane name="all" label="全部">
                             <span slot="label">
                                 <i class="u-icon el-icon-menu" style="vertical-align: 0;"></i>全部
@@ -123,7 +123,7 @@ export default {
 
             joke: "",
 
-            windowHeight: document.documentElement.clientHeight,
+            windowWidth: document.documentElement.clientWidth,
         };
     },
     computed: {
@@ -272,8 +272,7 @@ export default {
     mounted: function () {
         const that = this
         window.onresize = () => {
-            console.log(document.documentElement.clientHeight);
-            that.windowHeight = document.documentElement.clientHeight
+            that.windowWidth = document.documentElement.clientWidth
         }
 
     },
