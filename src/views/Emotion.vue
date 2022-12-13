@@ -32,7 +32,7 @@
             <div class="m-emotion-main">
                 <!-- 门派分类 -->
                 <div class="m-emotion-types">
-                    <el-tabs v-model="type" :tabPosition="windowHeight <= 900 ? 'top' : 'left'">
+                    <el-tabs v-model="type" :tabPosition="windowWidth <= 900 ? 'top' : 'left'">
                         <el-tab-pane name="all" label="全部">
                             <span slot="label"> <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部 </span>
                         </el-tab-pane>
@@ -141,7 +141,7 @@ export default {
                 //列数
                 col: 5,
             },
-            windowHeight:document.documentElement.clientHeight,
+            windowWidth:document.documentElement.clientWidth,
         };
     },
     computed: {
@@ -336,11 +336,9 @@ export default {
         },
     },
     mounted: function () {
-        this.init();
         const that = this
         window.onresize = () => {
-            console.log(document.documentElement.clientHeight);
-            that.windowHeight = document.documentElement.clientHeight
+            that.windowWidth = document.documentElement.clientWidth
         }
     },
     created: function () {
