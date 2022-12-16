@@ -32,7 +32,7 @@
             <div class="m-emotion-main">
                 <!-- 门派分类 -->
                 <div class="m-emotion-types">
-                    <el-tabs v-model="type" :tabPosition="windowWidth <= 900 ? 'top' : 'left'">
+                    <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
                         <el-tab-pane name="all" label="全部">
                             <span slot="label"> <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部 </span>
                         </el-tab-pane>
@@ -322,6 +322,7 @@ export default {
             handler: function () {
                 this.init();
             },
+            immediate: true,
         },
         // 分页重置
         reset_keys: {

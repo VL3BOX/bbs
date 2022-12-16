@@ -41,7 +41,7 @@
             <div class="m-joke-main">
                 <!-- 门派分类 -->
                 <div class="m-joke-types">
-                    <el-tabs v-model="type" :tabPosition="windowWidth <= 900 ? 'top' : 'left'">
+                    <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
                         <el-tab-pane name="all" label="全部">
                             <span slot="label">
                                 <i class="u-icon el-icon-menu" style="vertical-align: 0;"></i>全部
