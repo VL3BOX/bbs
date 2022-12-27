@@ -1028,10 +1028,10 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.4.6":
-  "integrity" "sha512-qEdHm2n7MFGE0M/VKWNybM+CdApxWAFHIcwTG/YXvp/S41txjIO7C90IpP0diiy3nkFvS/5V+sxUn/l1I++sAw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.4.6.tgz"
-  "version" "6.4.6"
+"@jx3box/jx3box-common-ui@^6.5.0":
+  "integrity" "sha512-qN1zgQR8CfzwxywhPmi1h+kS4+N7wi2vKOSNak77Jw817KX0MNGl48+gtbpTH+MlQrMkXNiGJbl+raQ++ZYCOQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.1"
     "@jx3box/jx3box-common" "^7.4.8"
@@ -1091,10 +1091,37 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-data@^1.0.9", "@jx3box/jx3box-data@^1.11.1", "@jx3box/jx3box-data@^1.11.5", "@jx3box/jx3box-data@^1.12.1":
+"@jx3box/jx3box-data@^1.0.9":
   "integrity" "sha512-JzFe4RgwKD3Ri+Lj77VX679kX4Bmw/3jCUHiAU73DmyLvFmYY53Uxif+5JyY7D4AEvdWEJQtRGYLwS3ZM5SESA=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-1.12.1.tgz"
   "version" "1.12.1"
+  dependencies:
+    "csv-parse" "^5.3.0"
+    "fs" "0.0.1-security"
+    "path" "^0.12.7"
+
+"@jx3box/jx3box-data@^1.11.1":
+  "integrity" "sha512-JzFe4RgwKD3Ri+Lj77VX679kX4Bmw/3jCUHiAU73DmyLvFmYY53Uxif+5JyY7D4AEvdWEJQtRGYLwS3ZM5SESA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-1.12.1.tgz"
+  "version" "1.12.1"
+  dependencies:
+    "csv-parse" "^5.3.0"
+    "fs" "0.0.1-security"
+    "path" "^0.12.7"
+
+"@jx3box/jx3box-data@^1.11.5":
+  "integrity" "sha512-JzFe4RgwKD3Ri+Lj77VX679kX4Bmw/3jCUHiAU73DmyLvFmYY53Uxif+5JyY7D4AEvdWEJQtRGYLwS3ZM5SESA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-1.12.1.tgz"
+  "version" "1.12.1"
+  dependencies:
+    "csv-parse" "^5.3.0"
+    "fs" "0.0.1-security"
+    "path" "^0.12.7"
+
+"@jx3box/jx3box-data@^2.0.0":
+  "integrity" "sha512-opFkv/SnX7f0pCWEZlLLuuEAByaV+Nmy97F+oIXRx2UsCYqoo13P8Zg17WTP2pCFLcoG790GRSIs+xZvc7TRUw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-2.0.0.tgz"
+  "version" "2.0.0"
   dependencies:
     "csv-parse" "^5.3.0"
     "fs" "0.0.1-security"
