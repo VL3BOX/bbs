@@ -4,7 +4,7 @@
         <Breadcrumb name="茶馆交流" slug="bbs" :publishEnable="false" :adminEnable="true" :feedbackEnable="true" :crumbEnable="true">
             <publish-gate slot="op-append" />
         </Breadcrumb>
-        <LeftSidebar>
+        <LeftSidebar :uid="user_id">
             <Nav :id="id" />
         </LeftSidebar>
         <Main :withoutRight="false">
@@ -30,6 +30,11 @@ export default {
         return {
             id : getAppID()
         };
+    },
+    computed: {
+        user_id: function () {
+            return this.$store.state.user_id;
+        },
     },
     methods: { getAppIcon },
     components: {
