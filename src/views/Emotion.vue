@@ -6,14 +6,21 @@
                 <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
             </div>
             <emotion-item :emotion="emotion" mode="single"></emotion-item>
-            <Thx class="m-thx" :postId="id" postType="emotion" :postTitle="title" :userId="user_id"
-                :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
+            <!-- <Thx
+                class="m-thx"
+                :postId="id"
+                postType="emotion"
+                :postTitle="title"
+                :userId="user_id"
+                :adminBoxcoinEnable="true"
+                :userBoxcoinEnable="true"
+                client="all"
+            />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="emotion" />
-            </div>
+            </div> -->
         </div>
-
         <!--列表-->
         <div class="m-emotion-list-container" v-else>
             <!-- 搜索 -->
@@ -22,10 +29,20 @@
                 <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                     <span slot="prepend">关键词</span>
                     <template slot="append">
-                        <el-switch class="u-star" v-model="star" :inactive-value="0" :active-value="1"
-                            inactive-text="只看精选"></el-switch>
-                        <el-switch class="u-original" v-model="original" :inactive-value="0" :active-value="1"
-                            inactive-text="只看原创"></el-switch>
+                        <el-switch
+                            class="u-star"
+                            v-model="star"
+                            :inactive-value="0"
+                            :active-value="1"
+                            inactive-text="只看精选"
+                        ></el-switch>
+                        <el-switch
+                            class="u-original"
+                            v-model="original"
+                            :inactive-value="0"
+                            :active-value="1"
+                            inactive-text="只看原创"
+                        ></el-switch>
                     </template>
                 </el-input>
             </div>
@@ -34,7 +51,9 @@
                 <div class="m-emotion-types">
                     <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
                         <el-tab-pane name="all" label="全部">
-                            <span slot="label"> <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部 </span>
+                            <span slot="label">
+                                <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部
+                            </span>
                         </el-tab-pane>
                         <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
                             <div slot="label" style="min-width: 57px">
@@ -48,21 +67,42 @@
                     <!--快速发布-->
                     <emotion-post></emotion-post>
                     <ul class="m-emotion-list" v-if="list && list.length">
-                        <waterfall :autoResize="waterfall_options.autoResize" :moveTransitionDuration="0.4"
-                            :fillBox="waterfall_options.fillBox" :list="list" imgKey="src" ref="waterfall"
-                            :col-width="waterfall_options.colWidth" :col="waterfall_options.col">
-                            <div class="u-item waterfall-item" :class="{ fadeIn: item.state == 'show' }"
-                                slot-scope="item">
-                                <emotion-item :emotion="item.data" :index="item.index" @preview="handlePreview"
-                                    :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"></emotion-item>
+                        <waterfall
+                            :autoResize="waterfall_options.autoResize"
+                            :moveTransitionDuration="0.4"
+                            :fillBox="waterfall_options.fillBox"
+                            :list="list"
+                            imgKey="src"
+                            ref="waterfall"
+                            :col-width="waterfall_options.colWidth"
+                            :col="waterfall_options.col"
+                        >
+                            <div
+                                class="u-item waterfall-item"
+                                :class="{ fadeIn: item.state == 'show' }"
+                                slot-scope="item"
+                            >
+                                <emotion-item
+                                    :emotion="item.data"
+                                    :index="item.index"
+                                    @preview="handlePreview"
+                                    :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"
+                                ></emotion-item>
                             </div>
                         </waterfall>
                     </ul>
 
                     <!-- 空 -->
                     <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-                    <el-button class="m-emotion-more" type="primary" @click="loadMore" v-show="page < pages"
-                        icon="el-icon-arrow-down" :disabled="loading">加载更多</el-button>
+                    <el-button
+                        class="m-emotion-more"
+                        type="primary"
+                        @click="loadMore"
+                        v-show="page < pages"
+                        icon="el-icon-arrow-down"
+                        :disabled="loading"
+                        >加载更多</el-button
+                    >
                     <!-- 分页 -->
                     <!-- <el-pagination
                 class="m-emotion-pagination"
@@ -77,6 +117,9 @@
                 </div>
             </div>
         </div>
+        <el-dialog :visible.sync="dialogVisible" width="fit-content" :before-close="handleClose">
+            <emotion-item :emotion="emotion" mode="preview"></emotion-item>
+        </el-dialog>
     </div>
 </template>
 
@@ -88,7 +131,6 @@ import waterfall from "vue-waterfall-rapid";
 // 模块
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
-import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 
 // 分类
@@ -105,7 +147,7 @@ export default {
     components: {
         "emotion-post": emotion_post,
         "emotion-item": emotion_item,
-        Comment,
+        // Comment,
         waterfall,
     },
     data: function () {
@@ -141,7 +183,9 @@ export default {
                 //列数
                 col: 5,
             },
-            windowWidth:document.documentElement.clientWidth,
+            windowWidth: document.documentElement.clientWidth,
+
+            dialogVisible: false,
         };
     },
     computed: {
@@ -179,9 +223,6 @@ export default {
         //         item.url;
         //     });
         // },
-        title: function () {
-            return this.emotion?.desc || "无标题";
-        },
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -296,16 +337,25 @@ export default {
             window.addEventListener("resize", repaint);
         },
         // 图片预览
-        handlePreview: function (i) {
-            this.$hevueImgPreview({
-                multiple: true, // 开启多图预览模式
-                nowImgIndex: i, // 多图预览，默认展示第二张图片
-                imgList: this.images, // 需要预览的多图数组
-                controlBar: false,
-                clickMaskCLose: true,
-            });
+        handlePreview: function (data) {
+            if (this.windowWidth < 900) {
+                this.$router.push({ name: "emotion", params: { id: data.id } });
+            } else {
+                this.emotion = data;
+                this.dialogVisible = true;
+            }
+            // this.$hevueImgPreview({
+            //     multiple: true, // 开启多图预览模式
+            //     nowImgIndex: i, // 多图预览，默认展示第二张图片
+            //     imgList: this.images, // 需要预览的多图数组
+            //     controlBar: false,
+            //     clickMaskCLose: true,
+            // });
         },
-
+        handleClose() {
+            this.emotion = "";
+            this.dialogVisible = false;
+        },
         // 初始化
         init: function () {
             if (this.id) {
@@ -337,10 +387,10 @@ export default {
         },
     },
     mounted: function () {
-        const that = this
+        const that = this;
         window.onresize = () => {
-            that.windowWidth = document.documentElement.clientWidth
-        }
+            that.windowWidth = document.documentElement.clientWidth;
+        };
     },
     created: function () {
         this.resizeCalc();
