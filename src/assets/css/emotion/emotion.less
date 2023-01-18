@@ -178,7 +178,7 @@
         }
     }
 
-    .u-meta {
+    .u-info-meta {
         .mt(5px);
     }
     .u-star {
@@ -216,8 +216,10 @@
             box-shadow: 0 1px 0 @color-link;
         }
     }
+    .u-info{
 
-    .u-user {
+    }
+    .u-info-user {
         display: flex;
         align-items: center;
         .mt(10px);
@@ -286,6 +288,7 @@
         background-color: #e6f0fb;
         padding: 5px;
         .r(3px);
+        margin-bottom: 15px;
         i {
             .mr(3px);
             .pr;
@@ -315,7 +318,7 @@
     .mb(10px);
 }
 .m-emotion-item.list {
-    .u-meta {
+    .u-info-meta {
         .mt(20px);
     }
 }
@@ -323,15 +326,15 @@
     .x;
     .mb(20px);
 
-    .u-meta {
-        .mt(20px);
+    .u-info-meta {
+        .mt(0);
         max-width: 800px;
         .auto(x);
     }
     .u-extend {
         .mt(20px);
     }
-    .u-user {
+    .u-info-user {
         justify-content: center;
     }
 }
@@ -342,21 +345,28 @@
     .u-img {
         img {
             max-width: 800px;
+            height: 50vh;
         }
     }
     .u-info {
         margin-left: 20px;
     }
-    .u-user {
+    .u-info-meta{
+        text-align: center;
+    }
+    .u-info-user {
         line-height: 35px;
-        margin-bottom: 20px;
+        justify-content: center;
         .fz(14px);
     }
     .u-desc{
         .fz(22px);
     }
-    .u-comment{
-        max-width: 750px
+    .u-comment-editor{
+        text-align: center;
+    }
+    .u-info-comment{
+        max-width: 600px
     }
     .u-user-avatar {
         .size(20px);

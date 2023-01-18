@@ -3,29 +3,24 @@
     <div class="m-emotion-item" :class="mode || 'list'">
         <div class="u-emotion">
             <div class="u-img" @click="preview">
-                <img
-                    class="u-pic u-emotion-pic waterfall-img"
-                    :src="showEmotion(emotion.url)"
-                    :alt="emotion.desc"
-                    :key="emotion.url"
-                />
+                <img class="u-pic u-emotion-pic waterfall-img" :src="showEmotion(emotion.url)" :alt="emotion.desc"
+                    :key="emotion.url" />
             </div>
             <!-- @click="preview" -->
             <!-- <router-link class="u-img" :to="{ name: 'emotion', params: { id: emotion.id } }">
             </router-link> -->
-            <i class="u-star" v-if="emotion.star"
-                ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original">原创</i></i
-            >
+            <i class="u-star" v-if="emotion.star"><i class="el-icon-star-off"></i><i class="u-original"
+                    v-if="emotion.original">原创</i></i>
         </div>
         <div class="u-info">
-            <div class="u-meta" v-if="mode">
+            <div class="u-info-meta" v-if="mode">
                 <!-- <router-link v-if="mode !== 'single'" class="u-desc" :to="{ name: 'emotion', params: { id: emotion.id } }">
                 <i class="el-icon-link"></i>
                 {{ emotion.desc | showListDesc }}
             </router-link> -->
                 <span class="u-desc">{{ emotion.desc }}</span>
             </div>
-            <div class="u-user">
+            <div class="u-info-user">
                 <img class="u-user-avatar waterfall-img" :src="user_avatar | showAvatar" :key="user_avatar" />
                 <a class="u-user-name" :href="emotion.user_id | authorLink" target="_blank" v-if="emotion.user_id">{{
                     emotion | showUserName
@@ -40,34 +35,30 @@
                 <span class="like-count" v-if="count">{{ count }}</span>
             </a> -->
             </div>
-            <div class="u-comment" v-if="mode">
-                <div class="u-op u-editor" v-if="isEditor">
-                    <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
-                        <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                        {{ isStar ? "取消精选" : "设为精选" }}
-                    </span>
-                    <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
-                        <i class="el-icon-delete"></i> 删除
-                    </span>
-                    <a class="u-edit el-link el-link--primary is-underline" :href="editLink('emotion', emotion.id)">
-                        <i class="el-icon-edit-outline"></i> 编辑
-                    </a>
+            <div class="u-info-comment" v-if="mode">
+                <div class="u-comment-editor">
+                    <!--  -->
+                    <div class="u-op u-editor" v-if="isEditor">
+                        <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
+                            <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
+                            {{ isStar? "取消精选": "设为精选" }}
+                        </span>
+                        <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
+                            <i class="el-icon-delete"></i> 删除
+                        </span>
+                        <a class="u-edit el-link el-link--primary is-underline" :href="editLink('emotion', emotion.id)">
+                            <i class="el-icon-edit-outline"></i> 编辑
+                        </a>
+                    </div>
+                    <!--  -->
+                    <div class="u-op" v-if="isAuthor && !isEditor">
+                        <a class="u-edit el-link el-link--primary is-underline" :href="editLink('emotion', emotion.id)">
+                            <i class="el-icon-edit-outline"></i> 编辑
+                        </a>
+                    </div>
                 </div>
-                <div class="u-op" v-if="isAuthor && !isEditor">
-                    <a class="u-edit el-link el-link--primary is-underline" :href="editLink('emotion', emotion.id)">
-                        <i class="el-icon-edit-outline"></i> 编辑
-                    </a>
-                </div>
-                <Thx
-                    class="m-thx"
-                    :postId="emotion.id"
-                    postType="emotion"
-                    :postTitle="title"
-                    :userId="emotion.user_id"
-                    :adminBoxcoinEnable="true"
-                    :userBoxcoinEnable="true"
-                    client="all"
-                />
+                <Thx class="m-thx" :postId="emotion.id" postType="emotion" :postTitle="title" :userId="emotion.user_id"
+                    :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
                 <div class="m-single-comment">
                     <el-divider content-position="left">评论</el-divider>
                     <Comment :id="emotion.id" category="emotion" />
@@ -259,4 +250,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
