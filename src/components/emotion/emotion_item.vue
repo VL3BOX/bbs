@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="u-info-thx"  v-if="mode">
+            <div class="u-info-thx"  v-if="mode&&emotion">
                 <Thx class="m-thx" :postId="emotion.id" postType="emotion" :postTitle="title" :userId="emotion.user_id"
                     :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
                 <div class="m-single-comment">
