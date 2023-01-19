@@ -108,7 +108,6 @@ export default {
     },
     computed: {
         user_avatar: function () {
-            console.log(this.emotion);
             return this.emotion?.user_info?.user_avatar;
         },
         isEditor: function () {
