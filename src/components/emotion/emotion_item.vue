@@ -8,6 +8,8 @@
             </div>
             <!-- @click="preview" -->
             <!-- <router-link class="u-img" :to="{ name: 'emotion', params: { id: emotion.id } }">
+                <img class="u-pic u-emotion-pic waterfall-img" :src="showEmotion(emotion.url)" :alt="emotion.desc"
+                    :key="emotion.url" />
             </router-link> -->
             <i class="u-star" v-if="emotion.star"><i class="el-icon-star-off"></i><i class="u-original"
                     v-if="emotion.original">原创</i></i>
@@ -37,7 +39,7 @@
             </div>
             <div class="u-info-comment" v-if="mode">
                 <div class="u-comment-editor">
-                    <!--  -->
+                    <!--   -->
                     <div class="u-op u-editor" v-if="isEditor">
                         <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
                             <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
@@ -57,6 +59,8 @@
                         </a>
                     </div>
                 </div>
+            </div>
+            <div class="u-info-thx"  v-if="mode">
                 <Thx class="m-thx" :postId="emotion.id" postType="emotion" :postTitle="title" :userId="emotion.user_id"
                     :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
                 <div class="m-single-comment">
@@ -65,7 +69,6 @@
                 </div>
             </div>
         </div>
-
         <!-- <div class="u-extend" v-if="mode == 'single'">
             <el-radio-group v-model="ext" size="small" v-if="types.length">
                 <el-radio-button
@@ -105,7 +108,6 @@ export default {
     },
     computed: {
         user_avatar: function () {
-            console.log(this.emotion);
             return this.emotion?.user_info?.user_avatar;
         },
         isEditor: function () {

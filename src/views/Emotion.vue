@@ -117,6 +117,7 @@
                 </div>
             </div>
         </div>
+        <!-- 预览弹窗 -->
         <el-dialog :visible.sync="dialogVisible" width="fit-content" :before-close="handleClose">
             <emotion-item :emotion="emotion" mode="preview"></emotion-item>
         </el-dialog>
