@@ -2,15 +2,15 @@
     <!-- mode === 'single' ? 'single' : 'list' -->
     <div class="m-emotion-item" :class="mode || 'list'">
         <div class="u-emotion">
-            <div class="u-img" @click="preview">
+            <!-- <div class="u-img" @click="preview">
                 <img class="u-pic u-emotion-pic waterfall-img" :src="showEmotion(emotion.url)" :alt="emotion.desc"
                     :key="emotion.url" />
-            </div>
+            </div> -->
             <!-- @click="preview" -->
-            <!-- <router-link class="u-img" :to="{ name: 'emotion', params: { id: emotion.id } }">
+            <router-link class="u-img" :to="{ name: 'emotion', params: { id: emotion.id } }">
                 <img class="u-pic u-emotion-pic waterfall-img" :src="showEmotion(emotion.url)" :alt="emotion.desc"
                     :key="emotion.url" />
-            </router-link> -->
+            </router-link>
             <i class="u-star" v-if="emotion.star"><i class="el-icon-star-off"></i><i class="u-original"
                     v-if="emotion.original">原创</i></i>
         </div>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="u-info-thx"  v-if="mode">
+            <div class="u-info-thx"  v-if="mode&&emotion">
                 <Thx class="m-thx" :postId="emotion.id" postType="emotion" :postTitle="title" :userId="emotion.user_id"
                     :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
                 <div class="m-single-comment">
