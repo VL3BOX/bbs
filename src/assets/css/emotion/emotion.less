@@ -1,3 +1,10 @@
+.v-emotion {
+    .el-dialog {
+        height: 650px;
+        overflow: auto;
+    }
+}
+
 // 列表页
 // =======================
 .m-emotion-types {
@@ -216,8 +223,7 @@
             box-shadow: 0 1px 0 @color-link;
         }
     }
-    .u-info{
-
+    .u-info {
     }
     .u-info-user {
         display: flex;
@@ -344,14 +350,15 @@
     text-align: center;
     .u-img {
         img {
-            max-width: 800px;
-            height: 50vh;
+            max-width: 600px;
+            // height: 50vh;
         }
     }
     .u-info {
         margin-left: 20px;
-        .u-info-meta{
-            .u-desc{
+        width: 320px;
+        .u-info-meta {
+            .u-desc {
                 .fz(22px);
             }
         }
@@ -376,12 +383,17 @@
     // .u-comment-editor{
     //     text-align: center;
     // }
-    .u-info-thx{
+    .u-info-thx {
         max-width: 600px;
     }
- 
+
+    .m-thx{
+        .w-thx-records,.w-thx-copyright{
+            .none;
+        }
+    }
 }
-.u-info-thx{
+.u-info-thx {
     margin-top: 20px;
     text-align: left;
 }
@@ -393,6 +405,6 @@
 .m-emotion-publish {
     margin-bottom: 16px;
 }
-.el-dialog__header{
-    padding:0,
+.el-dialog__header {
+    padding: 0;
 }
