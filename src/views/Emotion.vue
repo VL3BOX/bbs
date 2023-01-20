@@ -235,6 +235,7 @@ export default {
             this.loading = true;
             if (appendMode) {
                 this.params.page += 1;
+                this.page =this.params.page
             }
             let params = cloneDeep(this.params);
             return getEmotions(params)
