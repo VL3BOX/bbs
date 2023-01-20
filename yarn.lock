@@ -1015,12 +1015,12 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jx3box/jx3box-comment-ui@^1.7.2":
-  "integrity" "sha512-N1yd0tAOKZRit2KQjsibkNdmtgS6284DYlghGwZjAXTOyt0sHmgff49TApdGrUi8AWNBLr16BZINEDvn3mHCNw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-comment-ui/-/jx3box-comment-ui-1.7.2.tgz"
-  "version" "1.7.2"
+"@jx3box/jx3box-comment-ui@^1.7.3":
+  "integrity" "sha512-IPo/4cO0MwyeD21u3Rbsw6cHirUa1zNvjygoElhs3EPX7hNQTedfbHaSSu0pDZqUOag7OHDi8+mLyOMWjxfZNw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-comment-ui/-/jx3box-comment-ui-1.7.3.tgz"
+  "version" "1.7.3"
   dependencies:
-    "@jx3box/jx3box-common" "^7.0.18"
+    "@jx3box/jx3box-common" "^7.6.1"
     "@jx3box/jx3box-emotion" "^1.0.10"
     "core-js" "^3.6.4"
     "element-ui" "^2.13.1"
@@ -1028,15 +1028,15 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.6.0":
-  "integrity" "sha512-eB7UcvrcWxNL5Hn25+C7O3/0dlEVHJ2w81yHTqs5hjPC5HApd4yH9Kb2M1915kIdkCJfKoNqq9jlNIaMU9+Yyw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.6.0.tgz"
-  "version" "6.6.0"
+"@jx3box/jx3box-common-ui@^6.6.3":
+  "integrity" "sha512-2b2AaoPIH6eTs90ZUb/krjrEEY/ppbanJD5LOQLpjqsyHYoFUdCPj6lJgfnQQl8eI7HoBqC6bW0tuxGLBLARNg=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.6.3.tgz"
+  "version" "6.6.3"
   dependencies:
-    "@jx3box/jx3box-comment-ui" "^1.7.2"
-    "@jx3box/jx3box-common" "^7.6.1"
+    "@jx3box/jx3box-comment-ui" "^1.7.3"
+    "@jx3box/jx3box-common" "^7.6.2"
     "@jx3box/jx3box-data" "^3.0.3"
-    "@jx3box/jx3box-editor" "^1.6.2"
+    "@jx3box/jx3box-editor" "^1.6.3"
     "axios" "^0.26.1"
     "dayjs" "^1.11.0"
     "element-ui" "^2.13.2"
@@ -1079,10 +1079,10 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.6.1":
-  "integrity" "sha512-4NtjK4PzZf2DgFLT1nk7/XI9FAJjr5jnXShpSyRtG+Qs6on2+s1drKZBD8EY0XsxzReRVpjTjEIeEzGf4hyxUg=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.6.1.tgz"
-  "version" "7.6.1"
+"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.6.1", "@jx3box/jx3box-common@^7.6.2":
+  "integrity" "sha512-HPT6BH0yJ4QKVdBkEwjkx268RMPaxMV8HJz19jevvRDr+WdAzjIO8jSv/G14wQn8AJYqYM3kNX1Dcp/j+nfOOQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.6.2.tgz"
+  "version" "7.6.2"
   dependencies:
     "axios" "^0.20.0"
     "cheerio" "1.0.0-rc.10"
@@ -1114,14 +1114,14 @@
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.0.3.tgz"
   "version" "3.0.3"
 
-"@jx3box/jx3box-editor@^1.5.0", "@jx3box/jx3box-editor@^1.6.2":
-  "integrity" "sha512-nCuxmkAUbdfjtFeGl2NWshaJE3pCGPqpPxQDxmFSXFQSy90TB3SIDfKhNkjAOkDA0PRurtaeTng3GVWpt7c8ig=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.6.2.tgz"
-  "version" "1.6.2"
+"@jx3box/jx3box-editor@^1.5.0", "@jx3box/jx3box-editor@^1.6.3":
+  "integrity" "sha512-u0V17Maor6IuVtUIFqzSd6/xj/VOvFEClssIEFzRym9TbfarKhufwGDrcxvAP1C6i3sy3FlNnU1/yVe+YpaI7g=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.6.3.tgz"
+  "version" "1.6.3"
   dependencies:
     "@jx3box/jx3box-common" "^7.6.1"
     "@jx3box/jx3box-data" "^3.0.3"
-    "@jx3box/jx3box-emotion" "^1.0.10"
+    "@jx3box/jx3box-emotion" "^1.1.0"
     "@jx3box/jx3box-macro" "^1.0.1"
     "@jx3box/jx3box-talent" "^1.1.7"
     "@jx3box/markdown" "^0.1.5"
@@ -1144,10 +1144,10 @@
     "vue-photoswipe.js" "^2.0.23"
     "xss" "^1.0.8"
 
-"@jx3box/jx3box-emotion@^1.0.10":
-  "integrity" "sha512-CVVAafYCwJDVbUlFvKjVdkoA+hdEKuARSp2tkjNPzfO6g7dgB+/ejUzm/DON/EE1kzOH22asLxtgG/K+Uz+FCw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-emotion/-/jx3box-emotion-1.0.10.tgz"
-  "version" "1.0.10"
+"@jx3box/jx3box-emotion@^1.0.10", "@jx3box/jx3box-emotion@^1.1.0":
+  "integrity" "sha512-Q6yY8mpHIsqvHyZDMRPqGtv5Zbtr8eiTy0U7cZ3bySNMTDahiWDaQkO/7Z+EE++kRxqWiVd4KByzDu8DSxhnuQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-emotion/-/jx3box-emotion-1.1.0.tgz"
+  "version" "1.1.0"
   dependencies:
     "@jx3box/jx3box-common" "^5.9.8"
     "@jx3box/jx3box-data" "^1.0.9"
