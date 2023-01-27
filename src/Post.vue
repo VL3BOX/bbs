@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="p-bbs p-bbs-single">
         <Header></Header>
         <Breadcrumb name="茶馆交流" slug="bbs" :publishEnable="false" :adminEnable="true" :feedbackEnable="true" :crumbEnable="true">
             <publish-gate slot="op-append" />
