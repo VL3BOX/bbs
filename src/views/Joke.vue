@@ -62,16 +62,26 @@
                     <el-row class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
                         <el-col :span="24" v-for="(joke) in jokes" :key="joke.id">
                             <div class="m-joke-item">
-                                <joke-item :joke="joke" @update="handleJokeUpdate" />
+                                <joke-item :joke="joke" :jokeRewardArr="jokeRewardArr" @addRewar="addRewar"
+                                    @update="handleJokeUpdate" />
                             </div>
                         </el-col>
                     </el-row>
                     <!-- 空 -->
                     <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+                    <div class="m-joke-reward">
+                        <el-button type="primary" size="mini" @click="rewardAll">{{
+                            this.rewardAllType ? '取消' : ''
+                        }}全选</el-button>
+                        <el-button type="primary" size="mini">批量打赏</el-button>
+                    </div>
                     <!-- 分页 -->
                     <el-pagination class="m-joke-pagination" background :page-size="per" :hide-on-single-page="true"
-                        :current-page.sync="page" layout="total, prev, pager, next, jumper" :total="total"
-                        @current-change="skipTop"></el-pagination>
+                        :current-page.sync="page" layout="total, prev, pager, next, jumper,sizes" :total="total"
+                        :page-sizes="[10, 30, 50, 70, 90]" @current-change="skipTop"
+                        @size-change="handleSizeChange"></el-pagination>
+                   
+
                 </div>
             </div>
 
@@ -124,6 +134,7 @@ export default {
             joke: "",
 
             windowWidth: document.documentElement.clientWidth,
+            jokeRewardArr: [],//打赏选中
         };
     },
     computed: {
@@ -164,7 +175,10 @@ export default {
         title: function () {
             return this.joke?.content
         },
-
+        //全选状态
+        rewardAllType: function () {
+            return JSON.stringify(this.jokes.map(item => { return item.id })) === JSON.stringify(this.jokeRewardArr.map(item => { return item.article_id }))
+        },
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -172,8 +186,13 @@ export default {
         },
     },
     methods: {
+        //调整展示条数
+        handleSizeChange (val) {
+            this.per = val
+            this.loadList()
+        },
         // 表情排序
-        sortEmotion() {
+        sortEmotion () {
             const keys = Object.keys(emotion);
             keys.sort((item1, item2) => {
                 return item1.localeCompare(item2);
@@ -186,7 +205,7 @@ export default {
                 this.sortedEmotions.push(obj);
             });
         },
-        loadList() {
+        loadList () {
             this.loading = true;
             getJokes(this.params)
                 .then((res) => {
@@ -198,7 +217,7 @@ export default {
                     this.loading = false;
                 });
         },
-        loadSingle() {
+        loadSingle () {
             this.loading = true;
             getJoke(this.id)
                 .then((res) => {
@@ -242,11 +261,30 @@ export default {
                 });
             }
         },
+        //选中打赏文章
+        addRewar (data) {
+            const list = this.jokeRewardArr.filter(item => item.article_id === data.id)
+            list.length ? this.jokeRewardArr = this.jokeRewardArr.filter(item => item.article_id !== data.id) : this.jokeRewardArr.push({
+                user_id: data.user_id,
+                article_id: data.id,
+                article_type: data.type
+            })
+        },
+        //取消/全选打赏文章
+        rewardAll () {
+            this.jokeRewardArr = this.rewardAllType ? [] : this.jokes.map(item => {
+                return {
+                    user_id: item.user_id,
+                    article_id: item.id,
+                    article_type: item.type
+                }
+            })
+        },
     },
     watch: {
         keys: {
             deep: true,
-            handler() {
+            handler () {
                 this.init();
             },
             immediate: true,
@@ -264,7 +302,7 @@ export default {
         },
         jokes: {
             deep: true,
-            handler() {
+            handler () {
                 // this.loadLike();
             },
         },
