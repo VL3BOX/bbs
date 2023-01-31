@@ -99,8 +99,8 @@
                             @current-change="skipTop"
                             @size-change="handleSizeChange"
                         ></el-pagination>
-                        <!-- v-if="isEditor" -->
-                        <div class="m-joke-reward">
+                        <!--  -->
+                        <div class="m-joke-reward" v-if="isEditor">
                             <el-button type="primary" size="mini" @click="rewardAll"
                                 >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
                             >
