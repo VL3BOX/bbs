@@ -99,7 +99,7 @@
                             @current-change="skipTop"
                             @size-change="handleSizeChange"
                         ></el-pagination>
-                        <div>
+                        <div v-if="isEditor">
                             <el-button type="primary" size="mini" @click="rewardAll"
                                 >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
                             >
@@ -138,6 +138,7 @@ import { getLikes } from "@/service/next";
 // 其他
 import emotion from "@jx3box/jx3box-emotion/data/default.json";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
+import User from "@jx3box/jx3box-common/js/user";
 
 export default {
     name: "Joke",
@@ -169,6 +170,9 @@ export default {
         };
     },
     computed: {
+        isEditor: function () {
+            return User.isEditor();
+        },
         // 发布按钮链接
         publish_link: function () {
             return publishLink("joke");
@@ -199,7 +203,7 @@ export default {
         },
         //全选状态
         rewardAllType: function () {
-            return this.jokeRewardArr.length === this.jokes.filter(item => item.user_id).length;
+            return this.jokeRewardArr.length === this.jokes.filter((item) => item.user_id).length;
         },
     },
     filters: {

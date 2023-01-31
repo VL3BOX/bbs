@@ -36,7 +36,7 @@
                     </span>
                 </template>
                 <!-- v-if="mode !== 'single' && isEditor" -->
-                <el-checkbox v-if="mode !== 'single'" :disabled="!joke.user_id" v-model="checked" @change="addRewar">打赏</el-checkbox>
+                <el-checkbox v-if="mode !== 'single' && isEditor" :disabled="!joke.user_id" v-model="checked" @change="addRewar">打赏</el-checkbox>
             </div>
             <div class="u-other">
                 <span class="u-date">
