@@ -86,7 +86,7 @@
                     </el-row>
                     <!-- 空 -->
                     <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-                    <div class="m-joke-reward">
+                    <div class="m-joke-footer">
                         <el-pagination
                             class="m-joke-pagination"
                             background
@@ -99,7 +99,8 @@
                             @current-change="skipTop"
                             @size-change="handleSizeChange"
                         ></el-pagination>
-                        <div v-if="isEditor">
+                        <!-- v-if="isEditor" -->
+                        <div class="m-joke-reward">
                             <el-button type="primary" size="mini" @click="rewardAll"
                                 >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
                             >
