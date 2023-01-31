@@ -36,7 +36,7 @@
                     </span>
                 </template>
                 <!-- v-if="mode !== 'single' && isEditor" -->
-                <el-checkbox v-if="mode !== 'single'" v-model="checked" @change="addRewar">打赏</el-checkbox>
+                <el-checkbox v-if="mode !== 'single'" :disabled="!joke.user_id" v-model="checked" @change="addRewar">打赏</el-checkbox>
             </div>
             <div class="u-other">
                 <span class="u-date">
@@ -112,7 +112,7 @@ export default {
         },
         jokeRewardArr: {
             handler: function (val) {
-                this.checked = !!val.filter(item => item.article_id === this.joke.id).length
+                this.checked = !!val.filter(item => item.article_id == this.joke.id).length
             },
             deep: true,
             immediate: true,

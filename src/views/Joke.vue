@@ -70,18 +70,17 @@
                     <!-- 空 -->
                     <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
                     <div class="m-joke-reward">
-                        <el-button type="primary" size="mini" @click="rewardAll">{{
+                        <!-- <el-button type="primary" size="mini" @click="rewardAll">{{
                             this.rewardAllType ? '取消' : ''
-                        }}全选</el-button>
-                        <el-button type="primary" size="mini">批量打赏</el-button>
+                        }}全选</el-button> -->
+                        <Thx class="m-thx" type="batchReward" postType="joke" :postId="jokeRewardArr"
+                            :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
                     </div>
                     <!-- 分页 -->
                     <el-pagination class="m-joke-pagination" background :page-size="per" :hide-on-single-page="true"
                         :current-page.sync="page" layout="total, prev, pager, next, jumper,sizes" :total="total"
                         :page-sizes="[10, 30, 50, 70, 90]" @current-change="skipTop"
                         @size-change="handleSizeChange"></el-pagination>
-                   
-
                 </div>
             </div>
 
@@ -177,8 +176,19 @@ export default {
         },
         //全选状态
         rewardAllType: function () {
-            return JSON.stringify(this.jokes.map(item => { return item.id })) === JSON.stringify(this.jokeRewardArr.map(item => { return item.article_id }))
+            return Array.from(new Set(this.jokes.map(item=>{return item.id})))
         },
+        //
+        setRewardAll: function () {
+            const res = new Map();
+            return [...this.jokeRewardArr, ...this.jokes.map(item => {
+                return {
+                    user_id: item.user_id,
+                    article_id: item.id,
+                    article_type: item.type
+                }
+            })].filter((item) => !res.has(item.article_id) && res.set(item.article_id, 1));
+        }
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -266,19 +276,14 @@ export default {
             const list = this.jokeRewardArr.filter(item => item.article_id === data.id)
             list.length ? this.jokeRewardArr = this.jokeRewardArr.filter(item => item.article_id !== data.id) : this.jokeRewardArr.push({
                 user_id: data.user_id,
-                article_id: data.id,
-                article_type: data.type
+                article_id: data.id.toString(),
+                article_type: "joke"
             })
         },
         //取消/全选打赏文章
         rewardAll () {
-            this.jokeRewardArr = this.rewardAllType ? [] : this.jokes.map(item => {
-                return {
-                    user_id: item.user_id,
-                    article_id: item.id,
-                    article_type: item.type
-                }
-            })
+            this.jokeRewardArr = this.setRewardAll
+            console.log(this.jokeRewardArr,);
         },
     },
     watch: {
