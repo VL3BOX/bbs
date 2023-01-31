@@ -199,7 +199,7 @@ export default {
         },
         //全选状态
         rewardAllType: function () {
-            return this.jokeRewardArr.length === this.jokes.length;
+            return this.jokeRewardArr.length === this.jokes.filter(item => item.user_id).length;
         },
     },
     filters: {
