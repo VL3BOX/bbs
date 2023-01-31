@@ -301,11 +301,17 @@ export default {
         },
         //取消/全选打赏文章
         rewardAll() {
+            let arr = [];
             this.jokes.map((item) => {
                 if (item.user_id) {
-                    this.addRewar(item);
+                    arr.push({
+                        user_id: item.user_id,
+                        article_id: item.id.toString(),
+                        article_type: "joke",
+                    });
                 }
             });
+            this.jokeRewardArr = this.rewardAllType ? [] : arr;
         },
     },
     watch: {
