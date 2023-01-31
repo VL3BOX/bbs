@@ -101,7 +101,7 @@
                         ></el-pagination>
                         <!--  -->
                         <div class="m-joke-reward" v-if="isEditor">
-                            <el-button type="primary" size="mini" @click="rewardAll"
+                            <el-button class="m-joke-all" type="primary" size="mini" @click="rewardAll"
                                 >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
                             >
                             <Thx
