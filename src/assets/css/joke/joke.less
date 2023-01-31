@@ -16,6 +16,12 @@
         color: @color;
     }
 }
+.m-joke-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .mt(40px);
+}
 .m-joke-main {
     .m-joke-content {
         .w(100%);
@@ -27,11 +33,6 @@
         justify-content: flex-start;
         align-items: flex-start;
     }
-    .m-joke-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
 }
 @media screen and (max-width: @phone) {
     .m-joke-search {
@@ -39,14 +40,21 @@
             .none;
         }
     }
+    .m-joke-footer{
+        flex-direction: column;
+    }
+    .m-joke-reward{
+        .mt(20px);
+    }
+    .m-joke-pagination{
+        .w(100%);
+    }
 }
 .m-joke-reward {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
-    margin-top: 30px;
     .m-joke-all{
-        margin-right: 20px;
+        margin-right: 10px;
     }
 }
 .m-joke-publish {
@@ -73,10 +81,6 @@
 .m-joke-item {
     .mb(30px);
 }
-.m-joke-pagination {
-    margin-top: 30px;
-}
-
 @media screen and (max-width: @phone) {
     .m-joke-pagination {
         .x;

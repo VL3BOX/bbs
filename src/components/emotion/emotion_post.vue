@@ -59,7 +59,6 @@
                     <el-select
                         v-model="data.type"
                         size="mini"
-                        style="margin-left: 10px"
                         placeholder="选择门派（非必选）"
                     >
                         <el-option

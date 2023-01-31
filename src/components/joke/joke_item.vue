@@ -36,7 +36,7 @@
                     </span>
                 </template>
                 <!-- v-if="mode !== 'single' && isEditor" -->
-                <el-checkbox v-if="mode !== 'single' && isEditor" :disabled="!joke.user_id" v-model="checked" @change="addRewar">打赏</el-checkbox>
+                <el-checkbox v-if="mode !== 'single' && isEditor" :disabled="!joke.user_id" v-model="checked" @change="doReward">打赏</el-checkbox>
             </div>
             <div class="u-other">
                 <span class="u-date">
@@ -202,8 +202,8 @@ export default {
             this.$router.push(`/joke/${this.joke.id}`);
         },
         //确认批量打赏
-        addRewar () {
-            this.$emit('addRewar', this.joke)
+        doReward () {
+            this.$emit('doReward', this.joke)
         },
     },
 };

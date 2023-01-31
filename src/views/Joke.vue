@@ -78,7 +78,7 @@
                                 <joke-item
                                     :joke="joke"
                                     :jokeRewardArr="jokeRewardArr"
-                                    @addRewar="addRewar"
+                                    @doReward="doReward"
                                     @update="handleJokeUpdate"
                                 />
                             </div>
@@ -105,7 +105,6 @@
                                 >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
                             >
                             <Thx
-                                class="m-thx"
                                 type="batchReward"
                                 postType="joke"
                                 :postId="jokeRewardArr"
@@ -289,7 +288,7 @@ export default {
             }
         },
         //取消/选中打赏文章
-        addRewar(data) {
+        doReward(data) {
             const list = this.jokeRewardArr.filter((item) => item.article_id == data.id);
             list.length
                 ? (this.jokeRewardArr = this.jokeRewardArr.filter((item) => item.article_id != data.id))
