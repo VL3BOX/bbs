@@ -19,8 +19,16 @@
                 <i class="el-icon-price-tag"></i>
                 <span class="u-tag" v-for="(tag,i) in joke.tags" :key="i">{{tag}}</span>
             </div>-->
-            <Thx class="m-thx" :postId="id" postType="joke" :postTitle="title" :userId="user_id"
-                :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
+            <Thx
+                class="m-thx"
+                :postId="id"
+                postType="joke"
+                :postTitle="title"
+                :userId="user_id"
+                :adminBoxcoinEnable="true"
+                :userBoxcoinEnable="true"
+                client="all"
+            />
             <div class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="joke" />
@@ -34,8 +42,13 @@
                 <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
                 <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
                     <span slot="prepend">关键词</span>
-                    <el-switch slot="append" v-model="star" :inactive-value="0" :active-value="1"
-                        inactive-text="只看精选"></el-switch>
+                    <el-switch
+                        slot="append"
+                        v-model="star"
+                        :inactive-value="0"
+                        :active-value="1"
+                        inactive-text="只看精选"
+                    ></el-switch>
                 </el-input>
             </div>
             <div class="m-joke-main">
@@ -44,11 +57,11 @@
                     <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
                         <el-tab-pane name="all" label="全部">
                             <span slot="label">
-                                <i class="u-icon el-icon-menu" style="vertical-align: 0;"></i>全部
+                                <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部
                             </span>
                         </el-tab-pane>
                         <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
-                            <div slot="label" style="min-width:57px;">
+                            <div slot="label" style="min-width: 57px">
                                 <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
                                 {{ item }}
                             </div>
@@ -60,31 +73,50 @@
                     <joke-post :type="type"></joke-post>
                     <!-- 列表 -->
                     <el-row class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
-                        <el-col :span="24" v-for="(joke) in jokes" :key="joke.id">
+                        <el-col :span="24" v-for="joke in jokes" :key="joke.id">
                             <div class="m-joke-item">
-                                <joke-item :joke="joke" :jokeRewardArr="jokeRewardArr" @addRewar="addRewar"
-                                    @update="handleJokeUpdate" />
+                                <joke-item
+                                    :joke="joke"
+                                    :jokeRewardArr="jokeRewardArr"
+                                    @addRewar="addRewar"
+                                    @update="handleJokeUpdate"
+                                />
                             </div>
                         </el-col>
                     </el-row>
                     <!-- 空 -->
                     <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
                     <div class="m-joke-reward">
-                        <!-- <el-button type="primary" size="mini" @click="rewardAll">{{
-                            this.rewardAllType ? '取消' : ''
-                        }}全选</el-button> -->
-                        <Thx class="m-thx" type="batchReward" postType="joke" :postId="jokeRewardArr"
-                            :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
+                        <el-pagination
+                            class="m-joke-pagination"
+                            background
+                            :page-size="per"
+                            :hide-on-single-page="true"
+                            :current-page.sync="page"
+                            layout="total, prev, pager, next, jumper,sizes"
+                            :total="total"
+                            :page-sizes="[10, 30, 50, 70, 90]"
+                            @current-change="skipTop"
+                            @size-change="handleSizeChange"
+                        ></el-pagination>
+                        <div>
+                            <el-button type="primary" size="mini" @click="rewardAll"
+                                >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
+                            >
+                            <Thx
+                                class="m-thx"
+                                type="batchReward"
+                                postType="joke"
+                                :postId="jokeRewardArr"
+                                :adminBoxcoinEnable="true"
+                                :userBoxcoinEnable="true"
+                                client="all"
+                            />
+                        </div>
                     </div>
                     <!-- 分页 -->
-                    <el-pagination class="m-joke-pagination" background :page-size="per" :hide-on-single-page="true"
-                        :current-page.sync="page" layout="total, prev, pager, next, jumper,sizes" :total="total"
-                        :page-sizes="[10, 30, 50, 70, 90]" @current-change="skipTop"
-                        @size-change="handleSizeChange"></el-pagination>
                 </div>
             </div>
-
-
         </div>
     </div>
 </template>
@@ -112,7 +144,7 @@ export default {
     components: {
         "joke-item": joke_item,
         Comment,
-        'joke-post': joke_post,
+        "joke-post": joke_post,
     },
     data: function () {
         return {
@@ -133,13 +165,13 @@ export default {
             joke: "",
 
             windowWidth: document.documentElement.clientWidth,
-            jokeRewardArr: [],//打赏选中
+            jokeRewardArr: [], //打赏选中
         };
     },
     computed: {
         // 发布按钮链接
         publish_link: function () {
-            return publishLink('joke');
+            return publishLink("joke");
         },
         id: function () {
             return this.$route.params.id;
@@ -150,45 +182,25 @@ export default {
                 page: ~~this.page,
                 type: this.type == "all" ? "" : this.type,
                 search: this.search,
-                star: !!this.star ? 1 : '',
+                star: !!this.star ? 1 : "",
             };
         },
         keys: function () {
-            return [
-                this.id,
-
-                this.search,
-                this.type,
-                this.star,
-
-                this.page,
-                this.per,
-            ];
+            return [this.id, this.search, this.type, this.star, this.page, this.per];
         },
         reset_keys: function () {
-            return [this.search, this.type, this.star]
+            return [this.search, this.type, this.star];
         },
         user_id: function () {
             return this.joke?.user_id || 0;
         },
         title: function () {
-            return this.joke?.content
+            return this.joke?.content;
         },
         //全选状态
         rewardAllType: function () {
-            return Array.from(new Set(this.jokes.map(item=>{return item.id})))
+            return this.jokeRewardArr.length === this.jokes.length;
         },
-        //
-        setRewardAll: function () {
-            const res = new Map();
-            return [...this.jokeRewardArr, ...this.jokes.map(item => {
-                return {
-                    user_id: item.user_id,
-                    article_id: item.id,
-                    article_type: item.type
-                }
-            })].filter((item) => !res.has(item.article_id) && res.set(item.article_id, 1));
-        }
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -197,12 +209,12 @@ export default {
     },
     methods: {
         //调整展示条数
-        handleSizeChange (val) {
-            this.per = val
-            this.loadList()
+        handleSizeChange(val) {
+            this.per = val;
+            this.loadList();
         },
         // 表情排序
-        sortEmotion () {
+        sortEmotion() {
             const keys = Object.keys(emotion);
             keys.sort((item1, item2) => {
                 return item1.localeCompare(item2);
@@ -215,19 +227,19 @@ export default {
                 this.sortedEmotions.push(obj);
             });
         },
-        loadList () {
+        loadList() {
             this.loading = true;
             getJokes(this.params)
                 .then((res) => {
                     this.jokes = res?.data?.data?.list;
                     this.total = res?.data?.data?.total;
-                    this.loadLike()
+                    this.loadLike();
                 })
                 .finally(() => {
                     this.loading = false;
                 });
         },
-        loadSingle () {
+        loadSingle() {
             this.loading = true;
             getJoke(this.id)
                 .then((res) => {
@@ -271,25 +283,30 @@ export default {
                 });
             }
         },
-        //选中打赏文章
-        addRewar (data) {
-            const list = this.jokeRewardArr.filter(item => item.article_id === data.id)
-            list.length ? this.jokeRewardArr = this.jokeRewardArr.filter(item => item.article_id !== data.id) : this.jokeRewardArr.push({
-                user_id: data.user_id,
-                article_id: data.id.toString(),
-                article_type: "joke"
-            })
+        //取消/选中打赏文章
+        addRewar(data) {
+            const list = this.jokeRewardArr.filter((item) => item.article_id == data.id);
+            list.length
+                ? (this.jokeRewardArr = this.jokeRewardArr.filter((item) => item.article_id != data.id))
+                : this.jokeRewardArr.push({
+                      user_id: data.user_id,
+                      article_id: data.id.toString(),
+                      article_type: "joke",
+                  });
         },
         //取消/全选打赏文章
-        rewardAll () {
-            this.jokeRewardArr = this.setRewardAll
-            console.log(this.jokeRewardArr,);
+        rewardAll() {
+            this.jokes.map((item) => {
+                if (item.user_id) {
+                    this.addRewar(item);
+                }
+            });
         },
     },
     watch: {
         keys: {
             deep: true,
-            handler () {
+            handler() {
                 this.init();
             },
             immediate: true,
@@ -298,26 +315,32 @@ export default {
         reset_keys: {
             deep: true,
             handler: function () {
-                this.page = 1
+                this.jokeRewardArr = [];
+                this.page = 1;
+            },
+        },
+        page: {
+            deep: true,
+            handler: function () {
+                this.jokeRewardArr = [];
             },
         },
         // 类别重置
         search: function () {
-            this.type = 'all'
+            this.type = "all";
         },
         jokes: {
             deep: true,
-            handler () {
+            handler() {
                 // this.loadLike();
             },
         },
     },
     mounted: function () {
-        const that = this
+        const that = this;
         window.onresize = () => {
-            that.windowWidth = document.documentElement.clientWidth
-        }
-
+            that.windowWidth = document.documentElement.clientWidth;
+        };
     },
     created: function () {
         this.sortEmotion();
