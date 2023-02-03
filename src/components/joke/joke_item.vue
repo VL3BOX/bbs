@@ -9,34 +9,44 @@
                 <span class="u-user">
                     <img width="24" height="24" :src="user_avatar | showAvatar" />
                     <a :href="joke.user_id | authorLink" target="_blank" v-if="joke.user_id">{{ user_name }}</a>
-                    <span v-else>{{ joke.author || '匿名' }}</span>
+                    <span v-else>{{ joke.author || "匿名" }}</span>
                 </span>
                 <el-link type="primary" class="u-copy" :disabled="disabled" @click="handleCopy(joke.content)">
                     <i class="el-icon-document-copy"></i> 复制
                 </el-link>
 
-                <a v-if="mode === 'single' && (isAuthor || isEditor)"
-                    class="u-edit el-link el-link--primary is-underline" :href="editLink('joke', joke.id)"
-                    target="_blank">
+                <a
+                    v-if="mode === 'single' && (isAuthor || isEditor)"
+                    class="u-edit el-link el-link--primary is-underline"
+                    :href="editLink('joke', joke.id)"
+                    target="_blank"
+                >
                     <i class="el-icon-edit-outline"></i> 编辑
                 </a>
 
                 <a class="u-like" :class="{ on: isLike }" title="赞" @click="addLike" v-if="isListPage">
-                    <i class="like-icon">{{ isLike? '♥': '♡' }}</i>Like
+                    <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i
+                    >Like
                     <span class="like-count" v-if="count">{{ count }}</span>
                 </a>
 
                 <template v-if="isEditor">
                     <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
                         <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                        {{ isStar? '取消精选': '设为精选' }}
+                        {{ isStar ? "取消精选" : "设为精选" }}
                     </span>
                     <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
                         <i class="el-icon-delete"></i> 删除
                     </span>
                 </template>
                 <!-- v-if="mode !== 'single' && isEditor" -->
-                <el-checkbox v-if="mode !== 'single' && isEditor" :disabled="!joke.user_id" v-model="checked" @change="doReward">打赏</el-checkbox>
+                <el-checkbox
+                    v-if="mode !== 'single' && isEditor"
+                    :disabled="!joke.user_id||isSelf"
+                    v-model="checked"
+                    @change="doReward"
+                    >打赏</el-checkbox
+                >
             </div>
             <div class="u-other">
                 <span class="u-date">
@@ -51,18 +61,14 @@
 <script>
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 import { dateFormat } from "@/utils/dateFormat";
-import {
-    showAvatar,
-    authorLink,
-    editLink,
-} from "@jx3box/jx3box-common/js/utils";
+import { showAvatar, authorLink, editLink } from "@jx3box/jx3box-common/js/utils";
 import { starJoke, removeJoke, unstarJoke } from "@/service/joke";
 import User from "@jx3box/jx3box-common/js/user";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 export default {
     name: "joke_item",
     props: ["joke", "mode", "jokeRewardArr"],
-    data () {
+    data() {
         return {
             disabled: false,
 
@@ -85,6 +91,9 @@ export default {
         authorLink,
     },
     computed: {
+        isSelf: function () {
+            return this.joke.user_id == User.getInfo().uid;
+        },
         isListPage: function () {
             return this.mode !== "single";
         },
@@ -98,9 +107,9 @@ export default {
             return this.joke?.user_info?.display_name;
         },
         isAuthor: function () {
-            const user = User.getInfo()
-            return user.uid === this.joke.user_id
-        }
+            const user = User.getInfo();
+            return user.uid === this.joke.user_id;
+        },
     },
     watch: {
         joke: {
@@ -112,19 +121,19 @@ export default {
         },
         jokeRewardArr: {
             handler: function (val) {
-                this.checked = !!val.filter(item => item.article_id == this.joke.id).length
+                this.checked = !!val.filter((item) => item.article_id == this.joke.id).length;
             },
             deep: true,
             immediate: true,
         },
     },
     methods: {
-        parse (str) {
+        parse(str) {
             const ins = new JX3_EMOTION(str);
             return ins.code;
         },
         // 复制
-        handleCopy (str) {
+        handleCopy(str) {
             this.disabled = true;
             navigator.clipboard.writeText(str).then(() => {
                 this.copyLabel = "已复制";
@@ -148,7 +157,7 @@ export default {
             this.isLike = true;
         },
         // 精选
-        handleStar () {
+        handleStar() {
             if (!this.isStar) {
                 starJoke(this.joke.id).then(() => {
                     this.$notify({
@@ -157,12 +166,12 @@ export default {
                         type: "success",
                     });
                     this.isStar = true;
-                    this.joke.star = true
+                    this.joke.star = true;
                     this.$forceUpdate();
                     // this.$emit("update");
                 });
             } else {
-                this.unStar()
+                this.unStar();
             }
         },
         unStar: function () {
@@ -173,12 +182,12 @@ export default {
                     type: "success",
                 });
                 this.isStar = false;
-                this.joke.star = false
+                this.joke.star = false;
                 this.$forceUpdate();
-            })
+            });
         },
         // 删除
-        handleDelete () {
+        handleDelete() {
             this.$confirm("此操作将会删除该表情，是否继续？", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -202,8 +211,8 @@ export default {
             this.$router.push(`/joke/${this.joke.id}`);
         },
         //确认批量打赏
-        doReward () {
-            this.$emit('doReward', this.joke)
+        doReward() {
+            this.$emit("doReward", this.joke);
         },
     },
 };

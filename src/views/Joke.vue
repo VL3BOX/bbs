@@ -170,6 +170,11 @@ export default {
         };
     },
     computed: {
+        isNotSelf: function () {
+            return (id) => {
+                return id != User.getInfo().uid;
+            };
+        },
         isEditor: function () {
             return User.isEditor();
         },
@@ -302,7 +307,7 @@ export default {
         rewardAll() {
             let arr = [];
             this.jokes.map((item) => {
-                if (item.user_id) {
+                if (item.user_id && this.isNotSelf(item.user_id)) {
                     arr.push({
                         user_id: item.user_id,
                         article_id: item.id.toString(),
