@@ -68,7 +68,8 @@ export default {
          * add emotion to textarea
          * @parma {string} value emotion key
          */
-        async insertVariable(value) {
+        async insertVariable(emotion) {
+            const value = emotion.key;
             const myField = document.querySelector("#textarea");
             if (myField.selectionStart || myField.selectionStart === 0) {
                 let startPos = myField.selectionStart;

@@ -121,7 +121,7 @@ export default {
         },
         jokeRewardArr: {
             handler: function (val) {
-                this.checked = !!val.filter((item) => item.article_id == this.joke.id).length;
+                this.checked = !!val?.filter((item) => item.article_id == this.joke.id).length;
             },
             deep: true,
             immediate: true,
