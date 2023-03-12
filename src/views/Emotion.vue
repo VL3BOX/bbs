@@ -6,27 +6,13 @@
                 <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
             </div>
             <emotion-item :emotion="emotion" mode="single"></emotion-item>
-            <!-- <Thx
-                class="m-thx"
-                :postId="id"
-                postType="emotion"
-                :postTitle="title"
-                :userId="user_id"
-                :adminBoxcoinEnable="true"
-                :userBoxcoinEnable="true"
-                client="all"
-            />
-            <div class="m-single-comment">
-                <el-divider content-position="left">评论</el-divider>
-                <Comment :id="id" category="emotion" />
-            </div> -->
         </div>
         <!--列表-->
         <div class="m-emotion-list-container" v-else>
             <!-- 搜索 -->
             <div class="m-archive-search m-emotion-search" slot="search-before">
                 <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
+                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @keydown.native.enter="onSearch" @clear="onSearch" clearable>
                     <span slot="prepend">关键词</span>
                     <template slot="append">
                         <el-switch
@@ -208,10 +194,10 @@ export default {
             };
         },
         keys: function () {
-            return [this.id, this.search, this.type, this.star, this.original, this.page, this.per];
+            return [this.id, this.type, this.star, this.original, this.page, this.per];
         },
         reset_keys: function () {
-            return [this.search, this.type, this.star, this.original];
+            return [this.type, this.star, this.original];
         },
         user_id: function () {
             return this.emotion?.user_id || 0;
@@ -219,11 +205,6 @@ export default {
         images: function () {
             return this.list.map((item) => resolveImagePath(item.url));
         },
-        // new_pics: function () {
-        //     return this.emotions.map((item) => {
-        //         item.url;
-        //     });
-        // },
     },
     filters: {
         showSchoolIcon: function (val) {
@@ -231,6 +212,13 @@ export default {
         },
     },
     methods: {
+        onSearch() {
+            if (this.page !== 1) {
+                this.page = 1;
+                return;
+            }
+            this.loadList();
+        },
         loadList: function (appendMode = false) {
             this.loading = true;
             if (appendMode) {
@@ -383,10 +371,6 @@ export default {
                 this.page = 1;
             },
         },
-        // 类别重置
-        search: function () {
-            this.type = "all";
-        },
     },
     mounted: function () {
         const that = this;
@@ -396,11 +380,6 @@ export default {
     },
     created: function () {
         this.resizeCalc();
-    },
-    filters: {
-        showSchoolIcon: function (val) {
-            return __imgPath + "image/school/" + val + ".png";
-        },
     },
 };
 </script>

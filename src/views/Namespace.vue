@@ -2,9 +2,9 @@
     <div class="v-namespace" v-loading="loading">
         <!-- 搜索 -->
         <div class="m-archive-search m-namespace-search" slot="search-before" key="namespace-search">
-            <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" class="input-with-select">
+            <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" clearable @clear="onSearch" @keydown.native.enter="onSearch" class="input-with-select">
                 <span slot="prepend">关键词</span>
-                <el-button slot="append" icon="el-icon-search"></el-button>
+                <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
             </el-input>
         </div>
         <!-- tab切换 -->
@@ -88,8 +88,6 @@ export default {
     computed: {
         params: function () {
             let _params = {
-                // user_id
-                key: this.search,
                 source_type: this.type == "all" ? "" : this.type,
                 // source_id
                 page: this.page,
@@ -116,7 +114,10 @@ export default {
     methods: {
         loadNamespaceList: function () {
             this.loading = true;
-            getNamespaceList(this.params)
+            const params = Object.assign({}, this.params, {
+                key: this.search,
+            });
+            getNamespaceList(params)
                 .then((res) => {
                     this.list = res.data.data.data || {};
                     this.total = res.data.data.total;
@@ -127,6 +128,13 @@ export default {
         },
         changeOrder: function (o) {
             this.order = o.val;
+        },
+        onSearch: function () {
+            if (this.page != 1) {
+                this.page = 1;
+                return;
+            }
+            this.loadNamespaceList();
         },
     },
     watch: {
@@ -142,7 +150,6 @@ export default {
             },
         },
     },
-    filters: {},
     created: function () {
         this.query = this.$route.query.namespace;
     },
