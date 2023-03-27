@@ -977,7 +977,7 @@
     "cssnano-preset-default" "^4.0.0"
     "postcss" "^7.0.0"
 
-"@jx3box/jx3box-comment-ui@^1.7.8", "@jx3box/jx3box-comment-ui@^1.7.9":
+"@jx3box/jx3box-comment-ui@^1.7.12", "@jx3box/jx3box-comment-ui@^1.7.8":
   "integrity" "sha512-jVY3XdW+SyvVS+VQCcHi/duYfxlO5Z+BbAbZTFsD7hlf8Mhd07+lWaefBguhQ17DaNCMXheAH52B3ziB4x+QEw=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-comment-ui/-/jx3box-comment-ui-1.7.12.tgz"
   "version" "1.7.12"
@@ -990,7 +990,7 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^7.0.9":
+"@jx3box/jx3box-common-ui@^7.1.4":
   "integrity" "sha512-25yjBxClXNbscSj/Ndq+2ZIwumHF5W+cZt+ly2cnJirKVlIpMnUWabOwyHRbNhIVFzP+7aOzCBEk1ii6HPh9yw=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.1.4.tgz"
   "version" "7.1.4"
@@ -1041,7 +1041,7 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.7.3", "@jx3box/jx3box-common@^7.7.6":
+"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.7.3", "@jx3box/jx3box-common@^7.7.6", "@jx3box/jx3box-common@^7.8.4":
   "integrity" "sha512-FqUtza6Dm3eQvgqoU8fHZZ7c8tdp26J3/LLMiyDwzGzC8Ids8//sK/YJl7s6K8pcn0nWm4glwJ12bvke6MwT6A=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.8.4.tgz"
   "version" "7.8.4"
@@ -1071,7 +1071,7 @@
     "fs" "0.0.1-security"
     "path" "^0.12.7"
 
-"@jx3box/jx3box-data@^3.0.4":
+"@jx3box/jx3box-data@^3.0.4", "@jx3box/jx3box-data@^3.0.8":
   "integrity" "sha512-uaJo4bT39FiX4/HxXcLrHEcTvrhwPyB4pL+o+129WiOoEilYYlHuE41oedMy9VelvHwxFYxaNpdl9fg6TAbVXQ=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.0.8.tgz"
   "version" "3.0.8"
@@ -1106,7 +1106,7 @@
     "vue-photoswipe.js" "^2.0.23"
     "xss" "^1.0.8"
 
-"@jx3box/jx3box-emotion@^1.1.10", "@jx3box/jx3box-emotion@^1.1.8", "@jx3box/jx3box-emotion@^1.1.9":
+"@jx3box/jx3box-emotion@^1.1.10", "@jx3box/jx3box-emotion@^1.1.8":
   "integrity" "sha512-LCfcgZhW+zx0b+WzyZS8mxlUiW2K67eVEL1275rQMgngMWZ34fOsQV7Ta31ol6kBUoqUvdpXG8RLQ0YN075V1A=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-emotion/-/jx3box-emotion-1.1.10.tgz"
   "version" "1.1.10"
