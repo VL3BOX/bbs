@@ -977,7 +977,7 @@
     "cssnano-preset-default" "^4.0.0"
     "postcss" "^7.0.0"
 
-"@jx3box/jx3box-comment-ui@^1.7.12", "@jx3box/jx3box-comment-ui@^1.7.8":
+"@jx3box/jx3box-comment-ui@^1.7.12":
   "integrity" "sha512-jVY3XdW+SyvVS+VQCcHi/duYfxlO5Z+BbAbZTFsD7hlf8Mhd07+lWaefBguhQ17DaNCMXheAH52B3ziB4x+QEw=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-comment-ui/-/jx3box-comment-ui-1.7.12.tgz"
   "version" "1.7.12"
@@ -990,15 +990,15 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^7.1.5":
-  "integrity" "sha512-8TLq171HrcH2DA3lBSgpL5JpBSO5QccYm1w0q5bDD/nZKTniCAxckh6+Izt17dbWlg7ehIsPfaQ7nskkkwxc/Q=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.1.5.tgz"
-  "version" "7.1.5"
+"@jx3box/jx3box-common-ui@^7.1.7":
+  "integrity" "sha512-deWlb8dMQXJ+9PHR7w4Hn94vZ2VPOoO66IAiaFiE+jgVX6T6YQj68qtDgSu/mrAAF+mmi1SGFaOE9y7UgDkkVg=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.1.7.tgz"
+  "version" "7.1.7"
   dependencies:
-    "@jx3box/jx3box-comment-ui" "^1.7.8"
-    "@jx3box/jx3box-common" "^7.7.6"
-    "@jx3box/jx3box-data" "^3.0.4"
-    "@jx3box/jx3box-editor" "^1.7.5"
+    "@jx3box/jx3box-comment-ui" "^1.7.12"
+    "@jx3box/jx3box-common" "^7.8.7"
+    "@jx3box/jx3box-data" "^3.0.9"
+    "@jx3box/jx3box-editor" "^1.8.2"
     "axios" "^0.26.1"
     "dayjs" "^1.11.0"
     "element-ui" "^2.13.2"
@@ -1041,10 +1041,10 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.7.3", "@jx3box/jx3box-common@^7.7.6", "@jx3box/jx3box-common@^7.8.4":
-  "integrity" "sha512-FqUtza6Dm3eQvgqoU8fHZZ7c8tdp26J3/LLMiyDwzGzC8Ids8//sK/YJl7s6K8pcn0nWm4glwJ12bvke6MwT6A=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.8.4.tgz"
-  "version" "7.8.4"
+"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.7.3", "@jx3box/jx3box-common@^7.7.6", "@jx3box/jx3box-common@^7.8.7":
+  "integrity" "sha512-gvGsJIXBAAgeDE1D9mvtsgLQT+wB0HDxEepDix82DUsckPKHfhyJYpLaRGzN5fb9GLx1ey1vWezPm9P+3/prnw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.8.7.tgz"
+  "version" "7.8.7"
   dependencies:
     "axios" "^0.20.0"
     "cheerio" "1.0.0-rc.10"
@@ -1071,15 +1071,15 @@
     "fs" "0.0.1-security"
     "path" "^0.12.7"
 
-"@jx3box/jx3box-data@^3.0.4", "@jx3box/jx3box-data@^3.0.8":
-  "integrity" "sha512-uaJo4bT39FiX4/HxXcLrHEcTvrhwPyB4pL+o+129WiOoEilYYlHuE41oedMy9VelvHwxFYxaNpdl9fg6TAbVXQ=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.0.8.tgz"
-  "version" "3.0.8"
+"@jx3box/jx3box-data@^3.0.4", "@jx3box/jx3box-data@^3.0.9":
+  "integrity" "sha512-2ttIq8TbEJXtGClMjnNcuOpKewm/OxMWySS45S7uAMZJBfKj34SYcEFzd0xsWeucACw7v9qc7OF2dW4PwDuekg=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.0.9.tgz"
+  "version" "3.0.9"
 
-"@jx3box/jx3box-editor@^1.7.5":
-  "integrity" "sha512-o6H0Ta+hj1wQfp9RDhFAoNQn/e1qcuPg6TdlUqC73fgOCIzlMi4VofDvwAQsujVz0WSbCDEO0Pn0634QVEnQ2A=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.7.5.tgz"
-  "version" "1.7.5"
+"@jx3box/jx3box-editor@^1.8.2", "@jx3box/jx3box-editor@^1.8.3":
+  "integrity" "sha512-FVRbzmIjQ4tIEabqICxc2jBytnHy8hQgbW4i8JUXnIAWQDtAdvH1hXx+bY+mszg3ffK7hhLGP7evO0CQcsKbOA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.8.3.tgz"
+  "version" "1.8.3"
   dependencies:
     "@jx3box/jx3box-common" "^7.7.3"
     "@jx3box/jx3box-data" "^3.0.4"
@@ -1125,9 +1125,9 @@
     "jquery" "^3.5.1"
 
 "@jx3box/jx3box-talent@^1.1.9":
-  "integrity" "sha512-P5RMJ7alUox58otN6DF7qH1OsQNpOucooI/9aj1wy5HvLV6fNBFNNeYH4y5AsT7YdcjDDM9uHe/X1ScT8afYxQ=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-talent/-/jx3box-talent-1.1.9.tgz"
-  "version" "1.1.9"
+  "integrity" "sha512-Tati7Gugqb03gKRu16+c4hM7Y21Qz0hiKZKpRW9IZXRuqyumReiHQWPjElYDFsoDvJNd9JmJ+hmvqr+eYQG4Sw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-talent/-/jx3box-talent-1.2.0.tgz"
+  "version" "1.2.0"
   dependencies:
     "@jx3box/jx3box-common" "^7.4.2"
     "@jx3box/jx3box-data" "^1.11.3"
