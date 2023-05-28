@@ -2,9 +2,9 @@
     <div class="m-list-nav">
         <RightSideMsg>
             <em>综合交流反馈群</em> :
-            <strong @click="onQQClick(2471800)" class="u-link" title="点击复制">
+            <strong @click="onQQClick" class="u-link" title="点击复制">
                 <!-- <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a> -->
-                <a>2471800</a>
+                <a>{{ qq }}</a>
             </strong>
         </RightSideMsg>
 
@@ -86,6 +86,7 @@ export default {
             ],
             tags: [],
             feedback,
+            qq: "2471800",
         };
     },
     computed : {
@@ -94,22 +95,17 @@ export default {
         },
     },
     methods: {
-        // loadTags : function (){
-        //     getMenu('bbs').then((res) => {
-        //         this.tags = res.data?.data?.val || []
-        //     })
-        // }
         isActive: function(slug) {
             return slug == this.$route.name;
         },
         isActivePage : function (slug){
             return getAppType() && getAppType() == slug
         },
-        onQQClick(val) {
-            navigator.clipboard.writeText(val).then(() => {
+        onQQClick() {
+            navigator.clipboard.writeText(this.qq).then(() => {
                 this.$notify({
                     title: "复制成功",
-                    message: "内容：" + val,
+                    message: "内容：" + this.qq,
                     type: "success",
                 });
             })
