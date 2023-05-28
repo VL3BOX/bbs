@@ -108,7 +108,7 @@ export default {
         onQQClick(val) {
             navigator.clipboard.writeText(val).then(() => {
                 this.$notify({
-                    title: "提示",
+                    title: "复制成功",
                     message: "内容：" + val,
                     type: "success",
                 });
