@@ -2,9 +2,9 @@
     <div class="m-list-nav">
         <RightSideMsg>
             <em>综合交流反馈群</em> :
-            <strong>
+            <strong @click="onQQClick(2471800)" class="u-link" title="点击复制">
                 <!-- <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a> -->
-                <a href="https://jq.qq.com/?_wv=1027&k=5umZoT3B">2471800</a>
+                <a>2471800</a>
             </strong>
         </RightSideMsg>
 
@@ -104,6 +104,15 @@ export default {
         },
         isActivePage : function (slug){
             return getAppType() && getAppType() == slug
+        },
+        onQQClick(val) {
+            navigator.clipboard.writeText(val).then(() => {
+                this.$notify({
+                    title: "提示",
+                    message: "内容：" + val,
+                    type: "success",
+                });
+            })
         }
     },
     mounted: function() {
