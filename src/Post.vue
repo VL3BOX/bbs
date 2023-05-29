@@ -9,7 +9,7 @@
         </LeftSidebar>
         <Main :withoutRight="false">
             <single :id="id" />
-            <RightSidebar>
+            <RightSidebar :show-toggle="true">
                 <Side :id="id" class="m-extend" />
             </RightSidebar>
             <Footer></Footer>
