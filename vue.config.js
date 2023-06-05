@@ -5,32 +5,32 @@ const Setting = require("./setting.json");
 
 module.exports = {
     //❤️ Multiple pages ~
-    pages: {
-        index: {
-            title: "剑三茶馆 - JX3BOX",
-            entry: "src/main.js",
-            template: "public/index.html",
-            filename: "index.html",
-        },
-        bbs: {
-            title: "剑三茶馆 - JX3BOX",
-            entry: "src/post.js",
-            template: "public/index.html",
-            filename: "post.html",
-        },
-        exam: {
-            title: "剑三考试 - JX3BOX",
-            entry: "src/pages/exam.js",
-            template: "public/index.html",
-            filename: "exam/index.html",
-        },
-        collection: {
-            title: "剑三小册 - JX3BOX",
-            entry: "src/pages/collection.js",
-            template: "public/index.html",
-            filename: "collection/index.html",
-        },
-    },
+    // pages: {
+        // index: {
+        //     title: "剑三茶馆 - JX3BOX",
+        //     entry: "src/main.js",
+        //     template: "public/index.html",
+        //     filename: "index.html",
+        // },
+        // bbs: {
+        //     title: "剑三茶馆 - JX3BOX",
+        //     entry: "src/post.js",
+        //     template: "public/index.html",
+        //     filename: "post.html",
+        // },
+        // exam: {
+        //     title: "剑三考试 - JX3BOX",
+        //     entry: "src/pages/exam.js",
+        //     template: "public/index.html",
+        //     filename: "exam/index.html",
+        // },
+        // collection: {
+        //     title: "剑三小册 - JX3BOX",
+        //     entry: "src/pages/collection.js",
+        //     template: "public/index.html",
+        //     filename: "collection/index.html",
+        // },
+    // },
 
     //❤️ Proxy ~
     devServer: {

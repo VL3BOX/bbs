@@ -1,124 +1,126 @@
 <template>
-    <div class="v-joke" v-loading="loading">
-        <!-- 单页 -->
-        <div class="m-joke-single-container" v-if="id">
-            <div class="m-joke-goback">
-                <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
-                <a class="u-doc" href="/tool/23239" target="_blank">
-                    <i class="el-icon-info"></i>游戏内获取或发布骚话
-                </a>
-            </div>
-            <el-row class="m-joke-list" :gutter="20">
-                <el-col :span="24">
-                    <div class="m-joke-item">
-                        <joke-item :joke="joke" mode="single" />
-                    </div>
-                </el-col>
-            </el-row>
-            <!-- <div class="m-joke-tags" v-if="joke.tags && joke.tags.length">
-                <i class="el-icon-price-tag"></i>
-                <span class="u-tag" v-for="(tag,i) in joke.tags" :key="i">{{tag}}</span>
-            </div>-->
-            <Thx
-                class="m-thx"
-                :postId="id"
-                postType="joke"
-                :postTitle="title"
-                :userId="user_id"
-                :adminBoxcoinEnable="true"
-                :userBoxcoinEnable="true"
-                client="all"
-            />
-            <div class="m-single-comment">
-                <el-divider content-position="left">评论</el-divider>
-                <Comment :id="id" category="joke" />
-            </div>
-        </div>
-
-        <!-- 列表 -->
-        <div class="m-joke-list-container" v-else>
-            <!-- 搜索 -->
-            <div class="m-archive-search m-joke-search" slot="search-before">
-                <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @keydown.native.enter="onSearch" clearable @clear="onSearch">
-                    <span slot="prepend">关键词</span>
-                    <el-switch
-                        slot="append"
-                        v-model="star"
-                        :inactive-value="0"
-                        :active-value="1"
-                        inactive-text="只看精选"
-                    ></el-switch>
-                </el-input>
-            </div>
-            <div class="m-joke-main">
-                <!-- 门派分类 -->
-                <div class="m-joke-types">
-                    <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
-                        <el-tab-pane name="all" label="全部">
-                            <span slot="label">
-                                <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部
-                            </span>
-                        </el-tab-pane>
-                        <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
-                            <div slot="label" style="min-width: 57px">
-                                <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
-                                {{ item }}
-                            </div>
-                        </el-tab-pane>
-                    </el-tabs>
+    <ListLayout>
+        <div class="v-joke" v-loading="loading">
+            <!-- 单页 -->
+            <div class="m-joke-single-container" v-if="id">
+                <div class="m-joke-goback">
+                    <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+                    <a class="u-doc" href="/tool/23239" target="_blank">
+                        <i class="el-icon-info"></i>游戏内获取或发布骚话
+                    </a>
                 </div>
-                <div class="m-joke-content">
-                    <!-- 快捷发布 -->
-                    <joke-post :type="type"></joke-post>
-                    <!-- 列表 -->
-                    <el-row class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
-                        <el-col :span="24" v-for="joke in jokes" :key="joke.id">
-                            <div class="m-joke-item">
-                                <joke-item
-                                    :joke="joke"
-                                    :jokeRewardArr="jokeRewardArr"
-                                    @doReward="doReward"
-                                    @update="handleJokeUpdate"
+                <el-row class="m-joke-list" :gutter="20">
+                    <el-col :span="24">
+                        <div class="m-joke-item">
+                            <joke-item :joke="joke" mode="single" />
+                        </div>
+                    </el-col>
+                </el-row>
+                <!-- <div class="m-joke-tags" v-if="joke.tags && joke.tags.length">
+                    <i class="el-icon-price-tag"></i>
+                    <span class="u-tag" v-for="(tag,i) in joke.tags" :key="i">{{tag}}</span>
+                </div>-->
+                <Thx
+                    class="m-thx"
+                    :postId="id"
+                    postType="joke"
+                    :postTitle="title"
+                    :userId="user_id"
+                    :adminBoxcoinEnable="true"
+                    :userBoxcoinEnable="true"
+                    client="all"
+                />
+                <div class="m-single-comment">
+                    <el-divider content-position="left">评论</el-divider>
+                    <Comment :id="id" category="joke" />
+                </div>
+            </div>
+
+            <!-- 列表 -->
+            <div class="m-joke-list-container" v-else>
+                <!-- 搜索 -->
+                <div class="m-archive-search m-joke-search" slot="search-before">
+                    <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
+                    <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @keydown.native.enter="onSearch" clearable @clear="onSearch">
+                        <span slot="prepend">关键词</span>
+                        <el-switch
+                            slot="append"
+                            v-model="star"
+                            :inactive-value="0"
+                            :active-value="1"
+                            inactive-text="只看精选"
+                        ></el-switch>
+                    </el-input>
+                </div>
+                <div class="m-joke-main">
+                    <!-- 门派分类 -->
+                    <div class="m-joke-types">
+                        <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
+                            <el-tab-pane name="all" label="全部">
+                                <span slot="label">
+                                    <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部
+                                </span>
+                            </el-tab-pane>
+                            <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
+                                <div slot="label" style="min-width: 57px">
+                                    <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
+                                    {{ item }}
+                                </div>
+                            </el-tab-pane>
+                        </el-tabs>
+                    </div>
+                    <div class="m-joke-content">
+                        <!-- 快捷发布 -->
+                        <joke-post :type="type"></joke-post>
+                        <!-- 列表 -->
+                        <el-row class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
+                            <el-col :span="24" v-for="joke in jokes" :key="joke.id">
+                                <div class="m-joke-item">
+                                    <joke-item
+                                        :joke="joke"
+                                        :jokeRewardArr="jokeRewardArr"
+                                        @doReward="doReward"
+                                        @update="handleJokeUpdate"
+                                    />
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <!-- 空 -->
+                        <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+                        <div class="m-joke-footer">
+                            <el-pagination
+                                class="m-joke-pagination"
+                                background
+                                :page-size="per"
+                                :hide-on-single-page="true"
+                                :current-page.sync="page"
+                                layout="total, prev, pager, next, jumper,sizes"
+                                :total="total"
+                                :page-sizes="[10, 30, 50, 70, 90]"
+                                @current-change="skipTop"
+                                @size-change="handleSizeChange"
+                            ></el-pagination>
+                            <!--  -->
+                            <div class="m-joke-reward" v-if="isEditor">
+                                <el-button class="m-joke-all" type="primary" size="mini" @click="rewardAll"
+                                    >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
+                                >
+                                <Thx
+                                    type="batchReward"
+                                    postType="joke"
+                                    :postId="jokeRewardArr"
+                                    :adminBoxcoinEnable="true"
+                                    :userBoxcoinEnable="true"
+                                    client="all"
                                 />
                             </div>
-                        </el-col>
-                    </el-row>
-                    <!-- 空 -->
-                    <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-                    <div class="m-joke-footer">
-                        <el-pagination
-                            class="m-joke-pagination"
-                            background
-                            :page-size="per"
-                            :hide-on-single-page="true"
-                            :current-page.sync="page"
-                            layout="total, prev, pager, next, jumper,sizes"
-                            :total="total"
-                            :page-sizes="[10, 30, 50, 70, 90]"
-                            @current-change="skipTop"
-                            @size-change="handleSizeChange"
-                        ></el-pagination>
-                        <!--  -->
-                        <div class="m-joke-reward" v-if="isEditor">
-                            <el-button class="m-joke-all" type="primary" size="mini" @click="rewardAll"
-                                >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
-                            >
-                            <Thx
-                                type="batchReward"
-                                postType="joke"
-                                :postId="jokeRewardArr"
-                                :adminBoxcoinEnable="true"
-                                :userBoxcoinEnable="true"
-                                client="all"
-                            />
                         </div>
+                        <!-- 分页 -->
                     </div>
-                    <!-- 分页 -->
                 </div>
             </div>
         </div>
-    </div>
+    </ListLayout>
 </template>
 
 <script>
@@ -126,6 +128,7 @@
 import joke_item from "@/components/joke/joke_item";
 import joke_post from "@/components/joke/joke_post.vue";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import ListLayout from "@/layouts/ListLayout.vue";
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -146,6 +149,7 @@ export default {
         "joke-item": joke_item,
         Comment,
         "joke-post": joke_post,
+        ListLayout,
     },
     data: function () {
         return {

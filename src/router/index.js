@@ -18,25 +18,17 @@ const Namespace = () => import("../views/Namespace.vue");
 const Joke = () => import("../views/Joke.vue");
 const Emotion = () => import("../views/Emotion.vue");
 const Forum = () => import("../views/Forum.vue");
+const Single = () => import("../views/Single.vue");
 
 Vue.use(VueRouter);
 
 const routes = [
-    // {
-    //     name: "root",
-    //     path: "/",
-    //     redirect: (to) => {
-    //         return { path: "/bbs" };
-    //     },
-    // },
-    // { name: "index", path: "/index", component: Forum },
     { name: "index", path: "/", component: Forum },
     { name: "bbs", path: "/bbs", component: Forum },
+    { name: "single", path: "/bbs/:id", component: Single },
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
-    // { name: "feedback", path: "/feedback/:id?", component: Feedback },
-    // { name: "collection", path: "/collection/:id?", component: Collection },
 ];
 
 const router = new VueRouter({

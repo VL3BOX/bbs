@@ -11,7 +11,7 @@
             <Nav :id="id" />
         </LeftSidebar>
         <Main :withoutRight="false">
-            <single :id="id" />
+            <slot></slot>
             <RightSidebar :show-toggle="true">
                 <Side :id="id" class="m-extend" />
             </RightSidebar>
@@ -23,12 +23,11 @@
 <script>
 import Nav from "@/components/nav/single_nav.vue";
 import Side from "@/components/bbs/single_side.vue";
-import single from "@/components/bbs/single.vue";
 import publishGate from "@/components/publish_gate.vue";
 import { getAppIcon,getAppID } from "@jx3box/jx3box-common/js/utils";
 import AdminDirectMessage from "@jx3box/jx3box-common-ui/src/bread/AdminDirectMessage.vue"
 export default {
-    name: "App",
+    name: "Single",
     props: [],
     data: function() {
         return {
@@ -47,7 +46,6 @@ export default {
     components: {
         Nav,
         Side,
-        single,
         "publish-gate": publishGate,
         AdminDirectMessage
     },
@@ -55,5 +53,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "./assets/css/app.less";
+@import "~@/assets/css/app.less";
 </style>
