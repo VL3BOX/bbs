@@ -189,8 +189,6 @@ export default {
         },
         params: function ({ search, per, page, star, original }) {
             return {
-                per,
-                page,
                 type: this.type == "all" ? "" : this.type,
                 search,
                 star: !!this.star ? 1 : "",
@@ -198,7 +196,7 @@ export default {
             };
         },
         keys: function () {
-            return [this.id, this.type, this.star, this.original, this.page, this.per];
+            return [this.id, this.type, this.star, this.original];
         },
         reset_keys: function () {
             return [this.type, this.star, this.original];
@@ -215,24 +213,24 @@ export default {
             return __imgPath + "image/school/" + val + ".png";
         },
         onSearch() {
-            if (this.page !== 1) {
-                this.page = 1;
-                return;
-            }
+            this.page = 1;
             this.loadList();
         },
         loadList: function (appendMode = false) {
             this.loading = true;
             if (appendMode) {
-                this.params.page += 1;
-                this.page =this.params.page
+                this.page++;
             }
-            let params = cloneDeep(this.params);
+            const params  = {
+                ...this.params,
+                page: this.page,
+                per: this.per,
+            }
             return getEmotions(params)
                 .then((res) => {
                     if (appendMode) {
-                        this.list = this.list.concat(res.data?.data?.list || []);
-                        this.emotions = res.data?.data?.list || [];
+                        this.list = [...this.list, ...res.data?.data?.list || []];
+                        this.emotions = cloneDeep(this.list);
                     } else {
                         this.list = this.emotions = res.data?.data?.list || [];
                     }
