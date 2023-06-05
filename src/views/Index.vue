@@ -1,13 +1,15 @@
 <template>
-    <div class="v-index">
-        <joke />
-        <!-- <emotion /> -->
-        <list />
-    </div>
+    <ListLayout>
+        <div class="v-index">
+            <joke />
+            <!-- <emotion /> -->
+            <list />
+        </div>
+    </ListLayout>
 </template>
 
 <script>
-// import emotion from "@/components/emotion/emotion_index.vue";
+import ListLayout from "@/layouts/ListLayout.vue";
 import list from "@/components/bbs/list_index.vue";
 import joke from "@/components/joke/joke_index.vue";
 export default {
@@ -16,7 +18,7 @@ export default {
     components: {
         list,
         joke,
-        // emotion,
+        ListLayout,
     },
     data: function () {
         return {

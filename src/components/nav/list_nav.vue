@@ -59,12 +59,12 @@ export default {
                     name: "剑三趣图",
                     isActive: this.isActive,
                 },
-                {
-                    slug: "exam",
-                    icon: "el-icon-document",
-                    name: "剑三考试",
-                    isActive: this.isActivePage
-                },
+                // {
+                //     slug: "exam",
+                //     icon: "el-icon-document",
+                //     name: "剑三考试",
+                //     isActive: this.isActivePage
+                // },
                 /* {
                     slug: "collection",
                     icon: "el-icon-paperclip",

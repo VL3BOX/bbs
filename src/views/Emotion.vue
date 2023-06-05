@@ -1,119 +1,122 @@
 <template>
-    <div class="v-emotion" v-loading="loading">
-        <!--单页-->
-        <div class="m-emotion-single-container" v-if="id">
-            <div class="m-emotion-goback">
-                <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
-            </div>
-            <emotion-item :emotion="emotion" mode="single"></emotion-item>
-        </div>
-        <!--列表-->
-        <div class="m-emotion-list-container" v-else>
-            <!-- 搜索 -->
-            <div class="m-archive-search m-emotion-search" slot="search-before">
-                <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @keydown.native.enter="onSearch" @clear="onSearch" clearable>
-                    <span slot="prepend">关键词</span>
-                    <template slot="append">
-                        <el-switch
-                            class="u-star"
-                            v-model="star"
-                            :inactive-value="0"
-                            :active-value="1"
-                            inactive-text="只看精选"
-                        ></el-switch>
-                        <el-switch
-                            class="u-original"
-                            v-model="original"
-                            :inactive-value="0"
-                            :active-value="1"
-                            inactive-text="只看原创"
-                        ></el-switch>
-                    </template>
-                </el-input>
-            </div>
-            <div class="m-emotion-main">
-                <!-- 门派分类 -->
-                <div class="m-emotion-types">
-                    <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
-                        <el-tab-pane name="all" label="全部">
-                            <span slot="label">
-                                <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部
-                            </span>
-                        </el-tab-pane>
-                        <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
-                            <div slot="label" style="min-width: 57px">
-                                <img class="u-icon" :src="i | showSchoolIcon" :alt="item" />
-                                {{ item }}
-                            </div>
-                        </el-tab-pane>
-                    </el-tabs>
+    <ListLayout>
+        <div class="v-emotion" v-loading="loading">
+            <!--单页-->
+            <div class="m-emotion-single-container" v-if="id">
+                <div class="m-emotion-goback">
+                    <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
                 </div>
-                <div class="m-emotion-content">
-                    <!--快速发布-->
-                    <emotion-post></emotion-post>
-                    <ul class="m-emotion-list" v-if="list && list.length">
-                        <waterfall
-                            :autoResize="waterfall_options.autoResize"
-                            :moveTransitionDuration="0.4"
-                            :fillBox="waterfall_options.fillBox"
-                            :list="list"
-                            imgKey="src"
-                            ref="waterfall"
-                            :col-width="waterfall_options.colWidth"
-                            :col="waterfall_options.col"
-                        >
-                            <div
-                                class="u-item waterfall-item"
-                                :class="{ fadeIn: item.state == 'show' }"
-                                slot-scope="item"
+                <emotion-item :emotion="emotion" mode="single"></emotion-item>
+            </div>
+            <!--列表-->
+            <div class="m-emotion-list-container" v-else>
+                <!-- 搜索 -->
+                <div class="m-archive-search m-emotion-search" slot="search-before">
+                    <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
+                    <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @keydown.native.enter="onSearch" @clear="onSearch" clearable>
+                        <span slot="prepend">关键词</span>
+                        <template slot="append">
+                            <el-switch
+                                class="u-star"
+                                v-model="star"
+                                :inactive-value="0"
+                                :active-value="1"
+                                inactive-text="只看精选"
+                            ></el-switch>
+                            <el-switch
+                                class="u-original"
+                                v-model="original"
+                                :inactive-value="0"
+                                :active-value="1"
+                                inactive-text="只看原创"
+                            ></el-switch>
+                        </template>
+                    </el-input>
+                </div>
+                <div class="m-emotion-main">
+                    <!-- 门派分类 -->
+                    <div class="m-emotion-types">
+                        <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
+                            <el-tab-pane name="all" label="全部">
+                                <span slot="label">
+                                    <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部
+                                </span>
+                            </el-tab-pane>
+                            <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">
+                                <div slot="label" style="min-width: 57px">
+                                    <img class="u-icon" :src="showSchoolIcon(i)" :alt="item" />
+                                    {{ item }}
+                                </div>
+                            </el-tab-pane>
+                        </el-tabs>
+                    </div>
+                    <div class="m-emotion-content">
+                        <!--快速发布-->
+                        <emotion-post></emotion-post>
+                        <ul class="m-emotion-list" v-if="list && list.length">
+                            <waterfall
+                                :autoResize="waterfall_options.autoResize"
+                                :moveTransitionDuration="0.4"
+                                :fillBox="waterfall_options.fillBox"
+                                :list="list"
+                                imgKey="src"
+                                ref="waterfall"
+                                :col-width="waterfall_options.colWidth"
+                                :col="waterfall_options.col"
                             >
-                                <emotion-item
-                                    :emotion="item.data"
-                                    :index="item.index"
-                                    @preview="handlePreview"
-                                    :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"
-                                ></emotion-item>
-                            </div>
-                        </waterfall>
-                    </ul>
+                                <div
+                                    class="u-item waterfall-item"
+                                    :class="{ fadeIn: item.state == 'show' }"
+                                    slot-scope="item"
+                                >
+                                    <emotion-item
+                                        :emotion="item.data"
+                                        :index="item.index"
+                                        @preview="handlePreview"
+                                        :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"
+                                    ></emotion-item>
+                                </div>
+                            </waterfall>
+                        </ul>
 
-                    <!-- 空 -->
-                    <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-                    <el-button
-                        class="m-emotion-more"
-                        type="primary"
-                        @click="loadMore"
-                        v-show="page < pages"
-                        icon="el-icon-arrow-down"
-                        :disabled="loading"
-                        >加载更多</el-button
-                    >
-                    <!-- 分页 -->
-                    <!-- <el-pagination
-                class="m-emotion-pagination"
-                background
-                :page-size="per"
-                :hide-on-single-page="true"
-                :current-page.sync="page"
-                layout="total, prev, pager, next, jumper"
-                :total="total"
-                @current-change="skipTop"
-            ></el-pagination>-->
+                        <!-- 空 -->
+                        <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+                        <el-button
+                            class="m-emotion-more"
+                            type="primary"
+                            @click="loadMore"
+                            v-show="page < pages"
+                            icon="el-icon-arrow-down"
+                            :disabled="loading"
+                            >加载更多</el-button
+                        >
+                        <!-- 分页 -->
+                        <!-- <el-pagination
+                    class="m-emotion-pagination"
+                    background
+                    :page-size="per"
+                    :hide-on-single-page="true"
+                    :current-page.sync="page"
+                    layout="total, prev, pager, next, jumper"
+                    :total="total"
+                    @current-change="skipTop"
+                ></el-pagination>-->
+                    </div>
                 </div>
             </div>
+            <!-- 预览弹窗 -->
+            <el-dialog :visible.sync="dialogVisible" :destroy-on-close="true" width="fit-content" :before-close="handleClose">
+                <emotion-item :emotion="emotion" mode="preview"></emotion-item>
+            </el-dialog>
         </div>
-        <!-- 预览弹窗 -->
-        <el-dialog :visible.sync="dialogVisible" :destroy-on-close="true" width="fit-content" :before-close="handleClose">
-            <emotion-item :emotion="emotion" mode="preview"></emotion-item>
-        </el-dialog>
-    </div>
+    </ListLayout>
 </template>
 
 <script>
 import cloneDeep from "lodash/cloneDeep";
 import debounce from "lodash/debounce";
 import waterfall from "vue-waterfall-rapid";
+import ListLayout from "@/layouts/ListLayout.vue";
 
 // 模块
 import emotion_item from "@/components/emotion/emotion_item";
@@ -136,6 +139,7 @@ export default {
         "emotion-item": emotion_item,
         // Comment,
         waterfall,
+        ListLayout,
     },
     data: function () {
         return {
@@ -185,8 +189,6 @@ export default {
         },
         params: function ({ search, per, page, star, original }) {
             return {
-                per,
-                page,
                 type: this.type == "all" ? "" : this.type,
                 search,
                 star: !!this.star ? 1 : "",
@@ -194,7 +196,7 @@ export default {
             };
         },
         keys: function () {
-            return [this.id, this.type, this.star, this.original, this.page, this.per];
+            return [this.id, this.type, this.star, this.original];
         },
         reset_keys: function () {
             return [this.type, this.star, this.original];
@@ -206,31 +208,29 @@ export default {
             return this.list.map((item) => resolveImagePath(item.url));
         },
     },
-    filters: {
+    methods: {
         showSchoolIcon: function (val) {
             return __imgPath + "image/school/" + val + ".png";
         },
-    },
-    methods: {
         onSearch() {
-            if (this.page !== 1) {
-                this.page = 1;
-                return;
-            }
+            this.page = 1;
             this.loadList();
         },
         loadList: function (appendMode = false) {
             this.loading = true;
             if (appendMode) {
-                this.params.page += 1;
-                this.page =this.params.page
+                this.page++;
             }
-            let params = cloneDeep(this.params);
+            const params  = {
+                ...this.params,
+                page: this.page,
+                per: this.per,
+            }
             return getEmotions(params)
                 .then((res) => {
                     if (appendMode) {
-                        this.list = this.list.concat(res.data?.data?.list || []);
-                        this.emotions = res.data?.data?.list || [];
+                        this.list = [...this.list, ...res.data?.data?.list || []];
+                        this.emotions = cloneDeep(this.list);
                     } else {
                         this.list = this.emotions = res.data?.data?.list || [];
                     }

@@ -1,17 +1,28 @@
 <template>
     <div id="app" class="p-bbs p-bbs-single">
         <Header></Header>
-        <Breadcrumb name="茶馆交流" slug="bbs" :publishEnable="false" :adminEnable="true" :feedbackEnable="true" :crumbEnable="true">
+        <Breadcrumb
+            name="茶馆交流"
+            slug="bbs"
+            :publishEnable="false"
+            :adminEnable="true"
+            :feedbackEnable="true"
+            :crumbEnable="true"
+        >
             <publish-gate slot="op-append" />
             <template #op-prepend>
-                <AdminDirectMessage :user-id="user_id" :sourceId="post.ID" :sourceType="post.post_type"></AdminDirectMessage>
+                <AdminDirectMessage
+                    :user-id="user_id"
+                    :sourceId="post.ID"
+                    :sourceType="post.post_type"
+                ></AdminDirectMessage>
             </template>
         </Breadcrumb>
         <LeftSidebar :uid="user_id">
             <Nav :id="id" />
         </LeftSidebar>
         <Main :withoutRight="false">
-            <single :id="id" />
+            <slot></slot>
             <RightSidebar :show-toggle="true">
                 <Side :id="id" class="m-extend" />
             </RightSidebar>
@@ -23,16 +34,15 @@
 <script>
 import Nav from "@/components/nav/single_nav.vue";
 import Side from "@/components/bbs/single_side.vue";
-import single from "@/components/bbs/single.vue";
 import publishGate from "@/components/publish_gate.vue";
-import { getAppIcon,getAppID } from "@jx3box/jx3box-common/js/utils";
-import AdminDirectMessage from "@jx3box/jx3box-common-ui/src/bread/AdminDirectMessage.vue"
+import { getAppIcon, getAppID } from "@jx3box/jx3box-common/js/utils";
+import AdminDirectMessage from "@jx3box/jx3box-common-ui/src/bread/AdminDirectMessage.vue";
 export default {
-    name: "App",
+    name: "Single",
     props: [],
-    data: function() {
+    data: function () {
         return {
-            id : getAppID()
+            id: getAppID(),
         };
     },
     computed: {
@@ -47,13 +57,12 @@ export default {
     components: {
         Nav,
         Side,
-        single,
         "publish-gate": publishGate,
-        AdminDirectMessage
+        AdminDirectMessage,
     },
 };
 </script>
 
 <style lang="less">
-@import "./assets/css/app.less";
+@import "~@/assets/css/app.less";
 </style>

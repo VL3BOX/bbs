@@ -1,62 +1,64 @@
 <template>
-    <div class="m-archive-box" v-loading="loading">
-        <!-- 搜索 -->
-        <div class="m-archive-search m-bbs-search" slot="search-before">
-            <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-            <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @clear="onSearch" clearable @keydown.native.enter="onSearch">
-                <span slot="prepend">关键词</span>
-                <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
-            </el-input>
+    <ListLayout>
+        <div class="m-archive-box" v-loading="loading">
+            <!-- 搜索 -->
+            <div class="m-archive-search m-bbs-search" slot="search-before">
+                <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
+                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @clear="onSearch" clearable @keydown.native.enter="onSearch">
+                    <span slot="prepend">关键词</span>
+                    <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
+                </el-input>
+            </div>
+
+            <!-- 子类别 -->
+            <el-tabs v-model="subtype" class="m-archive-tabs">
+                <el-tab-pane label="全部" name="0">
+                    <span slot="label"> <i class="u-icon el-icon-menu"></i> 全部作品 </span>
+                </el-tab-pane>
+                <el-tab-pane :label="item.label" :name="key" v-for="(item, key) in subtypes" :key="key">
+                    <span slot="label">
+                        <!-- <i :class="key | showSubtypeIcon" class="u-icon"></i> -->
+                        {{ item.label }}
+                    </span>
+                </el-tab-pane>
+            </el-tabs>
+
+            <!-- 筛选 -->
+            <div class="m-archive-filter">
+                <!-- 版本过滤 -->
+                <clientBy @filter="filterImperceptibly" :type="client"></clientBy>
+                <!-- 角标过滤 -->
+                <markBy @filter="filterMeta"></markBy>
+                <!-- 排序过滤 -->
+                <orderBy @filter="filterMeta"></orderBy>
+            </div>
+
+            <!-- 列表 -->
+            <div class="m-archive-list" v-if="data && data.length">
+                <ul class="u-list">
+                    <list-item v-for="(item, i) in data" :key="i + item" :item="item" :order="order" />
+                </ul>
+            </div>
+
+            <!-- 空 -->
+            <el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon></el-alert>
+
+            <!-- 下一页 -->
+            <el-button class="m-archive-more" v-show="hasNextPage" type="primary" @click="appendPage" :loading="loading" icon="el-icon-arrow-down">加载更多</el-button>
+
+            <!-- 分页 -->
+            <el-pagination
+                class="m-archive-pages"
+                background
+                layout="total, prev, pager, next, jumper"
+                :hide-on-single-page="true"
+                :page-size="per"
+                :total="total"
+                :current-page.sync="page"
+                @current-change="changePage"
+            ></el-pagination>
         </div>
-
-        <!-- 子类别 -->
-        <el-tabs v-model="subtype" class="m-archive-tabs">
-            <el-tab-pane label="全部" name="0">
-                <span slot="label"> <i class="u-icon el-icon-menu"></i> 全部作品 </span>
-            </el-tab-pane>
-            <el-tab-pane :label="item.label" :name="key" v-for="(item, key) in subtypes" :key="key">
-                <span slot="label">
-                    <!-- <i :class="key | showSubtypeIcon" class="u-icon"></i> -->
-                    {{ item.label }}
-                </span>
-            </el-tab-pane>
-        </el-tabs>
-
-        <!-- 筛选 -->
-        <div class="m-archive-filter">
-            <!-- 版本过滤 -->
-            <clientBy @filter="filterImperceptibly" :type="client"></clientBy>
-            <!-- 角标过滤 -->
-            <markBy @filter="filterMeta"></markBy>
-            <!-- 排序过滤 -->
-            <orderBy @filter="filterMeta"></orderBy>
-        </div>
-
-        <!-- 列表 -->
-        <div class="m-archive-list" v-if="data && data.length">
-            <ul class="u-list">
-                <list-item v-for="(item, i) in data" :key="i + item" :item="item" :order="order" />
-            </ul>
-        </div>
-
-        <!-- 空 -->
-        <el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon></el-alert>
-
-        <!-- 下一页 -->
-        <el-button class="m-archive-more" v-show="hasNextPage" type="primary" @click="appendPage" :loading="loading" icon="el-icon-arrow-down">加载更多</el-button>
-
-        <!-- 分页 -->
-        <el-pagination
-            class="m-archive-pages"
-            background
-            layout="total, prev, pager, next, jumper"
-            :hide-on-single-page="true"
-            :page-size="per"
-            :total="total"
-            :current-page.sync="page"
-            @current-change="changePage"
-        ></el-pagination>
-    </div>
+    </ListLayout>
 </template>
 <script>
 import { appKey } from "@/../setting.json";
@@ -64,6 +66,7 @@ import listItem from "@/components/bbs/list_item.vue";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getPosts } from "@/service/post";
 import subtypes from "@/assets/data/bbs_types.json";
+import ListLayout from "@/layouts/ListLayout.vue";
 export default {
     name: "Index",
     props: [],
@@ -241,6 +244,7 @@ export default {
     },
     components: {
         listItem,
+        ListLayout,
     },
 };
 </script>
