@@ -4,8 +4,8 @@ function getMenu(key) {
     return $cms().get(`/api/cms/config/menu/${key}`);
 }
 
-function getAuthorInfo(){
-    
+function getAuthorInfo() {
+
 }
 
-export { getMenu,getAuthorInfo };
+export { getMenu, getAuthorInfo };

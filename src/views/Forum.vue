@@ -5,23 +5,22 @@
             <div class="m-archive-search m-bbs-search" slot="search-before">
                 <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
                 <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @clear="onSearch" clearable @keydown.native.enter="onSearch">
-                    <span slot="prepend">关键词</span>
-                    <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
+                    <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
+                    <el-button slot="append" icon="el-icon-position" @click="onSearch"></el-button>
                 </el-input>
             </div>
 
             <!-- 子类别 -->
-            <el-tabs v-model="subtype" class="m-archive-tabs">
+            <!-- <el-tabs v-model="subtype" class="m-archive-tabs">
                 <el-tab-pane label="全部" name="0">
                     <span slot="label"> <i class="u-icon el-icon-menu"></i> 全部作品 </span>
                 </el-tab-pane>
                 <el-tab-pane :label="item.label" :name="key" v-for="(item, key) in subtypes" :key="key">
                     <span slot="label">
-                        <!-- <i :class="key | showSubtypeIcon" class="u-icon"></i> -->
                         {{ item.label }}
                     </span>
                 </el-tab-pane>
-            </el-tabs>
+            </el-tabs> -->
 
             <!-- 筛选 -->
             <div class="m-archive-filter">
@@ -31,6 +30,14 @@
                 <markBy @filter="filterMeta"></markBy>
                 <!-- 排序过滤 -->
                 <orderBy @filter="filterMeta"></orderBy>
+
+                <div class="m-bbs-tags">
+                    <div class="u-tag" :class="{ active: tag === '' }" @click="setTag('')">全部</div>
+                    <div class="u-tag" :class="{ active: tag === item }" v-for="item in theme" :key="item" @click="setTag(item)">
+                        {{ item }}
+                        <span class="u-count" v-if="getCount(item)">({{ getCount(item) }})</span>
+                    </div>
+                </div>
             </div>
 
             <!-- 列表 -->
@@ -64,9 +71,10 @@
 import { appKey } from "@/../setting.json";
 import listItem from "@/components/bbs/list_item.vue";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
-import { getPosts } from "@/service/post";
+import { getPosts, getTopicsCount } from "@/service/post";
 import subtypes from "@/assets/data/bbs_types.json";
 import ListLayout from "@/layouts/ListLayout.vue";
+import { bbs } from "@jx3box/jx3box-common/data/post_topics.json";
 export default {
     name: "Index",
     props: [],
@@ -87,6 +95,11 @@ export default {
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
             search: "", //搜索字串
+
+            theme: bbs,
+            tag: "",
+
+            topicsCount: []
         };
     },
     computed: {
@@ -105,6 +118,7 @@ export default {
                 order: this.order,
                 mark: this.mark,
                 client: this.client,
+                topic: this.tag,
             };
         },
         // 分页相关参数
@@ -116,7 +130,7 @@ export default {
         },
         // 重置页码参数
         reset_queries: function() {
-            return [this.subtype];
+            return [this.subtype, this.tag];
         },
     },
     methods: {
@@ -204,6 +218,18 @@ export default {
         appendPage: function() {
             this.loadData(true);
         },
+
+        setTag(item) {
+            this.tag = this.tag === item ? "" : item;
+        },
+        loadCount() {
+            getTopicsCount({ post_type: 'bbs' }).then((res) => {
+                this.topicsCount = res.data.data;
+            });
+        },
+        getCount(topic) {
+            return this.topicsCount.find(item => item.topic == topic)?.count || 0
+        },
     },
     watch: {
         // 加载路由参数
@@ -241,6 +267,9 @@ export default {
                 this.loadData();
             },
         },
+    },
+    mounted() {
+        this.loadCount();
     },
     components: {
         listItem,

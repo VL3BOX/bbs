@@ -28,4 +28,8 @@ function removeFeedback(id) {
     });
 }
 
-export { getPosts, getPost, getMyPost, removeFeedback };
+function getTopicsCount(params) {
+    return $cms().get(`/api/cms/post/topics/count`, { params });
+}
+
+export { getPosts, getPost, getMyPost, removeFeedback, getTopicsCount };

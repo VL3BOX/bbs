@@ -8,33 +8,38 @@
             </strong>
         </RightSideMsg>
 
-        <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
+        <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5> -->
         <div class="m-nav-group m-bbs-nav">
-            <a v-for="(item, i) in menu" :href="'/' + item.slug" :key="i" :class="{ on: item.isActive ? item.isActive(item.slug) : isActive(item.slug) }">
+            <router-link
+                v-for="(item, i) in menu"
+                :to="{ name: item.routeName }"
+                :key="i"
+                :class="{ on: item.isActive ? item.isActive(item.slug) : isActive(item.slug) }"
+                class="u-item"
+            >
                 <i :class="item.icon"></i>
                 <b>{{ item.name }}</b>
                 <span>{{ item.desc }}</span>
-            </a>
+            </router-link>
         </div>
 
-        <!-- <div class="m-nav-tags">
+        <div class="m-nav-tags">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
             <div class="u-list">
-                <a :href="item.link" :target="item.meta_3" v-for="(item,i) in tags" :key="i" v-show="item.status">{{item.label}}</a>
+                <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>
             </div>
-        </div> -->
-
+        </div>
     </div>
 </template>
 
 <script>
-// import {getMenu} from '@/service/cms.js'
+import { getMenus } from "@/service/helper.js";
 import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getAppType } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "list_nav",
     props: [],
-    data: function() {
+    data: function () {
         return {
             menu: [
                 // {
@@ -46,18 +51,21 @@ export default {
                     slug: "bbs",
                     icon: "el-icon-collection",
                     name: "剑三茶馆",
+                    routeName: "bbs",
                 },
                 {
                     slug: "joke",
                     icon: "el-icon-cold-drink",
                     name: "剑三骚话",
                     isActive: this.isActive,
+                    routeName: "joke",
                 },
                 {
                     slug: "emotion",
                     icon: "el-icon-sugar",
                     name: "剑三趣图",
                     isActive: this.isActive,
+                    routeName: "emotion",
                 },
                 // {
                 //     slug: "exam",
@@ -77,6 +85,7 @@ export default {
                     name: "剑三铭牌",
                     desc: "剑网3.com",
                     isActive: this.isActive,
+                    routeName: "namespace",
                 },
                 // {
                 //     slug: "exam",
@@ -89,17 +98,17 @@ export default {
             qq: "2471800",
         };
     },
-    computed : {
-        root : function (){
-            return location.hostname == 'localhost' ? '' : '/bbs'
+    computed: {
+        root: function () {
+            return location.hostname == "localhost" ? "" : "/bbs";
         },
     },
     methods: {
-        isActive: function(slug) {
+        isActive: function (slug) {
             return slug == this.$route.name;
         },
-        isActivePage : function (slug){
-            return getAppType() && getAppType() == slug
+        isActivePage: function (slug) {
+            return getAppType() && getAppType() == slug;
         },
         onQQClick() {
             navigator.clipboard.writeText(this.qq).then(() => {
@@ -108,11 +117,17 @@ export default {
                     message: "内容：" + this.qq,
                     type: "success",
                 });
-            })
-        }
+            });
+        },
+        loadTags() {
+            getMenus("tool_links").then((res) => {
+                // console.log(res.data.data.menu_group.menus);
+                this.tags = res.data.data?.menu_group?.menus || [];
+            });
+        },
     },
-    mounted: function() {
-        // this.loadTags()
+    mounted: function () {
+        this.loadTags();
     },
     components: {},
 };

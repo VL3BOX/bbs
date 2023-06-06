@@ -32,4 +32,11 @@ function removeCollection(collection_id) {
     });
 }
 
-export { getCollection, getCollections, removeCollection, getCollectionMenus };
+function getMenus(key){
+    return $helper()({
+        method: "GET",
+        url: `/api/menu_group/${key}`,
+    });
+}
+
+export { getCollection, getCollections, removeCollection, getCollectionMenus, getMenus };

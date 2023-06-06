@@ -23,7 +23,7 @@ const Single = () => import("../views/Single.vue");
 Vue.use(VueRouter);
 
 const routes = [
-    { name: "index", path: "/", component: Forum },
+    { name: "index", path: "/", redirect: { name: 'bbs' }, component: Forum },
     { name: "bbs", path: "/bbs", component: Forum },
     { name: "single", path: "/bbs/:id", component: Single },
     { name: "namespace", path: "/namespace", component: Namespace },
