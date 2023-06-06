@@ -120,7 +120,7 @@ export default {
             });
         },
         loadTags() {
-            getMenus("tool_links").then((res) => {
+            getMenus("bbs_links").then((res) => {
                 // console.log(res.data.data.menu_group.menus);
                 this.tags = res.data.data?.menu_group?.menus || [];
             });
