@@ -31,12 +31,12 @@
                 <!-- 排序过滤 -->
                 <orderBy @filter="filterMeta"></orderBy>
 
-                <div class="m-bbs-tags">
-                    <div class="u-tag" :class="{ active: tag === '' }" @click="setTag('')">全部</div>
-                    <div class="u-tag" :class="{ active: tag === item }" v-for="item in theme" :key="item" @click="setTag(item)">
-                        {{ item }}
-                        <span class="u-count" v-if="getCount(item)">({{ getCount(item) }})</span>
-                    </div>
+            </div>
+            <div class="m-bbs-tags">
+                <div class="u-tag" :class="{ active: tag === '' }" @click="setTag('')">全部</div>
+                <div class="u-tag" :class="{ active: tag === item }" v-for="item in theme" :key="item" @click="setTag(item)">
+                    {{ item }}
+                    <span class="u-count" v-if="getCount(item)">({{ getCount(item) }})</span>
                 </div>
             </div>
 
