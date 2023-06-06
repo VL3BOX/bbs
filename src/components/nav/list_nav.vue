@@ -23,7 +23,7 @@
             </router-link>
         </div>
 
-        <div class="m-nav-tags">
+        <div class="m-nav-tags" v-if="tags && tags.length">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
             <div class="u-list">
                 <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>

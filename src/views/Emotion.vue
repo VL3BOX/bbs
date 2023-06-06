@@ -14,7 +14,7 @@
                 <div class="m-archive-search m-emotion-search" slot="search-before">
                     <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
                     <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @keydown.native.enter="onSearch" @clear="onSearch" clearable>
-                        <span slot="prepend">关键词</span>
+                       <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
                         <template slot="append">
                             <el-switch
                                 class="u-star"
