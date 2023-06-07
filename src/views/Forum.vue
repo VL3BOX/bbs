@@ -29,7 +29,7 @@
                 <!-- 角标过滤 -->
                 <markBy @filter="filterMeta"></markBy>
                 <!-- 排序过滤 -->
-                <orderBy @filter="filterMeta"></orderBy>
+                <orderBy @filter="filterMeta" class="m-order-by"></orderBy>
 
             </div>
             <div class="m-bbs-tags">
