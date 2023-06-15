@@ -17,13 +17,6 @@ function getCollections(params) {
     });
 }
 
-function getCollectionMenus() {
-    return $helper()({
-        method: "GET",
-        url: `/api/post/collection/menus`,
-    });
-}
-
 function removeCollection(collection_id) {
     return $helper()({
         method: "PUT",
@@ -39,4 +32,4 @@ function getMenus(key){
     });
 }
 
-export { getCollection, getCollections, removeCollection, getCollectionMenus, getMenus };
+export { getCollection, getCollections, removeCollection, getMenus };
