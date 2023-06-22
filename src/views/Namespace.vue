@@ -94,16 +94,13 @@ export default {
                 source_type: this.type == "all" ? "" : this.type,
                 // source_id
                 page: this.page,
-                limit: this.per,
+                per: this.per,
+                status: 1
             };
             if (this.order == "podate") {
-                _params.sort = {
-                    created: 0,
-                };
+                _params.sort = 'created'
             } else {
-                _params.sort = {
-                    updated: 1,
-                };
+                _params.sort = 'updated';
             }
             return _params;
         },
@@ -117,12 +114,12 @@ export default {
     methods: {
         loadNamespaceList: function () {
             this.loading = true;
-            const params = Object.assign({}, this.params, {
+            const params = this.removeEmpty(Object.assign({}, this.params, {
                 key: this.search,
-            });
+            }));
             getNamespaceList(params)
                 .then((res) => {
-                    this.list = res.data.data.data || {};
+                    this.list = res.data.data.list || [];
                     this.total = res.data.data.total;
                 })
                 .finally(() => {
@@ -138,6 +135,14 @@ export default {
                 return;
             }
             this.loadNamespaceList();
+        },
+        removeEmpty: function (obj) {
+            Object.keys(obj).forEach((key) => {
+                if (obj[key] === null || obj[key] === undefined || obj[key] === "") {
+                    delete obj[key];
+                }
+            });
+            return obj;
         },
     },
     watch: {

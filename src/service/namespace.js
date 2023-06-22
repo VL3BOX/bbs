@@ -1,10 +1,9 @@
-import { $helper } from "@jx3box/jx3box-common/js/https";
+import { $cms } from "@jx3box/jx3box-common/js/https";
 
 // 获取公开命名空间列表
 function getNamespaceList(params) {
-    return $helper().get("/api/namespaces", {
+    return $cms().get("/api/cms/namespace", {
         params,
-        headers: { Accept: "application/prs.helper.v2+json" },
     });
 }
 
