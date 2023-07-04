@@ -86,6 +86,7 @@
                     type="primary"
                     @click="post"
                     :disabled="loading"
+                    :loading="loading"
                     icon="el-icon-s-promotion"
                     size="mini"
                     >提交</el-button
