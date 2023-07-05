@@ -75,6 +75,8 @@ import { getPosts, getTopicsCount } from "@/service/post";
 import subtypes from "@/assets/data/bbs_types.json";
 import ListLayout from "@/layouts/ListLayout.vue";
 import { bbs } from "@jx3box/jx3box-common/data/post_topics.json";
+import { getTopicBucket } from "@/service/cms";
+
 export default {
     name: "Index",
     props: [],
@@ -96,7 +98,7 @@ export default {
             client: this.$store.state.client, //版本选择
             search: "", //搜索字串
 
-            theme: bbs,
+            theme: [],
             tag: "",
 
             topicsCount: []
@@ -230,6 +232,12 @@ export default {
         getCount(topic) {
             return this.topicsCount.find(item => item.topic == topic)?.count || 0
         },
+        getTopicBucket() {
+            getTopicBucket({ type: 'bbs' }).then((res) => {
+                const data = res.data.data?.map(item => item.name) || [];
+                this.theme = [...bbs, ...data];
+            });
+        }
     },
     watch: {
         // 加载路由参数
@@ -270,6 +278,7 @@ export default {
     },
     mounted() {
         this.loadCount();
+        this.getTopicBucket();
     },
     components: {
         listItem,

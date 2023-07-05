@@ -965,10 +965,10 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^7.5.0":
-  "integrity" "sha512-hiTvb+5mU/ejxI/XxehLo5byozWTvl6CEhUf2kf0PUfSErdrALBGri0D8950kN0k4MxkKIx1V+LNN+5o7s0bYg=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.5.0.tgz"
-  "version" "7.5.0"
+"@jx3box/jx3box-common-ui@^7.5.2":
+  "integrity" "sha512-Yt9lejgbfLBTKF7GG7ddXetbZSnnupMZt/NO7Y+QcMcEwzsrgVwlhGZQWHCE0qk0NFxUCxxiXxSv9qiB8aO89w=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.5.2.tgz"
+  "version" "7.5.2"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.13"
     "@jx3box/jx3box-common" "^7.9.5"
@@ -1006,10 +1006,10 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.7.3", "@jx3box/jx3box-common@^7.7.6", "@jx3box/jx3box-common@^7.9.11", "@jx3box/jx3box-common@^7.9.3", "@jx3box/jx3box-common@^7.9.5":
-  "integrity" "sha512-NqGVhdogw2bBBa68x9QbPbLOtokh2s4kKzaKw5v3gUHdi9TjtUHBgr9JcEDOe/G6uGjAPiC9yGosydMrR4oMgw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.9.11.tgz"
-  "version" "7.9.11"
+"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.7.3", "@jx3box/jx3box-common@^7.7.6", "@jx3box/jx3box-common@^7.9.12", "@jx3box/jx3box-common@^7.9.3", "@jx3box/jx3box-common@^7.9.5":
+  "integrity" "sha512-vwIoguC+TsHfh/RGGWrAhPieINUWKz1v5CAheJev+Yxan+lsqWsJELGjwOFdfuczzT7v+gvhSl9UMoB3i7MQAA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.9.12.tgz"
+  "version" "7.9.12"
   dependencies:
     "@jx3box/reporter" "^0.0.5"
     "axios" "^0.20.0"
@@ -1017,6 +1017,7 @@
     "element-ui" "^2.13.2"
     "localforage" "^1.7.3"
     "moment" "^2.29.1"
+    "uuid" "^9.0.0"
     "vue" "^2.6.12"
 
 "@jx3box/jx3box-data@^1.11.3":
@@ -9109,6 +9110,11 @@
   "integrity" "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz"
   "version" "3.4.0"
+
+"uuid@^9.0.0":
+  "integrity" "sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg=="
+  "resolved" "https://registry.npmjs.org/uuid/-/uuid-9.0.0.tgz"
+  "version" "9.0.0"
 
 "validate-npm-package-license@^3.0.1":
   "integrity" "sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew=="

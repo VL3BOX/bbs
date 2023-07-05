@@ -8,4 +8,9 @@ function getAuthorInfo() {
 
 }
 
-export { getMenu, getAuthorInfo };
+// 获取自定义主题
+function getTopicBucket(params) {
+    return $cms().get(`/api/cms/post/topic/bucket`, { params });
+}
+
+export { getMenu, getAuthorInfo, getTopicBucket };
