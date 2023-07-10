@@ -18,6 +18,9 @@ Vue.use(ElementUI);
 import hevueImgPreview from "hevue-img-preview";
 Vue.use(hevueImgPreview);
 
+import reporter from "@jx3box/jx3box-common/js/reporter";
+reporter.install(Vue);
+
 // import waterfall from "vue-waterfall2";
 // Vue.use(waterfall)
 
