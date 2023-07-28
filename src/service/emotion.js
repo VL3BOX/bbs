@@ -1,7 +1,7 @@
-import { $cms } from "@jx3box/jx3box-common/js/https";
+import { $cms, $next } from "@jx3box/jx3box-common/js/https";
 
 // 发布
-function postEmotion(data) {
+const postEmotion = (data) => {
     return $cms().post(`/api/cms/post/emotion`, data);
 }
 
@@ -13,7 +13,7 @@ const getEmotions = (params) => {
 };
 
 // 获取指定骚话
-function getEmotion(id) {
+const getEmotion = (id) => {
     return $cms().get(`/api/cms/post/emotion/${id}`);
 }
 
@@ -22,7 +22,7 @@ const starEmotion = (id) => {
     return $cms().put(`/api/cms/post/emotion/${id}/star`);
 };
 // 取消标星
-function unstarEmotion(id){
+const unstarEmotion = (id) => {
     return $cms().put(`/api/cms/post/emotion/${id}/unstar`);
 }
 
@@ -32,8 +32,8 @@ const removeEmotion = (id) => {
 };
 
 // 通用 - 上传文件
-function uploadEmotion(formdata) {
-    return $cms().post(`/api/cms/upload`, formdata);
+function uploadEmotion(formdata, category = "emotions") {
+    return $next().post(`/api/${category}/upload`, formdata);
 }
 
-export { getEmotions, getEmotion, starEmotion, removeEmotion, postEmotion ,unstarEmotion, uploadEmotion};
+export { getEmotions, getEmotion, starEmotion, removeEmotion, postEmotion, unstarEmotion, uploadEmotion };
