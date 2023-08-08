@@ -1015,10 +1015,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jx3box/jx3box-comment-ui@^1.7.13":
-  "integrity" "sha512-k9BN/zgQ6VCEQV9bT8nO/fpuyPvYKPeVs5ciKiif1bOl8UlzM+ZQ8CzEgbfK+m1Qx2hfwiYbRDB3GIY6EiTvIw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-comment-ui/-/jx3box-comment-ui-1.7.13.tgz"
-  "version" "1.7.13"
+"@jx3box/jx3box-comment-ui@^1.7.13", "@jx3box/jx3box-comment-ui@^1.7.16":
+  "integrity" "sha512-MY5XGJGKFouDzpumDO6+2xfMYHOJCOzqad/kbQJ1qc6vcKd8Y8UjxMaHzJRrdXZGHsbdyCcEjaCbtTF8gCzSHw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-comment-ui/-/jx3box-comment-ui-1.7.16.tgz"
+  "version" "1.7.16"
   dependencies:
     "@jx3box/jx3box-common" "^7.7.6"
     "@jx3box/jx3box-emotion" "^1.1.10"
@@ -1092,10 +1092,10 @@
     "fs" "0.0.1-security"
     "path" "^0.12.7"
 
-"@jx3box/jx3box-data@^3.0.4", "@jx3box/jx3box-data@^3.3.0", "@jx3box/jx3box-data@^3.3.2":
-  "integrity" "sha512-tfzieaQpN94Xpf2duLHB/CixpDDycErty601kp5Kus8p12ysW0SsheCSv8dpdffmjfnXz1dfRTQHjS1t4RuEfg=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.3.2.tgz"
-  "version" "3.3.2"
+"@jx3box/jx3box-data@^3.0.4", "@jx3box/jx3box-data@^3.3.0", "@jx3box/jx3box-data@^3.3.4":
+  "integrity" "sha512-215/6E2yJytvdqR2/b2hc8RyRFkAzA1h7swGrzy/Tzs4fVQ8l/q8QDB8JCzCYGZAh634Saxa8x0abFnQKqQXUA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.3.4.tgz"
+  "version" "3.3.4"
 
 "@jx3box/jx3box-editor@^1.9.9":
   "integrity" "sha512-zxah3geDPFrD/p5+o/J5hS/Nk3JKeZipW6XgTh92kleu04vDPv+0Evl20XBb6OWg9szAwOxHC1QNliPQzA34KQ=="
