@@ -1,7 +1,12 @@
 <template>
     <li class="u-item">
         <!-- Banner -->
-        <a class="u-banner" :href="item.ID | postLink" :target="target"><img :src="getBanner(item.post_banner, item.post_subtype)" :key="item.ID"/></a>
+        <a class="u-banner" :href="item.ID | postLink" :target="target" v-reporter="{
+                data: {
+                    href: reporterLink(item.ID),
+                },
+                caller,
+            }"><img :src="getBanner(item.post_banner, item.post_subtype)" :key="item.ID"/></a>
 
         <!-- 标题 -->
         <h2 class="u-post" :class="{ isSticky: item.sticky }">
@@ -9,7 +14,12 @@
             <img class="u-icon" svg-inline src="../../assets/img/list/post.svg" />
 
             <!-- 标题文字 -->
-            <a class="u-title" :style="item.color | showHighlight" :href="item.ID | postLink" :target="target">{{ item.post_title || "无标题" }}</a>
+            <a class="u-title" :style="item.color | showHighlight" :href="item.ID | postLink" :target="target" v-reporter="{
+                data: {
+                    href: reporterLink(item.ID),
+                },
+                caller,
+            }">{{ item.post_title || "无标题" }}</a>
 
             <!-- 角标 -->
             <span class="u-marks" v-if="item.mark && item.mark.length">
@@ -43,7 +53,7 @@ import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import {showDate} from '@jx3box/jx3box-common/js/moment.js'
 export default {
     name: "ListItem",
-    props: ['item','order'],
+    props: ['item','order', 'caller'],
     components: {},
     data: function() {
         return {
@@ -51,6 +61,9 @@ export default {
         };
     },
     computed: {
+        client() {
+            return this.item?.client;
+        },
     },
     watch: {},
     methods: {
@@ -60,6 +73,10 @@ export default {
             } else {
                 return __imgPath + `image/banner/${appKey}` + subtype + ".png";
             }
+        },
+        reporterLink: function (val) {
+            const prefix = this.client === 'std' ? 'www' : 'origin'
+            return`${prefix}:/${appKey}/` + val;
         },
     },
     filters: {
