@@ -156,6 +156,7 @@ export default {
             let _query = {
                 per : this.per,
                 page : this.page,
+                sticky: 1
             };
 
             for (let key in this.query) {
@@ -170,9 +171,9 @@ export default {
                 }
             }
             // 当指定子类别时启用置顶
-            if(_query.subtype){
-                _query.sticky = 1
-            }
+            // if(_query.subtype){
+            //     _query.sticky = 1
+            // }
             // search处理
             if (this.search) {
                 _query.search = this.search.trim();
