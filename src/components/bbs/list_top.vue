@@ -5,8 +5,10 @@
         </div>
         <div class="m-bbs-top__content">
             <div class="m-bbs-top__item" v-for="item in data" :key="item.id">
-                <span class="u-type" :style="itemTypeStyle(item)">{{ itemType(item, 'label') }}</span>
-                <a class="u-title" :class="{'is-bold': itemType(item, 'color')}" :href="postLink(item.ID)" target="_blank">{{ item.post_title }}</a>
+                <div class="m-item_left">
+                    <span class="u-type" :style="itemTypeStyle(item)">{{ itemType(item, 'label') }}</span>
+                    <a class="u-title" :class="{'is-bold': itemType(item, 'color')}" :href="postLink(item.ID)" target="_blank">{{ item.post_title }}</a>
+                </div>
                 <time class="u-time">{{ fromNow(item.post_modified) }}</time>
             </div>
         </div>

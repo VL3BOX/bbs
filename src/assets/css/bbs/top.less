@@ -10,6 +10,7 @@
     font-size: 14px;
     .flex;
     align-items: center;
+    justify-content: space-between;
     .pr;
     .u-type {
         padding: 2px 5px;
@@ -19,11 +20,28 @@
         margin-right: 5px;
     }
 
-    .u-title {
-        .nobreak();
+    .m-item_left {
+        .flex;
+        align-items: center;
         flex: 1;
+        .pr;
+        .nobreak();
+
+        &:hover {
+            .u-title {
+                box-shadow: 0 1px 0 @primary;
+            }
+        }
+    }
+
+    .u-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
         &:hover {
             box-shadow: 0 1px 0 @primary;
+            color: @pink;
         }
 
         &.is-bold {
@@ -32,8 +50,6 @@
     }
 
     .u-time {
-        .pr;
-        right: 0;
         font-size: 12px;
         color: #999;
         margin-left: 5px;
