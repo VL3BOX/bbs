@@ -7,6 +7,7 @@
             <div class="m-bbs-top__item" v-for="item in data" :key="item.id">
                 <span class="u-type" :style="itemTypeStyle(item)">{{ itemType(item, 'label') }}</span>
                 <a class="u-title" :class="{'is-bold': itemType(item, 'color')}" :href="postLink(item.ID)" target="_blank">{{ item.post_title }}</a>
+                <time class="u-time">{{ fromNow(item.post_modified) }}</time>
             </div>
         </div>
     </div>
@@ -15,6 +16,11 @@
 <script>
 import { getPosts } from "@/service/post";
 import notice_types from "@/assets/data/notice_types.json";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+require('dayjs/locale/zh-cn')
+dayjs.locale("zh-cn")
 export default {
     data() {
         return {
@@ -47,6 +53,10 @@ export default {
         postLink(val) {
             return location.origin + `/notice/` + val;
         },
+        // 距离现在时间
+        fromNow(time) {
+            return dayjs(time).fromNow();
+        }
     }
 }
 </script>
