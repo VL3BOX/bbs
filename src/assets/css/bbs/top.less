@@ -1,23 +1,24 @@
 .m-bbs-top {
-    background-color: #f6f6f6;
-    padding: 10px;
+    background-color: @bg-light;
+    border:1px solid #eee;
+    padding: 8px 10px;
     border-radius: 6px;
     margin-bottom: 10px;
 }
 
 .m-bbs-top__item {
-    margin-bottom: 5px;
-    font-size: 14px;
+    padding:4px 0;
+    .fz(13px,1.6);
     .flex;
     align-items: center;
     justify-content: space-between;
     .pr;
     .u-type {
-        padding: 2px 5px;
+        padding: 2px 8px;
         font-size: 12px;
         color: #fff;
         border-radius: 2px;
-        margin-right: 5px;
+        margin-right: 8px;
     }
 
     .m-item_left {
@@ -26,12 +27,6 @@
         flex: 1;
         .pr;
         .nobreak();
-
-        &:hover {
-            .u-title {
-                box-shadow: 0 1px 0 @primary;
-            }
-        }
     }
 
     .u-title {
@@ -40,7 +35,6 @@
         white-space: nowrap;
 
         &:hover {
-            box-shadow: 0 1px 0 @primary;
             color: @pink;
         }
 

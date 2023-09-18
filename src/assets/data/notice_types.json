@@ -1,18 +1,18 @@
 {
     "1": {
         "label": "活动",
-        "color": "#f00c9c"
+        "color": "#a47df7"
     },
     "2": {
         "label": "公告",
-        "color": "#ff0000"
+        "color": "#cc0000"
     },
     "3": {
         "label": "更新",
-        "color": "#ecf00c"
+        "color": "#0cd8f0"
     },
     "4": {
         "label": "通知",
-        "color": "#7ef00c"
+        "color": "#ffc632"
     }
 }

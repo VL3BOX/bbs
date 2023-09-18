@@ -1,13 +1,13 @@
 <template>
     <div class="m-bbs-top">
-        <div class="m-bbs-top__header">
-
-        </div>
+        <div class="m-bbs-top__header"></div>
         <div class="m-bbs-top__content">
             <div class="m-bbs-top__item" v-for="item in data" :key="item.id">
                 <div class="m-item_left">
-                    <span class="u-type" :style="itemTypeStyle(item)">{{ itemType(item, 'label') }}</span>
-                    <a class="u-title" :class="{'is-bold': itemType(item, 'color')}" :href="postLink(item.ID)" target="_blank">{{ item.post_title }}</a>
+                    <span class="u-type" :style="itemTypeStyle(item)">{{ itemType(item, "label") }}</span>
+                    <a class="u-title" :class="{ 'is-bold': item.color }" :href="postLink(item.ID)" target="_blank" :style="{color:item.color}">{{
+                        item.post_title
+                    }}</a>
                 </div>
                 <time class="u-time">{{ fromNow(item.post_modified) }}</time>
             </div>
@@ -21,13 +21,13 @@ import notice_types from "@/assets/data/notice_types.json";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
-require('dayjs/locale/zh-cn')
-dayjs.locale("zh-cn")
+require("dayjs/locale/zh-cn");
+dayjs.locale("zh-cn");
 export default {
     data() {
         return {
-            data: []
-        }
+            data: [],
+        };
     },
     mounted() {
         this.getNotice();
@@ -38,19 +38,19 @@ export default {
                 per: 3,
                 page: 1,
                 sticky: 1,
-                type: 'notice'
-            }
-            getPosts(query).then(res => {
+                type: "notice",
+            };
+            getPosts(query).then((res) => {
                 this.data = res.data.data.list;
-            })
+            });
         },
         itemType({ post_subtype }, key) {
             return notice_types[post_subtype][key];
         },
         itemTypeStyle(item) {
             return {
-                backgroundColor: this.itemType(item, 'color'),
-            }
+                backgroundColor: this.itemType(item, "color"),
+            };
         },
         postLink(val) {
             return location.origin + `/notice/` + val;
@@ -58,9 +58,9 @@ export default {
         // 距离现在时间
         fromNow(time) {
             return dayjs(time).fromNow();
-        }
-    }
-}
+        },
+    },
+};
 </script>
 
 <style lang="less">
