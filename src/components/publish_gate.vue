@@ -12,7 +12,7 @@ export default {
     props: [],
     data: function () {
         return {
-            redirect_types : ['index','forum','notice','feedback']
+            redirect_types : ['index','forum','notice','feedback', 'single']
         };
     },
     computed: {
