@@ -40,6 +40,9 @@
                 </div>
             </div>
 
+            <!-- 置顶 -->
+            <list-top />
+
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
                 <ul class="u-list">
@@ -74,6 +77,7 @@ import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getPosts, getTopicsCount } from "@/service/post";
 import subtypes from "@/assets/data/bbs_types.json";
 import ListLayout from "@/layouts/ListLayout.vue";
+import list_top from "@/components/bbs/list_top.vue";
 import { bbs } from "@jx3box/jx3box-common/data/post_topics.json";
 import { getTopicBucket } from "@/service/cms";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
@@ -296,6 +300,7 @@ export default {
     components: {
         listItem,
         ListLayout,
+        "list-top": list_top
     },
 };
 </script>
