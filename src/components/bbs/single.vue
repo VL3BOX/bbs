@@ -3,9 +3,10 @@
         <!-- 头部子类型 -->
         <div class="u-meta u-sub-block" slot="single-header">
             <em class="u-label">类型</em>
-            <span class="u-value">
+            <!-- <span class="u-value">
                 {{ post_subtype }}
-            </span>
+            </span> -->
+            <span v-for="item in topics" :key="item" class="u-label u-topic">{{ item }}</span>
         </div>
     </singlebox>
 </template>
@@ -34,6 +35,9 @@ export default {
             let subtype = this.post?.post_subtype;
             return subtype ? types[subtype]?.['label'] : "-";
         },
+        topics: function (){
+            return (this.post?.topics || []).map(item => item.topic)
+        }
     },
     methods : {
         updateExtend : function (val){
