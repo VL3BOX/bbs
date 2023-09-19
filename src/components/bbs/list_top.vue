@@ -1,6 +1,9 @@
 <template>
     <div class="m-bbs-top">
-        <div class="m-bbs-top__header"></div>
+        <div class="m-bbs-top__header">
+            <h3 class="u-title"><i class="el-icon-news"></i>官方资讯</h3>
+            <a href="/notice" class="u-more" target="_blank">全部 &raquo;</a>
+        </div>
         <div class="m-bbs-top__content">
             <div class="m-bbs-top__item" v-for="item in data" :key="item.id">
                 <div class="m-item_left">
@@ -48,6 +51,7 @@ export default {
             return notice_types[post_subtype][key];
         },
         itemTypeStyle(item) {
+            return {};
             return {
                 backgroundColor: this.itemType(item, "color"),
             };
