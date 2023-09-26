@@ -240,6 +240,7 @@ export default {
 
         setTag(item) {
             this.tag = this.tag === item ? "" : item;
+            this.replaceRoute({ tag: this.tag });
         },
         loadCount() {
             getTopicsCount({ post_type: 'bbs' }).then((res) => {
