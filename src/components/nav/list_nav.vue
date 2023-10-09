@@ -73,12 +73,13 @@ export default {
                 //     name: "剑三考试",
                 //     isActive: this.isActivePage
                 // },
-                /* {
+                {
                     slug: "collection",
                     icon: "el-icon-paperclip",
                     name: "剑三小册",
-                    isActive: this.isActivePage
-                }, */
+                    isActive: this.isActivePage,
+                    routeName: "collection"
+                },
                 {
                     slug: "namespace",
                     icon: "el-icon-postcard",

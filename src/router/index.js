@@ -19,6 +19,7 @@ const Joke = () => import("../views/Joke.vue");
 const Emotion = () => import("../views/Emotion.vue");
 const Forum = () => import("../views/Forum.vue");
 const Single = () => import("../views/Single.vue");
+const Collection = () => import("../views/Collection.vue");
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,8 @@ const routes = [
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
+    { name: "collection", path: "/collection", component: Collection },
+    { name: "collection-single", path: "/collection/:id?", component: () => import('@/components/collection/collection_single.vue') },
 ];
 
 const router = new VueRouter({
