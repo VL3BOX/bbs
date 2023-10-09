@@ -255,7 +255,7 @@ export default {
             });
         },
         formatDate(date) {
-            return dayjs(date).format("YYYY-MM-DD HH:mm:ss");
+            return dateFormat(new Date(date))
         },
     },
     filters: {
