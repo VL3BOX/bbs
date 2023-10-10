@@ -106,7 +106,7 @@
                                 <a
                                     class="u-item-title"
                                     target="_blank"
-                                    :href="post.type === 'custom' ? post.url : getLink(post.type, post.id)"
+                                    :href="post.type === 'custom' ? post.url : getLink(post.post_type || post.type, post.id)"
                                     >{{ post.title }}</a
                                 >
                                 <time
