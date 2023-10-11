@@ -1,8 +1,8 @@
-name: Preview Master
+name: Preview Dev
 on:
     push:
-        tags:
-            - "v*.*.*"
+        branches:
+            - dev
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
@@ -19,35 +19,25 @@ jobs:
             - name: Install && Build
               run: |
                   npm install
-                  npm run build
+                  npm run preview
 
-            - name: Github Pages
-              uses: JamesIves/github-pages-deploy-action@releases/v3
-              with:
-                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-                  BRANCH: gh-pages
-                  FOLDER: dist
-                  CLEAN: true
-
-            ## TODO:下方修改两处
+            ## TODO:下方修改2处
             - name: OSS
               uses: manyuanrong/setup-ossutil@v2.0
               with:
                   endpoint: "oss-cn-hangzhou.aliyuncs.com"
                   access-key-id: ${{secrets.AccessKey_ID}}
                   access-key-secret: ${{secrets.Access_Key_Secret}}
-            - run: ossutil cp -rf dist oss://jx3box/static/bbs
-            #- run: ossutil cp -rf dist oss://jx3box-www/bbs
+            - run: ossutil cp -rf bbs oss://jx3box/static/bbs
 
-            ## TODO:下方修改一处
-            - name: Deploy
-              uses: appleboy/ssh-action@master
+
+            ## TODO:下方修改1处
+            - name: GrayEnv
+              uses: appleboy/scp-action@v0.1.4
               with:
                   host: ${{ secrets.HOST_NANJING2 }}
                   username: ${{ secrets.DEPLOY_USER }}
                   key: ${{ secrets.DEPLOY_KEY }}
-                  script: |
-                      cd /www/wwwroot/jx3box/jx3box-v2
-                      cd bbs
-                      git checkout gh-pages
-                      git pull origin gh-pages
+                  source: bbs/*
+                  target: /www/wwwroot/jx3box/test
+

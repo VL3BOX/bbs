@@ -6,30 +6,30 @@ const Setting = require("./setting.json");
 module.exports = {
     //❤️ Multiple pages ~
     // pages: {
-        // index: {
-        //     title: "剑三茶馆 - JX3BOX",
-        //     entry: "src/main.js",
-        //     template: "public/index.html",
-        //     filename: "index.html",
-        // },
-        // bbs: {
-        //     title: "剑三茶馆 - JX3BOX",
-        //     entry: "src/post.js",
-        //     template: "public/index.html",
-        //     filename: "post.html",
-        // },
-        // exam: {
-        //     title: "剑三考试 - JX3BOX",
-        //     entry: "src/pages/exam.js",
-        //     template: "public/index.html",
-        //     filename: "exam/index.html",
-        // },
-        // collection: {
-        //     title: "剑三小册 - JX3BOX",
-        //     entry: "src/pages/collection.js",
-        //     template: "public/index.html",
-        //     filename: "collection/index.html",
-        // },
+    // index: {
+    //     title: "剑三茶馆 - JX3BOX",
+    //     entry: "src/main.js",
+    //     template: "public/index.html",
+    //     filename: "index.html",
+    // },
+    // bbs: {
+    //     title: "剑三茶馆 - JX3BOX",
+    //     entry: "src/post.js",
+    //     template: "public/index.html",
+    //     filename: "post.html",
+    // },
+    // exam: {
+    //     title: "剑三考试 - JX3BOX",
+    //     entry: "src/pages/exam.js",
+    //     template: "public/index.html",
+    //     filename: "exam/index.html",
+    // },
+    // collection: {
+    //     title: "剑三小册 - JX3BOX",
+    //     entry: "src/pages/collection.js",
+    //     template: "public/index.html",
+    //     filename: "collection/index.html",
+    // },
     // },
 
     //❤️ Proxy ~
@@ -37,31 +37,31 @@ module.exports = {
         proxy: {
             "/api/inspire": {
                 target: "https://pay.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/vip": {
                 target: "https://pay.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/cny": {
                 target: "https://pay.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/summary": {
                 target: "https://next2.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/comment": {
                 target: "https://next2.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
@@ -70,25 +70,27 @@ module.exports = {
             },
             "/api/summary-any": {
                 target: "https://next2.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/team": {
                 target: "https://team.api.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api": {
                 target: "https://next2.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
         },
         disableHostCheck: true,
     },
+
+    outputDir: process.env["BUILD_MODE"] == "preview" ? path.resolve(__dirname, pkg.name) : "dist", // 指定构建输出的目录
 
     //webpack配置
     // configureWebpack: (config) => {
@@ -151,12 +153,13 @@ module.exports = {
     chainWebpack: (config) => {
         //💘 html-webpack-plugin ~
         // Multiple pages disable the block below
-        config.plugin("html").tap(args => {
-            args[0].meta = {                            //------设置SEO信息
+        config.plugin("html").tap((args) => {
+            args[0].meta = {
+                //------设置SEO信息
                 Keywords: Setting.keys,
-                Description: Setting.desc
+                Description: Setting.desc,
             };
-            args[0].title = Setting.title + SEO.title;  //------自动添加标题后缀
+            args[0].title = Setting.title + SEO.title; //------自动添加标题后缀
             return args;
         });
 
@@ -168,10 +171,7 @@ module.exports = {
             .tap((options) => Object.assign(options, { limit: 10240 }));
 
         //💝 in-line svg imgs ~
-        config.module
-            .rule("vue")
-            .use("vue-svg-inline-loader")
-            .loader("vue-svg-inline-loader");
+        config.module.rule("vue").use("vue-svg-inline-loader").loader("vue-svg-inline-loader");
 
         //💖 import common less var * mixin ~
         const types = ["vue-modules", "vue", "normal-modules", "normal"];
@@ -182,11 +182,9 @@ module.exports = {
             path.resolve(__dirname, "./src/assets/css/var.less")
         );
         function addStyleResource(rule) {
-            rule.use("style-resource")
-                .loader("style-resources-loader")
-                .options({
-                    patterns: preload_styles,
-                });
+            rule.use("style-resource").loader("style-resources-loader").options({
+                patterns: preload_styles,
+            });
         }
         types.forEach((type) => addStyleResource(config.module.rule("less").oneOf(type)));
     },
