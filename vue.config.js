@@ -135,6 +135,8 @@ module.exports = {
     publicPath:
         //FOR Localhost => development
         (process.env.NODE_ENV === "development" && "/") ||
+        //BY relative path
+        (process.env.BUILD_MODE === "preview" && `/${pkg.name}/`) ||
         //BY origin
         (process.env.STATIC_PATH === "origin" && `${JX3BOX.__staticPath["origin"]}${pkg.name}/`) ||
         //BY github
