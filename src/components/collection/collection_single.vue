@@ -217,7 +217,9 @@ export default {
     },
     methods: {
         getThumbnail,
-        getLink,
+        getLink(type, id) {
+            return getLink(type, id);
+        },
         getTypeLabel,
         showAvatar,
         resolveImagePath,
