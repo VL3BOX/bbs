@@ -965,14 +965,14 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^7.7.3":
-  "integrity" "sha512-tD+454RgINjBvYR8la3F2+MMWAJD8rmOpSsrIb9nMvLTQL6qdVfgj+UL2/vNSZ+7Vo+kko25a2d4AP+jWREhfw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.7.3.tgz"
-  "version" "7.7.3"
+"@jx3box/jx3box-common-ui@^7.9.1":
+  "integrity" "sha512-SxOD76a6zW3WST7DPmB7TcTx7IQsyfavQ5uCgKalZzx2ly6lvoLQOamEnw7gfJEMiIKzoz+TKeJr9LwyxrAiTg=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.9.1.tgz"
+  "version" "7.9.1"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.16"
-    "@jx3box/jx3box-common" "^7.9.15"
-    "@jx3box/jx3box-data" "^3.4.2"
+    "@jx3box/jx3box-common" "^8.0.3"
+    "@jx3box/jx3box-data" "^3.5.3"
     "@jx3box/jx3box-editor" "^1.9.9"
     "@jx3box/reporter" "^0.0.4"
     "axios" "^0.26.1"
@@ -1006,7 +1006,7 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.7.3", "@jx3box/jx3box-common@^7.7.6", "@jx3box/jx3box-common@^7.9.15", "@jx3box/jx3box-common@^7.9.3":
+"@jx3box/jx3box-common@^7.4.2":
   "integrity" "sha512-uAgNZB1U2NwnGId+WfLYvpOhKzNB2ndhZmIJHktOqzKKZh6nL2hrf0DS1fDcXzDGkRH+4O2zhyzJxh0KHAmocw=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.9.15.tgz"
   "version" "7.9.15"
@@ -1020,6 +1020,62 @@
     "uuid" "^9.0.0"
     "vue" "^2.6.12"
 
+"@jx3box/jx3box-common@^7.7.3":
+  "integrity" "sha512-uAgNZB1U2NwnGId+WfLYvpOhKzNB2ndhZmIJHktOqzKKZh6nL2hrf0DS1fDcXzDGkRH+4O2zhyzJxh0KHAmocw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.9.15.tgz"
+  "version" "7.9.15"
+  dependencies:
+    "@jx3box/reporter" "^0.0.5"
+    "axios" "^0.20.0"
+    "cheerio" "1.0.0-rc.10"
+    "element-ui" "^2.13.2"
+    "localforage" "^1.7.3"
+    "moment" "^2.29.1"
+    "uuid" "^9.0.0"
+    "vue" "^2.6.12"
+
+"@jx3box/jx3box-common@^7.7.6":
+  "integrity" "sha512-uAgNZB1U2NwnGId+WfLYvpOhKzNB2ndhZmIJHktOqzKKZh6nL2hrf0DS1fDcXzDGkRH+4O2zhyzJxh0KHAmocw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.9.15.tgz"
+  "version" "7.9.15"
+  dependencies:
+    "@jx3box/reporter" "^0.0.5"
+    "axios" "^0.20.0"
+    "cheerio" "1.0.0-rc.10"
+    "element-ui" "^2.13.2"
+    "localforage" "^1.7.3"
+    "moment" "^2.29.1"
+    "uuid" "^9.0.0"
+    "vue" "^2.6.12"
+
+"@jx3box/jx3box-common@^7.9.3":
+  "integrity" "sha512-uAgNZB1U2NwnGId+WfLYvpOhKzNB2ndhZmIJHktOqzKKZh6nL2hrf0DS1fDcXzDGkRH+4O2zhyzJxh0KHAmocw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.9.15.tgz"
+  "version" "7.9.15"
+  dependencies:
+    "@jx3box/reporter" "^0.0.5"
+    "axios" "^0.20.0"
+    "cheerio" "1.0.0-rc.10"
+    "element-ui" "^2.13.2"
+    "localforage" "^1.7.3"
+    "moment" "^2.29.1"
+    "uuid" "^9.0.0"
+    "vue" "^2.6.12"
+
+"@jx3box/jx3box-common@^8.0.3":
+  "integrity" "sha512-E6PnbGuCUI39ySMvN1hLK0JmHu/SV9YnYXeYlZaqlBs/4yWC1OmqHceTz8nbUx5IXURnOOrMjeaXMHLntyqitw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-8.0.3.tgz"
+  "version" "8.0.3"
+  dependencies:
+    "@jx3box/reporter" "^0.0.5"
+    "axios" "^0.20.0"
+    "cheerio" "1.0.0-rc.10"
+    "dayjs" "^1.11.10"
+    "element-ui" "^2.13.2"
+    "localforage" "^1.7.3"
+    "uuid" "^9.0.0"
+    "vue" "^2.6.12"
+
 "@jx3box/jx3box-data@^1.11.3":
   "integrity" "sha512-JzFe4RgwKD3Ri+Lj77VX679kX4Bmw/3jCUHiAU73DmyLvFmYY53Uxif+5JyY7D4AEvdWEJQtRGYLwS3ZM5SESA=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-1.12.1.tgz"
@@ -1029,10 +1085,10 @@
     "fs" "0.0.1-security"
     "path" "^0.12.7"
 
-"@jx3box/jx3box-data@^3.0.4", "@jx3box/jx3box-data@^3.3.0", "@jx3box/jx3box-data@^3.4.2", "@jx3box/jx3box-data@^3.4.9":
-  "integrity" "sha512-y+QB+pRtBQqZEBcxc8fhmnSMjAj1SoMO9f8BTWPXd8YXl+UPE1fPYnD+hi2zXEZGSfujCXfUX1MIRnkOMLHtqw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.4.9.tgz"
-  "version" "3.4.9"
+"@jx3box/jx3box-data@^3.0.4", "@jx3box/jx3box-data@^3.3.0", "@jx3box/jx3box-data@^3.5.3", "@jx3box/jx3box-data@^3.5.4":
+  "integrity" "sha512-Ai/7rfUkh52zp6GHbiZPdgBI8Yuu/jERNDBScjWOUvngxKA3CEUIICxU6pIa5qt4sT/MEFgJjUIuEFDL1Jf6Sg=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.5.4.tgz"
+  "version" "3.5.4"
 
 "@jx3box/jx3box-editor@^1.9.9":
   "integrity" "sha512-zxah3geDPFrD/p5+o/J5hS/Nk3JKeZipW6XgTh92kleu04vDPv+0Evl20XBb6OWg9szAwOxHC1QNliPQzA34KQ=="
@@ -1067,10 +1123,43 @@
     "vue-plugin-load-script" "^1.3.6"
     "xss" "^1.0.8"
 
-"@jx3box/jx3box-emotion@^1.1.10", "@jx3box/jx3box-emotion@^1.1.8", "@jx3box/jx3box-emotion@^1.2.3":
-  "integrity" "sha512-ifhKgupZDFzricirl6FqMWAd5sTYidz6bUbTBnVoDCx+GPjrHn0V7uIVMEyFJy1e9nN/GtoiQB+c47bHXYeDdg=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-emotion/-/jx3box-emotion-1.2.3.tgz"
-  "version" "1.2.3"
+"@jx3box/jx3box-editor@^2.0.0":
+  "integrity" "sha512-mAbXq24vA5YFI4J03fyq5if7FH7C5lDZ0dezgRv87B0pTL7LcAJm/xG91RNwDm+NMMDlcXsDXWDNRB8Daz00zw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "@jx3box/jx3box-common" "^7.7.3"
+    "@jx3box/jx3box-data" "^3.0.4"
+    "@jx3box/jx3box-emotion" "^1.1.8"
+    "@jx3box/jx3box-macro" "^1.0.1"
+    "@jx3box/jx3box-talent" "^1.1.9"
+    "@jx3box/markdown" "^0.1.5"
+    "@tinymce/tinymce-vue" "^3.2.2"
+    "axios" "^0.19.2"
+    "core-js" "^3.6.5"
+    "csslab" "^4.0.3"
+    "dayjs" "^1.10.7"
+    "element-ui" "^2.13.2"
+    "hevue-img-preview" "^5.0.0"
+    "highlight.js" "^11.3.1"
+    "jquery" "^3.5.1"
+    "js-base64" "^3.6.1"
+    "katex" "^0.13.0"
+    "lodash" "^4.17.15"
+    "photoswipe" "^4.1.2"
+    "prismjs" "^1.20.0"
+    "sortablejs" "^1.15.0"
+    "vue" "^2.6.11"
+    "vue-contextmenujs" "^1.4.9"
+    "vue-gallery-slideshow" "^1.5.2"
+    "vue-photoswipe.js" "^2.0.23"
+    "vue-plugin-load-script" "^1.3.6"
+    "xss" "^1.0.8"
+
+"@jx3box/jx3box-emotion@^1.1.10", "@jx3box/jx3box-emotion@^1.1.8", "@jx3box/jx3box-emotion@^1.2.4":
+  "integrity" "sha512-5Hn67TDP+lJS6kNwiKnZ1TgOgs/ZNVVweZlNlFUfBz5+bZn3jhReKU8nib2KFk+tuUcU8VciGnKvCICkkTHoIQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-emotion/-/jx3box-emotion-1.2.4.tgz"
+  "version" "1.2.4"
   dependencies:
     "@jx3box/jx3box-common" "^7.9.3"
     "@jx3box/jx3box-data" "^3.3.0"
@@ -3435,10 +3524,10 @@
   dependencies:
     "assert-plus" "^1.0.0"
 
-"dayjs@^1.10.6", "dayjs@^1.10.7", "dayjs@^1.11.0":
-  "integrity" "sha512-ER7EjqVAMkRRsxNCC5YqJ9d9VQYuWdGt7aiH2qA5R5wt8ZmWaP2dLUSIK6y/kVzLMlmh1Tvu5xUf4M/wdGJ5KA=="
-  "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.11.1.tgz"
-  "version" "1.11.1"
+"dayjs@^1.10.6", "dayjs@^1.10.7", "dayjs@^1.11.0", "dayjs@^1.11.10":
+  "integrity" "sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ=="
+  "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.11.10.tgz"
+  "version" "1.11.10"
 
 "de-indent@^1.0.2":
   "integrity" "sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0= sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg=="
@@ -6369,7 +6458,7 @@
   "version" "2.1.2"
 
 "ms@2.0.0":
-  "integrity" "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g= sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="
+  "integrity" "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
   "version" "2.0.0"
 
@@ -9128,9 +9217,9 @@
   "version" "3.4.0"
 
 "uuid@^9.0.0":
-  "integrity" "sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg=="
-  "resolved" "https://registry.npmjs.org/uuid/-/uuid-9.0.0.tgz"
-  "version" "9.0.0"
+  "integrity" "sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA=="
+  "resolved" "https://registry.npmjs.org/uuid/-/uuid-9.0.1.tgz"
+  "version" "9.0.1"
 
 "validate-npm-package-license@^3.0.1":
   "integrity" "sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew=="

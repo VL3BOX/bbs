@@ -71,7 +71,7 @@ export default {
             if (val) {
                 return showBanner(val);
             } else {
-                return __imgPath + `image/banner/${appKey}` + subtype + ".png";
+                return __imgPath + `image/banner/${appKey}` + ".png";
             }
         },
         reporterLink: function (val) {

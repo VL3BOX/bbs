@@ -7,7 +7,7 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb name="剑三茶馆" slug="bbs" :publishEnable="false" :topicEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="true">
+        <Breadcrumb name="剑三茶馆" slug="bbs" :publishEnable="false" :topicEnable="false" :adminEnable="false" :feedbackEnable="true" :crumbEnable="true">
             <Info />
             <publish-gate slot="op-append" />
         </Breadcrumb>
