@@ -13,7 +13,7 @@
             <template #op-prepend>
                 <AdminDirectMessage
                     :user-id="user_id"
-                    :sourceId="post.ID"
+                    :sourceId="String(post.ID)"
                     :sourceType="post.post_type"
                 ></AdminDirectMessage>
             </template>

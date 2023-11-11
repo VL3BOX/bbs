@@ -965,10 +965,10 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^7.9.8":
-  "integrity" "sha512-THNlPdREVGyIUz3zvWlPsYVahWTJ0JMVkCPRKRLWFoLKPF8jxNF37dwElx5WQMUC6PWqe6596KTU3PpWrAjCyw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.9.8.tgz"
-  "version" "7.9.8"
+"@jx3box/jx3box-common-ui@^7.9.10":
+  "integrity" "sha512-K3t/trN1n8IFWNjRMTGS7PS98LgdKFceca8n4nAORTyenZ/15jO06RkSA5Nu7eS60icrxe9VnWgN83ELcnoEaA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.9.10.tgz"
+  "version" "7.9.10"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.16"
     "@jx3box/jx3box-common" "^8.0.3"
@@ -1062,13 +1062,13 @@
     "uuid" "^9.0.0"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^8.0.3":
-  "integrity" "sha512-E6PnbGuCUI39ySMvN1hLK0JmHu/SV9YnYXeYlZaqlBs/4yWC1OmqHceTz8nbUx5IXURnOOrMjeaXMHLntyqitw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-8.0.3.tgz"
-  "version" "8.0.3"
+"@jx3box/jx3box-common@^8.0.3", "@jx3box/jx3box-common@^8.0.5":
+  "integrity" "sha512-nSepQWWIn0bIjc/iykD5F9TDXGL2ZqOSdl1urFBj01eILzZO1YmWApyGue1aUBTg2olhI40BpaPEQJRX9XhT1Q=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-8.0.5.tgz"
+  "version" "8.0.5"
   dependencies:
     "@jx3box/reporter" "^0.0.5"
-    "axios" "^0.20.0"
+    "axios" "^1.6.1"
     "cheerio" "1.0.0-rc.10"
     "dayjs" "^1.11.10"
     "element-ui" "^2.13.2"
@@ -1123,10 +1123,10 @@
     "vue-plugin-load-script" "^1.3.6"
     "xss" "^1.0.8"
 
-"@jx3box/jx3box-editor@^2.0.0":
-  "integrity" "sha512-mAbXq24vA5YFI4J03fyq5if7FH7C5lDZ0dezgRv87B0pTL7LcAJm/xG91RNwDm+NMMDlcXsDXWDNRB8Daz00zw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-2.0.0.tgz"
-  "version" "2.0.0"
+"@jx3box/jx3box-editor@^2.0.1":
+  "integrity" "sha512-kUHTt+PG3GJ+um6x4VFNDV3EfU6YmHVWTsd783TdsdAGgfx7LXcSCNiHYqvOWrUJvOdyVIQkzPFzHAtvKCFaZA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-2.0.1.tgz"
+  "version" "2.0.1"
   dependencies:
     "@jx3box/jx3box-common" "^7.7.3"
     "@jx3box/jx3box-data" "^3.0.4"
@@ -2201,6 +2201,15 @@
   "integrity" "sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA=="
   "resolved" "https://registry.npmjs.org/axios/-/axios-1.4.0.tgz"
   "version" "1.4.0"
+  dependencies:
+    "follow-redirects" "^1.15.0"
+    "form-data" "^4.0.0"
+    "proxy-from-env" "^1.1.0"
+
+"axios@^1.6.1":
+  "integrity" "sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-1.6.1.tgz"
+  "version" "1.6.1"
   dependencies:
     "follow-redirects" "^1.15.0"
     "form-data" "^4.0.0"
