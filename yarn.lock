@@ -1123,10 +1123,10 @@
     "vue-plugin-load-script" "^1.3.6"
     "xss" "^1.0.8"
 
-"@jx3box/jx3box-editor@^2.0.4":
-  "integrity" "sha512-VMIx1xZ9xNca75fB8gHjh4FdAhU/YzB1tPOtcd+PBdem4C7RkAuoZpu5oaqMCXSVcC0YQiTniWwjQk8WuPY41A=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-2.0.4.tgz"
-  "version" "2.0.4"
+"@jx3box/jx3box-editor@^2.0.7":
+  "integrity" "sha512-JWDj6nL5evfjgrQoPZkzczvPujW10arSwArMMuHoMe9JqQax/r/6e57yZLnLJjquKdaOpnLHCC6TuzgI6i3cYQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-2.0.7.tgz"
+  "version" "2.0.7"
   dependencies:
     "@jx3box/jx3box-common" "^7.7.3"
     "@jx3box/jx3box-data" "^3.0.4"
