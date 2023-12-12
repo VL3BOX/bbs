@@ -95,7 +95,7 @@ export default {
                 // source_id
                 page: this.page,
                 per: this.per,
-                status: 1
+                // status: 1
             };
             if (this.order == "podate") {
                 _params.sort = 'created'
