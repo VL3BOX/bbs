@@ -1,15 +1,50 @@
 <template>
     <div class="m-list-nav">
-        <RightSideMsg>
+        <!-- <RightSideMsg>
             <em>综合交流反馈群</em> :
             <strong @click="onQQClick" class="u-link" title="点击复制">
-                <!-- <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a> -->
+                <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a>
                 <a>{{ qq }}</a>
             </strong>
-        </RightSideMsg>
+        </RightSideMsg> -->
 
         <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5> -->
-        <div class="m-nav-group m-bbs-nav">
+
+        <div class="m-ladder-carousel">
+            <el-carousel class="m-carousel" autoplay indicator-position="none">
+                <el-carousel-item v-for="(item, index) in slideList" :key="index">
+                    <a class="u-link" :href="item.link">
+                        <el-image class="u-cover" :src="item.img" :alt="item.title" fit="contain" />
+                    </a>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+
+        <div class="m-nav-app">
+            <h5 class="u-title">更多应用</h5>
+            <a href="/joke" target="_blank">
+                <i class="el-icon-cold-drink"></i>
+                <span>剑三骚话</span>
+                <em>Joke</em>
+            </a>
+            <a href="/emotion" target="_blank">
+                <i class="el-icon-sugar"></i>
+                <span>剑三趣图</span>
+                <em>Emotion</em>
+            </a>
+            <a href="/collection" target="_blank">
+                <i class="el-icon-paperclip"></i>
+                <span>剑三小册</span>
+                <em>Collection</em>
+            </a>
+            <a href="/namespace" target="_blank">
+                <i class="el-icon-postcard"></i>
+                <span>剑三铭牌</span>
+                <em>Namespace</em>
+            </a>
+        </div>
+
+        <!-- <div class="m-nav-group m-bbs-nav">
             <router-link
                 v-for="(item, i) in menu"
                 :to="{ name: item.routeName }"
@@ -28,14 +63,15 @@
             <div class="u-list">
                 <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 import { getMenus } from "@/service/helper.js";
 import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
-import { getAppType } from "@jx3box/jx3box-common/js/utils";
+import { getAppType, getAppIcon } from "@jx3box/jx3box-common/js/utils";
+import { getConfigBanner } from "@/service/cms";
 export default {
     name: "list_nav",
     props: [],
@@ -97,6 +133,7 @@ export default {
             tags: [],
             feedback,
             qq: "2471800",
+            slideList: [],
         };
     },
     computed: {
@@ -105,6 +142,7 @@ export default {
         },
     },
     methods: {
+        getAppIcon,
         isActive: function (slug) {
             return slug == this.$route.name;
         },
@@ -126,9 +164,15 @@ export default {
                 this.tags = res.data.data?.menu_group?.menus || [];
             });
         },
+        loadMenu() {
+            getConfigBanner({ client: this.client, status: 1, per: 10, type: "tool", subtype: "sidebar" }).then((res) => {
+                this.slideList = res.data.data.list;
+            });
+        },
     },
     mounted: function () {
         this.loadTags();
+        this.loadMenu();
     },
     components: {},
 };

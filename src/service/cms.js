@@ -13,4 +13,10 @@ function getTopicBucket(params) {
     return $cms().get(`/api/cms/topic/bucket`, { params });
 }
 
-export { getMenu, getAuthorInfo, getTopicBucket };
+const getConfigBanner = (params) => {
+    return $cms().get(`api/cms/config/banner`, {
+        params,
+    });
+}
+
+export { getMenu, getAuthorInfo, getTopicBucket, getConfigBanner };

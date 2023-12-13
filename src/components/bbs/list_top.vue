@@ -48,7 +48,7 @@ export default {
             });
         },
         itemType({ post_subtype }, key) {
-            return notice_types[post_subtype][key];
+            return notice_types?.[post_subtype]?.[key] || "";
         },
         itemTypeStyle(item) {
             return {};

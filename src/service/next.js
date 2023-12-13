@@ -5,4 +5,10 @@ function getLikes(params) {
     });
 }
 
-export {getLikes}
+function getBirthdayList(params) {
+    return $next().get(`/api/next2/users/birthday/today`, {
+        params
+    })
+}
+
+export { getLikes, getBirthdayList }

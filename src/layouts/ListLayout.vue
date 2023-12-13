@@ -14,10 +14,13 @@
         <LeftSidebar>
             <Nav />
         </LeftSidebar>
-        <Main :withoutRight="true">
+        <Main :withoutRight="false">
             <div class="m-main">
                 <slot></slot>
             </div>
+            <RightSidebar>
+                <Side class="m-extend" />
+            </RightSidebar>
             <Footer></Footer>
         </Main>
     </div>
@@ -26,6 +29,7 @@
 <script>
 import Info from "@/components/Info.vue";
 import Nav from "@/components/nav/Nav.vue";
+import Side from "@/components/bbs/list_side.vue";
 import publishGate from "@/components/publish_gate.vue";
 import { getAppIcon, getAppType, getAppID } from "@jx3box/jx3box-common/js/utils";
 export default {
@@ -46,6 +50,7 @@ export default {
         Nav,
         "publish-gate": publishGate,
         Info,
+        Side
     },
     // created: function () {
     //     const regex = /\/bbs\/?#\/?(\w+?)\/(\d+)/
