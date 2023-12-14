@@ -1,9 +1,9 @@
 <template>
     <el-tabs class="m-tabs" v-model="view" @tab-click="changeView">
-        <el-tab-pane label="全部资源" name="all">
+        <el-tab-pane label="全部作品" name="all">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/all.png" alt="">
-                <b>全部资源</b>
+                <b>全部作品</b>
             </span>
         </el-tab-pane>
 
@@ -31,10 +31,10 @@
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="同人创作" name="fiction">
+        <el-tab-pane label="煮酒论剑" name="fiction">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/fiction.svg" alt="">
-                <b>同人创作</b>
+                <b>煮酒论剑</b>
             </span>
         </el-tab-pane>
     </el-tabs>

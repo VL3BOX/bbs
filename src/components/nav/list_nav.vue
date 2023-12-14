@@ -21,25 +21,30 @@
         </div>
 
         <div class="m-nav-app">
-            <h5 class="u-title">更多应用</h5>
-            <a href="/joke" target="_blank">
+            <h5 class="u-title">茶馆矩阵</h5>
+            <a href="/bbs">
                 <i class="el-icon-cold-drink"></i>
-                <span>剑三骚话</span>
+                <span>茶馆</span>
+                <em>BBS</em>
+            </a>
+            <a href="/joke">
+                <i class="el-icon-cherry"></i>
+                <span>骚话</span>
                 <em>Joke</em>
             </a>
-            <a href="/emotion" target="_blank">
+            <a href="/emotion">
                 <i class="el-icon-sugar"></i>
-                <span>剑三趣图</span>
+                <span>趣图</span>
                 <em>Emotion</em>
             </a>
-            <a href="/collection" target="_blank">
+            <a href="/collection">
                 <i class="el-icon-paperclip"></i>
-                <span>剑三小册</span>
+                <span>小册</span>
                 <em>Collection</em>
             </a>
-            <a href="/namespace" target="_blank">
+            <a href="/namespace">
                 <i class="el-icon-postcard"></i>
-                <span>剑三铭牌</span>
+                <span>铭牌</span>
                 <em>Namespace</em>
             </a>
         </div>

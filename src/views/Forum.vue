@@ -1,6 +1,7 @@
 <template>
     <ListLayout>
         <tabs></tabs>
+        <list-notice v-if="!subtype"></list-notice>
         <div class="m-archive-box" v-loading="loading">
             <!-- 搜索 -->
             <div class="m-archive-search m-bbs-search" slot="search-before">
@@ -43,8 +44,6 @@
 
             <!-- 置顶 -->
             <!-- <list-top /> -->
-
-            <list-notice v-if="!subtype"></list-notice>
 
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
