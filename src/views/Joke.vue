@@ -22,7 +22,7 @@
                 </div>-->
                 <Thx
                     class="m-thx"
-                    :postId="id"
+                    :postId="~~id"
                     postType="joke"
                     :postTitle="title"
                     :userId="user_id"

@@ -22,27 +22,27 @@
 
         <div class="m-nav-app">
             <h5 class="u-title">茶馆矩阵</h5>
-            <a href="/bbs">
+            <a href="/bbs" :class="{ 'is-active': routeActive('bbs') }">
                 <i class="el-icon-cold-drink"></i>
                 <span>茶馆</span>
                 <em>BBS</em>
             </a>
-            <a href="/joke">
+            <a href="/joke" :class="{ 'is-active': routeActive('joke') }">
                 <i class="el-icon-cherry"></i>
                 <span>骚话</span>
                 <em>Joke</em>
             </a>
-            <a href="/emotion">
+            <a href="/emotion" :class="{ 'is-active': routeActive('emotion') }">
                 <i class="el-icon-sugar"></i>
                 <span>趣图</span>
                 <em>Emotion</em>
             </a>
-            <a href="/collection">
+            <a href="/collection" :class="{ 'is-active': routeActive('collection') }">
                 <i class="el-icon-paperclip"></i>
                 <span>小册</span>
                 <em>Collection</em>
             </a>
-            <a href="/namespace">
+            <a href="/namespace" :class="{ 'is-active': routeActive('namespace') }">
                 <i class="el-icon-postcard"></i>
                 <span>铭牌</span>
                 <em>Namespace</em>
@@ -61,59 +61,59 @@ export default {
     props: [],
     data: function () {
         return {
-            menu: [
-                // {
-                //     slug: "index",
-                //     icon: "el-icon-receiving",
-                //     name: "全部",
-                // },
-                {
-                    slug: "bbs",
-                    icon: "el-icon-collection",
-                    name: "剑三茶馆",
-                    routeName: "bbs",
-                },
-                {
-                    slug: "joke",
-                    icon: "el-icon-cold-drink",
-                    name: "剑三骚话",
-                    isActive: this.isActive,
-                    routeName: "joke",
-                },
-                {
-                    slug: "emotion",
-                    icon: "el-icon-sugar",
-                    name: "剑三趣图",
-                    isActive: this.isActive,
-                    routeName: "emotion",
-                },
-                // {
-                //     slug: "exam",
-                //     icon: "el-icon-document",
-                //     name: "剑三考试",
-                //     isActive: this.isActivePage
-                // },
-                {
-                    slug: "collection",
-                    icon: "el-icon-paperclip",
-                    name: "剑三小册",
-                    isActive: this.isActivePage,
-                    routeName: "collection"
-                },
-                {
-                    slug: "namespace",
-                    icon: "el-icon-postcard",
-                    name: "剑三铭牌",
-                    desc: "剑网3.com",
-                    isActive: this.isActive,
-                    routeName: "namespace",
-                },
-                // {
-                //     slug: "exam",
-                //     icon: "el-icon-document",
-                //     name: "剑三题库",
-                // },
-            ],
+            // menu: [
+            //     // {
+            //     //     slug: "index",
+            //     //     icon: "el-icon-receiving",
+            //     //     name: "全部",
+            //     // },
+            //     // {
+            //     //     slug: "bbs",
+            //     //     icon: "el-icon-collection",
+            //     //     name: "剑三茶馆",
+            //     //     routeName: "bbs",
+            //     // },
+            //     // {
+            //     //     slug: "joke",
+            //     //     icon: "el-icon-cold-drink",
+            //     //     name: "剑三骚话",
+            //     //     isActive: this.isActive,
+            //     //     routeName: "joke",
+            //     // },
+            //     // {
+            //     //     slug: "emotion",
+            //     //     icon: "el-icon-sugar",
+            //     //     name: "剑三趣图",
+            //     //     isActive: this.isActive,
+            //     //     routeName: "emotion",
+            //     // },
+            //     // {
+            //     //     slug: "exam",
+            //     //     icon: "el-icon-document",
+            //     //     name: "剑三考试",
+            //     //     isActive: this.isActivePage
+            //     // },
+            //     // {
+            //     //     slug: "collection",
+            //     //     icon: "el-icon-paperclip",
+            //     //     name: "剑三小册",
+            //     //     isActive: this.isActivePage,
+            //     //     routeName: "collection"
+            //     // },
+            //     // {
+            //     //     slug: "namespace",
+            //     //     icon: "el-icon-postcard",
+            //     //     name: "剑三铭牌",
+            //     //     desc: "剑网3.com",
+            //     //     isActive: this.isActive,
+            //     //     routeName: "namespace",
+            //     // },
+            //     // {
+            //     //     slug: "exam",
+            //     //     icon: "el-icon-document",
+            //     //     name: "剑三题库",
+            //     // },
+            // ],
             tags: [],
             feedback,
             qq: "2471800",
@@ -153,6 +153,9 @@ export default {
                 this.slideList = res.data.data.list;
             });
         },
+        routeActive(app) {
+            return this.$route.name.includes(app);
+        }
     },
     mounted: function () {
         this.loadTags();

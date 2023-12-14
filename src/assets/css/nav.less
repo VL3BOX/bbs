@@ -243,6 +243,22 @@
             transform: scale(0.7);
             transform-origin: right center;
         }
+
+        &.is-active {
+            color: @darkblue;
+
+            svg {
+                fill: @darkblue;
+            }
+
+            .bold;
+            background-color:#f5f7fa;
+            border-color:@color-link;
+
+            em {
+                color: #5277a1;
+            }
+        }
     }
 
     .router-link-exact-active,
