@@ -1,5 +1,6 @@
 <template>
     <ListLayout>
+        <tabs></tabs>
         <div class="m-archive-box" v-loading="loading">
             <!-- 搜索 -->
             <div class="m-archive-search m-bbs-search" slot="search-before">
@@ -41,7 +42,9 @@
             </div>
 
             <!-- 置顶 -->
-            <list-top />
+            <!-- <list-top /> -->
+
+            <list-notice v-if="!subtype"></list-notice>
 
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
@@ -78,6 +81,8 @@ import { getPosts, getTopicsCount } from "@/service/post";
 import subtypes from "@/assets/data/bbs_types.json";
 import ListLayout from "@/layouts/ListLayout.vue";
 import list_top from "@/components/bbs/list_top.vue";
+import list_notice from "@/components/bbs/list_notice.vue";
+import Tabs from "@/components/bbs/list_tabs.vue";
 import { bbs } from "@jx3box/jx3box-common/data/post_topics.json";
 import { getTopicBucket } from "@/service/cms";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
@@ -97,7 +102,7 @@ export default {
             number_queries: ["per", "page"],
 
             subtypes,
-            subtype: "0", //子类别
+            // subtype: "0", //子类别
             order: "update", //排序模式
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
@@ -139,6 +144,9 @@ export default {
         reset_queries: function() {
             return [this.subtype, this.tag];
         },
+        subtype() {
+            return this.$route.query.subtype || ""
+        }
     },
     methods: {
         reporterLink: function (val) {
@@ -253,7 +261,7 @@ export default {
         getTopicBucket() {
             getTopicBucket({ type: 'bbs' }).then((res) => {
                 const data = res.data.data?.map(item => item.name) || [];
-                this.theme = [...bbs, ...data];
+                this.theme = [...data];
             });
         }
     },
@@ -301,7 +309,9 @@ export default {
     components: {
         listItem,
         ListLayout,
-        "list-top": list_top
+        // "list-top": list_top,
+        tabs: Tabs,
+        "list-notice": list_notice,
     },
 };
 </script>

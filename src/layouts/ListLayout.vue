@@ -31,9 +31,9 @@ import Info from "@/components/Info.vue";
 import Nav from "@/components/nav/Nav.vue";
 import Side from "@/components/bbs/list_side.vue";
 import publishGate from "@/components/publish_gate.vue";
-import { getAppIcon, getAppType, getAppID } from "@jx3box/jx3box-common/js/utils";
+import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
-    name: "App",
+    name: "ListLayout",
     props: [],
     data: function () {
         return {};
@@ -50,7 +50,7 @@ export default {
         Nav,
         "publish-gate": publishGate,
         Info,
-        Side
+        Side,
     },
     // created: function () {
     //     const regex = /\/bbs\/?#\/?(\w+?)\/(\d+)/

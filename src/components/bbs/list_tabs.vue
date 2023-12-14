@@ -7,60 +7,52 @@
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="工具资源" name="index">
+        <el-tab-pane label="攻略心得" name="index">
             <span slot="label">
-                <img class="u-icon-img" src="@/assets/img/nav/tool.png" alt="">
-                <b>工具资源</b>
+                <img class="u-icon-img" src="@/assets/img/nav/game.png" alt="">
+                <b>攻略心得</b>
                 <!-- <em class="u-secret">权威白皮书</em> -->
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="插件数据" name="jx3dat">
+        <el-tab-pane label="萌新指南" name="guide">
             <span slot="label">
-                <img class="u-icon-img" src="@/assets/img/nav/data.png" alt="">
-                <b>插件数据</b>
+                <img class="u-icon-img" src="@/assets/img/nav/book.svg" alt="">
+                <b>萌新指南</b>
                 <!-- <em class="u-secret">优质作品</em> -->
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="教程指南" name="game">
+        <el-tab-pane label="江湖异闻" name="news">
             <span slot="label">
-                <img class="u-icon-img" src="@/assets/img/nav/game.png" alt="">
-                <b>教程指南</b>
+                <img class="u-icon-img" src="@/assets/img/nav/news.svg" alt="">
+                <b>江湖异闻</b>
                 <!-- <em class="u-ready">签约</em> -->
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="魔盒文档" name="api">
+        <el-tab-pane label="同人创作" name="fiction">
             <span slot="label">
-                <img class="u-icon-img" src="@/assets/img/nav/api.png" alt="">
-                <b>魔盒文档</b>
+                <img class="u-icon-img" src="@/assets/img/nav/fiction.svg" alt="">
+                <b>同人创作</b>
             </span>
         </el-tab-pane>
-
-        <!-- <el-tab-pane label="魔盒助手" name="desktop">
-            <span slot="label">
-                <i class="el-icon-notebook-1"></i>
-                <b>魔盒助手</b>
-            </span>
-        </el-tab-pane> -->
     </el-tabs>
 </template>
 
 <script>
-import User from "@jx3box/jx3box-common/js/user";
 const subtypes = {
     all: "",
-    strategy: 1,
-    jx3dat: 2,
-    game: 3,
-    api: 4,
+    index: 1,
+    guide: 2,
+    news: 3,
+    fiction: 4,
 }
 const _subtypes = {
-    1: "strategy",
-    2: "jx3dat",
-    3: "game",
-    4: "api",
+    1: "index",
+    2: "guide",
+    3: "news",
+    4: "fiction",
 }
 export default {
     name: "tabs",
@@ -74,9 +66,9 @@ export default {
         $route: {
             handler: function (_route) {
                 const subtype = _route.query.subtype;
-                if (_route.name === 'index') {
+                if (_route.name === 'bbs') {
                     if (subtype) {
-                        this.view = _subtypes[subtype] || "index";
+                        this.view = _subtypes[subtype] || "bbs";
                     } else {
                         this.view = "all";
                     }
@@ -106,14 +98,6 @@ export default {
                 },
             });
         },
-        getIcon: function (slug, type = ".png") {
-            return require("../../assets/img/nav/" + slug + type);
-        },
-    },
-    mounted: function () {
-        User.isSuperAuthor().then((data) => {
-            this.$store.state.isSuperAuthor = data;
-        });
     },
 };
 </script>

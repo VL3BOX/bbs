@@ -27,7 +27,8 @@ export default {
     name: "birthday",
     data() {
         return {
-            list: []
+            list: [],
+            loading: false,
         }
     },
     mounted() {
@@ -38,8 +39,11 @@ export default {
             const params = {
                 limit: 50
             }
+            this.loading = true
             getBirthdayList(params).then(res => {
                 this.list = res.data.data
+            }).finally(() => {
+                this.loading = false
             })
         },
         authorLink,

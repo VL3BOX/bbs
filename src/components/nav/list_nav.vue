@@ -43,27 +43,6 @@
                 <em>Namespace</em>
             </a>
         </div>
-
-        <!-- <div class="m-nav-group m-bbs-nav">
-            <router-link
-                v-for="(item, i) in menu"
-                :to="{ name: item.routeName }"
-                :key="i"
-                :class="{ on: item.isActive ? item.isActive(item.slug) : isActive(item.slug) }"
-                class="u-item"
-            >
-                <i :class="item.icon"></i>
-                <b>{{ item.name }}</b>
-                <span>{{ item.desc }}</span>
-            </router-link>
-        </div>
-
-        <div class="m-nav-tags" v-if="tags && tags.length">
-            <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
-            <div class="u-list">
-                <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -165,7 +144,7 @@ export default {
             });
         },
         loadMenu() {
-            getConfigBanner({ client: this.client, status: 1, per: 10, type: "tool", subtype: "sidebar" }).then((res) => {
+            getConfigBanner({ client: this.client, status: 1, per: 10, type: "bbs", subtype: "sidebar" }).then((res) => {
                 this.slideList = res.data.data.list;
             });
         },
