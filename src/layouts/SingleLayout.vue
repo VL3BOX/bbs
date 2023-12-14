@@ -8,6 +8,8 @@
             :adminEnable="true"
             :feedbackEnable="true"
             :crumbEnable="true"
+            :showExtend="true"
+            :subtypeMap="subtypeMap"
         >
             <publish-gate slot="op-append" />
             <template #op-prepend>
@@ -48,6 +50,13 @@ export default {
     data: function () {
         return {
             id: getAppID(),
+
+            subtypeMap: {
+                1: "攻略心得",
+                2: "萌新指南",
+                3: "江湖异闻",
+                4: "同人创作"
+            }
         };
     },
     computed: {

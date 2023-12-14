@@ -80,10 +80,9 @@ import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getPosts, getTopicsCount } from "@/service/post";
 import subtypes from "@/assets/data/bbs_types.json";
 import ListLayout from "@/layouts/ListLayout.vue";
-import list_top from "@/components/bbs/list_top.vue";
+// import list_top from "@/components/bbs/list_top.vue";
 import list_notice from "@/components/bbs/list_notice.vue";
 import Tabs from "@/components/bbs/list_tabs.vue";
-import { bbs } from "@jx3box/jx3box-common/data/post_topics.json";
 import { getTopicBucket } from "@/service/cms";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
 
