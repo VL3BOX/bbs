@@ -25,7 +25,7 @@
 
         <el-tab-pane label="江湖异闻" name="news">
             <span slot="label">
-                <img class="u-icon-img" src="@/assets/img/nav/news.svg" alt="">
+                <img class="u-icon-img" src="@/assets/img/nav/story.svg" alt="">
                 <b>江湖异闻</b>
                 <!-- <em class="u-ready">签约</em> -->
             </span>

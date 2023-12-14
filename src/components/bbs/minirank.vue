@@ -1,7 +1,7 @@
 <template>
     <div class="m-jx3dat-rank-mini m-jx3dat-rank">
         <h3 class="c-sidebar-right-title">
-            <img class="u-icon" svg-inline src="@/assets/img/rank.svg" />排行榜
+            <img class="u-icon" svg-inline src="@/assets/img/rank.svg" />剑三年度大事件
             <!-- <span class="u-more" @click="viewRank">查看更多 &raquo;</span> -->
         </h3>
         <el-tabs v-model="active" @tab-click="handleClick">
