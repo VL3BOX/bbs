@@ -45,6 +45,8 @@
             <!-- 置顶 -->
             <!-- <list-top /> -->
 
+            <list-guide-top v-if="subtype == 2"></list-guide-top>
+
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
                 <ul class="u-list">
@@ -84,6 +86,7 @@ import list_notice from "@/components/bbs/list_notice.vue";
 import Tabs from "@/components/bbs/list_tabs.vue";
 import { getTopicBucket } from "@/service/cms";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
+import list_guide_top from "@/components/bbs/list_guide_top.vue";
 
 export default {
     name: "Index",
@@ -310,6 +313,7 @@ export default {
         // "list-top": list_top,
         tabs: Tabs,
         "list-notice": list_notice,
+        "list-guide-top": list_guide_top,
     },
 };
 </script>
