@@ -5,24 +5,27 @@
         </h5>
         <div class="u-ac" v-html="ac"></div>
         <el-row>
-            <el-col :span="6" v-for="(item, i) in data" :key="i">
-                <div class="u-rec">
-                    <a
-                        :href="item.link"
-                        target="_blank"
-                        :style="highLight(item.color)"
-                    >
-                        <!-- v-reporter="{
-                            data: {
-                                href: macroLink(item.link),
-                            },
-                            caller: 'macro_suggest',
-                        }" -->
-                        <img :src="iconLink(item.icon)" v-if="item.icon" />
-                        {{ item.label }}
-                    </a>
-                </div>
-            </el-col>
+            <template v-for="(subdata, index) in data">
+                <el-col :span="8" :key="index">
+                    <div class="m-header" :key="index + 'header'">{{ subdata.label }}</div>
+                    <div class="u-rec" v-for="(item, i) in subdata.menus" :key="i">
+                        <a
+                            :href="item.link"
+                            target="_blank"
+                            :style="highLight(item.color)"
+                            v-reporter="{
+                                data: {
+                                    href: bbsLink(item.link),
+                                },
+                                caller: 'bbs_suggest',
+                            }"
+                        >
+                            <!-- <img :src="iconLink(item.icon)" v-if="item.icon" /> -->
+                            {{ item.label }}
+                        </a>
+                    </div>
+                </el-col>
+            </template>
         </el-row>
     </div>
 </template>
@@ -46,9 +49,14 @@ export default {
             ac: "",
         };
     },
+    computed: {
+        client() {
+            return this.$store.state.client;
+        },
+    },
     methods: {
-        macroLink(link) {
-            const prefix = this.client == 'std' ? 'www' : 'origin';
+        bbsLink(link) {
+            const prefix = this.client == "std" ? "www" : "origin";
             return `${prefix}:${link}`
         },
         init: function () {
@@ -61,7 +69,7 @@ export default {
         },
         highLight: function (val) {
             if (val) {
-                return "color:" + val + ";font-weight:bold;";
+                return "color:" + val;
             }
             return "";
         },
@@ -83,6 +91,15 @@ export default {
     border: 1px solid @border;
     border-bottom: none;
     .r(4px);
+    margin-bottom: 15px;
+
+    .m-header {
+        .x;
+        border-right: 1px solid @border;
+        border-bottom: 1px solid @border;
+        padding: 10px;
+        font-size: 14px;
+    }
 
     .u-title {
         margin: 0;
@@ -109,9 +126,9 @@ export default {
             .size(20px);
             .y;
         }
-        // border:1px solid @border;
         border-right: 1px solid @border;
         border-bottom: 1px solid @border;
+
         a {
             .nobreak;
             .db;
@@ -125,12 +142,10 @@ export default {
             .h(20px);
         }
     }
-    .el-col:nth-child(4n) {
+    .el-col:nth-child(3n) {
         .u-rec {
             border-right: 0;
         }
-        // .ml(-1px);
-        // .mt(-1px);
     }
 }
 @media screen and (max-width: @phone) {

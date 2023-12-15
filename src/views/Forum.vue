@@ -25,22 +25,24 @@
             </el-tabs> -->
 
             <!-- 筛选 -->
-            <!-- <div class="m-archive-filter"> -->
+            <div class="m-archive-filter">
                 <!-- 版本过滤 -->
-                <!-- <clientBy @filter="filterImperceptibly" :type="client"></clientBy> -->
+                <clientBy @filter="filterImperceptibly" :type="client"></clientBy>
                 <!-- 角标过滤 -->
                 <!-- <markBy @filter="filterMeta"></markBy> -->
+                <!-- 主题过滤 -->
+                <topicBy v-model="tag" :topics="theme" />
                 <!-- 排序过滤 -->
-                <!-- <orderBy @filter="filterMeta" class="m-order-by"></orderBy> -->
+                <orderBy @filter="filterMeta" class="m-order-by"></orderBy>
 
-            <!-- </div> -->
-            <div class="m-bbs-tags">
+            </div>
+            <!-- <div class="m-bbs-tags">
                 <div class="u-tag" :class="{ active: tag === '' }" @click="setTag('')">全部</div>
                 <div class="u-tag" :class="{ active: tag === item }" v-for="item in theme" :key="item" @click="setTag(item)">
                     {{ item }}
                     <span class="u-count" v-if="getCount(item)">({{ getCount(item) }})</span>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 置顶 -->
             <!-- <list-top /> -->
@@ -103,7 +105,7 @@ export default {
             number_queries: ["per", "page"],
 
             subtypes,
-            // subtype: "0", //子类别
+            subtype: "", //子类别
             order: "update", //排序模式
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
@@ -145,9 +147,6 @@ export default {
         reset_queries: function() {
             return [this.subtype, this.tag];
         },
-        subtype() {
-            return this.$route.query.subtype || ""
-        }
     },
     methods: {
         reporterLink: function (val) {
