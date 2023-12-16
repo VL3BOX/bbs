@@ -4,7 +4,7 @@
         <div class="m-archive-search m-collection-search">
             <a :href="publish_link" class="u-publish el-button el-button--primary">+ 创建小册</a>
             <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" class="input-with-select" clearable @clear="onSearch" @keydown.native.enter="onSearch">
-                <template #prepend> <i class="el-icon-search"></i> 搜索 </template>
+                <template #prepend> <i class="el-icon-search"></i> 关键词 </template>
                 <template #append>
                     <el-button icon="el-icon-position" class="u-btn" @click="onSearch"></el-button>
                 </template>
@@ -52,7 +52,7 @@ export default {
             page: 1, //当前页数
             total: 1, //总条目数
             pages: 1, //总页数
-            per: 12, //每页条目
+            per: 18, //每页条目
             search: "",
         };
     },

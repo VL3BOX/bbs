@@ -39,21 +39,26 @@ export default {
 
 <style lang="less">
 .m-collection-item_v2 {
+    .mb(20px);
+    width: 178px;
+
     .u-image {
-        width: 128px;
-        height: 168px;
+        .w(100%);
+        height: 226px;
         object-fit: cover;
         border-radius: 4px;
     }
 
     .u-title {
-        .break(1);
-        max-width: 128px;
-        font-size: 12px;
+        max-width: 100%;
+        .nobreak;
+        .fz(13px,1.8);
+        color:#888;
+        font-style: italic;
     }
 
     .u-info{
-        .mt(5px);
+        .mt(2px);
         .clearfix;
     }
 
