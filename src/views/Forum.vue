@@ -45,9 +45,9 @@
             </div> -->
 
             <!-- 置顶 -->
-            <!-- <list-top /> -->
-
             <list-guide-top v-if="subtype == 2"></list-guide-top>
+
+            <list-top></list-top>
 
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
@@ -83,7 +83,7 @@ import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getPosts, getTopicsCount } from "@/service/post";
 import subtypes from "@/assets/data/bbs_types.json";
 import ListLayout from "@/layouts/ListLayout.vue";
-// import list_top from "@/components/bbs/list_top.vue";
+import list_top from "@/components/bbs/list_top.vue";
 import list_notice from "@/components/bbs/list_notice.vue";
 import Tabs from "@/components/bbs/list_tabs.vue";
 import { getTopicBucket } from "@/service/cms";
@@ -168,6 +168,7 @@ export default {
             let _query = {
                 per : this.per,
                 page : this.page,
+                type: "bbs"
             };
 
             for (let key in this.query) {
@@ -309,7 +310,7 @@ export default {
     components: {
         listItem,
         ListLayout,
-        // "list-top": list_top,
+        "list-top": list_top,
         tabs: Tabs,
         "list-notice": list_notice,
         "list-guide-top": list_guide_top,

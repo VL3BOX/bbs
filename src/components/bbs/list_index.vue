@@ -85,6 +85,7 @@ export default {
                 page: ~~this.page || 1,
                 sticky: 1,
                 client: this.client,
+                type: "bbs"
             };
             if (this.search) {
                 _.search = this.search;
@@ -144,7 +145,7 @@ export default {
     },
     watch: {
         search : function (){
-            this.page = 1  
+            this.page = 1
         },
         params: {
             immediate: true,
