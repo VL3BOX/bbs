@@ -1,6 +1,8 @@
 <template>
-    <a class="m-collection-item_v2" :href="`/collection/${data.id}`" target="_blank">
-        <img class="u-image" :src="getCover(data.image)" />
+    <div class="m-collection-item_v2">
+        <a class="u-image" :href="`/collection/${data.id}`" target="_blank">
+            <img :src="getCover(data.image)" />
+        </a>
 
         <div class="u-content">
             <div class="u-title" :title="data.title">{{ data.title }}</div>
@@ -11,7 +13,7 @@
                 </a>
             </div>
         </div>
-    </a>
+    </div>
 </template>
 
 <script>
@@ -43,10 +45,12 @@ export default {
     width: 178px;
 
     .u-image {
-        .w(100%);
-        height: 226px;
-        object-fit: cover;
-        border-radius: 4px;
+        img {
+            .w(100%);
+            height: 226px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
     }
 
     .u-title {
