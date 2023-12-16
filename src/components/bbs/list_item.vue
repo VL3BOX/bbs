@@ -13,6 +13,9 @@
             <!-- 图标 -->
             <img class="u-icon" svg-inline src="../../assets/img/list/post.svg" />
 
+            <!-- 资料片 -->
+            <span class="u-label u-zlp" v-if="item.post_subtype">{{ showSubtype(item.post_subtype) }}</span>
+
             <!-- 标题文字 -->
             <a class="u-title" :style="item.color | showHighlight" :href="item.ID | postLink" :target="target" v-reporter="{
                 data: {
@@ -28,8 +31,34 @@
         </h2>
 
         <!-- 字段 -->
-        <div class="u-content u-desc">
+        <!-- <div class="u-content u-desc">
             {{ item.post_excerpt || item.post_title || "这个作者很懒,什么都没有留下" }}
+        </div> -->
+        <!-- 字段 -->
+        <div class="u-content u-desc">
+            <!-- {{ item.post_excerpt || item.post_title || "这个作者很懒,什么都没有留下" }} -->
+            <div class="u-metalist u-collection">
+                <strong>小册</strong>
+                <em>
+                    <template v-if="~~item.post_collection">
+                        <a :href="`/collection/${item.post_collection}`" target="_blank"
+                            >《{{ item.collection_info && item.collection_info.title }}》</a
+                        >
+                    </template>
+                    <template v-else>-</template>
+                </em>
+            </div>
+            <div class="u-metalist u-topics">
+                <strong>主题</strong>
+                <em>
+                    <template v-if="item.topics && item.topics.length">
+                        <a class="u-topic" :href="`/bbs?tag=${topic}`" v-for="topic in item.topics" :key="topic">{{
+                            topic
+                        }}</a>
+                    </template>
+                    <template v-else>-</template>
+                </em>
+            </div>
         </div>
 
         <!-- 作者 -->
@@ -51,6 +80,7 @@ import { showAvatar, authorLink, showBanner, buildTarget } from "@jx3box/jx3box-
 import { __ossMirror, __imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import {showDate} from '@jx3box/jx3box-common/js/moment.js'
+import _bbsSubtypes from "@/assets/data/bbs_subtypes.json";
 export default {
     name: "ListItem",
     props: ['item','order', 'caller'],
@@ -71,13 +101,16 @@ export default {
             if (val) {
                 return showBanner(val);
             } else {
-                return __imgPath + `image/banner/${appKey}` + ".png";
+                return __imgPath + `image/banner/${appKey}${subtype}` + ".png";
             }
         },
         reporterLink: function (val) {
             const prefix = this.client === 'std' ? 'www' : 'origin'
             return`${prefix}:/${appKey}/` + val;
         },
+        showSubtype: function (val){
+            return _bbsSubtypes[val]?.label || ""
+        }
     },
     filters: {
         authorLink,
@@ -98,7 +131,8 @@ export default {
         },
         dateFormat : function (gmt){
             return showDate(new Date(gmt))
-        }
+        },
+
     },
     created: function() {},
     mounted: function() {},

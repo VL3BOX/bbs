@@ -124,6 +124,9 @@ export default {
         root: function () {
             return location.hostname == "localhost" ? "" : "/bbs";
         },
+        client: function () {
+            return this.$store.state.client;
+        },
     },
     methods: {
         getAppIcon,

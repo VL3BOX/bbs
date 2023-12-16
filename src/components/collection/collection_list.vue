@@ -12,9 +12,9 @@
         </div>
         <!-- 列表 -->
         <div class="m-collection-list" v-if="data && data.length">
-            <div v-for="(item, i) in data" :key="i">
-                <collection-item :data="item" />
-            </div>
+            <template v-for="(item, i) in data">
+                <collection-item :data="item" :key="i" />
+            </template>
         </div>
         <!-- 空 -->
         <el-alert class="m-collection-null" v-else title="没有找到相关条目" type="info" show-icon></el-alert>
@@ -35,12 +35,14 @@
 <script>
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import collection_item from "./collection_item.vue";
+import collection_item_v2 from "./collection_item_v2.vue";
 import { getCollections } from "@/service/helper.js";
 export default {
     name: "CollectionList",
     props: [],
     components: {
-        "collection-item": collection_item,
+        // "collection-item": collection_item,
+        "collection-item": collection_item_v2,
     },
     data: function () {
         return {
@@ -50,7 +52,7 @@ export default {
             page: 1, //当前页数
             total: 1, //总条目数
             pages: 1, //总页数
-            per: 10, //每页条目
+            per: 12, //每页条目
             search: "",
         };
     },

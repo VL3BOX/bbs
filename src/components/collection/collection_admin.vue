@@ -30,6 +30,29 @@
                 </el-input>
             </div>
 
+            <el-divider content-position="left">封面海报</el-divider>
+            <div class="c-admin-banner">
+                <el-upload
+                    class="c-admin-upload el-upload--picture-card"
+                    :action="uploadurl"
+                    :with-credentials="true"
+                    :show-file-list="false"
+                    :on-success="uploadSuccess"
+                    :on-error="uploadFail"
+                >
+                    <img v-if="image" :src="image" />
+                    <i class="el-icon-plus" v-else></i>
+                </el-upload>
+                <el-input class="u-banner" v-model="image">
+                    <span slot="prepend">海报地址</span>
+                    <span slot="append">
+                        <span class="u-btn" @click="removeBanner"> <i class="el-icon-circle-close"></i> 移除海报 </span>
+                    </span>
+                </el-input>
+            </div>
+
+            <el-divider content-position="left">其他</el-divider>
+
             <div class="c-admin-info">
                 <div class="c-admin-author">
                     <el-input
@@ -53,6 +76,7 @@
 <script>
 import {
     __postType,
+    __cms
 } from "@jx3box/jx3box-common/data/jx3box.json";
 import { updateCollection, getCollection } from "@/service/helper";
 import Bus from "@/store/bus";
@@ -76,6 +100,11 @@ export default {
             title: "",
 
             pushing: false,
+
+            // 海报
+            uploadurl: __cms + "api/cms/upload",
+            banner_preview: "",
+            image: "",
 
             data: {},
         }
@@ -122,6 +151,7 @@ export default {
                 this.post_author = this.data.user_id;
                 this.visible = this.data.public;
                 this.title = this.data.title;
+                this.image = this.data.image
             })
         },
         submit() {
@@ -143,7 +173,19 @@ export default {
             }).finally(() => {
                 this.pushing = false;
             })
-        }
+        },
+         // 上传
+         uploadSuccess: function (res, file, list) {
+            this.banner_preview = URL.createObjectURL(file.raw);
+            this.image = res.data[0];
+        },
+        uploadFail: function (err, file, fileList) {
+            this.$message.error("上传失败");
+            console.log(err);
+        },
+        removeBanner: function () {
+            this.image = "";
+        },
     },
 };
 </script>
@@ -151,5 +193,23 @@ export default {
 <style lang="less">
 .c-admin-title {
     margin-bottom: 20px;
+}
+.c-admin-banner{
+    .u-banner{
+        .mt(5px);
+    }
+    .u-btn{
+        .pointer;
+    }
+}
+.c-admin-upload{
+    .w(100%) !important;
+    .x;
+
+    .el-upload{
+        .size(100%);
+        box-sizing: border-box;
+    }
+    overflow: hidden;
 }
 </style>

@@ -18,7 +18,7 @@
             <div class="m-main">
                 <slot></slot>
             </div>
-            <RightSidebar>
+            <RightSidebar class="m-bbs-right-side">
                 <Side class="m-extend" />
             </RightSidebar>
             <Footer></Footer>
@@ -58,3 +58,11 @@ export default {
     // },
 };
 </script>
+
+<style lang="less">
+.m-bbs-right-side {
+    &.c-sidebar-right.is-close {
+        transform: translateX(0) !important;
+    }
+}
+</style>

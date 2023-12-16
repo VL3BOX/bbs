@@ -31,7 +31,7 @@
                 <!-- 角标过滤 -->
                 <!-- <markBy @filter="filterMeta"></markBy> -->
                 <!-- 主题过滤 -->
-                <topicBy v-model="tag" :topics="theme" />
+                <topicBy :modelValue="tag" @update:modelValue="setTag" :topics="theme" />
                 <!-- 排序过滤 -->
                 <orderBy @filter="filterMeta" class="m-order-by"></orderBy>
 
@@ -303,7 +303,7 @@ export default {
         },
     },
     mounted() {
-        this.loadCount();
+        // this.loadCount();
         this.getTopicBucket();
     },
     components: {
