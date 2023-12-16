@@ -5,35 +5,37 @@
             <!-- <span class="u-more" @click="viewRank">查看更多 &raquo;</span> -->
         </h3>
         <el-tabs v-model="active" @tab-click="handleClick">
-            <el-tab-pane label="综合" name="mix"></el-tab-pane>
-            <el-tab-pane label="下载" name="download"></el-tab-pane>
-            <el-tab-pane label="订阅" name="subscribers"></el-tab-pane>
-            <el-tab-pane label="收藏" name="favorite"></el-tab-pane>
+            <el-tab-pane v-for="tab in tabs" :label="tab" :key="tab" :name="`bbs_rank_${tab}`"></el-tab-pane>
         </el-tabs>
         <ul class="u-list" v-loading="loading">
-            <li v-for="(item, k) in data" :key="k">
-                <a class="u-link" :href="postLink('dbm/pkg', item.id)">
-                    <span class="u-order" :class="highlight(k)">{{ k + 1 }}</span>
-                    <Avatar class="u-avatar" :url="item.ext_user_info.avatar" :size="14"> </Avatar>
-                    <!-- <span class="u-tag" :class="item.client">{{ item.client === "std" ? "重制" : "缘起" }}</span> -->
-                    <span class="u-name"> {{ item.key }} </span>
-                </a>
-            </li>
+            <template v-if="data && data.length">
+                <li v-for="(item, k) in data" :key="k">
+                    <a class="u-link" :href="item.link">
+                        <span class="u-order" :class="highlight(k)">{{ k + 1 }}</span>
+                        <!-- <Avatar class="u-avatar" :url="item.ext_user_info.avatar" :size="14"> </Avatar> -->
+                        <!-- <span class="u-tag" :class="item.client">{{ item.client === "std" ? "重制" : "缘起" }}</span> -->
+                        <span class="u-name"> {{ item.label }} </span>
+                    </a>
+                </li>
+            </template>
+            <el-alert v-else title="暂无事件" type="info" show-icon></el-alert>
         </ul>
     </div>
 </template>
 
 <script>
-// import { getPkgRank } from "../../service/rank";
 import { postLink } from "@jx3box/jx3box-common/js/utils";
 import { __Root, __OriginRoot } from "@jx3box/jx3box-common/data/jx3box.json";
+import { getMenu } from "@jx3box/jx3box-common/js/api_misc";
 export default {
     name: "rank",
     data: function () {
         return {
             loading: false,
             data: [],
-            active: "mix",
+            active: "bbs_rank_2023",
+
+            tabs: ["2023","2022"]
         };
     },
     computed: {
@@ -61,13 +63,13 @@ export default {
         },
         loadData() {
             this.loading = true;
-            // getPkgRank(this.active, { top: 10, client: this.client })
-            //     .then((res) => {
-            //         this.data = res.data.data;
-            //     })
-            //     .finally(() => {
-            //         this.loading = false;
-            //     });
+            getMenu(this.active)
+                .then((res) => {
+                    this.data = res
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
     },
     mounted: function () {

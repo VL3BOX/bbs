@@ -143,5 +143,11 @@ export default {
 
 .c-sidebar-right-title {
     font-weight: bold;
+
+    .u-date {
+        font-size: 12px;
+        font-weight: normal;
+        margin-left: 10px;
+    }
 }
 </style>

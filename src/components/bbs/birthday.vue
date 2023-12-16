@@ -2,6 +2,7 @@
     <div class="m-birthday m-jx3dat-rank-mini m-jx3dat-rank">
         <h3 class="c-sidebar-right-title">
             <img class="u-icon" svg-inline src="@/assets/img/cake.svg" />今日之星
+            <span class="u-date">{{ today }}</span>
             <!-- <span class="u-more" @click="viewRank">查看更多 &raquo;</span> -->
         </h3>
         <div v-loading="loading">
@@ -29,6 +30,11 @@ export default {
         return {
             list: [],
             loading: false,
+        }
+    },
+    computed: {
+        today() {
+            return new Date().toLocaleDateString()?.replace(/\//g, "-");
         }
     },
     mounted() {
