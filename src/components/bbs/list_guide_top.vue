@@ -98,7 +98,7 @@ export default {
         border-right: 1px solid @border;
         border-bottom: 1px solid @border;
         padding: 10px;
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .u-title {
