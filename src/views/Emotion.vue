@@ -75,6 +75,7 @@
                                     class="u-item waterfall-item m-emotion-item"
                                     :class="{ fadeIn: item.state == 'show' }"
                                     slot-scope="item"
+                                    @click="handlePreview(item.data)"
                                 >
                                     <div class="u-emotion">
                                         <img
