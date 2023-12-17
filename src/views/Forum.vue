@@ -36,11 +36,8 @@
                 <clientBy @filter="filterImperceptibly" :type="client"></clientBy>
                 <!-- 角标过滤 -->
                 <!-- <markBy @filter="filterMeta"></markBy> -->
-                <!-- 主题过滤 -->
-                <topicBy :modelValue="tag" @update:modelValue="setTag" :topics="theme" />
-                <!-- 排序过滤 -->
-                <orderBy @filter="filterMeta" class="m-order-by"></orderBy>
 
+                <!-- 作者 -->
                 <div class="u-condition u-map u-author">
                     <span class="u-prepend el-input-group__prepend">作者</span>
                     <el-select
@@ -61,6 +58,13 @@
                         </el-option>
                     </el-select>
                 </div>
+
+                <!-- 主题过滤 -->
+                <topicBy :modelValue="tag" @update:modelValue="setTag" :topics="theme" />
+
+
+                <!-- 排序过滤 -->
+                <orderBy @filter="filterMeta" class="m-order-by"></orderBy>
             </div>
             <!-- <div class="m-bbs-tags">
                 <div class="u-tag" :class="{ active: tag === '' }" @click="setTag('')">全部</div>
