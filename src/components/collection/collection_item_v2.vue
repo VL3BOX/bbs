@@ -48,7 +48,7 @@ export default {
         img {
             .w(100%);
             height: 226px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 4px;
         }
     }

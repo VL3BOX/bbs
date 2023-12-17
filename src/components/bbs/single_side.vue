@@ -1,6 +1,6 @@
 <template>
     <div class="m-single-side">
-        <PostCollection v-if="showSideCollection" :store="collection_data"/>
+        <!-- <PostCollection v-if="showSideCollection" :store="collection_data"/> -->
         <PostTopic v-if="id" type="bbs" :id="~~id" />
         <PostDirectory id="directory"/>
     </div>
@@ -8,7 +8,7 @@
 
 <script>
 import PostDirectory from '@jx3box/jx3box-common-ui/src/single/PostDirectory.vue'
-import PostCollection from '@jx3box/jx3box-common-ui/src/single/PostCollection.vue'
+// import PostCollection from '@jx3box/jx3box-common-ui/src/single/PostCollection.vue'
 import PostTopic from "@jx3box/jx3box-common-ui/src/single/PostTopic.vue";
 export default {
     name: "single_side",
@@ -20,7 +20,7 @@ export default {
     },
     components : {
         PostDirectory,
-        PostCollection,
+        // PostCollection,
         PostTopic
     },
     computed : {
