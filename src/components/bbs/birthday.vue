@@ -26,6 +26,7 @@ import {getBirthdayList} from "@/service/next";
 import { authorLink } from "@jx3box/jx3box-common/js/utils";
 import { getStarSign } from "@/utils/common";
 import starSign from "@/assets/data/star_sign.json";
+import dayjs from "dayjs";
 export default {
     name: "birthday",
     data() {
@@ -36,7 +37,7 @@ export default {
     },
     computed: {
         today() {
-            return new Date().toLocaleDateString()?.replace(/\//g, "-");
+            return dayjs().format("MM-DD")
         },
         currentStarSign() {
             return getStarSign(this.today);

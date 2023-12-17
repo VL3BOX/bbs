@@ -1,8 +1,8 @@
 <template>
     <div class="m-single-side">
+        <PostCollection v-if="showSideCollection" :store="collection_data"/>
         <PostTopic v-if="id" type="bbs" :id="~~id" />
         <PostDirectory id="directory"/>
-        <PostCollection v-if="showSideCollection" :store="collection_data"/>
     </div>
 </template>
 

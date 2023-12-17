@@ -28,6 +28,11 @@
 
                 <!-- 字段 -->
                 <div class="u-content u-desc">
+                    {{ item.post_excerpt || item.post_title || "这个作者很懒,什么都没有留下" }}
+                </div>
+
+                <!-- 字段 -->
+                <!-- <div class="u-content u-desc">
                     <div class="u-metalist u-collection">
                         <strong>小册</strong>
                         <em>
@@ -50,7 +55,7 @@
                             <template v-else>-</template>
                         </em>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- 作者 -->
                 <div class="u-misc">
