@@ -10,7 +10,7 @@
         <ul class="u-list" v-loading="loading">
             <template v-if="data && data.length">
                 <li v-for="(item, k) in data" :key="k">
-                    <a class="u-link" :href="item.link">
+                    <a class="u-link" :href="item.link" target="_blank">
                         <span class="u-order" :class="highlight(k)">{{ k + 1 }}</span>
                         <!-- <Avatar class="u-avatar" :url="item.ext_user_info.avatar" :size="14"> </Avatar> -->
                         <!-- <span class="u-tag" :class="item.client">{{ item.client === "std" ? "重制" : "缘起" }}</span> -->

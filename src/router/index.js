@@ -16,7 +16,7 @@ VueRouter.prototype.push = function push(location) {
 // const Index = () => import("../views/Index.vue");
 const Namespace = () => import("../views/Namespace.vue");
 const Joke = () => import("../views/Joke.vue");
-const Emotion = () => import("../views/Emotion.vue");
+// const Emotion = () => import("../views/Emotion.vue");
 const Forum = () => import("../views/Forum.vue");
 const Single = () => import("../views/Single.vue");
 const Collection = () => import("../views/Collection.vue");
@@ -29,7 +29,7 @@ const routes = [
     { name: "single", path: "/bbs/:id", component: Single },
     { name: "namespace", path: "/namespace", component: Namespace },
     { name: "joke", path: "/joke/:id?", component: Joke },
-    { name: "emotion", path: "/emotion/:id?", component: Emotion },
+    // { name: "emotion", path: "/emotion/:id?", component: Emotion },
     { name: "collection", path: "/collection", component: Collection },
     { name: "collection-single", path: "/collection/:id?", component: () => import('@/components/collection/collection_single.vue') },
 ];

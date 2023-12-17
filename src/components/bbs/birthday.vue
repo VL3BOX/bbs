@@ -8,7 +8,7 @@
         <div v-loading="loading">
             <ul class="u-list" v-if="list && list.length">
                 <li v-for="(item, k) in list" :key="k">
-                    <a class="u-link" :href="authorLink(item.uid)">
+                    <a class="u-link" :href="authorLink(item.uid)" target="_blank">
                         <!-- <span class="u-order" :class="highlight(k)">{{ k + 1 }}</span> -->
                         <Avatar class="u-avatar" :url="item.avatar" :size="14"> </Avatar>
                         <!-- <span class="u-tag" :class="item.client">{{ item.client === "std" ? "重制" : "缘起" }}</span> -->
