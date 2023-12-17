@@ -19,4 +19,6 @@ const getConfigBanner = (params) => {
     });
 }
 
-export { getMenu, getAuthorInfo, getTopicBucket, getConfigBanner };
+const getUserList = (params) => $cms().get(`/api/cms/user/list`, { params });
+
+export { getMenu, getAuthorInfo, getTopicBucket, getConfigBanner, getUserList };

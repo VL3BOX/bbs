@@ -6,7 +6,13 @@
             <!-- 搜索 -->
             <div class="m-archive-search m-bbs-search" slot="search-before">
                 <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @clear="onSearch" clearable @keydown.native.enter="onSearch">
+                <el-input
+                    placeholder="请输入搜索内容"
+                    v-model.trim.lazy="search"
+                    @clear="onSearch"
+                    clearable
+                    @keydown.native.enter="onSearch"
+                >
                     <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
                     <el-button slot="append" icon="el-icon-position" @click="onSearch"></el-button>
                 </el-input>
@@ -35,6 +41,26 @@
                 <!-- 排序过滤 -->
                 <orderBy @filter="filterMeta" class="m-order-by"></orderBy>
 
+                <div class="u-condition u-map u-author">
+                    <span class="u-prepend el-input-group__prepend">作者</span>
+                    <el-select
+                        v-model="author"
+                        popper-class="u-author-pop"
+                        :remote-method="filterUser"
+                        remote
+                        filterable
+                        placeholder="昵称"
+                        size="small"
+                        clearable
+                    >
+                        <el-option v-for="item in users" :key="item.ID" :label="item.display_name" :value="item.ID">
+                            <div class="u-author-option">
+                                <img class="u-avatar" :src="showAvatar(item.user_avatar)" alt="" />
+                                <span class="u-value">{{ item.display_name }}</span>
+                            </div>
+                        </el-option>
+                    </el-select>
+                </div>
             </div>
             <!-- <div class="m-bbs-tags">
                 <div class="u-tag" :class="{ active: tag === '' }" @click="setTag('')">全部</div>
@@ -52,7 +78,13 @@
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
                 <ul class="u-list">
-                    <list-item v-for="(item, i) in data" :key="i + item" :item="item" :order="order" caller="bbs_index_click" />
+                    <list-item
+                        v-for="(item, i) in data"
+                        :key="i + item"
+                        :item="item"
+                        :order="order"
+                        caller="bbs_index_click"
+                    />
                 </ul>
             </div>
 
@@ -60,7 +92,15 @@
             <el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon></el-alert>
 
             <!-- 下一页 -->
-            <el-button class="m-archive-more" v-show="hasNextPage" type="primary" @click="appendPage" :loading="loading" icon="el-icon-arrow-down">加载更多</el-button>
+            <el-button
+                class="m-archive-more"
+                v-show="hasNextPage"
+                type="primary"
+                @click="appendPage"
+                :loading="loading"
+                icon="el-icon-arrow-down"
+                >加载更多</el-button
+            >
 
             <!-- 分页 -->
             <el-pagination
@@ -79,14 +119,14 @@
 <script>
 import { appKey } from "@/../setting.json";
 import listItem from "@/components/bbs/list_item.vue";
-import { publishLink } from "@jx3box/jx3box-common/js/utils";
+import { publishLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { getPosts, getTopicsCount } from "@/service/post";
 import subtypes from "@/assets/data/bbs_types.json";
 import ListLayout from "@/layouts/ListLayout.vue";
 import list_top from "@/components/bbs/list_top.vue";
 import list_notice from "@/components/bbs/list_notice.vue";
 import Tabs from "@/components/bbs/list_tabs.vue";
-import { getTopicBucket } from "@/service/cms";
+import { getTopicBucket, getUserList } from "@/service/cms";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
 import list_guide_top from "@/components/bbs/list_guide_top.vue";
 
@@ -110,11 +150,13 @@ export default {
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
             search: "", //搜索字串
+            author: "",
+            users: [],
 
             theme: [],
             tag: "",
 
-            topicsCount: []
+            topicsCount: [],
         };
     },
     computed: {
@@ -134,14 +176,15 @@ export default {
                 mark: this.mark,
                 client: this.client,
                 topic: this.tag,
+                author: this.author,
             };
         },
         // 分页相关参数
-        pg_queries : function (){
+        pg_queries: function() {
             return {
                 page: this.page,
                 per: this.per,
-            }
+            };
         },
         // 重置页码参数
         reset_queries: function() {
@@ -149,9 +192,19 @@ export default {
         },
     },
     methods: {
-        reporterLink: function (val) {
-            const prefix = this.client === 'std' ? 'www' : 'origin'
-            return`${prefix}:/${appKey}/` + val;
+        showAvatar,
+        filterUser: function (query) {
+            if (query !== "") {
+                getUserList({ name: query }).then((res) => {
+                    this.users = res.data.data?.list || [];
+                });
+            } else {
+                this.users = [];
+            }
+        },
+        reporterLink: function(val) {
+            const prefix = this.client === "std" ? "www" : "origin";
+            return `${prefix}:/${appKey}/` + val;
         },
         onSearch: function() {
             if (this.page !== 1) {
@@ -163,19 +216,19 @@ export default {
         // 构建最终请求参数
         buildQuery: function(appendMode) {
             if (appendMode) {
-                this.page += 1
+                this.page += 1;
             }
             let _query = {
-                per : this.per,
-                page : this.page,
-                type: "bbs"
+                per: this.per,
+                page: this.page,
+                type: "bbs",
             };
 
             for (let key in this.query) {
                 if (this.query[key] !== undefined && this.query[key] !== "" && this.query[key] !== null) {
                     if (key == "search") {
                         _query.search = this.query.search.trim();
-                    } else if (key == 'subtype') {
+                    } else if (key == "subtype") {
                         if (!!~~this.subtype) _query.subtype = this.subtype;
                     } else {
                         _query[key] = this.query[key];
@@ -186,7 +239,7 @@ export default {
             // if(_query.subtype){
             //     _query.sticky = 1
             // }
-            _query.sticky = 1
+            _query.sticky = 1;
             // search处理
             if (this.search) {
                 _query.search = this.search.trim();
@@ -210,11 +263,11 @@ export default {
                     this.pages = res.data?.data?.pages;
 
                     reportNow({
-                        caller: 'bbs_index_load',
+                        caller: "bbs_index_load",
                         data: {
-                            aggregate: res.data?.data?.list.map(item => this.reporterLink(item.ID)),
-                        }
-                    })
+                            aggregate: res.data?.data?.list.map((item) => this.reporterLink(item.ID)),
+                        },
+                    });
                 })
                 .finally(() => {
                     this.loading = false;
@@ -252,19 +305,19 @@ export default {
             this.replaceRoute({ tag: this.tag });
         },
         loadCount() {
-            getTopicsCount({ post_type: 'bbs' }).then((res) => {
+            getTopicsCount({ post_type: "bbs" }).then((res) => {
                 this.topicsCount = res.data.data;
             });
         },
         getCount(topic) {
-            return this.topicsCount.find(item => item.topic == topic)?.count || 0
+            return this.topicsCount.find((item) => item.topic == topic)?.count || 0;
         },
         getTopicBucket() {
-            getTopicBucket({ type: 'bbs' }).then((res) => {
-                const data = res.data.data?.map(item => item.name) || [];
+            getTopicBucket({ type: "bbs" }).then((res) => {
+                const data = res.data.data?.map((item) => item.name) || [];
                 this.theme = [...data];
             });
-        }
+        },
     },
     watch: {
         // 加载路由参数
