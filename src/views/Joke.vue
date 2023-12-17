@@ -41,7 +41,13 @@
                 <!-- 搜索 -->
                 <div class="m-archive-search m-joke-search" slot="search-before">
                     <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-                    <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @keydown.native.enter="onSearch" clearable @clear="onSearch">
+                    <el-input
+                        placeholder="请输入搜索内容"
+                        v-model.trim.lazy="search"
+                        @keydown.native.enter="onSearch"
+                        clearable
+                        @clear="onSearch"
+                    >
                         <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
                         <el-switch
                             slot="append"
@@ -54,7 +60,8 @@
                 </div>
                 <div class="m-joke-main">
                     <!-- 门派分类 -->
-                    <div class="m-joke-types">
+                    <left-tab class="m-joke-types" @setType="setType"></left-tab>
+                    <!-- <div class="m-joke-types">
                         <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
                             <el-tab-pane name="all" label="全部">
                                 <span slot="label">
@@ -68,7 +75,7 @@
                                 </div>
                             </el-tab-pane>
                         </el-tabs>
-                    </div>
+                    </div> -->
                     <div class="m-joke-content">
                         <!-- 快捷发布 -->
                         <joke-post :type="type"></joke-post>
@@ -129,6 +136,7 @@ import joke_item from "@/components/joke/joke_item";
 import joke_post from "@/components/joke/joke_post.vue";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import ListLayout from "@/layouts/ListLayout.vue";
+import LeftTab from "@/components/left-tab.vue";
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -150,6 +158,7 @@ export default {
         Comment,
         "joke-post": joke_post,
         ListLayout,
+        LeftTab,
     },
     data: function () {
         return {
@@ -221,6 +230,9 @@ export default {
         },
     },
     methods: {
+        setType(type) {
+            this.type = type;
+        },
         //调整展示条数
         handleSizeChange(val) {
             this.per = val;

@@ -13,8 +13,14 @@
                 <!-- 搜索 -->
                 <div class="m-archive-search m-emotion-search" slot="search-before">
                     <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-                    <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" @keydown.native.enter="onSearch" @clear="onSearch" clearable>
-                       <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
+                    <el-input
+                        placeholder="请输入搜索内容"
+                        v-model.trim.lazy="search"
+                        @keydown.native.enter="onSearch"
+                        @clear="onSearch"
+                        clearable
+                    >
+                        <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
                         <template slot="append">
                             <el-switch
                                 class="u-star"
@@ -35,7 +41,8 @@
                 </div>
                 <div class="m-emotion-main">
                     <!-- 门派分类 -->
-                    <div class="m-emotion-types">
+                    <left-tab class="m-emotion-types" @setType="setType"></left-tab>
+                    <!-- <div class="m-emotion-types">
                         <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
                             <el-tab-pane name="all" label="全部">
                                 <span slot="label">
@@ -49,11 +56,12 @@
                                 </div>
                             </el-tab-pane>
                         </el-tabs>
-                    </div>
+                    </div> -->
                     <div class="m-emotion-content">
                         <!--快速发布-->
                         <emotion-post></emotion-post>
                         <ul class="m-emotion-list" v-if="list && list.length">
+                            <!-- :col-width="waterfall_options.colWidth" -->
                             <waterfall
                                 :autoResize="waterfall_options.autoResize"
                                 :moveTransitionDuration="0.4"
@@ -105,9 +113,12 @@
                 </div>
             </div>
             <!-- 预览弹窗 -->
-            <el-dialog :visible.sync="dialogVisible" :destroy-on-close="true" width="fit-content" :before-close="handleClose">
-                <emotion-item :emotion="emotion" mode="preview"></emotion-item>
-            </el-dialog>
+            <EmotionPreview
+                v-if="dialogVisible"
+                :visible="dialogVisible"
+                :data="emotion"
+                @close="handleClose"
+            ></EmotionPreview>
         </div>
     </ListLayout>
 </template>
@@ -117,10 +128,12 @@ import cloneDeep from "lodash/cloneDeep";
 import debounce from "lodash/debounce";
 import waterfall from "vue-waterfall-rapid";
 import ListLayout from "@/layouts/ListLayout.vue";
+import LeftTab from "@/components/left-tab.vue";
 
 // 模块
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
+import EmotionPreview from "@/components/emotion/emotion_preview.vue";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 
 // 分类
@@ -140,6 +153,8 @@ export default {
         // Comment,
         waterfall,
         ListLayout,
+        EmotionPreview,
+        LeftTab,
     },
     data: function () {
         return {
@@ -168,7 +183,7 @@ export default {
                 //是否根据容器尺寸自动计算重绘
                 autoResize: true,
                 //是否始终填满容器
-                fillBox: false,
+                fillBox: true,
                 //列宽-有指定列数则此属性失效
                 colWidth: 260,
                 //列数
@@ -209,6 +224,9 @@ export default {
         },
     },
     methods: {
+        setType(type) {
+            this.type = type;
+        },
         showSchoolIcon: function (val) {
             return __imgPath + "image/school/" + val + ".png";
         },
@@ -221,15 +239,15 @@ export default {
             if (appendMode) {
                 this.page++;
             }
-            const params  = {
+            const params = {
                 ...this.params,
                 page: this.page,
                 per: this.per,
-            }
+            };
             return getEmotions(params)
                 .then((res) => {
                     if (appendMode) {
-                        this.list = [...this.list, ...res.data?.data?.list || []];
+                        this.list = [...this.list, ...(res.data?.data?.list || [])];
                         this.emotions = cloneDeep(this.list);
                     } else {
                         this.list = this.emotions = res.data?.data?.list || [];
