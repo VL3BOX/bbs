@@ -3,16 +3,21 @@
     <div class="m-emotion-item" :class="mode || 'list'">
         <div class="u-emotion">
             <div class="u-img" @click="preview">
-                <img class="u-pic u-emotion-pic waterfall-img" :src="showEmotion(emotion.url)" :alt="emotion.desc"
-                    :key="emotion.url" />
+                <img
+                    class="u-pic u-emotion-pic waterfall-img"
+                    :src="showEmotion(emotion.url)"
+                    :alt="emotion.desc"
+                    :key="emotion.url"
+                />
             </div>
             <!-- @click="preview" -->
             <!-- <router-link class="u-img" :to="{ name: 'emotion', params: { id: emotion.id } }">
                 <img class="u-pic u-emotion-pic waterfall-img" :src="showEmotion(emotion.url)" :alt="emotion.desc"
                     :key="emotion.url" />
             </router-link> -->
-            <i class="u-star" v-if="emotion.star"><i class="el-icon-star-off"></i><i class="u-original"
-                    v-if="emotion.original">原创</i></i>
+            <i class="u-star" v-if="emotion.star"
+                ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original">原创</i></i
+            >
         </div>
         <div class="u-info">
             <div class="u-info-meta" v-if="mode">
@@ -43,7 +48,7 @@
                     <div class="u-op u-editor" v-if="isEditor">
                         <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
                             <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                            {{ isStar? "取消精选": "设为精选" }}
+                            {{ isStar ? "取消精选" : "设为精选" }}
                         </span>
                         <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
                             <i class="el-icon-delete"></i> 删除
@@ -60,9 +65,17 @@
                     </div>
                 </div>
             </div>
-            <div class="u-info-thx"  v-if="mode&&emotion">
-                <Thx class="m-thx" :postId="emotion.id" postType="emotion" :postTitle="title" :userId="emotion.user_id"
-                    :adminBoxcoinEnable="true" :userBoxcoinEnable="true" client="all" />
+            <div class="u-info-thx" v-if="mode && emotion">
+                <Thx
+                    class="m-thx"
+                    :postId="emotion.id"
+                    postType="emotion"
+                    :postTitle="title"
+                    :userId="emotion.user_id"
+                    :adminBoxcoinEnable="true"
+                    :userBoxcoinEnable="true"
+                    client="all"
+                />
                 <div class="m-single-comment">
                     <el-divider content-position="left">评论</el-divider>
                     <Comment :id="emotion.id" category="emotion" />
@@ -252,6 +265,10 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="less">
+@media screen and (max-width: @phone) {
+    .el-radio-button--mini .el-radio-button__inner {
+        padding: 7px;
+    }
+}
 </style>
