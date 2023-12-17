@@ -72,16 +72,46 @@
                                 :col="waterfall_options.col"
                             >
                                 <div
-                                    class="u-item waterfall-item"
+                                    class="u-item waterfall-item m-emotion-item"
                                     :class="{ fadeIn: item.state == 'show' }"
                                     slot-scope="item"
                                 >
-                                    <emotion-item
+                                    <div class="u-emotion">
+                                        <img
+                                            class="u-pic u-emotion-pic waterfall-img"
+                                            :src="showEmotion(item.data.url)"
+                                            :alt="item.data.desc"
+                                            :key="item.data.url"
+                                        />
+                                        <i class="u-star" v-if="item.data.star"
+                                            ><i class="el-icon-star-off"></i
+                                            ><i class="u-original" v-if="item.data.original">原创</i></i
+                                        >
+                                    </div>
+                                    <div class="u-info-user">
+                                        <img
+                                            class="u-user-avatar waterfall-img"
+                                            :src="item.data.user_info?.user_avatar | showAvatar"
+                                            :key="item.data.user_info?.user_avatar"
+                                        />
+                                        <a
+                                            class="u-user-name"
+                                            :href="item.data.user_info?.user_id | authorLink"
+                                            target="_blank"
+                                            v-if="item.data.user_info?.user_id"
+                                            >{{ item.data | showUserName }}</a
+                                        >
+                                        <span class="u-user-name" v-else>
+                                            {{ item.data.user_info?.display_name || "匿名" }}
+                                        </span>
+                                        <time class="u-time">{{ item.data.user_info?.updated_at | showTime }}</time>
+                                    </div>
+                                    <!-- <emotion-item
                                         :emotion="item.data"
                                         :index="item.index"
                                         @preview="handlePreview"
                                         :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"
-                                    ></emotion-item>
+                                    ></emotion-item> -->
                                 </div>
                             </waterfall>
                         </ul>
@@ -133,7 +163,8 @@ import LeftTab from "@/components/left-tab.vue";
 import emotion_item from "@/components/emotion/emotion_item";
 import emotion_post from "@/components/emotion/emotion_post";
 import EmotionPreview from "@/components/emotion/emotion_preview.vue";
-import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
+import { resolveImagePath, getThumbnail, authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { getRelativeTime } from "@/utils/dateFormat.js";
 
 // 分类
 import schoolmap from "@jx3box/jx3box-data/data/xf/schoolid.json";
@@ -371,6 +402,34 @@ export default {
                 this.waterfall_options.col = this.calcCol();
                 this.loadList();
             }
+        },
+        showEmotion: function (url) {
+            if (this.checkIsGif(url)) {
+                return resolveImagePath(url);
+            } else {
+                return getThumbnail(url, "emotion_thumbnail");
+            }
+        },
+        checkIsGif: function (url) {
+            return url?.split(".").pop().toLowerCase() == "gif";
+        },
+    },
+    filters: {
+        showAvatar: function (val) {
+            return showAvatar(val);
+        },
+        authorLink,
+        showThumbnail: function (url) {
+            return getThumbnail(url, "emotion_thumbnail");
+        },
+        showListDesc: function (str) {
+            return str ? str.slice(0, 120) : "未命名";
+        },
+        showTime: function (gmt) {
+            return getRelativeTime(new Date(gmt));
+        },
+        showUserName: function (emotion) {
+            return emotion?.user_info?.display_name.slice(0, 12) || "匿名";
         },
     },
     watch: {
