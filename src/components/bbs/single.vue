@@ -2,11 +2,11 @@
     <singlebox :post="post" :stat="stat" v-loading="loading" @extendUpdate="updateExtend">
         <!-- 头部子类型 -->
         <div class="u-meta u-sub-block" slot="single-header">
-            <em class="u-label">主题</em>
-            <!-- <span class="u-value">
+            <em class="u-label">类型</em>
+            <span class="u-value">
                 {{ post_subtype }}
-            </span> -->
-            <span v-for="item in topics" :key="item" class="u-label u-topic">{{ item }}</span>
+            </span>
+            <!-- <span v-for="item in topics" :key="item" class="u-label u-topic">{{ item }}</span> -->
         </div>
     </singlebox>
 </template>
@@ -20,6 +20,7 @@ import { getPost } from "../../service/post.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import types from "@/assets/data/bbs_types.json";
 import { appKey } from "../../../setting.json";
+import bbsSubtypes from "@/assets/data/bbs_subtypes.json";
 export default {
     name: "single",
     props: ["id"],
@@ -33,7 +34,7 @@ export default {
     computed: {
         post_subtype: function() {
             let subtype = this.post?.post_subtype;
-            return subtype ? types[subtype]?.['label'] : "-";
+            return subtype ? bbsSubtypes[subtype]?.['label'] : "-";
         },
         topics: function (){
             return (this.post?.topics || []).map(item => item.topic)

@@ -2,7 +2,7 @@
     <div class="m-birthday m-jx3dat-rank-mini m-jx3dat-rank">
         <h3 class="c-sidebar-right-title">
             <img class="u-icon" svg-inline src="@/assets/img/cake.svg" />今日之星
-            <span class="u-date">{{ today }}</span>
+            <span class="u-date">{{ `${icon} ${today}` }}</span>
             <!-- <span class="u-more" @click="viewRank">查看更多 &raquo;</span> -->
         </h3>
         <div v-loading="loading">
@@ -24,6 +24,8 @@
 <script>
 import {getBirthdayList} from "@/service/next";
 import { authorLink } from "@jx3box/jx3box-common/js/utils";
+import { getStarSign } from "@/utils/common";
+import starSign from "@/assets/data/star_sign.json";
 export default {
     name: "birthday",
     data() {
@@ -35,6 +37,12 @@ export default {
     computed: {
         today() {
             return new Date().toLocaleDateString()?.replace(/\//g, "-");
+        },
+        currentStarSign() {
+            return getStarSign(this.today);
+        },
+        icon() {
+            return starSign[this.currentStarSign];
         }
     },
     mounted() {

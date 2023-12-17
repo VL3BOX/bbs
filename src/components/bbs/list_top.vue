@@ -13,7 +13,7 @@
                     <img class="u-icon" svg-inline src="../../assets/img/list/post.svg" />
 
                     <!-- 资料片 -->
-                    <span class="u-label u-zlp" v-if="item.post_subtype">{{ showSubtype(item.post_subtype) }}</span>
+                    <span class="u-label u-zlp">置顶</span>
 
                     <!-- 标题文字 -->
                     <a class="u-title" :style="item.color | showHighlight" :href="item.ID | postLink" :target="target">{{
