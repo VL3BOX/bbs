@@ -61,7 +61,6 @@
                         <!--快速发布-->
                         <emotion-post></emotion-post>
                         <ul class="m-emotion-list" v-if="list && list.length">
-                            <!-- :col-width="waterfall_options.colWidth" -->
                             <waterfall
                                 :autoResize="waterfall_options.autoResize"
                                 :moveTransitionDuration="0.4"
