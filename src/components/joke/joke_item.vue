@@ -6,15 +6,23 @@
         </div>
         <div class="u-misc">
             <div class="u-op">
+                <!-- 作者 -->
                 <span class="u-user">
                     <img width="24" height="24" :src="user_avatar | showAvatar" />
                     <a :href="joke.user_id | authorLink" target="_blank" v-if="joke.user_id">{{ user_name }}</a>
                     <span v-else>{{ joke.author || "匿名" }}</span>
                 </span>
+                <!-- 复制 -->
                 <el-link type="primary" class="u-copy" :disabled="disabled" @click="handleCopy(joke.content)">
                     <i class="el-icon-document-copy"></i> 复制
                 </el-link>
-
+                <!-- 点赞 -->
+                <a class="u-like" :class="{ on: isLike }" title="赞" @click="addLike">
+                    <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i
+                    >Like
+                    <span class="like-count" v-if="count">{{ count }}</span>
+                </a>
+                <!-- 编辑（管理&作者 - 单页） -->
                 <a
                     v-if="mode === 'single' && (isAuthor || isEditor)"
                     class="u-edit el-link el-link--primary is-underline"
@@ -23,31 +31,29 @@
                 >
                     <i class="el-icon-edit-outline"></i> 编辑
                 </a>
-
-                <a class="u-like" :class="{ on: isLike }" title="赞" @click="addLike" v-if="isListPage">
-                    <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i
-                    >Like
-                    <span class="like-count" v-if="count">{{ count }}</span>
-                </a>
             </div>
             <div class="u-other">
                 <template v-if="isEditor">
+                    <!-- 精选 -->
                     <span class="u-op-item u-op-star el-link el-link--primary is-underline" @click="handleStar">
                         <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
                         {{ isStar ? "取消精选" : "设为精选" }}
                     </span>
+                    <!-- 删除 -->
                     <span class="u-op-item u-op-delete el-link el-link--primary is-underline" @click="handleDelete">
                         <i class="el-icon-delete"></i> 删除
                     </span>
+                    <!-- 打赏 -->
+                    <el-checkbox
+                        v-if="mode !== 'single'"
+                        :disabled="!joke.user_id || isSelf"
+                        v-model="checked"
+                        @change="doReward"
+                        class="u-op-item u-op-gift"
+                        >打赏</el-checkbox
+                    >
                 </template>
-                <el-checkbox
-                    v-if="mode !== 'single' && isEditor"
-                    :disabled="!joke.user_id||isSelf"
-                    v-model="checked"
-                    @change="doReward"
-                    class="u-op-item u-op-gift"
-                    >打赏</el-checkbox
-                >
+                <!-- 时间 -->
                 <span class="u-date">
                     <i class="el-icon-date"></i>&nbsp;
                     <time>{{ joke.created_at | dateFormat }}</time>

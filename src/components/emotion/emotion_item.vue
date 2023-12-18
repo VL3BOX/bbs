@@ -53,7 +53,7 @@
                         <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
                             <i class="el-icon-delete"></i> 删除
                         </span>
-                        <a class="u-edit el-link el-link--primary is-underline" :href="editLink('emotion', emotion.id)">
+                        <a class="u-edit el-link el-link--primary is-underline" :href="editLink('emotion', emotion.id)" target="blank">
                             <i class="el-icon-edit-outline"></i> 编辑
                         </a>
                     </div>
