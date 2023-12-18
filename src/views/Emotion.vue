@@ -418,7 +418,7 @@ export default {
             return emotion.user_info?.user_id;
         },
         doEmotionUser(emotion) {
-            const gmt = emotion.user_info?.updated_at;
+            const gmt = emotion?.updated_at;
             return {
                 time: getRelativeTime(new Date(gmt)) || "",
                 username: emotion?.user_info?.display_name.slice(0, 12) || "匿名",
