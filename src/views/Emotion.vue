@@ -92,20 +92,20 @@
                                     <div class="u-info-user">
                                         <img
                                             class="u-user-avatar waterfall-img"
-                                            :src="item.data.user_info?.user_avatar | showAvatar"
-                                            :key="item.data.user_info?.user_avatar"
+                                            :src="doEmotionUser(item.data).userAvatar"
+                                            :key="doEmotionUser(item.data).userAvatar"
                                         />
                                         <a
                                             class="u-user-name"
-                                            :href="item.data.user_info?.user_id | authorLink"
+                                            :href="doEmotionUser(item.data).userLink"
                                             target="_blank"
-                                            v-if="item.data.user_info?.user_id"
-                                            >{{ item.data | showUserName }}</a
+                                            v-if="hasUser(item.data)"
+                                            >{{ doEmotionUser(item.data).username }}</a
                                         >
                                         <span class="u-user-name" v-else>
-                                            {{ item.data.user_info?.display_name || "匿名" }}
+                                            {{ doEmotionUser(item.data).username }}
                                         </span>
-                                        <time class="u-time">{{ item.data.user_info?.updated_at | showTime }}</time>
+                                        <time class="u-time">{{ doEmotionUser(item.data).time }}</time>
                                     </div>
                                     <!-- <emotion-item
                                         :emotion="item.data"
@@ -414,23 +414,17 @@ export default {
         checkIsGif: function (url) {
             return url?.split(".").pop().toLowerCase() == "gif";
         },
-    },
-    filters: {
-        showAvatar: function (val) {
-            return showAvatar(val);
+        hasUser(emotion) {
+            return emotion.user_info?.user_id;
         },
-        authorLink,
-        showThumbnail: function (url) {
-            return getThumbnail(url, "emotion_thumbnail");
-        },
-        showListDesc: function (str) {
-            return str ? str.slice(0, 120) : "未命名";
-        },
-        showTime: function (gmt) {
-            return getRelativeTime(new Date(gmt));
-        },
-        showUserName: function (emotion) {
-            return emotion?.user_info?.display_name.slice(0, 12) || "匿名";
+        doEmotionUser(emotion) {
+            const gmt = emotion.user_info?.updated_at;
+            return {
+                time: getRelativeTime(new Date(gmt)) || "",
+                username: emotion?.user_info?.display_name.slice(0, 12) || "匿名",
+                userLink: authorLink(emotion?.user_info?.user_id) || "",
+                userAvatar: showAvatar(emotion?.user_info?.user_avatar) || "",
+            };
         },
     },
     watch: {
