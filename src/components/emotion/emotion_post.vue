@@ -87,8 +87,8 @@
                     @click="post"
                     :disabled="loading"
                     :loading="loading"
-                    icon="el-icon-s-promotion"
-                    size="mini"
+                    icon="el-icon-position"
+                    size="small"
                     >提交</el-button
                 >
             </div>
