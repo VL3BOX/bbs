@@ -58,11 +58,16 @@
     }
 }
 .m-joke-publish {
+    background-color: @bg-light;
+    padding: 10px;
+    border: 1px solid #eee;
+    .r(4px);
+    .mb(20px);
     .u-actions {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 10px 0;
+        margin-top: 10px;
     }
     .u-type {
         margin-left: 10px;
@@ -260,6 +265,8 @@
         .pr;
         cursor: pointer;
         user-select: none;
+        .flex;
+        align-items: center;
         &.disabled {
             // .tm(0.5);
             cursor: default;
@@ -278,9 +285,7 @@
         }
 
         .like-icon {
-            .fz(20px, 1);
-            .h(16px);
-            .y(-3px);
+            .fz(15px);
         }
 
         .like-count {
@@ -294,11 +299,26 @@
         display: flex;
         font-size: 12px;
         color: #999;
-
+        align-items: center;
         justify-content: space-between;
+
 
         a:hover {
             color: @pink;
+        }
+
+        .u-op-item {
+            .mr(15px);
+            i{
+                .mr(3px);
+            }
+        }
+
+        .u-op-gift{
+            .el-checkbox__label{
+                .fz(12px);
+                padding-left:5px;
+            }
         }
     }
 }
@@ -308,13 +328,8 @@
             .none;
         }
         .pr;
-        // .u-delete {
-        //     .pa;
-        //     .rb(0, 5px);
-        //     top: auto;
-        // }
         .u-copy,
-        .u-op-star {
+        .u-star {
             .none !important;
         }
     }

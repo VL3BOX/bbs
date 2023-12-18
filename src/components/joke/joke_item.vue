@@ -29,26 +29,25 @@
                     >Like
                     <span class="like-count" v-if="count">{{ count }}</span>
                 </a>
-
+            </div>
+            <div class="u-other">
                 <template v-if="isEditor">
-                    <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
+                    <span class="u-op-item u-op-star el-link el-link--primary is-underline" @click="handleStar">
                         <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
                         {{ isStar ? "取消精选" : "设为精选" }}
                     </span>
-                    <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
+                    <span class="u-op-item u-op-delete el-link el-link--primary is-underline" @click="handleDelete">
                         <i class="el-icon-delete"></i> 删除
                     </span>
                 </template>
-                <!-- v-if="mode !== 'single' && isEditor" -->
                 <el-checkbox
                     v-if="mode !== 'single' && isEditor"
                     :disabled="!joke.user_id||isSelf"
                     v-model="checked"
                     @change="doReward"
+                    class="u-op-item u-op-gift"
                     >打赏</el-checkbox
                 >
-            </div>
-            <div class="u-other">
                 <span class="u-date">
                     <i class="el-icon-date"></i>&nbsp;
                     <time>{{ joke.created_at | dateFormat }}</time>

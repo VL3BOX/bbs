@@ -17,13 +17,13 @@
                     class="u-type"
                     v-model="type"
                     size="small"
-                    placeholder="请选择门派"
+                    placeholder="选择门派"
                 >
                     <el-option v-for="(school,i) in schoolmap" :key="i" :value="i" :label="school">
                         <div style="display: flex;align-items: center;">
                             <img
                                 class="u-icon"
-                                style="margin-right: 20px"
+                                style="margin-right:5px"
                                 width="24"
                                 height="24"
                                 :src="i | showSchoolIcon"

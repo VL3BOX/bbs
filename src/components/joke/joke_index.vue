@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import lodash from "lodash";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import { getRecommendedJokes } from "@/service/joke";

@@ -50,7 +50,7 @@
                         >
                             <i class="el-icon-edit-outline"></i> 编辑
                         </a>
-                        <a class="u-edit el-link el-link--primary" :href="editLink('emotion', emotion.id)">
+                        <a class="u-edit el-link el-link--primary" :href="editLink('emotion', emotion.id)" target="_blank">
                             <i class="el-icon-chat-dot-round"></i> 评论
                         </a>
                     </div>

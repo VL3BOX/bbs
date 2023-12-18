@@ -1,6 +1,6 @@
 <template>
     <div class="m-emotion-publish">
-        <div class="u-title"><i class="el-icon-upload"></i>快速发布</div>
+        <!-- <div class="u-title"><i class="el-icon-upload"></i>快速发布</div> -->
         <div class="m-emotion-upload">
             <div v-if="data && data.url" class="u-emotion">
                 <img :src="data.url" />
@@ -40,7 +40,7 @@
                     <a class="u-bulk" href="/publish/#/emotion" target="_blank"
                         >😀 批量上传</a
                     >
-                    <el-switch
+                    <!-- <el-switch
                         class="u-original"
                         v-model.number="data.original"
                         inactive-text="原创"
@@ -55,11 +55,11 @@
                         size="mini"
                     >
                         <span slot="prepend">原作者</span>
-                    </el-input>
+                    </el-input> -->
                     <el-select
                         v-model="data.type"
                         size="mini"
-                        placeholder="选择门派（非必选）"
+                        placeholder="选择门派"
                     >
                         <el-option
                             v-for="(school, i) in schoolmap"
@@ -70,7 +70,7 @@
                             <div style="display: flex; align-items: center">
                                 <img
                                     class="u-icon"
-                                    style="margin-right: 20px"
+                                    style="margin-right:5px"
                                     width="24"
                                     height="24"
                                     :src="i | showSchoolIcon"
@@ -108,7 +108,7 @@ export default {
             data: {
                 url: "",
                 desc: "",
-                original: 0,
+                original: 1,
                 author: "",
                 type: "",
             },
@@ -178,7 +178,7 @@ export default {
     display: flex;
 
     .u-emotion-form {
-        margin-left: 20px;
+        margin-left: 12px;
         flex: 2;
         display: flex;
         flex-direction: column;

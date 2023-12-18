@@ -29,13 +29,13 @@
                                 :active-value="1"
                                 inactive-text="只看精选"
                             ></el-switch>
-                            <el-switch
+                            <!-- <el-switch
                                 class="u-original"
                                 v-model="original"
                                 :inactive-value="0"
                                 :active-value="1"
                                 inactive-text="只看原创"
-                            ></el-switch>
+                            ></el-switch> -->
                         </template>
                     </el-input>
                 </div>
