@@ -92,20 +92,20 @@
                                     <div class="u-info-user">
                                         <img
                                             class="u-user-avatar waterfall-img"
-                                            :src="doEmotion(item.data).userAvatar"
-                                            :key="doEmotion(item.data).userAvatar"
+                                            :src="doEmotionUser(item.data).userAvatar"
+                                            :key="doEmotionUser(item.data).userAvatar"
                                         />
                                         <a
                                             class="u-user-name"
-                                            :href="doEmotion(item.data).userLink"
+                                            :href="doEmotionUser(item.data).userLink"
                                             target="_blank"
                                             v-if="hasUser(item.data)"
-                                            >{{ doEmotion(item.data).username }}</a
+                                            >{{ doEmotionUser(item.data).username }}</a
                                         >
                                         <span class="u-user-name" v-else>
-                                            {{ doEmotion(item.data).username }}
+                                            {{ doEmotionUser(item.data).username }}
                                         </span>
-                                        <time class="u-time">{{ doEmotion(item.data).time }}</time>
+                                        <time class="u-time">{{ doEmotionUser(item.data).time }}</time>
                                     </div>
                                     <!-- <emotion-item
                                         :emotion="item.data"
@@ -417,7 +417,7 @@ export default {
         hasUser(emotion) {
             return emotion.user_info?.user_id;
         },
-        doEmotion(emotion) {
+        doEmotionUser(emotion) {
             const gmt = emotion.user_info?.updated_at;
             return {
                 time: getRelativeTime(new Date(gmt)) || "",
