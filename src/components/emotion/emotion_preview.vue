@@ -1,14 +1,14 @@
 <template>
-    <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :before-close="close" width="820px">
+    <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :show-close="false" :before-close="close">
         <div class="m-emotion">
-            <div class="u-img">
+            <a class="u-img" :href="editLink('emotion', emotion.id)" target="_blank">
                 <img
                     class="u-pic u-emotion-pic waterfall-img"
                     :src="showEmotion(emotion.url)"
                     :alt="emotion.desc"
                     :key="emotion.url"
                 />
-            </div>
+            </a>
             <i class="u-star" v-if="emotion.star"
                 ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original">原创</i></i
             >
@@ -39,18 +39,27 @@
                             <span class="u-delete el-link el-link--primary" @click="handleDelete">
                                 <i class="el-icon-delete"></i> 删除
                             </span>
-                            <a class="u-edit el-link el-link--primary" :href="editLink('emotion', emotion.id)">
+                            <a
+                                class="u-edit el-link el-link--primary"
+                                target="_blank"
+                                :href="editLink('emotion', emotion.id)"
+                            >
                                 <i class="el-icon-edit-outline"></i> 编辑
                             </a>
                         </template>
                         <a
                             v-if="isAuthor && !isEditor"
                             class="u-edit el-link el-link--primary"
+                            target="_blank"
                             :href="editLink('emotion', emotion.id)"
                         >
                             <i class="el-icon-edit-outline"></i> 编辑
                         </a>
-                        <a class="u-edit el-link el-link--primary" :href="editLink('emotion', emotion.id)" target="_blank">
+                        <a
+                            class="u-edit el-link el-link--primary"
+                            :href="editLink('emotion', emotion.id)"
+                            target="_blank"
+                        >
                             <i class="el-icon-chat-dot-round"></i> 评论
                         </a>
                     </div>
@@ -234,23 +243,31 @@ export default {
 <style lang="less">
 .m-emotion-preview-dialog {
     .el-dialog {
-        background-color: #303133;
-        .scrollbar();
+        margin-top: 5vh !important;
+        background: transparent;
+        height: 80vh !important;
+        overflow: hidden !important;
+        box-shadow: none !important;
     }
     .m-emotion {
         .pr;
-        border: 1px dashed #666;
+        // border: 1px dashed #666;
         .r(4px);
     }
     .u-img {
         .db;
         .x;
+        cursor: pointer;
         img {
+            max-width: calc(100% - 40px);
+            max-height: 60vh;
             .db;
             .auto(x);
         }
     }
-
+    .m-emotion-info {
+        background-color: #303133;
+    }
     .u-info-meta {
         .mt(5px);
     }
