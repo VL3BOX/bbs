@@ -1,5 +1,5 @@
 <template>
-    <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :show-close="false" :before-close="close">
+    <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :before-close="close">
         <a class="m-emotion" :href="editLink('emotion', emotion.id)" target="_blank">
             <div class="u-img" :style="{ backgroundImage: `url(${showEmotion(emotion.url)})` }"></div>
             <!-- <img
@@ -238,6 +238,16 @@ export default {
         height: auto !important;
         overflow: hidden !important;
         box-shadow: none !important;
+        .el-dialog__header {
+            .el-dialog__headerbtn {
+                right: 0;
+                top: 0;
+                padding: 0 3px;
+                font-size: 22px;
+                background-color: #ccc;
+                .r(5px);
+            }
+        }
         .el-dialog__body {
             padding: 0;
             .flex;
