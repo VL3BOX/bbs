@@ -59,7 +59,7 @@
                 <span class="u-user-name" v-else>
                     {{ emotion.author || "匿名" }}
                 </span>
-                <time class="u-time">{{ emotion.updated_at | showTime }}123</time>
+                <time class="u-time">{{ emotion.updated_at | showTime }}</time>
                 <!-- <a class="u-like" :class="{ on: isLike }" title="赞" @click="addLike" v-if="isListPage">
                 <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i>
                 <span class="like-text">Like</span>
