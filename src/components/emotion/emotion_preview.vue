@@ -51,7 +51,7 @@
                         </a>
                         <a
                             class="u-edit el-link el-link--primary"
-                            :href="editLink('emotion', emotion.id)"
+                            :href="getLink('emotion', emotion.id)"
                             target="_blank"
                         >
                             <i class="el-icon-chat-dot-round"></i> 评论
@@ -73,7 +73,7 @@
     </el-dialog>
 </template>
 <script>
-import { showAvatar, authorLink, editLink, getThumbnail, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
+import { showAvatar, authorLink, editLink,getLink, getThumbnail, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import { getRelativeTime } from "@/utils/dateFormat.js";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import User from "@jx3box/jx3box-common/js/user";
@@ -152,6 +152,7 @@ export default {
             this.$emit("close");
         },
         editLink,
+        getLink,
         // 点赞
         addLike: function () {
             if (this.isLike) return;
