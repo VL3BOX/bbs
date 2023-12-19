@@ -1,6 +1,30 @@
 <template>
     <!-- mode === 'single' ? 'single' : 'list' -->
     <div class="m-emotion-item" :class="mode || 'list'">
+        <div class="u-info-comment" v-if="mode">
+            <div class="u-comment-editor">
+                <!--   -->
+                <div class="u-op u-editor" v-if="isEditor">
+                    <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
+                        <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
+                        {{ isStar ? "取消精选" : "设为精选" }}
+                    </span>
+                </div>
+                <!--  -->
+                <div class="u-op" v-if="isAuthor || isEditor">
+                    <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
+                        <i class="el-icon-delete"></i> 删除
+                    </span>
+                    <a
+                        class="u-edit el-link el-link--primary is-underline"
+                        :href="editLink('emotion', emotion.id)"
+                        target="blank"
+                    >
+                        <i class="el-icon-edit-outline"></i> 编辑
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="u-emotion">
             <div class="u-img" @click="preview">
                 <img
@@ -35,35 +59,12 @@
                 <span class="u-user-name" v-else>
                     {{ emotion.author || "匿名" }}
                 </span>
-                <time class="u-time">{{ emotion.updated_at | showTime }}</time>
+                <time class="u-time">{{ emotion.updated_at | showTime }}123</time>
                 <!-- <a class="u-like" :class="{ on: isLike }" title="赞" @click="addLike" v-if="isListPage">
                 <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i>
                 <span class="like-text">Like</span>
                 <span class="like-count" v-if="count">{{ count }}</span>
             </a> -->
-            </div>
-            <div class="u-info-comment" v-if="mode">
-                <div class="u-comment-editor">
-                    <!--   -->
-                    <div class="u-op u-editor" v-if="isEditor">
-                        <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
-                            <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                            {{ isStar ? "取消精选" : "设为精选" }}
-                        </span>
-                        <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
-                            <i class="el-icon-delete"></i> 删除
-                        </span>
-                        <a class="u-edit el-link el-link--primary is-underline" :href="editLink('emotion', emotion.id)" target="blank">
-                            <i class="el-icon-edit-outline"></i> 编辑
-                        </a>
-                    </div>
-                    <!--  -->
-                    <div class="u-op" v-if="isAuthor && !isEditor">
-                        <a class="u-edit el-link el-link--primary is-underline" :href="editLink('emotion', emotion.id)">
-                            <i class="el-icon-edit-outline"></i> 编辑
-                        </a>
-                    </div>
-                </div>
             </div>
             <div class="u-info-thx" v-if="mode && emotion">
                 <Thx

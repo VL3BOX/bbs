@@ -75,7 +75,6 @@
                                     class="u-item waterfall-item m-emotion-item"
                                     :class="{ fadeIn: item.state == 'show' }"
                                     slot-scope="item"
-                                    @click="handlePreview(item.data)"
                                 >
                                     <div class="u-emotion">
                                         <img
@@ -83,29 +82,41 @@
                                             :src="showEmotion(item.data.url)"
                                             :alt="item.data.desc"
                                             :key="item.data.url"
+                                            @click="handlePreview(item.data)"
                                         />
                                         <i class="u-star" v-if="item.data.star"
                                             ><i class="el-icon-star-off"></i
                                             ><i class="u-original" v-if="item.data.original">原创</i></i
                                         >
                                     </div>
-                                    <div class="u-info-user">
-                                        <img
-                                            class="u-user-avatar waterfall-img"
-                                            :src="doEmotionUser(item.data).userAvatar"
-                                            :key="doEmotionUser(item.data).userAvatar"
-                                        />
-                                        <a
-                                            class="u-user-name"
-                                            :href="doEmotionUser(item.data).userLink"
-                                            target="_blank"
-                                            v-if="hasUser(item.data)"
-                                            >{{ doEmotionUser(item.data).username }}</a
+                                    <div class="u-item-bottom">
+                                        <div class="u-info-user">
+                                            <img
+                                                class="u-user-avatar waterfall-img"
+                                                :src="doEmotionUser(item.data).userAvatar"
+                                                :key="doEmotionUser(item.data).userAvatar"
+                                            />
+                                            <a
+                                                class="u-user-name"
+                                                :href="doEmotionUser(item.data).userLink"
+                                                target="_blank"
+                                                v-if="hasUser(item.data)"
+                                                >{{ doEmotionUser(item.data).username }}</a
+                                            >
+                                            <span class="u-user-name" v-else>
+                                                {{ doEmotionUser(item.data).username }}
+                                            </span>
+                                            <time class="u-time">{{ doEmotionUser(item.data).time }}</time>
+                                        </div>
+                                        <!-- 打赏 -->
+                                        <el-checkbox
+                                            v-if="isEditor"
+                                            :disabled="!item.data.user_id || isSelf(item.data)"
+                                            v-model="rewardObj[item.data.id]"
+                                            @change="doReward($event, item.data)"
+                                            class="u-op-item u-op-gift"
+                                            >打赏</el-checkbox
                                         >
-                                        <span class="u-user-name" v-else>
-                                            {{ doEmotionUser(item.data).username }}
-                                        </span>
-                                        <time class="u-time">{{ doEmotionUser(item.data).time }}</time>
                                     </div>
                                     <!-- <emotion-item
                                         :emotion="item.data"
@@ -119,26 +130,47 @@
 
                         <!-- 空 -->
                         <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
-                        <el-button
-                            class="m-emotion-more"
-                            type="primary"
-                            @click="loadMore"
-                            v-show="page < pages"
-                            icon="el-icon-arrow-down"
-                            :disabled="loading"
-                            >加载更多</el-button
-                        >
+
                         <!-- 分页 -->
-                        <!-- <el-pagination
-                    class="m-emotion-pagination"
-                    background
-                    :page-size="per"
-                    :hide-on-single-page="true"
-                    :current-page.sync="page"
-                    layout="total, prev, pager, next, jumper"
-                    :total="total"
-                    @current-change="skipTop"
-                ></el-pagination>-->
+                        <div class="m-emotion-footer">
+                            <el-pagination
+                                class="m-emotion-pagination"
+                                background
+                                :page-size="per"
+                                :hide-on-single-page="true"
+                                :current-page.sync="page"
+                                layout="total, prev, pager, next, jumper,sizes"
+                                :total="total"
+                                :page-sizes="[10, 30, 50, 70, 90]"
+                                @current-change="skipTop"
+                                @size-change="handleSizeChange"
+                            ></el-pagination>
+                            <div class="m-emotion-reward" v-if="isEditor">
+                                <el-button class="m-emotion-all" type="primary" size="mini" @click="rewardAll"
+                                    >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
+                                >
+                                <Thx
+                                    type="batchReward"
+                                    postType="emotion"
+                                    :postId="rewardArr"
+                                    :adminBoxcoinEnable="true"
+                                    :userBoxcoinEnable="true"
+                                    client="all"
+                                />
+                            </div>
+                            <template v-else>
+                                <el-button
+                                    class="m-emotion-more"
+                                    type="primary"
+                                    @click="loadMore"
+                                    v-show="page < pages"
+                                    icon="el-icon-arrow-down"
+                                    size="small"
+                                    :disabled="loading"
+                                    >加载更多</el-button
+                                >
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,6 +180,7 @@
                 :visible="dialogVisible"
                 :data="emotion"
                 @close="handleClose"
+                @del="handleDelete"
             ></EmotionPreview>
         </div>
     </ListLayout>
@@ -175,6 +208,8 @@ import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getEmotions, getEmotion } from "@/service/emotion";
 import { getLikes } from "@/service/next";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
+
+import User from "@jx3box/jx3box-common/js/user";
 
 export default {
     name: "Emotion",
@@ -223,6 +258,9 @@ export default {
             windowWidth: document.documentElement.clientWidth,
 
             dialogVisible: false,
+            checked: false,
+            rewardObj: {},
+            rewardArr: [], //打赏选中
         };
     },
     computed: {
@@ -235,6 +273,8 @@ export default {
         },
         params: function ({ search, per, page, star, original }) {
             return {
+                per: ~~per,
+                page: ~~page,
                 type: this.type == "all" ? "" : this.type,
                 search,
                 star: !!this.star ? 1 : "",
@@ -247,14 +287,60 @@ export default {
         reset_keys: function () {
             return [this.type, this.star, this.original];
         },
-        user_id: function () {
-            return this.emotion?.user_id || 0;
-        },
         images: function () {
             return this.list.map((item) => resolveImagePath(item.url));
         },
+        //全选状态
+        rewardAllType: function () {
+            return this.rewardArr.length === this.emotions.filter((item) => item.user_id).length;
+        },
+        isEditor: function () {
+            return User.isEditor();
+        },
     },
     methods: {
+        //调整展示条数
+        handleSizeChange(val) {
+            this.per = val;
+            this.loadList();
+        },
+        //取消/选中打赏文章
+        doReward(val, data) {
+            if (val) {
+                if (!this.rewardArr.find((item) => ~~item.article_id === ~~data.id)) {
+                    this.rewardArr.push({
+                        user_id: data.user_id,
+                        article_id: data.id.toString(),
+                        article_type: "emotion",
+                    });
+                }
+            } else {
+                this.rewardArr = this.rewardArr.filter((item) => ~~item.article_id !== ~~data.id);
+            }
+        },
+        //取消/全选打赏文章
+        rewardAll() {
+            let arr = [];
+            this.emotions.map((item) => {
+                if (item.user_id && this.isNotSelf(item.user_id)) {
+                    arr.push({
+                        user_id: item.user_id,
+                        article_id: item.id.toString(),
+                        article_type: "emotion",
+                    });
+                }
+                this.$set(this.rewardObj, item.id, !this.rewardAllType);
+            });
+            this.rewardArr = this.rewardAllType ? [] : arr;
+        },
+        isNotSelf: function () {
+            return (id) => {
+                return id != User.getInfo().uid;
+            };
+        },
+        isSelf: function (emotion) {
+            return emotion.user_id == User.getInfo().uid;
+        },
         setType(type) {
             this.type = type;
         },
@@ -262,8 +348,14 @@ export default {
             return __imgPath + "image/school/" + val + ".png";
         },
         onSearch() {
-            this.page = 1;
+            if (this.page !== 1) {
+                this.page = 1;
+                return;
+            }
             this.loadList();
+        },
+        handleDelete() {
+            this.onSearch();
         },
         loadList: function (appendMode = false) {
             this.loading = true;
@@ -272,8 +364,6 @@ export default {
             }
             const params = {
                 ...this.params,
-                page: this.page,
-                per: this.per,
             };
             return getEmotions(params)
                 .then((res) => {
@@ -440,6 +530,14 @@ export default {
             deep: true,
             handler: function () {
                 this.page = 1;
+                this.rewardArr = [];
+            },
+        },
+        page: {
+            deep: true,
+            handler: function () {
+                this.rewardArr = [];
+                this.loadList();
             },
         },
     },

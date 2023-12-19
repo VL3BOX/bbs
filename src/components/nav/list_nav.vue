@@ -10,7 +10,7 @@
 
         <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5> -->
 
-        <div class="m-ladder-carousel">
+        <!-- <div class="m-ladder-carousel">
             <el-carousel class="m-carousel" autoplay indicator-position="none">
                 <el-carousel-item v-for="(item, index) in slideList" :key="index">
                     <a class="u-link" :href="item.link">
@@ -18,7 +18,8 @@
                     </a>
                 </el-carousel-item>
             </el-carousel>
-        </div>
+        </div> -->
+        <Banner class="m-ladder-carousel"></Banner>
 
         <div class="m-nav-app">
             <h5 class="u-title">茶馆矩阵</h5>
@@ -56,6 +57,7 @@ import { getMenus } from "@/service/helper.js";
 import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getAppType, getAppIcon } from "@jx3box/jx3box-common/js/utils";
 import { getConfigBanner } from "@/service/cms";
+import Banner from "@/components/bbs/banner.vue";
 export default {
     name: "list_nav",
     props: [],
@@ -152,19 +154,21 @@ export default {
             });
         },
         loadMenu() {
-            getConfigBanner({ client: this.client, status: 1, per: 10, type: "bbs", subtype: "sidebar" }).then((res) => {
-                this.slideList = res.data.data.list;
-            });
+            getConfigBanner({ client: this.client, status: 1, per: 10, type: "bbs", subtype: "sidebar" }).then(
+                (res) => {
+                    this.slideList = res.data.data.list;
+                }
+            );
         },
         routeActive(app) {
             return this.$route.name.includes(app);
-        }
+        },
     },
     mounted: function () {
         this.loadTags();
-        this.loadMenu();
+        // this.loadMenu();
     },
-    components: {},
+    components: { Banner },
 };
 </script>
 <style lang="less">

@@ -1,18 +1,17 @@
 <template>
     <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :show-close="false" :before-close="close">
-        <div class="m-emotion">
-            <a class="u-img" :href="editLink('emotion', emotion.id)" target="_blank">
-                <img
-                    class="u-pic u-emotion-pic waterfall-img"
-                    :src="showEmotion(emotion.url)"
-                    :alt="emotion.desc"
-                    :key="emotion.url"
-                />
-            </a>
+        <a class="m-emotion" :href="editLink('emotion', emotion.id)" target="_blank">
+            <div class="u-img" :style="{ backgroundImage: `url(${showEmotion(emotion.url)})` }"></div>
+            <!-- <img
+                class="u-pic u-emotion-pic waterfall-img"
+                :src="showEmotion(emotion.url)"
+                :alt="emotion.desc"
+                :key="emotion.url"
+            /> -->
             <i class="u-star" v-if="emotion.star"
-                ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original">原创</i></i
-            >
-        </div>
+                ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original"></i
+            ></i>
+        </a>
         <div class="m-emotion-info">
             <div class="u-info-op">
                 <div class="u-info-user">
@@ -39,16 +38,9 @@
                             <span class="u-delete el-link el-link--primary" @click="handleDelete">
                                 <i class="el-icon-delete"></i> 删除
                             </span>
-                            <a
-                                class="u-edit el-link el-link--primary"
-                                target="_blank"
-                                :href="editLink('emotion', emotion.id)"
-                            >
-                                <i class="el-icon-edit-outline"></i> 编辑
-                            </a>
                         </template>
                         <a
-                            v-if="isAuthor && !isEditor"
+                            v-if="isAuthor"
                             class="u-edit el-link el-link--primary"
                             target="_blank"
                             :href="editLink('emotion', emotion.id)"
@@ -65,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <Thx
+            <!-- <Thx
                 class="m-thx"
                 :postId="emotion.id"
                 postType="emotion"
@@ -74,7 +66,7 @@
                 :adminBoxcoinEnable="true"
                 :userBoxcoinEnable="true"
                 client="all"
-            />
+            /> -->
         </div>
     </el-dialog>
 </template>
@@ -210,11 +202,8 @@ export default {
                         message: "删除成功",
                         type: "success",
                     });
-                    if (this.mode === "single") {
-                        this.$router.go(-1);
-                    } else {
-                        this.$emit("update");
-                    }
+                    this.$emit("del");
+                    this.close();
                 });
             });
         },
@@ -245,9 +234,15 @@ export default {
     .el-dialog {
         margin-top: 5vh !important;
         background: transparent;
-        height: 80vh !important;
+        max-width: 60vw;
+        height: auto !important;
         overflow: hidden !important;
         box-shadow: none !important;
+        .el-dialog__body {
+            padding: 0;
+            .flex;
+            flex-direction: column;
+        }
     }
     .m-emotion {
         .pr;
@@ -258,14 +253,17 @@ export default {
         .db;
         .x;
         cursor: pointer;
-        img {
-            max-width: calc(100% - 40px);
-            max-height: 60vh;
-            .db;
-            .auto(x);
-        }
+        max-height: 60vh;
+        overflow: hidden;
+        flex: none;
+        width: 100%;
+        height: 60vh;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: center bottom;
     }
     .m-emotion-info {
+        max-width: 100%;
         background-color: #303133;
     }
     .u-info-meta {

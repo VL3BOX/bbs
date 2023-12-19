@@ -3,13 +3,21 @@
         <!-- 搜索 -->
         <div class="m-archive-search m-collection-search">
             <a :href="publish_link" class="u-publish el-button el-button--primary">+ 创建小册</a>
-            <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" class="input-with-select" clearable @clear="onSearch" @keydown.native.enter="onSearch">
+            <el-input
+                placeholder="请输入搜索内容"
+                v-model.trim.lazy="search"
+                class="input-with-select"
+                clearable
+                @clear="onSearch"
+                @keydown.native.enter="onSearch"
+            >
                 <template #prepend> <i class="el-icon-search"></i> 关键词 </template>
                 <template #append>
                     <el-button icon="el-icon-position" class="u-btn" @click="onSearch"></el-button>
                 </template>
             </el-input>
         </div>
+        <Banner :subtype="'collection'"></Banner>
         <!-- 列表 -->
         <div class="m-collection-list" v-if="data && data.length">
             <template v-for="(item, i) in data">
@@ -37,12 +45,14 @@ import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import collection_item from "./collection_item.vue";
 import collection_item_v2 from "./collection_item_v2.vue";
 import { getCollections } from "@/service/helper.js";
+import Banner from "@/components/bbs/banner.vue";
 export default {
     name: "CollectionList",
     props: [],
     components: {
         // "collection-item": collection_item,
         "collection-item": collection_item_v2,
+        Banner,
     },
     data: function () {
         return {
@@ -77,7 +87,7 @@ export default {
             const params = {
                 ...this.params,
                 keyword: this.search,
-            }
+            };
             getCollections(params)
                 .then((res) => {
                     this.data = res?.data?.data?.list;
@@ -90,10 +100,10 @@ export default {
         onSearch() {
             if (this.page !== 1) {
                 this.page = 1;
-                return
+                return;
             }
             this.loadData();
-        }
+        },
     },
     watch: {
         params: {

@@ -1,8 +1,8 @@
 <template>
     <ListLayout>
         <div class="m-collection">
-            <List v-if="mode == 'list'"/>
-            <Single v-else/>
+            <List v-if="mode == 'list'" />
+            <Single v-else />
         </div>
     </ListLayout>
 </template>
