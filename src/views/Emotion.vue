@@ -91,32 +91,29 @@
                                     </div>
                                     <div class="u-item-bottom">
                                         <div class="u-info-user">
-                                            <img
-                                                class="u-user-avatar waterfall-img"
-                                                :src="doEmotionUser(item.data).userAvatar"
-                                                :key="doEmotionUser(item.data).userAvatar"
-                                            />
                                             <a
                                                 class="u-user-name"
                                                 :href="doEmotionUser(item.data).userLink"
                                                 target="_blank"
-                                                v-if="hasUser(item.data)"
-                                                >{{ doEmotionUser(item.data).username }}</a
+                                                ><img
+                                                    class="u-user-avatar waterfall-img"
+                                                    :src="doEmotionUser(item.data).userAvatar"
+                                                    :key="doEmotionUser(item.data).userAvatar"
+                                                />{{ doEmotionUser(item.data).username }}</a
                                             >
-                                            <span class="u-user-name" v-else>
-                                                {{ doEmotionUser(item.data).username }}
-                                            </span>
-                                            <time class="u-time">{{ doEmotionUser(item.data).time }}</time>
                                         </div>
-                                        <!-- 打赏 -->
-                                        <el-checkbox
-                                            v-if="isEditor"
-                                            :disabled="!item.data.user_id || isSelf(item.data)"
-                                            v-model="rewardObj[item.data.id]"
-                                            @change="doReward($event, item.data)"
-                                            class="u-op-item u-op-gift"
-                                            >打赏</el-checkbox
-                                        >
+                                        <div class="u-info-misc">
+                                            <time class="u-time">{{ doEmotionUser(item.data).time }}</time>
+                                            <!-- 打赏 -->
+                                            <el-checkbox
+                                                v-if="isEditor"
+                                                :disabled="!item.data.user_id || isSelf(item.data)"
+                                                v-model="rewardObj[item.data.id]"
+                                                @change="doReward($event, item.data)"
+                                                class="u-op-item u-op-gift"
+                                                >打赏</el-checkbox
+                                            >
+                                        </div>
                                     </div>
                                     <!-- <emotion-item
                                         :emotion="item.data"
@@ -446,14 +443,15 @@ export default {
 
         // 瀑布流
         calcCol: function () {
+            const col_w = 300;
             let w = window.innerWidth;
             let col = 0;
             if (w < 780) {
                 col = 2;
             } else if (w > 1024) {
-                col = parseInt((window.innerWidth - 330) / 260); //扣除侧边栏
+                col = parseInt((window.innerWidth - 330) / col_w); //扣除侧边栏
             } else {
-                col = parseInt(window.innerWidth / 260); //平板竖屏
+                col = parseInt(window.innerWidth / col_w); //平板竖屏
             }
             return col;
         },
@@ -512,7 +510,7 @@ export default {
             return {
                 time: getRelativeTime(new Date(gmt)) || "",
                 username: emotion?.user_info?.display_name.slice(0, 12) || "匿名",
-                userLink: authorLink(emotion?.user_info?.user_id) || "",
+                userLink: authorLink(emotion?.user_id) || "",
                 userAvatar: showAvatar(emotion?.user_info?.user_avatar) || "",
             };
         },
