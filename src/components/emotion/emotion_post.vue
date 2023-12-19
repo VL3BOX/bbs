@@ -26,15 +26,15 @@
             <!-- 按钮 -->
             <div class="u-extend">
                 <div class="u-extend-form">
-                    <joke-emotion @emotion="insertVariable"></joke-emotion>
-                    <!-- <el-switch
+                    <!-- <joke-emotion @emotion="insertVariable"></joke-emotion> -->
+                    <el-switch
                         class="u-original"
                         v-model.number="data.original"
                         inactive-text="原创"
                         :active-value="1"
                         :inactive-value="0"
                     ></el-switch>
-                    <el-input
+                    <!-- <el-input
                         class="u-author"
                         v-model="data.author"
                         placeholder="（非必填）"
@@ -87,7 +87,7 @@ const imgTypes = ["image/png", "image/jpeg", "image/gif", "image/bmp"];
 export default {
     name: "emotion_post",
     components: {
-        "joke-emotion": joke_emotion,
+        // "joke-emotion": joke_emotion,
     },
     data() {
         return {
@@ -96,7 +96,7 @@ export default {
             data: {
                 url: "",
                 desc: "",
-                original: 1,
+                original: 0,
                 author: "",
                 type: "0",
             },

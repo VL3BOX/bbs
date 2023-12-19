@@ -1,5 +1,6 @@
 <template>
-    <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :show-close="false" :before-close="close">
+    <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :close-on-click-modal="false">
+        <div class="u-close" @click="close"><i class="el-icon-close"></i></div>
         <a class="m-emotion" :href="editLink('emotion', emotion.id)" target="_blank">
             <!-- <div class="u-img" :style="{ backgroundImage: `url(${showEmotion(emotion.url)})` }"></div> -->
             <!-- <img
@@ -8,10 +9,10 @@
                 :alt="emotion.desc"
                 :key="emotion.url"
             /> -->
-            <img class="u-img" :src="showEmotion(emotion.url)"/>
-            <i class="u-star" v-if="emotion.star"
+            <img class="u-img" :src="showEmotion(emotion.url)" />
+            <!-- <i class="u-star" v-if="emotion.star"
                 ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original"></i
-            ></i>
+            ></i> -->
         </a>
         <div class="m-emotion-info">
             <div class="u-info-op">
@@ -235,14 +236,38 @@ export default {
     .el-dialog {
         background: transparent;
         height: auto !important;
-        overflow: hidden !important;
         box-shadow: none !important;
         .flex;
         justify-content: center;
+        .el-dialog__header{
+            .none;
+        }
         .el-dialog__body {
             padding: 0;
             .flex;
             flex-direction: column;
+
+            .pr;
+
+            .u-close {
+                .pointer;
+                .pa;
+                .lt(100%,0);
+                .size(50px);
+                .flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                background-color: rgba(0,0,0,.5);
+                color:#fff;
+
+                i{
+                    transition: all 0.3s ease;
+                }
+                &:hover i{
+                    transform: rotate(180deg);
+                }
+            }
         }
     }
     .m-emotion {
@@ -255,13 +280,15 @@ export default {
     }
     .u-img {
         .db;
-        .x;.auto(x);
+        .x;
+        .auto(x);
         cursor: pointer;
         // max-height: 60vh;
         overflow: hidden;
         flex: none;
         // max-width: 90vw;
         height: 100%;
+        min-width: 320px;
         // background-repeat: no-repeat;
         // background-size: auto 100%;
         // background-position: center bottom;

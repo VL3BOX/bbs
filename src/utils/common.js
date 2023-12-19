@@ -20,8 +20,6 @@ function getStarSign(birthdate) {
     const day = parseInt(dateParts[2]);
     const month = parseInt(dateParts[1]);
 
-    console.log(day, month)
-
     if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
         return 'Aries';
     } else if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) {
