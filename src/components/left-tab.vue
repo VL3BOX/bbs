@@ -38,7 +38,6 @@ export default {
     mounted: function () {
         const that = this;
         window.onresize = () => {
-            console.log(123);
             that.windowWidth = document.documentElement.clientWidth;
         };
     },
