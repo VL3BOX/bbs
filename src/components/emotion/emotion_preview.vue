@@ -1,13 +1,14 @@
 <template>
     <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :show-close="false" :before-close="close">
         <a class="m-emotion" :href="editLink('emotion', emotion.id)" target="_blank">
-            <div class="u-img" :style="{ backgroundImage: `url(${showEmotion(emotion.url)})` }"></div>
+            <!-- <div class="u-img" :style="{ backgroundImage: `url(${showEmotion(emotion.url)})` }"></div> -->
             <!-- <img
                 class="u-pic u-emotion-pic waterfall-img"
                 :src="showEmotion(emotion.url)"
                 :alt="emotion.desc"
                 :key="emotion.url"
             /> -->
+            <img class="u-img" :src="showEmotion(emotion.url)"/>
             <i class="u-star" v-if="emotion.star"
                 ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original"></i
             ></i>
@@ -232,12 +233,12 @@ export default {
 <style lang="less">
 .m-emotion-preview-dialog {
     .el-dialog {
-        margin-top: 5vh !important;
         background: transparent;
-        max-width: 60vw;
         height: auto !important;
         overflow: hidden !important;
         box-shadow: none !important;
+        .flex;
+        justify-content: center;
         .el-dialog__body {
             padding: 0;
             .flex;
@@ -248,19 +249,22 @@ export default {
         .pr;
         // border: 1px dashed #666;
         .r(4px);
+        height: 60vh;
+        width: 100%;
+        .db;
     }
     .u-img {
         .db;
-        .x;
+        .x;.auto(x);
         cursor: pointer;
-        max-height: 60vh;
+        // max-height: 60vh;
         overflow: hidden;
         flex: none;
-        width: 100%;
-        height: 60vh;
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        background-position: center bottom;
+        // max-width: 90vw;
+        height: 100%;
+        // background-repeat: no-repeat;
+        // background-size: auto 100%;
+        // background-position: center bottom;
     }
     .m-emotion-info {
         max-width: 100%;
@@ -272,7 +276,7 @@ export default {
     .u-star {
         .pointer;
         .pa;
-        .rt(0);
+        .rt(8px);
         font-style: normal;
         border-radius: 2px;
         color: #fff;
@@ -326,9 +330,9 @@ export default {
         .mr(5px);
     }
     .u-user-name {
-        color: #666;
+        color: #eee;
         &:hover {
-            color: @color-link;
+            color: #fff;
         }
     }
     .u-time {
