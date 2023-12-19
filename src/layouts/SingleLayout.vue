@@ -2,7 +2,7 @@
     <div id="app" class="p-bbs p-bbs-single">
         <Header></Header>
         <Breadcrumb
-            name="茶馆交流"
+            name="竹林茶馆"
             slug="bbs"
             :publishEnable="false"
             :adminEnable="true"
