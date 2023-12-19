@@ -3,7 +3,7 @@
         <ul class="u-list">
             <li class="u-item">
                 <!-- Banner -->
-                <a class="u-banner" :href="item.ID | postLink" :target="target"
+                <a class="u-banner" :href="getLink(item)" :target="target"
                     ><img :src="getBanner(item.post_banner, item.post_subtype)" :key="item.ID"
                 /></a>
 
@@ -16,7 +16,7 @@
                     <span class="u-label u-zlp">置顶</span>
 
                     <!-- 标题文字 -->
-                    <a class="u-title" :style="item.color | showHighlight" :href="item.ID | postLink" :target="target">{{
+                    <a class="u-title" :style="item.color | showHighlight" :href="getLink(item)" :target="target">{{
                         item.post_title || "无标题"
                     }}</a>
 
@@ -72,7 +72,7 @@
 
 <script>
 import { appKey } from "@/../setting.json";
-import { showAvatar, authorLink, showBanner, buildTarget } from "@jx3box/jx3box-common/js/utils";
+import { showAvatar, authorLink, showBanner, buildTarget, getLink } from "@jx3box/jx3box-common/js/utils";
 import { __ossMirror, __imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import { showDate } from "@jx3box/jx3box-common/js/moment.js";
@@ -128,6 +128,9 @@ export default {
         onTopIdClick(id) {
             this.current = id;
             this.loadPost();
+        },
+        getLink(item) {
+            return getLink(item.post_type, item.ID)
         }
     },
     filters: {
