@@ -57,14 +57,14 @@ export default {
     methods: {
         bbsLink(link) {
             const prefix = this.client == "std" ? "www" : "origin";
-            return `${prefix}:${link}`
+            return `${prefix}:${link}`;
         },
         init: function () {
-            getMenus({ key: 'bbs_newbie_1,bbs_newbie_2,bbs_newbie_3' }).then(res => {
+            getMenus({ key: "bbs_newbie_1,bbs_newbie_2,bbs_newbie_3" }).then((res) => {
                 this.data = res || [];
-            })
+            });
             getBreadcrumb("bbs_newbie").then((res) => {
-                this.ac = res || '';
+                this.ac = res || "";
             });
         },
         highLight: function (val) {
@@ -150,10 +150,13 @@ export default {
 }
 @media screen and (max-width: @phone) {
     .m-index-rec .el-col {
-        .w(50%);
+        .w(100%);
     }
-    .m-index-rec .el-col:nth-child(2n) .u-rec {
-        border-right: none;
+    .m-index-rec .el-col {
+        .m-header,
+        .u-rec {
+            border-right: none;
+        }
     }
 }
 </style>

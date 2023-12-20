@@ -1,6 +1,6 @@
 <template>
     <ListLayout>
-        <div class="m-collection">
+        <div class="v-collection">
             <List v-if="mode == 'list'" />
             <Single v-else />
         </div>

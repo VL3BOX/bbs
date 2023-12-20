@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <Thx
+            <Thx
                 class="m-thx"
                 :postId="emotion.id"
                 postType="emotion"
@@ -68,7 +68,8 @@
                 :adminBoxcoinEnable="true"
                 :userBoxcoinEnable="true"
                 client="all"
-            /> -->
+                v-if="isEditor"
+            />
         </div>
     </el-dialog>
 </template>
@@ -339,6 +340,14 @@ export default {
     }
     .m-emotion-info {
         padding: 0 10px 10px;
+        .m-thx{
+            padding-bottom: 20px;
+            max-width: 700px;
+            .auto(x);
+            .w-thx-copyright{
+                .none;
+            }
+        }
     }
     .u-info-op {
         .flex;
