@@ -76,7 +76,7 @@
                                     :class="{ fadeIn: item.state == 'show' }"
                                     slot-scope="item"
                                 >
-                                    <!-- <div class="u-emotion">
+                                    <div class="u-emotion">
                                         <img
                                             class="u-pic u-emotion-pic waterfall-img"
                                             :src="showEmotion(item.data.url)"
@@ -123,13 +123,13 @@
                                                 <span class="like-count" v-if="item.data.count">{{ item.data.count }}</span>
                                             </a>
                                         </div>
-                                    </div> -->
-                                    <emotion-item
+                                    </div>
+                                    <!-- <emotion-item
                                         :emotion="item.data"
                                         :index="item.index"
                                         @preview="handlePreview"
                                         :key="'emotion-' + item.data.type + '-' + item.data.id + new Date().getTime()"
-                                    ></emotion-item>
+                                    ></emotion-item> -->
                                 </div>
                             </waterfall>
                         </ul>
