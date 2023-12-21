@@ -145,7 +145,7 @@ export default {
         },
     },
     mounted() {
-        console.log(document.documentElement.clientWidth);
+        // console.log(document.documentElement.clientWidth);
     },
     methods: {
         close() {
