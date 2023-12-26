@@ -18,7 +18,7 @@
             <div class="m-main">
                 <slot></slot>
             </div>
-            <RightSidebar class="m-bbs-right-side">
+            <RightSidebar class="m-bbs-right-side" :show-toggle="true">
                 <Side class="m-extend" />
             </RightSidebar>
             <Footer></Footer>
@@ -62,7 +62,7 @@ export default {
 <style lang="less">
 .m-bbs-right-side {
     &.c-sidebar-right.is-close {
-        transform: translateX(0) !important;
+        //transform: translateX(0) !important;
     }
 }
 </style>
