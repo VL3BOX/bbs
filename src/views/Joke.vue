@@ -80,8 +80,8 @@
                         <!-- 快捷发布 -->
                         <joke-post :type="type"></joke-post>
                         <!-- 列表 -->
-                        <el-row class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
-                            <el-col :span="24" v-for="joke in jokes" :key="joke.id">
+                        <div class="m-joke-list" :gutter="20" v-if="jokes && jokes.length">
+                            <div :span="24" v-for="joke in jokes" :key="joke.id">
                                 <div class="m-joke-item">
                                     <joke-item
                                         :joke="joke"
@@ -90,8 +90,8 @@
                                         @update="handleJokeUpdate"
                                     />
                                 </div>
-                            </el-col>
-                        </el-row>
+                            </div>
+                        </div>
                         <!-- 空 -->
                         <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
                         <div class="m-joke-footer">
@@ -208,7 +208,7 @@ export default {
             };
         },
         keys: function () {
-            return [this.id, this.type, this.star, this.page, this.per];
+            return [this.type, this.star, this.page, this.per];
         },
         reset_keys: function () {
             return [this.type, this.star];
@@ -363,6 +363,12 @@ export default {
                 this.jokeRewardArr = [];
             },
         },
+        id: {
+            immediate: true,
+            handler: function (val) {
+                val && this.init();
+            },
+        }
     },
     mounted: function () {
         const that = this;
