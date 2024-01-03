@@ -53,11 +53,8 @@
             <!-- 评论 -->
             <div ref="commentView" class="m-single-comment">
                 <el-divider content-position="left">评论</el-divider>
-                <template v-if="showComment">
-                    <Comment :id="id" category="post" v-if="id && allow_comment" />
-                    <el-alert title="作者没有开启评论功能" type="warning" show-icon v-else></el-alert>
-                </template>
-                <el-alert title="作者开启了评论仅自己可见" type="warning" show-icon v-else></el-alert>
+                <Comment :id="id" category="post" v-if="id && allow_comment" />
+                <el-alert title="作者没有开启评论功能" type="warning" show-icon v-else></el-alert>
             </div>
         </div>
 
@@ -175,13 +172,13 @@ export default {
         isEditor: function () {
             return User.isEditor();
         },
-        showComment: function (){
+        showComment: function () {
             if (this.post?.comment_visible) {
                 // 仅自己和管理可见
                 return User.getInfo()?.uid == this.author_id || this.isEditor;
             }
             return true;
-        }
+        },
     },
     methods: {
         updateCollection: function (val) {
@@ -228,16 +225,16 @@ export default {
 
 <style lang="less">
 .m-single-box {
-    padding:0 30px;
+    padding: 0 30px;
     .el-divider__text {
         color: #888;
-        font-weight:300;
+        font-weight: 300;
     }
     .pr;
 }
-@media screen and (max-width:@phone){
-    .m-single-box{
-        padding:0 15px;
+@media screen and (max-width: @phone) {
+    .m-single-box {
+        padding: 0 15px;
     }
 }
 
@@ -245,39 +242,41 @@ export default {
     .pr;
 }
 
-.m-single-collection,.m-single-creators{
+.m-single-collection,
+.m-single-creators {
     .mb(10px);
 }
 
 .m-single-post {
     .mb(10px);
     .pr;
-    .el-divider{
-        margin:10px auto 20px auto;
+    .el-divider {
+        margin: 10px auto 20px auto;
     }
     overflow: hidden;
 }
 
-
-.m-single-content{
+.m-single-content {
     height: auto !important;
 }
-@media print{
-    .m-single-content{
-        table{
+@media print {
+    .m-single-content {
+        table {
             width: 100% !important;
         }
     }
 }
-@media print{
-    .m-single-comment{.none;}
+@media print {
+    .m-single-comment {
+        .none;
+    }
 }
 
-.m-single-null{
-    padding:20px 0;
+.m-single-null {
+    padding: 20px 0;
 }
 
-.m-single-thx{
+.m-single-thx {
     .mt(40px);
 }
 </style>
