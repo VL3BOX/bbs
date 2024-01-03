@@ -1,7 +1,7 @@
 <template>
     <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :close-on-click-modal="false">
         <div class="u-close" @click="close"><i class="el-icon-close"></i></div>
-        <a class="m-emotion" :href="editLink('emotion', emotion.id)" target="_blank">
+        <a class="m-emotion" :href="getLink('emotion', emotion.id)" target="_blank">
             <!-- <div class="u-img" :style="{ backgroundImage: `url(${showEmotion(emotion.url)})` }"></div> -->
             <!-- <img
                 class="u-pic u-emotion-pic waterfall-img"
