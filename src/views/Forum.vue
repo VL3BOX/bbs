@@ -33,7 +33,7 @@
             <!-- 筛选 -->
             <div class="m-archive-filter">
                 <!-- 版本过滤 -->
-                <clientBy @filter="filterImperceptibly" :type="client"></clientBy>
+                <clientBy @filter="filterImperceptibly" :type="client" :clients="clients" :showWujie="false"></clientBy>
                 <!-- 角标过滤 -->
                 <!-- <markBy @filter="filterMeta"></markBy> -->
 
@@ -161,6 +161,13 @@ export default {
             tag: "",
 
             topicsCount: [],
+
+            clients: {
+                all: "双端",
+                std: "重制",
+                origin: "缘起",
+                wujie: "无界"
+            },
         };
     },
     computed: {

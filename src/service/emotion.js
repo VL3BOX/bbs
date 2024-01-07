@@ -2,7 +2,7 @@ import { $cms, $next } from "@jx3box/jx3box-common/js/https";
 
 // 发布
 const postEmotion = (data) => {
-    return $cms().post(`/api/cms/post/emotion`, data);
+    return $next().post(`/api/next2/emotions`, data);
 }
 
 // 获取 emotion 列表
