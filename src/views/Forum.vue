@@ -33,7 +33,7 @@
             <!-- 筛选 -->
             <div class="m-archive-filter">
                 <!-- 版本过滤 -->
-                <clientBy @filter="filterImperceptibly" :type="client" :clients="clients" :showWujie="false"></clientBy>
+                <clientBy @filter="filterImperceptibly" :type="client" :showWujie="true"></clientBy>
                 <!-- 角标过滤 -->
                 <!-- <markBy @filter="filterMeta"></markBy> -->
 
