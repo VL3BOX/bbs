@@ -23,10 +23,10 @@
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="江湖异闻" name="news">
+        <el-tab-pane label="江湖故事" name="news">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/story.svg" alt="">
-                <b>江湖异闻</b>
+                <b>江湖故事</b>
                 <!-- <em class="u-ready">签约</em> -->
             </span>
         </el-tab-pane>
