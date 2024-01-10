@@ -1,8 +1,12 @@
 <template>
-    <div class="m-collection-item_v2">
-        <a class="u-image" :href="`/collection/${data.id}`" target="_blank">
-            <img :src="getCover(data.image)" />
-        </a>
+    <a :href="`/collection/${data.id}`" target="_blank" class="m-collection-item_v2" @mousemove="handleMove">
+        <div class="u-image" ref="bookRef">
+            <el-image class="u-img u-cover" :src="resolveImagePath(data.image)" fit="cover">
+                <img slot="error" :src="`${imgPath}cover-${randomNumber}.png`" />
+            </el-image>
+            <img class="u-img u-mark" ref="mark" :src="`${imgPath}light.svg`" />
+            <img class="u-img u-box" :src="`${imgPath}box.svg`" />
+        </div>
 
         <div class="u-content">
             <div class="u-title" :title="data.title">{{ data.title }}</div>
@@ -12,75 +16,145 @@
                     <span class="u-nickname" v-text="data.collection_user_info.display_name"></span>
                 </a>
             </div>
+            <div class="u-time">
+                <el-button type="text" icon="el-icon-date">{{ showDate(data.created * 1000) }}</el-button>
+                <el-button type="text" icon="el-icon-refresh">{{ showDate(data.updated * 1000) }}</el-button>
+            </div>
         </div>
-    </div>
+    </a>
 </template>
 
 <script>
-import { showAvatar, getLink, resolveImagePath, authorLink } from "@jx3box/jx3box-common/js/utils";
+import { showAvatar, resolveImagePath, authorLink } from "@jx3box/jx3box-common/js/utils";
+import { showDate } from "@jx3box/jx3box-common/js/moment";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "CollectionItemV2",
     props: {
         data: {
             type: Object,
-            default: () => {}
-        }
+            default: () => {},
+        },
+    },
+    computed: {
+        imgPath() {
+            return `${__imgPath}topic/bbs/`;
+        },
+        randomNumber() {
+            return Math.floor(Math.random() * 4) + 1;
+        },
     },
     methods: {
-        getCover: function (val) {
-            return val ? resolveImagePath(val) : `${__imgPath}image/collection/default_cover.png`;
-        },
+        resolveImagePath,
         authorLink,
-        showAvatar: function (url) {
-            return showAvatar(url);
+        showAvatar,
+        showDate,
+        handleMove(event) {
+            let x = event.clientX / 100;
+            let y = event.clientY / 50;
+            this.$refs.mark.style.transform = `translate(${x}px, ${y}px)`;
         },
-    }
-}
+    },
+};
 </script>
 
 <style lang="less">
 .m-collection-item_v2 {
+    .flex;
     .mb(20px);
-    width: 178px;
-
+    .size(380px, 500px);
+    flex-direction: column;
+    background-color: #fff;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 5px;
+    .u-content {
+        .db;
+        .w(100%);
+        .flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .u-image {
-        img {
-            .w(100%);
-            height: 226px;
+        .pointer;
+        .db;
+        .pr;
+        .clip;
+        .size(210px, 310px);
+        transition: transform 0.5s, box-shadow 0.5s, top 0.5s;
+        backface-visibility: hidden;
+
+        .u-img {
+            .pa;
+            .lt(0);
+            .full;
             object-fit: contain;
             border-radius: 4px;
+            transition: transform 0.5s, box-shadow 0.5s;
+            &.u-mark {
+                .none;
+                .lt(0);
+                .size(210px, 300px);
+                pointer-events: none;
+            }
+            &.u-cover {
+                .size(186px, 266px);
+                .lt(15px, 10px);
+                background-color: #24292e;
+            }
         }
     }
 
     .u-title {
-        max-width: 100%;
         .nobreak;
-        .fz(13px,1.8);
-        color:#888;
-        font-style: italic;
+        .bold;
+        .db;
+        .x;
+        .w(100%);
+        .fz(24px, 1.8);
+        color: #000;
     }
 
-    .u-info{
-        .mt(2px);
+    .u-info {
+        .flex;
+        .mt(5px);
         .clearfix;
+        flex-direction: column;
     }
 
-    .u-user{
-        .fl;
-        .fz(12px);
-        .mr(10px);
-        color:#666;
-        &:hover .u-nickname{
-            color:@color-link;
-            .underline(@color-link);
+    .u-user {
+        .flex;
+        .fz(20px);
+        .auto(x);
+        gap: 5px;
+        align-items: center;
+        color: #666;
+    }
+    .u-avatar {
+        .size(24px);
+        .r(100%);
+    }
+
+    &:hover {
+        background-color: #f5f5f5;
+        .u-image {
+            transform: rotate(-15deg) translateY(-20px);
+            box-shadow: 0 60px 30px rgba(36, 41, 46, 0.3);
+            top: -20px;
+            .u-mark {
+                .db;
+            }
+        }
+        .u-title {
+            color: rgba(42, 130, 228, 1);
         }
     }
-    .u-avatar{
-        .y(-5px);
-        .mr(5px);
-        .size(20px);
-        .r(100%);
+    .el-button--text,
+    .el-button--text:focus,
+    .el-button--text:hover {
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.4);
     }
 }
 </style>
