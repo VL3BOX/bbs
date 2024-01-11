@@ -2,7 +2,7 @@
     <div class="m-joke-item">
         <div class="u-content" @click="handleContent" :class="mode === 'single' ? 'on' : ''">
             <i class="u-star" :class="joke.star ? 'on' : ''" v-if="joke.star" title="精选">★</i>
-            <span class="u-sentence" v-html="parse(joke.content)"></span>
+            <span class="u-sentence" v-html="content"></span>
         </div>
         <div class="u-misc">
             <div class="u-op">
@@ -84,6 +84,8 @@ export default {
             count: 0,
             isLike: false,
             checked: false,
+
+            content: "",
         };
     },
     filters: {
@@ -120,6 +122,8 @@ export default {
         joke: {
             handler: function (val) {
                 this.count = val.count;
+
+                this.parse(val.content);
             },
             deep: true,
             immediate: true,
@@ -133,9 +137,10 @@ export default {
         },
     },
     methods: {
-        parse(str) {
+        async parse(str) {
             const ins = new JX3_EMOTION(str);
-            return ins.code;
+            const result = await ins._renderHTML();
+            this.content = result;
         },
         // 复制
         handleCopy(str) {

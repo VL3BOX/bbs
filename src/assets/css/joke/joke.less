@@ -98,11 +98,9 @@
 .m-joke-goback {
     .mb(10px);
 
-    .clearfix;
-    .u-back {
-        .fl;
-    }
-
+    .flex;
+    justify-content: space-between;
+    align-items: center;
     .u-doc {
         .fr;
         .fz(12px);
@@ -339,4 +337,10 @@
 // =======================
 .m-thx {
     .mt(20px);
+}
+
+@media screen and (max-width:@phone){
+    .v-joke{
+        padding-top:10px;
+    }
 }

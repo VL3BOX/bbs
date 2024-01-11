@@ -108,10 +108,10 @@ export default {
         };
     },
     computed: {
-        fileInput: function () {
+        fileInput: function() {
             return this.$refs.uploadInput;
         },
-        isLogin: function () {
+        isLogin: function() {
             return User.isLogin();
         },
     },
@@ -156,7 +156,7 @@ export default {
                 return item;
             });
         },
-        select: function () {
+        select: function() {
             this.fileInput.dispatchEvent(new MouseEvent("click"));
         },
         async upload() {
@@ -184,7 +184,7 @@ export default {
             // this.data.url = "";
             // this.data.desc = "";
         },
-        post: function () {
+        post: function() {
             if (!this.isLogin) {
                 User.toLogin();
             } else {
@@ -194,22 +194,27 @@ export default {
                     item.type = this.type;
                     return item;
                 });
-                postEmotion(list)
-                    .then(() => {
+
+                const promises = list.map((item) => {
+                    item.user_id = ~~User.getInfo().uid;
+                    item.author = User.getInfo().name;
+                    return postEmotion(item);
+                });
+
+                promises.length &&
+                    Promise.all(promises).then(() => {
                         this.$message({
                             type: "success",
                             message: "表情发布成功",
                         });
                         this.fileInput.value = "";
-                    })
-                    .finally(() => {
                         this.loading = false;
                     });
             }
         },
     },
     filters: {
-        showSchoolIcon: function (val) {
+        showSchoolIcon: function(val) {
             return __imgPath + "image/school/" + val + ".png";
         },
     },

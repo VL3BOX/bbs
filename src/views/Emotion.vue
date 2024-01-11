@@ -104,7 +104,6 @@
                                         </div>
                                         <div class="u-info-misc">
                                             <time class="u-time">{{ doEmotionUser(item.data).time }}</time>
-                                            <!-- 打赏 -->
                                             <el-checkbox
                                                 v-if="isEditor"
                                                 :disabled="!item.data.user_id || isSelf(item.data)"
@@ -113,6 +112,16 @@
                                                 class="u-op-item u-op-gift"
                                                 >打赏</el-checkbox
                                             >
+                                            <a v-else
+                                                class="u-like"
+                                                :class="{ on: item.data.isLike }"
+                                                title="赞"
+                                                @click="addLike(item.data)"
+                                            >
+                                                <i class="like-icon">{{ item.data.isLike ? "♥" : "♡" }}</i>
+                                                <span class="like-text">Like</span>
+                                                <span class="like-count" v-if="item.data.count">{{ item.data.count }}</span>
+                                            </a>
                                         </div>
                                     </div>
                                     <!-- <emotion-item
@@ -205,6 +214,7 @@ import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getEmotions, getEmotion } from "@/service/emotion";
 import { getLikes } from "@/service/next";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
+import { postStat } from "@jx3box/jx3box-common/js/stat";
 
 import User from "@jx3box/jx3box-common/js/user";
 
@@ -372,6 +382,10 @@ export default {
                     }
                     this.total = res.data.data.total;
                     this.pages = res.data.data.pages;
+                    this.list = this.list.map((item) => {
+                        item.isLike = false;
+                        return item;
+                    });
 
                     this.loadLike();
                 })
@@ -513,6 +527,16 @@ export default {
                 userLink: authorLink(emotion?.user_id) || "",
                 userAvatar: showAvatar(emotion?.user_info?.user_avatar) || "",
             };
+        },
+        // 点赞
+        addLike: function (item) {
+            if (item.isLike) return;
+
+            item.count++;
+            if (!item.isLike) {
+                postStat("emotion", item?.id, "likes");
+            }
+            item.isLike = true;
         },
     },
     watch: {

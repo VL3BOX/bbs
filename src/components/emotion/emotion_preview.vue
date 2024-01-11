@@ -1,7 +1,7 @@
 <template>
     <el-dialog class="m-emotion-preview-dialog" :visible.sync="show" :close-on-click-modal="false">
         <div class="u-close" @click="close"><i class="el-icon-close"></i></div>
-        <a class="m-emotion" :href="editLink('emotion', emotion.id)" target="_blank">
+        <a class="m-emotion" :href="getLink('emotion', emotion.id)" target="_blank">
             <!-- <div class="u-img" :style="{ backgroundImage: `url(${showEmotion(emotion.url)})` }"></div> -->
             <!-- <img
                 class="u-pic u-emotion-pic waterfall-img"
@@ -51,7 +51,7 @@
                         </a>
                         <a
                             class="u-edit el-link el-link--primary"
-                            :href="editLink('emotion', emotion.id)"
+                            :href="getLink('emotion', emotion.id)"
                             target="_blank"
                         >
                             <i class="el-icon-chat-dot-round"></i> 评论
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <Thx
+            <Thx
                 class="m-thx"
                 :postId="emotion.id"
                 postType="emotion"
@@ -68,12 +68,13 @@
                 :adminBoxcoinEnable="true"
                 :userBoxcoinEnable="true"
                 client="all"
-            /> -->
+                v-if="isEditor"
+            />
         </div>
     </el-dialog>
 </template>
 <script>
-import { showAvatar, authorLink, editLink, getThumbnail, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
+import { showAvatar, authorLink, editLink,getLink, getThumbnail, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import { getRelativeTime } from "@/utils/dateFormat.js";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import User from "@jx3box/jx3box-common/js/user";
@@ -144,7 +145,7 @@ export default {
         },
     },
     mounted() {
-        console.log(document.documentElement.clientWidth);
+        // console.log(document.documentElement.clientWidth);
     },
     methods: {
         close() {
@@ -152,6 +153,7 @@ export default {
             this.$emit("close");
         },
         editLink,
+        getLink,
         // 点赞
         addLike: function () {
             if (this.isLike) return;
@@ -338,6 +340,14 @@ export default {
     }
     .m-emotion-info {
         padding: 0 10px 10px;
+        .m-thx{
+            padding-bottom: 20px;
+            max-width: 700px;
+            .auto(x);
+            .w-thx-copyright{
+                .none;
+            }
+        }
     }
     .u-info-op {
         .flex;

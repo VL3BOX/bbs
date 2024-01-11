@@ -131,7 +131,19 @@
 }
 @media screen and (max-width: @ipad-y) {
     .m-emotion-publish {
-        .none;
+        // .none;
+        .m-emotion-upload{
+            .u-upload{
+                .size(80px);
+                line-height: 80px;
+            }
+        }
+        .u-emotion-form{
+            flex:1;
+        }
+        .u-extend-form{
+            .none;
+        }
     }
 }
 
@@ -160,7 +172,7 @@
                 background-color: #fff;
             }
         }
-        padding: 30px 30px 20px 30px;
+        padding: 25px 25px 20px 25px;
         .r(3px);
 
         &.fadeIn {
@@ -188,6 +200,9 @@
     .m-emotion-pagination {
         .x;
         overflow-x: auto;
+    }
+    .m-emotion-more{
+        .w(100%);
     }
 }
 
@@ -288,20 +303,21 @@
         }
 
         .like-icon {
-            .fz(20px, 1);
-            .h(16px);
-            .y(-3px);
-            color: #f39;
+            .fz(15px, 1);
+            color: #f00;
         }
 
         .like-text {
+            font-size: 14px;
             color: #888;
             .ml(5px);
+            .none;
         }
 
         .like-count {
             color: #888;
             .ml(6px);
+            .fz(13px);
         }
 
         &:hover {
@@ -449,5 +465,11 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 10px;
+    }
+}
+
+@media screen and (max-width:@phone){
+    .v-emotion{
+        padding-top:10px;
     }
 }
