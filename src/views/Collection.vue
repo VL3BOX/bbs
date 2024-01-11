@@ -37,5 +37,5 @@ export default {
 
 <style lang="less">
 @import "~@/assets/css/app.less";
-@import "../assets/css/collection/collection.less";
+@import "~@/assets/css/collection/collection.less";
 </style>

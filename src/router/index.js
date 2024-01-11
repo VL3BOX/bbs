@@ -31,7 +31,7 @@ const routes = [
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
     { name: "collection", path: "/collection", component: Collection },
-    { name: "collection-single", path: "/collection/:id?", component: () => import('@/components/collection/collection_single.vue') },
+    { name: "collection-single", path: "/collection/:id", component: () => import('@/components/collection/collection_single.vue') },
 ];
 
 const router = new VueRouter({
