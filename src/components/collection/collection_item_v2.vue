@@ -84,6 +84,7 @@ export default {
         .size(210px, 310px);
         transition: transform 0.5s, box-shadow 0.5s, top 0.5s;
         backface-visibility: hidden;
+        border-bottom-left-radius: 10px;
 
         .u-img {
             .pa;
@@ -139,9 +140,9 @@ export default {
     &:hover {
         background-color: #f5f5f5;
         .u-image {
-            transform: rotate(-15deg) translateY(-20px);
+            transform: rotate(-15deg) translateY(-15px);
             box-shadow: 0 60px 30px rgba(36, 41, 46, 0.3);
-            top: -20px;
+            top: -15px;
             .u-mark {
                 .db;
             }
