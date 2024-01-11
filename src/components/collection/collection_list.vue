@@ -1,5 +1,5 @@
 <template>
-    <div class="m-collection-box" v-loading="loading">
+    <div class="m-collection-box" v-loading="loading" ref="listRef">
         <!-- 搜索 -->
         <div class="m-archive-search m-collection-search">
             <a :href="publish_link" class="u-publish el-button el-button--primary">+ 创建小册</a>
@@ -21,7 +21,7 @@
         <!-- 列表 -->
         <div class="m-collection-list" v-if="data && data.length">
             <template v-for="(item, i) in data">
-                <collection-item :data="item" :key="i" />
+                <collection-item :data="item" :key="i" :style="!isPhone ? `width: calc(100% / ${count})` : ''" />
             </template>
         </div>
         <!-- 空 -->
@@ -42,10 +42,11 @@
 
 <script>
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
-import collection_item from "./collection_item.vue";
+// import collection_item from "./collection_item.vue";
 import collection_item_v2 from "./collection_item_v2.vue";
 import { getCollections } from "@/service/helper.js";
 import Banner from "@/components/bbs/banner.vue";
+import { isPhone } from "@/utils/common";
 export default {
     name: "CollectionList",
     props: [],
@@ -54,7 +55,7 @@ export default {
         "collection-item": collection_item_v2,
         Banner,
     },
-    data: function () {
+    data: function() {
         return {
             loading: false, //加载状态
 
@@ -64,25 +65,30 @@ export default {
             pages: 1, //总页数
             per: 18, //每页条目
             search: "",
+
+            count: 0,
         };
     },
     computed: {
         // 发布按钮链接
-        publish_link: function () {
+        publish_link: function() {
             return publishLink("collection");
         },
-        params: function () {
+        params: function() {
             return {
                 page: this.page,
                 per: this.per,
             };
         },
+        isPhone() {
+            return isPhone();
+        },
     },
     methods: {
-        skipTop: function () {
+        skipTop: function() {
             window.scrollTo(0, 0);
         },
-        loadData: function () {
+        loadData: function() {
             this.loading = true;
             const params = {
                 ...this.params,
@@ -104,15 +110,31 @@ export default {
             }
             this.loadData();
         },
+        showCount() {
+            const listWidth = this.$refs.listRef?.clientWidth;
+            this.count = Math.floor(listWidth / 260);
+            this.per = this.count * 4;
+        },
     },
     watch: {
         params: {
             immediate: true,
             deep: true,
-            handler: function () {
+            handler: function() {
                 this.loadData();
             },
         },
     },
+    mounted() {
+        this.showCount();
+    },
 };
 </script>
+<style lang="less">
+.m-collection-box {
+    .m-collection-list {
+        gap: 0;
+        justify-content: flex-start;
+    }
+}
+</style>

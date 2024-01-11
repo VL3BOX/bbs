@@ -256,8 +256,7 @@ export default {
                 this.views = res.data.views || 0;
             });
         },
-        formatDate(date) {
-            console.log(date)
+        formatDate(date) { 
             return dayjs(date).format("YYYY-MM-DD HH:mm:ss");
         },
     },

@@ -4,8 +4,9 @@
             <el-image class="u-img u-cover" :src="resolveImagePath(data.image)" fit="cover">
                 <img slot="error" :src="`${imgPath}cover-${randomNumber}.png`" />
             </el-image>
-            <img class="u-img u-mark" ref="mark" :src="`${imgPath}light.svg`" />
-            <img class="u-img u-box" :src="`${imgPath}box.svg`" />
+            <img class="u-img u-mark" :ref="`mark${data.id}`" :src="`${imgPath}light.png`" />
+            <img />
+            <el-image class="u-img u-box" :src="`${imgPath}box.svg`" fit="fill"> </el-image>
         </div>
 
         <div class="u-content">
@@ -50,9 +51,9 @@ export default {
         showAvatar,
         showDate,
         handleMove(event) {
-            let x = event.clientX / 100;
-            let y = event.clientY / 50;
-            this.$refs.mark.style.transform = `translate(${x}px, ${y}px)`;
+            let x = Math.floor(event.offsetX / 100);
+            let y = -Math.floor(event.offsetX / 60);
+            this.$refs[`mark${this.data.id}`].style.transform = `translate(${x}px, ${y}px)`;
         },
     },
 };
@@ -62,7 +63,8 @@ export default {
 .m-collection-item_v2 {
     .flex;
     .mb(20px);
-    .size(380px, 500px);
+    .size(250px, 350px);
+    min-width: 250px;
     flex-direction: column;
     background-color: #fff;
     justify-content: flex-end;
@@ -73,35 +75,33 @@ export default {
         .db;
         .w(100%);
         .flex;
+        .mt(10px);
         flex-direction: column;
         align-items: center;
     }
     .u-image {
+        position: relative;
         .pointer;
-        .db;
-        .pr;
         .clip;
-        .size(210px, 310px);
+        .size(128px, 190px);
         transition: transform 0.5s, box-shadow 0.5s, top 0.5s;
-        backface-visibility: hidden;
         border-bottom-left-radius: 10px;
 
         .u-img {
             .pa;
-            .lt(0);
-            .full;
+            .rb(0);
+            .size(128px, 190px);
             object-fit: contain;
             border-radius: 4px;
             transition: transform 0.5s, box-shadow 0.5s;
             &.u-mark {
                 .none;
-                .lt(0);
-                .size(210px, 300px);
+                .lt(0, -58px);
                 pointer-events: none;
             }
             &.u-cover {
-                .size(186px, 266px);
-                .lt(15px, 10px);
+                .size(111px, 161px);
+                .lt(10px, 8px);
                 background-color: #24292e;
             }
         }
@@ -113,7 +113,7 @@ export default {
         .db;
         .x;
         .w(100%);
-        .fz(24px, 1.8);
+        .fz(16px, 1.8);
         color: #000;
     }
 
@@ -126,25 +126,26 @@ export default {
 
     .u-user {
         .flex;
-        .fz(20px);
+        .fz(14px);
         .auto(x);
         gap: 5px;
         align-items: center;
         color: #666;
     }
     .u-avatar {
-        .size(24px);
+        .size(18px);
         .r(100%);
     }
 
     &:hover {
         background-color: #f5f5f5;
         .u-image {
-            transform: rotate(-15deg) translateY(-15px);
+            transform: rotate(-14deg) translateY(-10px);
             box-shadow: 0 60px 30px rgba(36, 41, 46, 0.3);
-            top: -15px;
+            top: -10px;
             .u-mark {
                 .db;
+                .size(228px, 290px);
             }
         }
         .u-title {
@@ -154,6 +155,7 @@ export default {
     .el-button--text,
     .el-button--text:focus,
     .el-button--text:hover {
+        .fz(12px);
         font-weight: 400;
         color: rgba(0, 0, 0, 0.4);
     }

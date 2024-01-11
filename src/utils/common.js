@@ -10,7 +10,7 @@ function getAppID() {
     return id;
 }
 
-function getAppType(){
+function getAppType() {
     let arr = location.hash.slice(2).split("/");
     return arr?.[0]
 }
@@ -47,4 +47,11 @@ function getStarSign(birthdate) {
     }
 }
 
-export { getAppID,getAppType,getStarSign };
+function isPhone() {
+    let mobile = navigator.userAgent.match(
+        /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+    );
+    return mobile !== null;
+}
+
+export { getAppID, getAppType, getStarSign, isPhone };
