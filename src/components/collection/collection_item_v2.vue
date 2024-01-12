@@ -92,7 +92,6 @@ export default {
             .rb(0);
             .size(128px, 190px);
             object-fit: contain;
-            border-radius: 4px;
             transition: transform 0.5s, box-shadow 0.5s;
             &.u-mark {
                 .none;
@@ -158,6 +157,11 @@ export default {
         .fz(12px);
         font-weight: 400;
         color: rgba(0, 0, 0, 0.4);
+    }
+}
+@media screen and (max-width: @phone) {
+    .m-collection-item_v2 {
+        .w(100%);
     }
 }
 </style>

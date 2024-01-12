@@ -113,7 +113,7 @@ export default {
         showCount() {
             const listWidth = this.$refs.listRef?.clientWidth;
             this.count = Math.floor(listWidth / 260);
-            this.per = this.count * 4;
+            this.per = this.isPhone ? 12 : this.count * 4;
         },
     },
     watch: {
