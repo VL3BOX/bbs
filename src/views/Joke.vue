@@ -284,6 +284,10 @@ export default {
         // 杂项
         goBack: function () {
             this.$router.push("/joke");
+
+            this.$nextTick(() => {
+                this.init();
+            });
         },
         skipTop: function () {
             window.scrollTo(0, 0);
@@ -378,7 +382,6 @@ export default {
     },
     created: function () {
         this.sortEmotion();
-        // this.init()
     },
 };
 </script>
