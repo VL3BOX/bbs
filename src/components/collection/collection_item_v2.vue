@@ -67,7 +67,7 @@ export default {
     min-width: 250px;
     flex-direction: column;
     background-color: #fff;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     box-sizing: border-box;
     padding: 5px;
@@ -135,9 +135,12 @@ export default {
         .size(18px);
         .r(100%);
     }
+    .u-time{
+        .none;
+    }
 
     &:hover {
-        background-color: #f5f5f5;
+        background-color: @bg-light;
         .u-image {
             transform: rotate(-14deg) translateY(-10px);
             box-shadow: 0 60px 30px rgba(36, 41, 46, 0.3);
