@@ -77,10 +77,11 @@
 <script>
 import { appKey } from "@/../setting.json";
 import { showAvatar, authorLink, showBanner, buildTarget } from "@jx3box/jx3box-common/js/utils";
-import { __ossMirror, __imgPath } from "@jx3box/jx3box-common/data/jx3box";
+import { __ossMirror, __imgPath, __cdn } from "@jx3box/jx3box-common/data/jx3box";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import {showDate} from '@jx3box/jx3box-common/js/moment.js'
 import _bbsSubtypes from "@/assets/data/bbs_subtypes.json";
+import { random} from "lodash"
 export default {
     name: "ListItem",
     props: ['item','order', 'caller'],
@@ -88,6 +89,9 @@ export default {
     data: function() {
         return {
             target : buildTarget(),
+
+            start: 1,
+            end: 39,
         };
     },
     computed: {
@@ -101,7 +105,10 @@ export default {
             if (val) {
                 return showBanner(val);
             } else {
-                return __imgPath + `image/banner/${appKey}${subtype}` + ".png";
+                // 从1-39中随机选一个
+                const randomNum = random(this.start, this.end)
+                // return __imgPath + `image/banner/${appKey}${subtype}` + ".png";
+                return __cdn + `design/random_cover/${randomNum}.jpg`
             }
         },
         reporterLink: function (val) {
