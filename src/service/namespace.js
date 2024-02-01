@@ -7,4 +7,9 @@ function getNamespaceList(params) {
     });
 }
 
-export { getNamespaceList };
+// 获取详情
+function getNamespaceDetail(id) {
+    return $cms().get(`/api/cms/namespace/${id}`);
+}
+
+export { getNamespaceList, getNamespaceDetail };

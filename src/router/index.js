@@ -28,6 +28,7 @@ const routes = [
     { name: "bbs", path: "/bbs", component: Forum },
     { name: "single", path: "/bbs/:id", component: Single },
     { name: "namespace", path: "/namespace", component: Namespace },
+    { name: "namespace-single", path: "/namespace/:id", component: () => import('@/components/namespace/namespace_single.vue')},
     { name: "joke", path: "/joke/:id?", component: Joke },
     { name: "emotion", path: "/emotion/:id?", component: Emotion },
     { name: "collection", path: "/collection", component: Collection },
