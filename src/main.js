@@ -15,6 +15,10 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 Vue.use(ElementUI);
 
+import VueI18n from "vue-i18n";
+Vue.use(VueI18n);
+import i18n from "@jx3box/jx3box-common/i18n";
+
 import hevueImgPreview from "hevue-img-preview";
 Vue.use(hevueImgPreview);
 
@@ -37,6 +41,7 @@ import store from "./store";
 import App from "./App.vue";
 
 new Vue({
+    i18n,
     router,
     store,
     render: (h) => h(App),
