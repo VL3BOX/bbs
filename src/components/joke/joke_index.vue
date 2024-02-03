@@ -1,13 +1,13 @@
 <template>
     <div class="m-index-joke">
         <h3 class="u-label">
-            <img class="u-icon" :src="icon" />今日骚话
+            <img class="u-icon" :src="icon" />{{ $t('今日骚话') }}
         </h3>
         <div class="u-content">
             <el-carousel height="20px" direction="vertical" :autoplay="true">
                 <el-carousel-item v-for="(item,i) in data" :key="i">
                     <a class="u-item" :href="'/bbs/#/joke/' + item.id" target="_blank">
-                        <span class="u-author">{{item.author || '匿名'}}</span>
+                        <span class="u-author">{{item.author || $t('匿名')}}</span>
                         <span class="u-div"> : </span>
                         <span class="u-joke" v-html="resolveImagePath(item.html)"></span>
                     </a>

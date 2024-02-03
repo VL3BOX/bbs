@@ -1,11 +1,11 @@
 <!-- 反馈建议发布 -->
 <template>
     <div class="m-feedback-publish">
-        <el-alert class="u-msg" title="如涉及账号等私人信息请发送电子邮件至admin@jx3box.com" type="warning" show-icon></el-alert>
+        <el-alert class="u-msg" :title="$t('如涉及账号等私人信息请发送电子邮件至admin@jx3box.com')" type="warning" show-icon></el-alert>
         <el-input
             v-model="post.post_content"
             type="textarea"
-            placeholder="写下你想说的..."
+            :placeholder="$t('写下你想说的...')"
             show-word-limit
             :maxlength="1024"
             :rows="4"

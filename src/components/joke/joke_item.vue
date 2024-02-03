@@ -10,14 +10,14 @@
                 <span class="u-user">
                     <img width="24" height="24" :src="user_avatar | showAvatar" />
                     <a :href="joke.user_id | authorLink" target="_blank" v-if="joke.user_id">{{ user_name }}</a>
-                    <span v-else>{{ joke.author || "匿名" }}</span>
+                    <span v-else>{{ joke.author || $t('匿名') }}</span>
                 </span>
                 <!-- 复制 -->
                 <el-link type="primary" class="u-copy" :disabled="disabled" @click="handleCopy(joke.content)">
-                    <i class="el-icon-document-copy"></i> 复制
+                    <i class="el-icon-document-copy"></i> {{ $t('复制') }}
                 </el-link>
                 <!-- 点赞 -->
-                <a class="u-like" :class="{ on: isLike }" title="赞" @click="addLike">
+                <a class="u-like" :class="{ on: isLike }" :title="$t('赞')" @click="addLike">
                     <i class="like-icon">{{ isLike ? "♥" : "♡" }}</i
                     >Like
                     <span class="like-count" v-if="count">{{ count }}</span>
@@ -29,7 +29,7 @@
                     :href="editLink('joke', joke.id)"
                     target="_blank"
                 >
-                    <i class="el-icon-edit-outline"></i> 编辑
+                    <i class="el-icon-edit-outline"></i> {{ $t('编辑') }}
                 </a>
             </div>
             <div class="u-other">
@@ -37,11 +37,11 @@
                     <!-- 精选 -->
                     <span class="u-op-item u-op-star el-link el-link--primary is-underline" @click="handleStar">
                         <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                        {{ isStar ? "取消精选" : "设为精选" }}
+                        {{ isStar ? $t('取消精选') : $t('设为精选') }}
                     </span>
                     <!-- 删除 -->
                     <span class="u-op-item u-op-delete el-link el-link--primary is-underline" @click="handleDelete">
-                        <i class="el-icon-delete"></i> 删除
+                        <i class="el-icon-delete"></i> {{ $t('删除') }}
                     </span>
                     <!-- 打赏 -->
                     <el-checkbox

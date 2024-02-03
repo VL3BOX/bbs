@@ -21,7 +21,7 @@
 
         <!-- 文章内容 -->
         <div class="m-single-post" v-if="visible">
-            <el-divider content-position="left">JX3BOX</el-divider>
+            <el-divider content-position="left">VL3BOX - JX3BOX</el-divider>
             <div class="m-single-content">
                 <slot></slot>
                 <ArticleMarkdown v-if="isMarkdown" :content="post_content" @directoryRendered="updateDirectory" />

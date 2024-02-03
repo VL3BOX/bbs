@@ -22,7 +22,7 @@
                     href: reporterLink(item.ID),
                 },
                 caller,
-            }">{{ item.post_title || "无标题" }}</a>
+            }">{{ item.post_title || $t('无标题') }}</a>
 
             <!-- 角标 -->
             <span class="u-marks" v-if="item.mark && item.mark.length">
@@ -49,7 +49,7 @@
                 </em>
             </div>
             <div class="u-metalist u-topics">
-                <strong>{{ $t('主题') }}<$t('主题') }}</strong>
+                <strong>{{ $t('主题') }}</strong>
                 <em>
                     <template v-if="item.topics && item.topics.length">
                         <a class="u-topic" :href="`/bbs?tag=${topic}`" v-for="topic in item.topics" :key="topic">{{

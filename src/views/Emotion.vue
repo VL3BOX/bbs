@@ -115,7 +115,7 @@
                                             <a v-else
                                                 class="u-like"
                                                 :class="{ on: item.data.isLike }"
-                                                title="赞"
+                                                :title="$t('赞')"
                                                 @click="addLike(item.data)"
                                             >
                                                 <i class="like-icon">{{ item.data.isLike ? "♥" : "♡" }}</i>
@@ -153,7 +153,7 @@
                             ></el-pagination>
                             <div class="m-emotion-reward" v-if="isEditor">
                                 <el-button class="m-emotion-all" type="primary" size="mini" @click="rewardAll"
-                                    >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
+                                    >{{ this.rewardAllType ? $t('取消') : "" }} {{ $t('全选') }}</el-button
                                 >
                                 <Thx
                                     type="batchReward"

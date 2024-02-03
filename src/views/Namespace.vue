@@ -15,15 +15,15 @@
             </el-tabs>
             <el-alert v-if="query" type="warning" show-icon class="m-namespace-warning">
                 <span slot="title">
-                    <b>{{ query }}</b> 铭牌不存在或正在审核中
+                    <b>{{ query }}</b> {{ $t('铭牌不存在或正在审核中') }}
                 </span>
             </el-alert>
             <!-- 过滤 -->
             <div class="m-namespace-filter">
                 <div class="m-namespace-add">
-                    <a :href="publish_link" class="u-publish el-button el-button--primary el-button--small">+ 注册铭牌</a>
+                    <a :href="publish_link" class="u-publish el-button el-button--primary el-button--small">+ {{ $t('注册铭牌') }}</a>
                     <a href="/publish/#/bucket/namespace" class="u-publish el-button el-button--primary el-button--small">
-                        <span class="el-icon-receiving"></span> 我的铭牌
+                        <span class="el-icon-receiving"></span> {{ $t('我的铭牌') }}
                     </a>
                     <!-- <a
                         :href="buy_link"
@@ -32,8 +32,8 @@
                         <span class="el-icon-shopping-cart-2"></span> 0.99元特惠活动
                     </a>-->
                     <div class="m-namespace-total">
-                        当前共
-                        <b>{{ total }}</b>个铭牌
+                        {{ $t('当前共') }}
+                        <b>{{ total }}</b>{{ $t('个铭牌') }}
                     </div>
                 </div>
                 <div class="m-namespace-order">

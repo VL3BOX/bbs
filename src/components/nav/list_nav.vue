@@ -45,7 +45,7 @@
             </a>
             <a href="/namespace" :class="{ 'is-active': routeActive('namespace') }">
                 <i class="el-icon-postcard"></i>
-                <span>{{ $t('铭牌') }}<$t('铭牌') }}</span>
+                <span>{{ $t('铭牌') }}</span>
                 <em>Namespace</em>
             </a>
         </div>

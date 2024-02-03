@@ -12,7 +12,7 @@
                         class="u-author-name"
                         :href="post.post_author | authorLink"
                         target="_blank"
-                    >{{ post.author || '匿名' }}</a>
+                    >{{ post.author || $t('匿名') }}</a>
                     <span class="u-feedback-date">
                         <time v-if="order == 'update'">{{post.post_modified | dateFormat}}</time>
                         <time v-else>{{post.post_date | dateFormat}}</time>

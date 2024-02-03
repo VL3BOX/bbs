@@ -75,7 +75,7 @@
                     <template v-if="collection.description">
                         <el-divider content-position="left">
                             <i class="el-icon-collection"></i>
-                            小册简介
+                            {{ $t('小册简介') }}
                         </el-divider>
                         <div class="u-description">
                             <p v-html="resolveImagePath(collection.description)"></p>
@@ -85,13 +85,13 @@
                     <template v-if="collection.posts && collection.posts.length">
                         <el-divider content-position="left">
                             <i class="el-icon-folder"></i>
-                            小册文章
+                            {{ $t('小册文章') }}
                         </el-divider>
                         <ul class="u-list">
                             <li class="u-item" v-for="(post, key) in collection.posts" :key="key">
                                 <span class="u-item-order">{{ key + 1 }}.</span>
                                 <span class="u-item-link" v-if="post.type === 'custom'">
-                                    <i class="el-icon-link"></i>站外链接
+                                    <i class="el-icon-link"></i>{{ $t('站外链接') }}
                                 </span>
                                 <a
                                     class="u-item-author"
@@ -112,7 +112,7 @@
                                 <time
                                     class="u-updated"
                                     v-if="post.updated"
-                                    v-text="'最后更新于 ' + formatDate(post.updated)"
+                                    v-text="$t('最后更新于 ') + formatDate(post.updated)"
                                 ></time>
                             </li>
                         </ul>
@@ -142,7 +142,7 @@
 
                 <div class="m-comments" v-if="id">
                     <el-divider content-position="left">
-                        <span style="color: #999999"> <i class="el-icon-chat-line-square"></i> 讨论 </span>
+                        <span style="color: #999999"> <i class="el-icon-chat-line-square"></i> {{ $t('讨论') }} </span>
                     </el-divider>
                     <jx3-comment :id="id" category="collection" />
                 </div>

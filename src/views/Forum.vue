@@ -5,7 +5,7 @@
         <div class="m-archive-box" v-loading="loading">
             <!-- 搜索 -->
             <div class="m-archive-search m-bbs-search" slot="search-before">
-                <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
+                <a :href="publish_link" class="u-publish el-button el-button--primary">+ {{ $t('发布作品') }}</a>
                 <el-input
                     :placeholder="$t('请输入搜索内容')"
                     v-model.trim.lazy="search"

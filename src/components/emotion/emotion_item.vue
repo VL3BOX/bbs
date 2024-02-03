@@ -7,20 +7,20 @@
                 <div class="u-op u-editor" v-if="isEditor">
                     <span class="u-op-star el-link el-link--primary is-underline" @click="handleStar">
                         <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                        {{ isStar ? "取消精选" : "设为精选" }}
+                        {{ isStar ? $t('取消精选') : $t('设为精选') }}
                     </span>
                 </div>
                 <!--  -->
                 <div class="u-op" v-if="isAuthor || isEditor">
                     <span class="u-delete el-link el-link--primary is-underline" @click="handleDelete">
-                        <i class="el-icon-delete"></i> 删除
+                        <i class="el-icon-delete"></i> {{ $t('删除') }}
                     </span>
                     <a
                         class="u-edit el-link el-link--primary is-underline"
                         :href="editLink('emotion', emotion.id)"
                         target="blank"
                     >
-                        <i class="el-icon-edit-outline"></i> 编辑
+                        <i class="el-icon-edit-outline"></i> {{ $t('编辑') }}
                     </a>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     emotion | showUserName
                 }}</a>
                 <span class="u-user-name" v-else>
-                    {{ emotion.author || "匿名" }}
+                    {{ emotion.author || $t('匿名') }}
                 </span>
                 <time class="u-time">{{ emotion.updated_at | showTime }}</time>
                 <!-- <a class="u-like" :class="{ on: isLike }" title="赞" @click="addLike" v-if="isListPage">

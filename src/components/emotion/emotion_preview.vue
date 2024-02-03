@@ -26,7 +26,7 @@
                         >{{ emotion | showUserName }}</a
                     >
                     <span class="u-user-name" v-else>
-                        {{ emotion.author || "匿名" }}
+                        {{ emotion.author || $t('匿名') }}
                     </span>
                     <time class="u-time">{{ emotion.updated_at | showTime }}</time>
                 </div>
@@ -35,10 +35,10 @@
                         <template v-if="isEditor">
                             <span class="u-op-star el-link el-link--primary" @click="handleStar">
                                 <i :class="isStar ? 'el-icon-star-off' : 'el-icon-star-on'"></i>
-                                {{ isStar ? "取消精选" : "设为精选" }}
+                                {{ isStar ? $t('取消精选') : $t('设为精选') }}
                             </span>
                             <span class="u-delete el-link el-link--primary" @click="handleDelete">
-                                <i class="el-icon-delete"></i> 删除
+                                <i class="el-icon-delete"></i> {{ $t('删除') }}
                             </span>
                         </template>
                         <a
@@ -47,14 +47,14 @@
                             target="_blank"
                             :href="editLink('emotion', emotion.id)"
                         >
-                            <i class="el-icon-edit-outline"></i> 编辑
+                            <i class="el-icon-edit-outline"></i> {{ $t('编辑') }}
                         </a>
                         <a
                             class="u-edit el-link el-link--primary"
                             :href="getLink('emotion', emotion.id)"
                             target="_blank"
                         >
-                            <i class="el-icon-chat-dot-round"></i> 评论
+                            <i class="el-icon-chat-dot-round"></i> {{ $t('评论') }}
                         </a>
                     </div>
                 </div>

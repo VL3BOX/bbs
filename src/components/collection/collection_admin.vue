@@ -46,7 +46,7 @@
                 <el-input class="u-banner" v-model="image">
                     <span slot="prepend">{{ $t('海报地址') }}</span>
                     <span slot="append">
-                        <span class="u-btn" @click="removeBanner"> <i class="el-icon-circle-close"></i> 移除海报 </span>
+                        <span class="u-btn" @click="removeBanner"> <i class="el-icon-circle-close"></i> {{ $t('移除海报') }} </span>
                     </span>
                 </el-input>
             </div>
@@ -57,7 +57,7 @@
                 <div class="c-admin-author">
                     <el-input
                         v-model="post_author"
-                        placeholder="请输入作者uid"
+                        :placeholder="$t('请输入作者uid')"
                         class="input-author drawer-item-content"
                     >
                         <template slot="prepend">{{ $t('作者') }}</template>

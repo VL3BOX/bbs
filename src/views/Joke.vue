@@ -6,7 +6,7 @@
                 <div class="m-joke-goback">
                     <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">{{ $t('返回列表') }}</el-button>
                     <a class="u-doc" href="/tool/23239" target="_blank">
-                        <i class="el-icon-info"></i>游戏内获取或发布骚话
+                        <i class="el-icon-info"></i>{{ $t('游戏内获取或发布骚话') }}
                     </a>
                 </div>
                 <el-row class="m-joke-list" :gutter="20">
@@ -110,7 +110,7 @@
                             <!--  -->
                             <div class="m-joke-reward" v-if="isEditor">
                                 <el-button class="m-joke-all" type="primary" size="mini" @click="rewardAll"
-                                    >{{ this.rewardAllType ? "取消" : "" }} 全选</el-button
+                                    >{{ this.rewardAllType ? $t('取消') : "" }} {{ $t('全选') }}</el-button
                                 >
                                 <Thx
                                     type="batchReward"

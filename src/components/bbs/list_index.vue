@@ -1,7 +1,7 @@
 <template>
     <div class="v-index">
         <el-input class="m-index-search" v-model="search" :placeholder="$t('请输入关键词')">
-            <span slot="prepend"> <i class="el-icon-search"></i> 搜索 </span>
+            <span slot="prepend"> <i class="el-icon-search"></i> {{ $t('搜索') }} </span>
             <span slot="append">
                 <i class="el-icon-position"></i>
             </span>
@@ -15,7 +15,7 @@
                             <i class="u-icon" :class="item.post_subtype | showTypeIcon"></i>
                             <span class="u-type">[{{ item.post_subtype | showTypeLabel }}]</span>
                         </span>
-                        <span class="u-title" :style="item.color | isHighlight">{{ item.post_title || "无标题" }}</span>
+                        <span class="u-title" :style="item.color | isHighlight">{{ item.post_title || $t('无标题') }}</span>
                         <span class="u-marks" v-if="item.mark && item.mark.length">
                             <i v-for="mark in item.mark" class="u-mark" :class="mark | markcls" :key="mark">{{ mark | showMark }}</i>
                         </span>

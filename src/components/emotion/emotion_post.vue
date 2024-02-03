@@ -6,7 +6,7 @@
                 <img :src="list[0].url" />
                 <i class="u-emotion-mask"></i>
                 <i class="u-emotion-delete el-icon-delete" :title="$t('移除')" @click="handleRemove"></i>
-                <span class="u-num">+ {{ list.length }} 张</span>
+                <span class="u-num">+ {{ list.length }} {{ $t('张') }}</span>
             </div>
             <div v-else class="u-upload el-upload el-upload--picture-card" @click="select">
                 <i class="el-icon-plus"></i>
@@ -21,7 +21,7 @@
                 :maxlength="128"
                 id="textarea"
                 show-word-limit
-                placeholder="快速发布一张表情，再配句骚话？"
+                :placeholder="$t('快速发布一张表情，再配句骚话？')"
             ></el-input>
             <!-- 按钮 -->
             <div class="u-extend">

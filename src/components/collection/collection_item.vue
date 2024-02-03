@@ -33,7 +33,7 @@
                             target="_blank"
                         >
                             <i class="el-icon-notebook-2"></i>
-                            {{ post.title }}
+                            {{ $t('最后更新于') + post.title }}
                         </a>
                     </el-col>
                 </el-row>
@@ -41,7 +41,7 @@
             <div class="u-meta">
                 <span class="u-updated">
                     <i class="el-icon-refresh"></i>
-                    最后更新于{{ dateFormat(data.updated) }}
+                    {{ dateFormat(data.updated) }}
                 </span>
             </div>
         </div>

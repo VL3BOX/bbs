@@ -2,7 +2,7 @@
     <div class="m-collection-box" v-loading="loading" ref="listRef">
         <!-- 搜索 -->
         <div class="m-archive-search m-collection-search">
-            <a :href="publish_link" class="u-publish el-button el-button--primary">+ 创建小册</a>
+            <a :href="publish_link" class="u-publish el-button el-button--primary">+ {{ $t('创建小册') }}</a>
             <el-input
                 :placeholder="$t('请输入搜索内容')"
                 v-model.trim.lazy="search"
@@ -11,7 +11,7 @@
                 @clear="onSearch"
                 @keydown.native.enter="onSearch"
             >
-                <template #prepend> <i class="el-icon-search"></i> 关键词 </template>
+                <template #prepend> <i class="el-icon-search"></i> {{ $t('关键词') }} </template>
                 <template #append>
                     <el-button icon="el-icon-position" class="u-btn" @click="onSearch"></el-button>
                 </template>

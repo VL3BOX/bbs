@@ -8,7 +8,7 @@
 
         <template v-if="isIframe">
             <div class="m-paper-iframe">
-                当前试卷为外链，<a :href="data.iframe" target="_blank">{{ $t('点击前往') }}</a>
+                {{ $t('当前试卷为外链，') }}<a :href="data.iframe" target="_blank">{{ $t('点击前往') }}</a>
             </div>
         </template>
         <template v-else>
