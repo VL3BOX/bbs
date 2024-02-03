@@ -9,7 +9,7 @@
         :withHeader="false"
     >
         <div class="c-admin-wrapper">
-            <el-divider content-position="left">可见性变更</el-divider>
+            <el-divider content-position="left">{{ $t('可见性变更') }}</el-divider>
             <el-radio-group v-model="visible" size="small" class="c-admin-status">
                 <el-radio-button
                     v-for="(option, key) in visible_options"
@@ -18,7 +18,7 @@
                 >{{ option }}</el-radio-button>
             </el-radio-group>
 
-            <el-divider content-position="left">元信息</el-divider>
+            <el-divider content-position="left">{{ $t('元信息') }}</el-divider>
 
             <div class="c-admin-title">
                 <el-input
@@ -26,11 +26,11 @@
                     :placeholder="$t('请输入小册标题')"
                     class="input-author drawer-item-content"
                 >
-                        <template slot="prepend">标题</template>
+                        <template slot="prepend">{{ $t('标题') }}</template>
                 </el-input>
             </div>
 
-            <el-divider content-position="left">封面海报</el-divider>
+            <el-divider content-position="left">{{ $t('封面海报') }}</el-divider>
             <div class="c-admin-banner">
                 <el-upload
                     class="c-admin-upload el-upload--picture-card"
@@ -44,14 +44,14 @@
                     <i class="el-icon-plus" v-else></i>
                 </el-upload>
                 <el-input class="u-banner" v-model="image">
-                    <span slot="prepend">海报地址</span>
+                    <span slot="prepend">{{ $t('海报地址') }}</span>
                     <span slot="append">
                         <span class="u-btn" @click="removeBanner"> <i class="el-icon-circle-close"></i> 移除海报 </span>
                     </span>
                 </el-input>
             </div>
 
-            <el-divider content-position="left">其他</el-divider>
+            <el-divider content-position="left">{{ $t('其他') }}</el-divider>
 
             <div class="c-admin-info">
                 <div class="c-admin-author">
@@ -60,14 +60,14 @@
                         placeholder="请输入作者uid"
                         class="input-author drawer-item-content"
                     >
-                        <template slot="prepend">作者</template>
+                        <template slot="prepend">{{ $t('作者') }}</template>
                 </el-input>
                 </div>
             </div>
 
             <div class="c-admin-buttons">
-                <el-button type="primary" @click="submit" :loading="pushing">提交</el-button>
-                <el-button type="plain" @click="close">取消</el-button>
+                <el-button type="primary" @click="submit" :loading="pushing">{{ $t('提交') }}</el-button>
+                <el-button type="plain" @click="close">{{ $t('取消') }}</el-button>
             </div>
         </div>
     </el-drawer>

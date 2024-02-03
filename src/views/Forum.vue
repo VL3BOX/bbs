@@ -13,7 +13,7 @@
                     clearable
                     @keydown.native.enter="onSearch"
                 >
-                    <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
+                    <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">{{ $t('关键词') }}</span></span>
                     <el-button slot="append" icon="el-icon-position" @click="onSearch"></el-button>
                 </el-input>
             </div>
@@ -39,7 +39,7 @@
 
                 <!-- 作者 -->
                 <div class="u-condition u-map u-author">
-                    <span class="u-prepend el-input-group__prepend">作者</span>
+                    <span class="u-prepend el-input-group__prepend">{{ $t('作者') }}</span>
                     <el-select
                         v-model="author"
                         popper-class="u-author-pop"
@@ -67,7 +67,7 @@
                 <orderBy @filter="filterMeta" class="m-order-by"></orderBy>
             </div>
             <!-- <div class="m-bbs-tags">
-                <div class="u-tag" :class="{ active: tag === '' }" @click="setTag('')">全部</div>
+                <div class="u-tag" :class="{ active: tag === '' }" @click="setTag('')">{{ $t('全部') }}<$t('全部') }}</div>
                 <div class="u-tag" :class="{ active: tag === item }" v-for="item in theme" :key="item" @click="setTag(item)">
                     {{ item }}
                     <span class="u-count" v-if="getCount(item)">({{ getCount(item) }})</span>
@@ -103,7 +103,7 @@
                 @click="appendPage"
                 :loading="loading"
                 icon="el-icon-arrow-down"
-                >加载更多</el-button
+                >{{ $t('加载更多') }}</el-button
             >
 
             <!-- 分页 -->

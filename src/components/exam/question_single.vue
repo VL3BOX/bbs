@@ -1,17 +1,17 @@
 <template>
     <div class="v-question-single" v-loading="loading">
         <div class="m-goback">
-            <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+            <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">{{ $t('返回列表') }}</el-button>
         </div>
         <SingleTitle :item="data" type="question" />
         <SingleCard :item="data" :answer="answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
         <div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
-            <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
+            <el-button class="u-btn" :disabled="isSubmitted">{{ $t('提交') }}</el-button>
         </div>
 
         <Thx class="m-thx" :postId="id" postType="question" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" :client="client" />
         <div class="m-single-comment">
-            <el-divider content-position="left">评论</el-divider>
+            <el-divider content-position="left">{{ $t('评论') }}</el-divider>
             <Comment :id="id" category="question" />
         </div>
     </div>

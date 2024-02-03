@@ -4,7 +4,7 @@
             <!--单页-->
             <div class="m-emotion-single-container" v-if="id">
                 <div class="m-emotion-goback">
-                    <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+                    <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">{{ $t('返回列表') }}</el-button>
                 </div>
                 <emotion-item :emotion="emotion" mode="single"></emotion-item>
             </div>
@@ -20,7 +20,7 @@
                         @clear="onSearch"
                         clearable
                     >
-                        <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
+                        <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">{{ $t('关键词') }}</span></span>
                         <template slot="append">
                             <el-switch
                                 class="u-star"
@@ -86,7 +86,7 @@
                                         />
                                         <i class="u-star" v-if="item.data.star"
                                             ><i class="el-icon-star-off"></i
-                                            ><i class="u-original" v-if="item.data.original">原创</i></i
+                                            ><i class="u-original" v-if="item.data.original">{{ $t('原创') }}</i></i
                                         >
                                     </div>
                                     <div class="u-item-bottom">
@@ -110,7 +110,7 @@
                                                 v-model="rewardObj[item.data.id]"
                                                 @change="doReward($event, item.data)"
                                                 class="u-op-item u-op-gift"
-                                                >打赏</el-checkbox
+                                                >{{ $t('打赏') }}</el-checkbox
                                             >
                                             <a v-else
                                                 class="u-like"
@@ -173,7 +173,7 @@
                                     icon="el-icon-arrow-down"
                                     size="small"
                                     :disabled="loading"
-                                    >加载更多</el-button
+                                    >{{ $t('加载更多') }}</el-button
                                 >
                             </template>
                         </div>

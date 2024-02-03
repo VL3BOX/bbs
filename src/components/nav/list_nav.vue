@@ -1,7 +1,7 @@
 <template>
     <div class="m-list-nav">
         <!-- <RightSideMsg>
-            <em>综合交流反馈群</em> :
+            <em>{{ $t('综合交流反馈群') }}</em> :
             <strong @click="onQQClick" class="u-link" :title="$t('点击复制')">
                 <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a>
                 <a>{{ qq }}</a>
@@ -22,30 +22,30 @@
         <Banner class="m-ladder-carousel"></Banner>
 
         <div class="m-nav-app">
-            <h5 class="u-title">茶馆矩阵</h5>
+            <h5 class="u-title">{{ $t('茶馆矩阵') }}</h5>
             <a href="/bbs" :class="{ 'is-active': routeActive('bbs') }">
                 <i class="el-icon-cold-drink"></i>
-                <span>茶馆</span>
+                <span>{{ $t('茶馆') }}</span>
                 <em>BBS</em>
             </a>
             <a href="/joke" :class="{ 'is-active': routeActive('joke') }">
                 <i class="el-icon-cherry"></i>
-                <span>骚话</span>
+                <span>{{ $t('骚话') }}</span>
                 <em>Joke</em>
             </a>
             <a href="/emotion" :class="{ 'is-active': routeActive('emotion') }">
                 <i class="el-icon-sugar"></i>
-                <span>趣图</span>
+                <span>{{ $t('趣图') }}</span>
                 <em>Emotion</em>
             </a>
             <a href="/collection" :class="{ 'is-active': routeActive('collection') }">
                 <i class="el-icon-paperclip"></i>
-                <span>小册</span>
+                <span>{{ $t('小册') }}</span>
                 <em>Collection</em>
             </a>
             <a href="/namespace" :class="{ 'is-active': routeActive('namespace') }">
                 <i class="el-icon-postcard"></i>
-                <span>铭牌</span>
+                <span>{{ $t('铭牌') }}<$t('铭牌') }}</span>
                 <em>Namespace</em>
             </a>
         </div>

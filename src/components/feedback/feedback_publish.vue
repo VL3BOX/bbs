@@ -33,7 +33,7 @@
                     @click="publish"
                     icon="el-icon-s-promotion"
                     type="primary"
-                >提交</el-button>
+                >{{ $t('提交') }}</el-button>
             </div>
         </div>
     </div>

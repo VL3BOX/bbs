@@ -13,7 +13,7 @@
                     <img class="u-icon" svg-inline src="../../assets/img/list/post.svg" />
 
                     <!-- 资料片 -->
-                    <span class="u-label u-zlp">置顶</span>
+                    <span class="u-label u-zlp">{{ $t('置顶') }}</span>
 
                     <!-- 标题文字 -->
                     <a class="u-title" :style="item.color | showHighlight" :href="getLink(item)" :target="target">{{
@@ -34,7 +34,7 @@
                 <!-- 字段 -->
                 <!-- <div class="u-content u-desc">
                     <div class="u-metalist u-collection">
-                        <strong>小册</strong>
+                        <strong>{{ $t('小册') }}</strong>
                         <em>
                             <template v-if="~~item.post_collection">
                                 <a :href="`/collection/${item.post_collection}`" target="_blank"
@@ -45,7 +45,7 @@
                         </em>
                     </div>
                     <div class="u-metalist u-topics">
-                        <strong>主题</strong>
+                        <strong>{{ $t('主题') }}</strong>
                         <em>
                             <template v-if="item.topics && item.topics.length">
                                 <a class="u-topic" :href="`/bbs?tag=${topic}`" v-for="topic in item.topics" :key="topic">{{

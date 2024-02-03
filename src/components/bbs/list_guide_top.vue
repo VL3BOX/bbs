@@ -1,7 +1,7 @@
 <template>
     <div class="m-index-rec">
         <h5 class="u-title">
-            <span><i class="el-icon-star-off"></i>萌新完全指南</span>
+            <span><i class="el-icon-star-off"></i>{{ $t('萌新完全指南') }}</span>
         </h5>
         <div class="u-ac" v-html="ac"></div>
         <el-row>

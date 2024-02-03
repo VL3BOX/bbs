@@ -3,38 +3,38 @@
         <el-tab-pane :label="$t('全部作品')" name="all">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/all.png" alt="">
-                <b>全部作品</b>
+                <b>{{ $t('全部作品') }}</b>
             </span>
         </el-tab-pane>
 
         <el-tab-pane :label="$t('攻略心得')" name="index">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/game.png" alt="">
-                <b>攻略心得</b>
-                <!-- <em class="u-secret">权威白皮书</em> -->
+                <b>{{ $t('攻略心得') }}</b>
+                <!-- <em class="u-secret">{{ $t('权威白皮书') }}</em> -->
             </span>
         </el-tab-pane>
 
         <el-tab-pane :label="$t('萌新指南')" name="guide">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/book.svg" alt="">
-                <b>萌新指南</b>
-                <!-- <em class="u-secret">优质作品</em> -->
+                <b>{{ $t('萌新指南') }}</b>
+                <!-- <em class="u-secret">{{ $t('优质作品') }}</em> -->
             </span>
         </el-tab-pane>
 
         <el-tab-pane :label="$t('江湖故事')" name="news">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/story.svg" alt="">
-                <b>江湖故事</b>
-                <!-- <em class="u-ready">签约</em> -->
+                <b>{{ $t('江湖故事') }}</b>
+                <!-- <em class="u-ready">{{ $t('签约') }}</em> -->
             </span>
         </el-tab-pane>
 
         <el-tab-pane :label="$t('煮酒论剑')" name="fiction">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/fiction.svg" alt="">
-                <b>煮酒论剑</b>
+                <b>{{ $t('煮酒论剑') }}</b>
             </span>
         </el-tab-pane>
     </el-tabs>

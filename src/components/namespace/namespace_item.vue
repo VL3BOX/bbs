@@ -5,7 +5,7 @@
                 ><i class="u-icon el-icon-postcard"></i
                 >{{ namespace.key || "未知" }} <span class="u-preview">剑网3.com/{{namespace.key}}</span>
             </a>
-            <i class="u-my" v-if="isMyNamespace(namespace.uid)">由我创建的</i>
+            <i class="u-my" v-if="isMyNamespace(namespace.uid)">{{ $t('由我创建的') }}</i>
         </h5>
         <p class="u-desc">{{ namespace.desc || namespace.key || "未知" }}</p>
         <div class="u-misc">

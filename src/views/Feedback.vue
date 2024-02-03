@@ -3,7 +3,7 @@
         <!-- 单页 -->
         <template v-if="id">
             <div class="m-feedback-single-panel">
-                <el-button size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+                <el-button size="mini" icon="el-icon-arrow-left" @click="goBack">{{ $t('返回列表') }}</el-button>
                 <a :href="feedback_url" class="u-email" target="_blank">
                     <i class="el-icon-phone-outline"></i>快捷邮件
                 </a>
@@ -17,7 +17,7 @@
         <template v-else>
             <h2 class="m-feedback-title">
                 <i class="u-icon el-icon-message"></i>
-                <span class="u-title">反馈建议</span>
+                <span class="u-title">{{ $t('反馈建议') }}</span>
                 <a :href="feedback_url" class="u-email" target="_blank">
                     <i class="el-icon-phone-outline"></i>快捷邮件
                 </a>

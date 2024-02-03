@@ -4,7 +4,7 @@
             <!-- 单页 -->
             <div class="m-joke-single-container" v-if="id">
                 <div class="m-joke-goback">
-                    <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+                    <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">{{ $t('返回列表') }}</el-button>
                     <a class="u-doc" href="/tool/23239" target="_blank">
                         <i class="el-icon-info"></i>游戏内获取或发布骚话
                     </a>
@@ -31,7 +31,7 @@
                     client="all"
                 />
                 <div class="m-single-comment">
-                    <el-divider content-position="left">评论</el-divider>
+                    <el-divider content-position="left">{{ $t('评论') }}</el-divider>
                     <Comment :id="id" category="joke" />
                 </div>
             </div>
@@ -48,7 +48,7 @@
                         clearable
                         @clear="onSearch"
                     >
-                        <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
+                        <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">{{ $t('关键词') }}</span></span>
                         <el-switch
                             slot="append"
                             v-model="star"

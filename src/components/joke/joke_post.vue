@@ -34,7 +34,7 @@
                     </el-option>
                 </el-select>
             </div>
-            <el-button type="primary" size="small" @click="publish" icon="el-icon-position" :loading="processing" :disabled="processing">提交</el-button>
+            <el-button type="primary" size="small" @click="publish" icon="el-icon-position" :loading="processing" :disabled="processing">{{ $t('提交') }}</el-button>
         </div>
     </div>
 </template>

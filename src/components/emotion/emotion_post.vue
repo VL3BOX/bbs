@@ -1,6 +1,6 @@
 <template>
     <div class="m-emotion-publish">
-        <!-- <div class="u-title"><i class="el-icon-upload"></i>快速发布</div> -->
+        <!-- <div class="u-title"><i class="el-icon-upload"></i>{{ $t('快速发布') }}</div> -->
         <div class="m-emotion-upload">
             <div v-if="list && list.length && list[0] && list[0].url" class="u-emotion">
                 <img :src="list[0].url" />
@@ -41,7 +41,7 @@
                         v-if="!data.original"
                         size="mini"
                     >
-                        <span slot="prepend">原作者</span>
+                        <span slot="prepend">{{ $t('原作者') }}</span>
                     </el-input> -->
                     <el-select v-model="type" size="small" :placeholder="$t('选择门派')">
                         <el-option v-for="(school, i) in schoolmap" :key="i" :value="i" :label="school">
@@ -69,7 +69,7 @@
                     :loading="loading"
                     icon="el-icon-position"
                     size="small"
-                    >提交</el-button
+                    >{{ $t('提交') }}</el-button
                 >
             </div>
         </div>

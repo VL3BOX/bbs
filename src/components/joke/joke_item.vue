@@ -50,7 +50,7 @@
                         v-model="checked"
                         @change="doReward"
                         class="u-op-item u-op-gift"
-                        >打赏</el-checkbox
+                        >{{ $t('打赏') }}</el-checkbox
                     >
                 </template>
                 <!-- 时间 -->

@@ -4,7 +4,7 @@
         <div class="m-archive-search m-exam-search" slot="search-before" key="exam-search">
             <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
             <el-input :placeholder="$t('请输入搜索内容')" v-model.trim.lazy="search" @keydown.native.enter="onSearch" class="input-with-select" clearable @clear="onSearch">
-                <span slot="prepend">关键词</span>
+                <span slot="prepend">{{ $t('关键词') }}</span>
                 <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
             </el-input>
         </div>

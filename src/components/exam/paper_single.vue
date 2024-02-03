@@ -1,14 +1,14 @@
 <template>
     <div class="v-paper-single" v-loading="loading">
         <div class="m-goback">
-            <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">返回列表</el-button>
+            <el-button class="u-back" size="mini" icon="el-icon-arrow-left" @click="goBack">{{ $t('返回列表') }}</el-button>
         </div>
 
         <SingleTitle :item="data" :score="score" type="paper" />
 
         <template v-if="isIframe">
             <div class="m-paper-iframe">
-                当前试卷为外链，<a :href="data.iframe" target="_blank">点击前往</a>
+                当前试卷为外链，<a :href="data.iframe" target="_blank">{{ $t('点击前往') }}</a>
             </div>
         </template>
         <template v-else>
@@ -16,12 +16,12 @@
                 <SingleCard v-for="(item, index) in list" :key="item.id" :item="item.list" :index="index + 1" :answer="item.answer" :isSubmitted="isSubmitted" @changeVal="finalAnswer" />
             </div>
             <div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
-                <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
+                <el-button class="u-btn" :disabled="isSubmitted">{{ $t('提交') }}</el-button>
             </div>
 
             <Thx class="m-thx" :postId="id" postType="paper" :postTitle="title" :userId="user_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" :client="client" />
             <div class="m-single-comment">
-                <el-divider content-position="left">评论</el-divider>
+                <el-divider content-position="left">{{ $t('评论') }}</el-divider>
                 <Comment :id="id" category="paper" />
             </div>
         </template>

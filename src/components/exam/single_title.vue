@@ -16,7 +16,7 @@
                     <template v-if="item.tags && item.tags.length">
                         <span class="u-tag" v-for="tag in item.tags" :key="tag"> {{ tag }}</span>
                     </template>
-                    <span v-else class="u-tag-null">暂无</span>
+                    <span v-else class="u-tag-null">{{ $t('暂无') }}</span>
                 </div>
                 <div class="u-info-subblock u-line" v-if="item.questionList">
                     <span>计分：</span><b>共{{ item.questionDetailList.length }}题，每题{{ number }}分，满分100分。</b>
@@ -35,14 +35,14 @@
                 </div>
 
                 <div class="u-info-subblock" v-if="canManage">
-                    <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit-outline"></i><span>编辑</span></a>
+                    <a class="u-edit" :href="editLink(type, item.id)"><i class="el-icon-edit-outline"></i><span>{{ $t('编辑') }}</span></a>
                 </div>
             </div>
             <div class="u-desc" v-if="item.desc">简介：{{ desc || "-" }}</div>
         </div>
         <div class="m-setBar"></div>
         <div class="m-score" v-if="score && score !== -1">
-            <div class="u-label">试卷成绩</div>
+            <div class="u-label">{{ $t('试卷成绩') }}</div>
             <div class="u-score">{{ score }}</div>
         </div>
     </div>

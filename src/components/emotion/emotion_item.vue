@@ -40,7 +40,7 @@
                     :key="emotion.url" />
             </router-link> -->
             <i class="u-star" v-if="emotion.star"
-                ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original">原创</i></i
+                ><i class="el-icon-star-off"></i><i class="u-original" v-if="emotion.original">{{ $t('原创') }}</i></i
             >
         </div>
         <div class="u-info">
@@ -78,7 +78,7 @@
                     client="all"
                 />
                 <div class="m-single-comment">
-                    <el-divider content-position="left">评论</el-divider>
+                    <el-divider content-position="left">{{ $t('评论') }}</el-divider>
                     <Comment :id="emotion.id" category="emotion" />
                 </div>
             </div>

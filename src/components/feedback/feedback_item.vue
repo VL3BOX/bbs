@@ -36,7 +36,7 @@
                     :userBoxcoinEnable="true"
                 />
                 <div class="m-single-comment">
-                    <el-divider content-position="left">评论</el-divider>
+                    <el-divider content-position="left">{{ $t('评论') }}</el-divider>
                     <Comment :id="feedbackId" category="post" v-if="feedbackId" />
                     <el-alert :title="$t('作者没有开启评论功能')" type="warning" show-icon v-else></el-alert>
                 </div>

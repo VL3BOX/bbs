@@ -1,7 +1,7 @@
 <template>
     <div class="m-extend-list">
         <RightSideMsg>
-            <em>综合交流群</em> :
+            <em>{{ $t('综合交流群') }}</em> :
             <strong @click="onQQClick" class="u-link" :title="$t('点击复制')">
                 <a>{{ qq }}</a>
             </strong>
