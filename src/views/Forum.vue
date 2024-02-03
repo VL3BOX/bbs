@@ -7,7 +7,7 @@
             <div class="m-archive-search m-bbs-search" slot="search-before">
                 <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
                 <el-input
-                    placeholder="请输入搜索内容"
+                    :placeholder="$t('请输入搜索内容')"
                     v-model.trim.lazy="search"
                     @clear="onSearch"
                     clearable
@@ -20,7 +20,7 @@
 
             <!-- 子类别 -->
             <!-- <el-tabs v-model="subtype" class="m-archive-tabs">
-                <el-tab-pane label="全部" name="0">
+                <el-tab-pane :label="$t('全部')" name="0">
                     <span slot="label"> <i class="u-icon el-icon-menu"></i> 全部作品 </span>
                 </el-tab-pane>
                 <el-tab-pane :label="item.label" :name="key" v-for="(item, key) in subtypes" :key="key">
@@ -46,7 +46,7 @@
                         :remote-method="filterUser"
                         remote
                         filterable
-                        placeholder="昵称"
+                        :placeholder="$t('昵称')"
                         size="small"
                         clearable
                     >
@@ -93,7 +93,7 @@
             </div>
 
             <!-- 空 -->
-            <el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon></el-alert>
+            <el-alert v-else class="m-archive-null" :title="$t('没有找到相关条目')" type="info" center show-icon></el-alert>
 
             <!-- 下一页 -->
             <el-button

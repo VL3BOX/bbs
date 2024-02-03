@@ -2,7 +2,7 @@
     <div class="m-list-nav">
         <!-- <RightSideMsg>
             <em>综合交流反馈群</em> :
-            <strong @click="onQQClick" class="u-link" title="点击复制">
+            <strong @click="onQQClick" class="u-link" :title="$t('点击复制')">
                 <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a>
                 <a>{{ qq }}</a>
             </strong>

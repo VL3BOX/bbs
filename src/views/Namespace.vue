@@ -3,14 +3,14 @@
         <div class="v-namespace" v-loading="loading">
             <!-- 搜索 -->
             <div class="m-archive-search m-namespace-search" slot="search-before" key="namespace-search">
-                <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" clearable @clear="onSearch" @keydown.native.enter="onSearch" class="input-with-select">
+                <el-input :placeholder="$t('请输入搜索内容')" v-model.trim.lazy="search" clearable @clear="onSearch" @keydown.native.enter="onSearch" class="input-with-select">
                     <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
                     <el-button slot="append" icon="el-icon-position" @click="onSearch"></el-button>
                 </el-input>
             </div>
             <!-- tab切换 -->
             <el-tabs class="m-namespace-tab" v-model="type">
-                <el-tab-pane label="全部" name="all"></el-tab-pane>
+                <el-tab-pane :label="$t('全部')" name="all"></el-tab-pane>
                 <el-tab-pane v-for="item in types" :label="item.label" :key="item.value" :name="item.value"></el-tab-pane>
             </el-tabs>
             <el-alert v-if="query" type="warning" show-icon class="m-namespace-warning">
@@ -50,7 +50,7 @@
             </div>
             <!-- 无数据 -->
             <div class="m-namespace-null" v-else>
-                <el-alert title="没有相关条目" type="info" show-icon></el-alert>
+                <el-alert :title="$t('没有相关条目')" type="info" show-icon></el-alert>
             </div>
             <!-- 分页 -->
             <div class="m-namespace-pages">

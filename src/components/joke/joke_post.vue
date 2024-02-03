@@ -4,7 +4,7 @@
             v-model="content"
             type="textarea"
             :rows="4"
-            placeholder="快速发布一条骚话"
+            :placeholder="$t('快速发布一条骚话')"
             id="textarea"
             :maxlength="128"
             :minlength="1"
@@ -17,7 +17,7 @@
                     class="u-type"
                     v-model="type"
                     size="small"
-                    placeholder="选择门派"
+                    :placeholder="$t('选择门派')"
                 >
                     <el-option v-for="(school,i) in schoolmap" :key="i" :value="i" :label="school">
                         <div style="display: flex;align-items: center;">

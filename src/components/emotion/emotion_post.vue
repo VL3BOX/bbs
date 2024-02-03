@@ -5,7 +5,7 @@
             <div v-if="list && list.length && list[0] && list[0].url" class="u-emotion">
                 <img :src="list[0].url" />
                 <i class="u-emotion-mask"></i>
-                <i class="u-emotion-delete el-icon-delete" title="移除" @click="handleRemove"></i>
+                <i class="u-emotion-delete el-icon-delete" :title="$t('移除')" @click="handleRemove"></i>
                 <span class="u-num">+ {{ list.length }} 张</span>
             </div>
             <div v-else class="u-upload el-upload el-upload--picture-card" @click="select">
@@ -30,7 +30,7 @@
                     <el-switch
                         class="u-original"
                         v-model.number="data.original"
-                        inactive-text="原创"
+                        :inactive-text="$t('原创')"
                         :active-value="1"
                         :inactive-value="0"
                     ></el-switch>
@@ -43,7 +43,7 @@
                     >
                         <span slot="prepend">原作者</span>
                     </el-input> -->
-                    <el-select v-model="type" size="small" placeholder="选择门派">
+                    <el-select v-model="type" size="small" :placeholder="$t('选择门派')">
                         <el-option v-for="(school, i) in schoolmap" :key="i" :value="i" :label="school">
                             <div style="display: flex; align-items: center">
                                 <img
@@ -57,7 +57,7 @@
                                 {{ school }}
                             </div>
                         </el-option> </el-select
-                    ><el-tooltip effect="dark" content="图片可选择批量上传，描述每次换行对应其中一条。" placement="top">
+                    ><el-tooltip effect="dark" :content="$t('图片可选择批量上传，描述每次换行对应其中一条。')" placement="top">
                         <i class="el-icon-info"></i>
                     </el-tooltip>
                 </div>

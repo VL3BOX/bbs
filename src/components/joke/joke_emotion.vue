@@ -12,7 +12,7 @@
             slot="reference"
             class="m-publish-joke-button"
             style="cursor: pointer"
-            title="选择表情"
+            :title="$t('选择表情')"
         >😀插入表情</span>
     </el-popover>
 </template>

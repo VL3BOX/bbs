@@ -21,7 +21,7 @@
                 :on-error="fail"
                 :on-exceed="exceed"
                 :limit="max"
-                title="上传图片"
+                :title="$t('上传图片')"
                 with-credentials
                 accept="image/jpg, image/jpeg, image/gif, image/png, image/bmp"
             >

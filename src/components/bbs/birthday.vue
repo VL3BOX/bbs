@@ -16,7 +16,7 @@
                     </a>
                 </li>
             </ul>
-            <el-alert v-else show-icon type="info" :closable="false" title="暂无今日之星"></el-alert>
+            <el-alert v-else show-icon type="info" :closable="false" :title="$t('暂无今日之星')"></el-alert>
         </div>
     </div>
 </template>

@@ -4,7 +4,7 @@
             <!-- 搜索 -->
             <paperSearch :type="`paper`" @update="updateParams" />
             <PaperList :data="data" v-if="data && data.length" />
-            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+            <el-alert v-else :title="$t('没有找到相关条目')" type="info" show-icon></el-alert>
             <!-- 分页 -->
             <el-pagination class="m-exam-pagination" background :page-size="per" :hide-on-single-page="true" :current-page.sync="page" layout="total, prev, pager, next, jumper" :total="total" @current-change="skipTop"></el-pagination>
         </template>

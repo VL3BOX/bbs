@@ -1,7 +1,7 @@
 <template>
     <div class="m-left-tab">
         <el-tabs v-model="type" :tab-position="windowWidth <= 768 ? 'top' : 'left'">
-            <el-tab-pane name="all" label="全部">
+            <el-tab-pane name="all" :label="$t('全部')">
                 <span slot="label"> <i class="u-icon el-icon-menu" style="vertical-align: 0"></i> </span>
             </el-tab-pane>
             <el-tab-pane v-for="(item, i) in schoolmap" :key="i" :name="i">

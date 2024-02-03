@@ -1,7 +1,7 @@
 <template>
     <div class="m-joke-item">
         <div class="u-content" @click="handleContent" :class="mode === 'single' ? 'on' : ''">
-            <i class="u-star" :class="joke.star ? 'on' : ''" v-if="joke.star" title="精选">★</i>
+            <i class="u-star" :class="joke.star ? 'on' : ''" v-if="joke.star" :title="$t('精选')">★</i>
             <span class="u-sentence" v-html="content"></span>
         </div>
         <div class="u-misc">

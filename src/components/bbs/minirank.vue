@@ -18,7 +18,7 @@
                     </a>
                 </li>
             </template>
-            <el-alert v-else title="暂无事件" type="info" show-icon></el-alert>
+            <el-alert v-else :title="$t('暂无事件')" type="info" show-icon></el-alert>
         </ul>
     </div>
 </template>

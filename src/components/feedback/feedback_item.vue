@@ -38,7 +38,7 @@
                 <div class="m-single-comment">
                     <el-divider content-position="left">评论</el-divider>
                     <Comment :id="feedbackId" category="post" v-if="feedbackId" />
-                    <el-alert title="作者没有开启评论功能" type="warning" show-icon v-else></el-alert>
+                    <el-alert :title="$t('作者没有开启评论功能')" type="warning" show-icon v-else></el-alert>
                 </div>
             </div>
         </template>
@@ -65,7 +65,7 @@
                     <span
                         class="like"
                         :class="{ disabled: !isLike ,on:!isLike}"
-                        title="点赞"
+                        :title="$t('点赞')"
                         @click="addLike"
                         v-if="isListPage"
                     >
@@ -73,7 +73,7 @@
                         <span class="like-count" v-if="count">{{ count }}</span>
                     </span>
                 </div>
-                <i class="el-icon-close u-feedback-delete" @click.stop="delFeedback" v-show="isEditor" title="删除"></i>
+                <i class="el-icon-close u-feedback-delete" @click.stop="delFeedback" v-show="isEditor" :title="$t('删除')"></i>
             </div>
         </template>
     </div>

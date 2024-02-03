@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb name="剑三考试" slug="exam" :publishEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="false">
+        <Breadcrumb :name="$t('剑三考试')" slug="exam" :publishEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="false">
             <Info />
         </Breadcrumb>
         <LeftSidebar>

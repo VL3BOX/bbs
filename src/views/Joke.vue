@@ -42,7 +42,7 @@
                 <div class="m-archive-search m-joke-search" slot="search-before">
                     <!-- <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a> -->
                     <el-input
-                        placeholder="请输入搜索内容"
+                        :placeholder="$t('请输入搜索内容')"
                         v-model.trim.lazy="search"
                         @keydown.native.enter="onSearch"
                         clearable
@@ -54,7 +54,7 @@
                             v-model="star"
                             :inactive-value="0"
                             :active-value="1"
-                            inactive-text="只看精选"
+                            :inactive-text="$t('只看精选')"
                         ></el-switch>
                     </el-input>
                 </div>
@@ -63,7 +63,7 @@
                     <left-tab class="m-joke-types" @setType="setType"></left-tab>
                     <!-- <div class="m-joke-types">
                         <el-tabs v-model="type" :tabPosition="windowWidth < 900 ? 'top' : 'left'">
-                            <el-tab-pane name="all" label="全部">
+                            <el-tab-pane name="all" :label="$t('全部')">
                                 <span slot="label">
                                     <i class="u-icon el-icon-menu" style="vertical-align: 0"></i>全部
                                 </span>
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <!-- 空 -->
-                        <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+                        <el-alert v-else :title="$t('没有找到相关条目')" type="info" show-icon></el-alert>
                         <div class="m-joke-footer">
                             <el-pagination
                                 class="m-joke-pagination"

@@ -4,7 +4,7 @@
         <div class="m-archive-search m-collection-search">
             <a :href="publish_link" class="u-publish el-button el-button--primary">+ 创建小册</a>
             <el-input
-                placeholder="请输入搜索内容"
+                :placeholder="$t('请输入搜索内容')"
                 v-model.trim.lazy="search"
                 class="input-with-select"
                 clearable
@@ -25,7 +25,7 @@
             </template>
         </div>
         <!-- 空 -->
-        <el-alert class="m-collection-null" v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+        <el-alert class="m-collection-null" v-else :title="$t('没有找到相关条目')" type="info" show-icon></el-alert>
         <!-- 分页 -->
         <el-pagination
             class="m-collection-pagination"

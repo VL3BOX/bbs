@@ -3,7 +3,7 @@
         <div class="m-collection-single">
             <el-alert
                 v-if="!collection"
-                title="该剑三小册不存在或已被删除"
+                :title="$t('该剑三小册不存在或已被删除')"
                 type="info"
                 center
                 show-icon
@@ -17,7 +17,7 @@
                             <!-- 标题 -->
                             <div class="m-single-title">
                                 <span class="u-title u-sub-block" :href="url" :title="collection.title">
-                                    <i class="u-private el-icon-lock" v-if="!collection.public" title="仅自己可见"></i>
+                                    <i class="u-private el-icon-lock" v-if="!collection.public" :title="$t('仅自己可见')"></i>
                                     <span class="u-title-text">{{ collection.title }}</span>
                                 </span>
                             </div>
@@ -35,13 +35,13 @@
                                 </div>
 
                                 <!-- 发布日期 -->
-                                <span class="u-podate u-sub-block" title="发布日期">
+                                <span class="u-podate u-sub-block" :title="$t('发布日期')">
                                     <i class="u-icon el-icon-date"></i>
                                     <time>{{ dateFormat(collection.created) }}</time>
                                 </span>
 
                                 <!-- 最后更新 -->
-                                <span class="u-modate u-sub-block" title="最后更新">
+                                <span class="u-modate u-sub-block" :title="$t('最后更新')">
                                     <i class="u-icon el-icon-refresh"></i>
                                     <time>{{ dateFormat(collection.updated) }}</time>
                                 </span>

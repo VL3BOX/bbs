@@ -1,7 +1,7 @@
 <template>
     <el-drawer
         class="c-admin"
-        title="管理面板"
+        :title="$t('管理面板')"
         :visible="modelValue"
         :before-close="close"
         :append-to-body="true"
@@ -23,7 +23,7 @@
             <div class="c-admin-title">
                 <el-input
                     v-model="title"
-                    placeholder="请输入小册标题"
+                    :placeholder="$t('请输入小册标题')"
                     class="input-author drawer-item-content"
                 >
                         <template slot="prepend">标题</template>

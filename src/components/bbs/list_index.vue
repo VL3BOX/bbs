@@ -1,6 +1,6 @@
 <template>
     <div class="v-index">
-        <el-input class="m-index-search" v-model="search" placeholder="请输入关键词">
+        <el-input class="m-index-search" v-model="search" :placeholder="$t('请输入关键词')">
             <span slot="prepend"> <i class="el-icon-search"></i> 搜索 </span>
             <span slot="append">
                 <i class="el-icon-position"></i>
@@ -31,7 +31,7 @@
                     </span>
                 </li>
             </ul>
-            <el-alert v-else title="没有找到相关条目" type="info" show-icon></el-alert>
+            <el-alert v-else :title="$t('没有找到相关条目')" type="info" show-icon></el-alert>
             <!-- 分页 -->
             <el-pagination
                 class="m-pagination"

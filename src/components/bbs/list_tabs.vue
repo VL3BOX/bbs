@@ -1,13 +1,13 @@
 <template>
     <el-tabs class="m-tabs" v-model="view" @tab-click="changeView">
-        <el-tab-pane label="全部作品" name="all">
+        <el-tab-pane :label="$t('全部作品')" name="all">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/all.png" alt="">
                 <b>全部作品</b>
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="攻略心得" name="index">
+        <el-tab-pane :label="$t('攻略心得')" name="index">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/game.png" alt="">
                 <b>攻略心得</b>
@@ -15,7 +15,7 @@
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="萌新指南" name="guide">
+        <el-tab-pane :label="$t('萌新指南')" name="guide">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/book.svg" alt="">
                 <b>萌新指南</b>
@@ -23,7 +23,7 @@
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="江湖故事" name="news">
+        <el-tab-pane :label="$t('江湖故事')" name="news">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/story.svg" alt="">
                 <b>江湖故事</b>
@@ -31,7 +31,7 @@
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="煮酒论剑" name="fiction">
+        <el-tab-pane :label="$t('煮酒论剑')" name="fiction">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/fiction.svg" alt="">
                 <b>煮酒论剑</b>
